@@ -94,7 +94,9 @@ class GameController: UIViewController {
         
         print("SHOOT")
         
-        player.shoot()
+        if bullets.count < 3 {
+            player.shoot()
+        }
     }
     
     lazy var leftButton: UIButton = {

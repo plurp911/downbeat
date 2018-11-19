@@ -12,16 +12,13 @@ class Bullet {
     
     // CONSTANTS
     
-    static let maxHealth: CGFloat = 100
+    static let damage: CGFloat = 10
     
-    static let width: CGFloat = Block.width
-    static let height: CGFloat = Block.height
+    static let radius: CGFloat = Block.width * (7 / 16) * (1 / 2)
     
-    static let maxFallSpeed: CGFloat = 4
+    static let moveSpeed: CGFloat = 3
     
-    static let maxMoveSpeed: CGFloat = 1
-    
-    static let ySpeedChange: CGFloat = 0.08
+    static let color: UIColor = UIColor.white
     
     // VARIABLES
     
@@ -29,40 +26,30 @@ class Bullet {
     var y: CGFloat = 0
     
     var xSpeed: CGFloat = 0
-    var ySpeed: CGFloat = 0
-    
-    var isRising: Bool = false
-    var isFalling: Bool = false
-    
-    var isJumping: Bool = false
-    var isShooting: Bool = false
-    
-    var isMoving: Bool = false
-    
-    var isHit: Bool = false
-    
-    var isMovingLeft: Bool = false
-    var isMovingRight: Bool = false
-    
-    var canMove: Bool = true
-    
-    var health: CGFloat = 0
-    
-    var color: UIColor = UIColor.lightGray
     
     var view: UIView = UIView()
     
-    init() {
+    init(x: CGFloat, y: CGFloat, direction: String) {
         
-        self.health = Player.maxHealth
+        if direction == "left" {
+            xSpeed = -Bullet.moveSpeed
+        } else {
+            xSpeed = Bullet.moveSpeed
+        }
+
+        self.setXY(x: x, y: y)
+
+        self.view.frame.origin.x = self.x - Bullet.radius
+        self.view.frame.origin.y = self.y - Bullet.radius
         
-        self.view.frame.origin.x = self.x - Player.width / 2
-        self.view.frame.origin.y = self.y - Player.height / 2
+        self.view.frame.size.width = Bullet.radius * 2
+        self.view.frame.size.height = Bullet.radius * 2
         
-        self.view.frame.size.width = Player.width
-        self.view.frame.size.height = Player.height
+        self.view.backgroundColor = Bullet.color
         
-        self.view.backgroundColor = self.color
+        self.view.layer.cornerRadius = Bullet.radius
+        
+//        button.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setXY(x: CGFloat, y: CGFloat) {
@@ -70,8 +57,8 @@ class Bullet {
         self.x = x
         self.y = y
         
-        self.view.frame.origin.x = self.x - Player.width / 2
-        self.view.frame.origin.y = self.y - Player.height / 2
+        self.view.frame.origin.x = self.x - Bullet.radius
+        self.view.frame.origin.y = self.y - Bullet.radius
     }
     
     //    func didHitGoal() -> Bool {
@@ -83,151 +70,17 @@ class Bullet {
     //        return false
     //    }
     
-    func reset() {
+    func isInBounds() -> Bool {
         
-        self.setXY(x: currentStage.playerStartX, y: currentStage.playerStartY)
+        if self.x + Bullet.radius >= 0 && self.x - Bullet.radius <= screenSize.height * (16 / 9) {
+            return true
+        }
         
-        self.isFalling = true
-        
-        self.xSpeed = 0
-        self.ySpeed = 0
-        
-        self.isRising = false
-        
-        self.isJumping = false
-        self.isShooting = false
-        
-        self.isMoving = false
-        
-        self.isHit = false
-        
-        self.isMovingLeft = false
-        self.isMovingRight = false
-        
-        self.canMove = true
-        
-        self.health = Player.maxHealth
+        return false
     }
-    
+
     func move() {
         
-        if self.isJumping == true || self.isFalling == true {
-            
-            setXY(x: self.x, y: self.y + ySpeed)
-            
-            self.ySpeed += Player.ySpeedChange
-            
-            if self.ySpeed > 0 {
-                
-                self.isFalling = true
-                
-                self.isRising = false
-                
-                if self.ySpeed > Player.maxFallSpeed {
-                    self.ySpeed = Player.maxFallSpeed
-                }
-                
-            } else if ySpeed < 0 {
-                
-                self.isRising = true
-                
-                self.isFalling = false
-            }
-        }
-        
-        if self.isMoving == true {
-            
-            var isEmpty: Bool = true
-            
-            for block in currentStage.blocks {
-                
-                if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
-                    
-                    isEmpty = false
-                }
-            }
-            
-            if isEmpty == true {
-                
-                self.isFalling = true
-            }
-        }
-        
-        if self.isFalling == true {
-            
-            for block in currentStage.blocks {
-                
-                if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
-                    
-                    self.isJumping = false
-                    self.isFalling = false
-                    
-                    self.ySpeed = 0
-                    
-                    setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
-                }
-            }
-            
-        } else if isRising == true {
-            
-            for block in currentStage.blocks {
-                
-                if self.y - (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
-                    
-                    self.isFalling = true
-                    
-                    self.isJumping = false
-                    self.isRising = false
-                    
-                    self.ySpeed = 0
-                    
-                    setXY(x: self.x, y: block.y + (Block.height / 2) + (Player.height / 2))
-                }
-            }
-            
-        }
-        
-        if isMoving == true {
-            
-            self.canMove = true
-            
-            for block in currentStage.blocks {
-                
-                if self.isMovingRight == true {
-                    
-                    if self.x + (Player.width / 2) + Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x + (Player.width / 2) + Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
-                        
-                        self.canMove = false
-                        
-                        setXY(x: block.x - (Block.width / 2) - (Player.width / 2), y: self.y)
-                    }
-                    
-                } else if self.isMovingLeft == true {
-                    
-                    if self.x - (Player.width / 2) - Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x - (Player.width / 2) - Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
-                        
-                        self.canMove = false
-                        
-                        setXY(x: block.x + (Block.width / 2) + (Player.width / 2), y: self.y)
-                    }
-                }
-                
-            }
-        }
-        
-    }
-    
-    func jump() {
-        
-        self.isJumping = true
-        self.isRising = true
-        
-        self.ySpeed = -Player.maxFallSpeed
-    }
-    
-    func shoot() {
-        
-        self.isShooting = true
-        
+        setXY(x: self.x + self.xSpeed, y: self.y)
     }
 }

@@ -23,6 +23,8 @@ class Player {
     
     static let ySpeedChange: CGFloat = 0.08
 
+    static let color: UIColor = UIColor.lightGray
+
     // VARIABLES
 
     var x: CGFloat = 0
@@ -47,8 +49,8 @@ class Player {
     var canMove: Bool = true
 
     var health: CGFloat = 0
-
-    var color: UIColor = UIColor.lightGray
+    
+    var direction: String = "right"
 
     var view: UIView = UIView()
 
@@ -62,7 +64,7 @@ class Player {
         self.view.frame.size.width = Player.width
         self.view.frame.size.height = Player.height
         
-        self.view.backgroundColor = self.color
+        self.view.backgroundColor = Player.color
     }
     
     func setXY(x: CGFloat, y: CGFloat) {
@@ -107,17 +109,21 @@ class Player {
         self.canMove = true
         
         self.health = Player.maxHealth
+        
+        self.direction = "right"
     }
     
     func move(direction: String) {
         
-        if direction == "left" {
+        self.direction = direction
+        
+        if self.direction == "left" {
             
             xSpeed = -Player.maxMoveSpeed
             
             setXY(x: self.x + self.xSpeed, y: self.y)
             
-        } else if direction == "right" {
+        } else if self.direction == "right" {
             
             xSpeed = Player.maxMoveSpeed
             
@@ -247,5 +253,15 @@ class Player {
         
         self.isShooting = true
         
+        if self.direction == "left" {
+            
+            bullets.append(Bullet(x: self.x - (Player.width / 2), y: self.y, direction: self.direction))
+
+        } else if self.direction == "right" {
+            
+            bullets.append(Bullet(x: self.x + (Player.width / 2), y: self.y, direction: self.direction))
+        }
+        
+        self.isShooting = false
     }
 }

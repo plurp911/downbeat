@@ -146,8 +146,8 @@
 			children = (
 				92086A7121A2440700AB51F8 /* Player.swift */,
 				92086A7621A279E200AB51F8 /* Block.swift */,
-				92086A7C21A283E600AB51F8 /* Stage.swift */,
 				92086A7E21A2B11800AB51F8 /* Bullet.swift */,
+				92086A7C21A283E600AB51F8 /* Stage.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";

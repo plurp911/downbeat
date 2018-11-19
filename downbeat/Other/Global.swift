@@ -14,22 +14,26 @@ let screenSize = UIScreen.main.bounds
 
 var numberOfVerticalBricks: Int = 15
 
+let maxBullets: Int = 3
+
 // COLORS
 
-let backgroundColor: UIColor = UIColor.black
+let backgroundColor = UIColor.black
 
-let mainButtonColor: UIColor = UIColor.gray.withAlphaComponent(0.35)
-let mainButtonOtherColor: UIColor = UIColor.lightGray.withAlphaComponent(0.7)
-let mainButtonTextColor: UIColor = UIColor.white
+let mainButtonColor = UIColor.gray.withAlphaComponent(0.35)
+let mainButtonOtherColor = UIColor.lightGray.withAlphaComponent(0.7)
+let mainButtonTextColor = UIColor.white
 
-let gameViewColor: UIColor = UIColor.darkGray
+let gameViewColor = UIColor.darkGray
 
 // VARIABLES
 
 var stages = [Stage]()
 
+var bullets = [Bullet]()
+
 // OBJECTS
 
-var currentStage: Stage = Stage()
+var currentStage = Stage()
 
 var player = Player()

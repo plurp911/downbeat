@@ -44,7 +44,7 @@ class Stage {
         
         for i in 0 ..< blocks.count {
             
-            currentStage.blocks[i].setX(x: self.x + (((CGFloat)(currentStage.blocks[i].xPos)) * Block.width) + (Block.width / 2))
+            self.blocks[i].setX(x: self.x + (((CGFloat)(self.blocks[i].xPos)) * Block.width) + (Block.width / 2))
         }
     }
     

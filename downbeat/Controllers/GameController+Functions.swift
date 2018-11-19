@@ -21,6 +21,24 @@ extension GameController {
         if isPaused == false {
             
             player.move()
+            
+            var bulletsToRemove = [Int]()
+            
+            for i in 0 ..< bullets.count {
+                
+                bullets[i].move()
+                
+                if bullets[i].isInBounds() == false {
+                    bulletsToRemove.append(i)
+                }
+            }
+            
+            for i in 0 ..< bulletsToRemove.count {
+                
+                let newI = bulletsToRemove.count - i - 1
+                
+                bullets.remove(at: bulletsToRemove[newI])
+            }
 
             if player.isMoving == true {
                 
@@ -42,6 +60,8 @@ extension GameController {
                             
                             currentStage.move(direction: "left")
                             
+                            moveBullets(direction: "left")
+
                             currentStage.moveBlocks()
                         }
                     }
@@ -53,7 +73,7 @@ extension GameController {
                         currentStage.x = (((CGFloat)(-currentStage.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width
                         
                         currentStage.moveBlocks()
-                        
+
                         player.move(direction: "right")
                         
                     } else if player.x < (gameView.frame.size.width / 2) {
@@ -63,6 +83,8 @@ extension GameController {
                     } else {
                         
                         currentStage.move(direction: "right")
+                        
+                        moveBullets(direction: "right")
                         
                         currentStage.moveBlocks()
                     }
@@ -74,12 +96,32 @@ extension GameController {
         }
     }
     
+    func moveBullets(direction: String) {
+        
+        for i in 0 ..< bullets.count {
+            
+            if direction == "left" {
+                
+                bullets[i].setXY(x: bullets[i].x + Player.maxMoveSpeed, y: bullets[i].y)
+                
+            } else if direction == "right" {
+                
+                bullets[i].setXY(x: bullets[i].x - Player.maxMoveSpeed, y: bullets[i].y)
+            }
+        }
+        
+    }
+    
     func draw() {
         
         removeAllSubviews()
         removeAllLines()
         
         for b in currentStage.blocks {
+            gameView.addSubview(b.view)
+        }
+        
+        for b in bullets {
             gameView.addSubview(b.view)
         }
 

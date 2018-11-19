@@ -15,6 +15,8 @@ class Block {
     static let height: CGFloat = screenSize.height / ((CGFloat)(numberOfVerticalBricks))
     static let width: CGFloat = Block.height
     
+    static let color: UIColor = UIColor.gray
+    
     // VARIABLES
     
     var xPos: Int = 0
@@ -22,8 +24,6 @@ class Block {
     
     var x: CGFloat = 0
     var y: CGFloat = 0
-
-    var color: UIColor = UIColor.gray
 
     var view: UIView = UIView()
     
@@ -41,7 +41,7 @@ class Block {
         self.view.frame.size.width = Block.width
         self.view.frame.size.height = Block.height
         
-        self.view.backgroundColor = self.color
+        self.view.backgroundColor = Block.color
     }
     
     func setX(x: CGFloat) {
