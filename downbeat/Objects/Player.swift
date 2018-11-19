@@ -19,7 +19,7 @@ class Player {
     
     static let maxFallSpeed: CGFloat = 5
     
-    static let maxMoveSpeed: CGFloat = 5
+    static let maxMoveSpeed: CGFloat = 1
 
     // VARIABLES
 
@@ -36,7 +36,7 @@ class Player {
 
     var health: CGFloat = 0
 
-    var color: UIColor = UIColor.white
+    var color: UIColor = UIColor.red
 
     var view: UIView = UIView()
 
@@ -62,20 +62,20 @@ class Player {
         self.view.frame.origin.y = self.y - Player.height / 2
     }
     
-    func didHitGoal() -> Bool {
-        
-//        if distance(x1: goal.x, y1: goal.y, x2: player.x, y2: player.y) <= Player.radius + (Goal.width / 2) {
-//            return true
-//        }
-        
-        return false
-    }
-    
-//    func reset(stage: Stage) {
+//    func didHitGoal() -> Bool {
 //
-//        self.setXY(x: stage.playerStartX, y: stage.playerStartY)
+////        if distance(x1: goal.x, y1: goal.y, x2: player.x, y2: player.y) <= Player.radius + (Goal.width / 2) {
+////            return true
+////        }
 //
+//        return false
 //    }
+    
+    func reset() {
+
+        self.setXY(x: currentStage.playerStartX, y: currentStage.playerStartY)
+
+    }
     
     func move() {
         

@@ -12,20 +12,29 @@ class Block {
     
     // CONSTANTS
     
-    static let width: CGFloat = 50
-    static let height: CGFloat = Block.height
-        
+    static let height: CGFloat = screenSize.height / ((CGFloat)(numberOfVerticalBricks))
+    static let width: CGFloat = Block.height
+    
     // VARIABLES
+    
+    var xPos: Int = 0
+    var yPos: Int = 0
     
     var x: CGFloat = 0
     var y: CGFloat = 0
 
-    var color: UIColor = UIColor.gray
-    
+    var color: UIColor = UIColor.blue
+
     var view: UIView = UIView()
     
-    init() {
+    init(xPos: Int, yPos: Int) {
         
+        self.xPos = xPos
+        self.yPos = yPos
+        
+        self.x = (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2)
+        self.y = (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2)
+
         self.view.frame.origin.x = self.x - Block.width / 2
         self.view.frame.origin.y = self.y - Block.height / 2
         
@@ -56,17 +65,5 @@ class Block {
 //            self.setXY(x: stage.playerStartX, y: stage.playerStartY)
 //
 //        }
-    
-    func move(direction: String) {
-        
-        if direction == "left" {
-            
-            setX(x: self.x + Player.maxMoveSpeed)
-            
-        } else {
-            
-            setX(x: self.x + Player.maxMoveSpeed)
-        }
-    }
     
 }

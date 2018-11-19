@@ -12,6 +12,10 @@ import UIKit
 
 let screenSize = UIScreen.main.bounds
 
+var numberOfVerticalBricks: Int = 15
+
+// COLORS
+
 let backgroundColor: UIColor = UIColor.black
 
 let mainButtonColor: UIColor = UIColor.gray
@@ -22,4 +26,10 @@ let gameViewColor: UIColor = UIColor.darkGray
 
 // VARIABLES
 
-//var currentStage: Stage
+var stages = [Stage]()
+
+// OBJECTS
+
+var currentStage: Stage = Stage()
+
+var player = Player()

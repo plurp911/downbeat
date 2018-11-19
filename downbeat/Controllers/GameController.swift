@@ -10,10 +10,6 @@ import UIKit
 
 class GameController: UIViewController {
     
-    // OBJECTS
-    
-    var player = Player()
-    
     // CONSTANTS
     
     let mainButtonRadius: CGFloat = 37
@@ -23,6 +19,8 @@ class GameController: UIViewController {
     // VARIABLES
     
     var isPaused: Bool = false
+    
+    var moveTimer = Timer()
     
     var gameView: UIView = {
         let view = UIView()
@@ -122,96 +120,18 @@ class GameController: UIViewController {
         print("RIGHT")
         
     }
-    
-    // FUNCTIONS
-    
-    func loadStage() {
         
-        
-        
-    }
-    
-    @objc func move() {
-        
-        if isPaused == false {
-
-            movePlayer()
-            
-            if player.isMoving == true {
-                moveBlocks()
-            }
-            
-            draw()
-        }
-    }
-    
-    func moveBlocks() {
-        
-//        for i in 0 ..< currentStage.blocks.count {
-//
-//        if player.isMovingLeft == true  {
-//
-//            currentStage.blocks[i].move(direction: "left")
-//
-//        } else player.isMovingRight == true {
-//
-//            currentStage.blocks[i].move(direction: "right")
-//        }
-//
-////            if currentStage.blocks[i].didHitPlayer() == true && player.isSafe == false {
-////
-////                handleGameOver()
-////
-////            }
-//        }
-        
-    }
-    
-    func movePlayer() {
-        
-        player.move()
-    }
-    
-    func draw() {
-        
-        removeAllSubviews()
-        removeAllLines()
-        
-//        for b in currentStage.blocks {
-//            gameView.addSubview(b.view)
-//        }
-        
-        gameView.addSubview(player.view)
-    }
-    
-    func removeAllSubviews() {
-        
-        for view in gameView.subviews {
-            
-            view.removeFromSuperview()
-            
-        }
-    }
-    
-    func removeAllLines() {
-        
-        if let lines = gameView.layer.sublayers {
-            
-            for line in lines {
-                
-                line.removeFromSuperlayer()
-                
-            }
-        }
-    }
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        loadStage()
+        loadStages()
         
-//        player.reset(stage: currentStage)
+        setupStage()
+        
+        player.reset()
+        
+        moveTimer = Timer.scheduledTimer(timeInterval: (1 / 120), target: self, selector: #selector(move), userInfo: nil, repeats: true)
         
         view.backgroundColor = backgroundColor
         
