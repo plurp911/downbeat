@@ -69,7 +69,9 @@ class GameController: UIViewController {
         
         print("JUMP")
         
-        player.jump()
+        if player.isJumping == false && player.isRising == false && player.isFalling == false && player.ySpeed == 0 {
+            player.jump()
+        }
     }
     
     lazy var shootButton: UIButton = {

@@ -126,8 +126,13 @@ class Player {
                 if self.ySpeed > Player.maxFallSpeed {
                     self.ySpeed = Player.maxFallSpeed
                 }
+                
+            } else if ySpeed < 0 {
+                
+                self.isRising = true
+
+                self.isFalling = false
             }
-            
         }
         
         if self.isMoving == true {
@@ -165,7 +170,20 @@ class Player {
             
         } else if isRising == true {
             
-            
+            for block in currentStage.blocks {
+                
+                if self.y - (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                    
+                    self.isFalling = true
+
+                    self.isJumping = false
+                    self.isRising = false
+
+                    self.ySpeed = 0
+                    
+                    setXY(x: self.x, y: block.y + (Block.height / 2) + (Player.height / 2))
+                }
+            }
             
         }
         
