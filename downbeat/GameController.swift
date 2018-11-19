@@ -18,12 +18,12 @@ class GameController: UIViewController {
 
     lazy var jumpButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.white.withAlphaComponent(0.25)
+        button.backgroundColor = mainButtonColor.withAlphaComponent(0.25)
         button.setTitle("⇪", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(mainButtonColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
-        button.layer.borderColor = UIColor.white.withAlphaComponent(0.35).cgColor
+        button.layer.borderColor = mainButtonColor.withAlphaComponent(0.35).cgColor
         button.layer.cornerRadius = mainButtonRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel!.textAlignment = .center
@@ -40,12 +40,12 @@ class GameController: UIViewController {
     
     lazy var shootButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.white.withAlphaComponent(0.25)
+        button.backgroundColor = mainButtonColor.withAlphaComponent(0.25)
         button.setTitle("◎", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(mainButtonColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
-        button.layer.borderColor = UIColor.white.withAlphaComponent(0.35).cgColor
+        button.layer.borderColor = mainButtonColor.withAlphaComponent(0.35).cgColor
         button.layer.cornerRadius = mainButtonRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel!.textAlignment = .center
@@ -62,12 +62,12 @@ class GameController: UIViewController {
     
     lazy var leftButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.white.withAlphaComponent(0.25)
+        button.backgroundColor = mainButtonColor.withAlphaComponent(0.25)
         button.setTitle("⇧", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(mainButtonColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
-        button.layer.borderColor = UIColor.white.withAlphaComponent(0.35).cgColor
+        button.layer.borderColor = mainButtonColor.withAlphaComponent(0.35).cgColor
         button.layer.cornerRadius = mainButtonRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel!.textAlignment = .center
@@ -85,12 +85,12 @@ class GameController: UIViewController {
     
     lazy var rightButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.white.withAlphaComponent(0.25)
+        button.backgroundColor = mainButtonColor.withAlphaComponent(0.25)
         button.setTitle("⇧", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(mainButtonColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
-        button.layer.borderColor = UIColor.white.withAlphaComponent(0.35).cgColor
+        button.layer.borderColor = mainButtonColor.withAlphaComponent(0.35).cgColor
         button.layer.cornerRadius = mainButtonRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel!.textAlignment = .center

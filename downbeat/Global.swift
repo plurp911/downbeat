@@ -13,3 +13,5 @@ import UIKit
 let screenSize = UIScreen.main.bounds
 
 let backgroundColor: UIColor = UIColor.black
+
+let mainButtonColor: UIColor = UIColor.white
