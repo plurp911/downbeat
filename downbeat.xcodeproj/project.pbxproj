@@ -20,6 +20,7 @@
 		92086A7921A2829800AB51F8 /* GameController+Stages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A7821A2829800AB51F8 /* GameController+Stages.swift */; };
 		92086A7B21A2833600AB51F8 /* GameController+Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A7A21A2833600AB51F8 /* GameController+Functions.swift */; };
 		92086A7D21A283E600AB51F8 /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A7C21A283E600AB51F8 /* Stage.swift */; };
+		92086A7F21A2B11800AB51F8 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A7E21A2B11800AB51F8 /* Bullet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		92086A7821A2829800AB51F8 /* GameController+Stages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameController+Stages.swift"; sourceTree = "<group>"; };
 		92086A7A21A2833600AB51F8 /* GameController+Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameController+Functions.swift"; sourceTree = "<group>"; };
 		92086A7C21A283E600AB51F8 /* Stage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
+		92086A7E21A2B11800AB51F8 /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 				92086A7121A2440700AB51F8 /* Player.swift */,
 				92086A7621A279E200AB51F8 /* Block.swift */,
 				92086A7C21A283E600AB51F8 /* Stage.swift */,
+				92086A7E21A2B11800AB51F8 /* Bullet.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				92086A7B21A2833600AB51F8 /* GameController+Functions.swift in Sources */,
 				92086A4221A23B5000AB51F8 /* AppDelegate.swift in Sources */,
 				92086A7021A23D4200AB51F8 /* Global.swift in Sources */,
+				92086A7F21A2B11800AB51F8 /* Bullet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

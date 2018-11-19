@@ -26,22 +26,41 @@ extension GameController {
                 
                  if player.isMovingLeft == true {
                     
-//                    if currentStage.x <= 0 {
-//
-//                        currentStage.x
-//
-//                    }
-                    
                     if player.canMove == true {
                         
-                        currentStage.move(direction: "left")
-                        
-                        currentStage.moveBlocks()
+                        if currentStage.x >= 0 {
+                            
+                            currentStage.reset()
+                            
+                            player.move(direction: "left")
+
+                        } else if player.x > (gameView.frame.size.width / 2) {
+                            
+                            player.move(direction: "left")
+
+                        } else {
+                            
+                            currentStage.move(direction: "left")
+                            
+                            currentStage.moveBlocks()
+                        }
                     }
 
                 } else if player.isMovingRight == true {
                     
-                    if player.canMove == true {
+                    if currentStage.x <= (((CGFloat)(-currentStage.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width {
+                        
+                        currentStage.x = (((CGFloat)(-currentStage.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width
+                        
+                        currentStage.moveBlocks()
+                        
+                        player.move(direction: "right")
+                        
+                    } else if player.x < (gameView.frame.size.width / 2) {
+                        
+                        player.move(direction: "right")
+                        
+                    } else {
                         
                         currentStage.move(direction: "right")
                         

@@ -1,14 +1,14 @@
 //
-//  Player.swift
+//  Bullet.swift
 //  downbeat
 //
-//  Created by Collin Howard on 11/18/18.
+//  Created by Collin Howard on 11/19/18.
 //  Copyright © 2018 Collin Howard. All rights reserved.
 //
 
 import UIKit
 
-class Player {
+class Bullet {
     
     // CONSTANTS
     
@@ -22,9 +22,9 @@ class Player {
     static let maxMoveSpeed: CGFloat = 1
     
     static let ySpeedChange: CGFloat = 0.08
-
+    
     // VARIABLES
-
+    
     var x: CGFloat = 0
     var y: CGFloat = 0
     
@@ -43,15 +43,15 @@ class Player {
     
     var isMovingLeft: Bool = false
     var isMovingRight: Bool = false
-
+    
     var canMove: Bool = true
-
+    
     var health: CGFloat = 0
-
+    
     var color: UIColor = UIColor.lightGray
-
+    
     var view: UIView = UIView()
-
+    
     init() {
         
         self.health = Player.maxHealth
@@ -74,24 +74,24 @@ class Player {
         self.view.frame.origin.y = self.y - Player.height / 2
     }
     
-//    func didHitGoal() -> Bool {
-//
-////        if distance(x1: goal.x, y1: goal.y, x2: player.x, y2: player.y) <= Player.radius + (Goal.width / 2) {
-////            return true
-////        }
-//
-//        return false
-//    }
+    //    func didHitGoal() -> Bool {
+    //
+    ////        if distance(x1: goal.x, y1: goal.y, x2: player.x, y2: player.y) <= Player.radius + (Goal.width / 2) {
+    ////            return true
+    ////        }
+    //
+    //        return false
+    //    }
     
     func reset() {
-
+        
         self.setXY(x: currentStage.playerStartX, y: currentStage.playerStartY)
-
+        
         self.isFalling = true
         
         self.xSpeed = 0
         self.ySpeed = 0
-
+        
         self.isRising = false
         
         self.isJumping = false
@@ -109,26 +109,8 @@ class Player {
         self.health = Player.maxHealth
     }
     
-    func move(direction: String) {
-        
-        if direction == "left" {
-            
-            xSpeed = -Player.maxMoveSpeed
-            
-            setXY(x: self.x + self.xSpeed, y: self.y)
-            
-        } else if direction == "right" {
-            
-            xSpeed = Player.maxMoveSpeed
-            
-            setXY(x: self.x + self.xSpeed, y: self.y)
-        }
-    }
-    
     func move() {
         
-        xSpeed = 0
-
         if self.isJumping == true || self.isFalling == true {
             
             setXY(x: self.x, y: self.y + ySpeed)
@@ -138,7 +120,7 @@ class Player {
             if self.ySpeed > 0 {
                 
                 self.isFalling = true
-
+                
                 self.isRising = false
                 
                 if self.ySpeed > Player.maxFallSpeed {
@@ -148,13 +130,13 @@ class Player {
             } else if ySpeed < 0 {
                 
                 self.isRising = true
-
+                
                 self.isFalling = false
             }
         }
         
         if self.isMoving == true {
-
+            
             var isEmpty: Bool = true
             
             for block in currentStage.blocks {
@@ -193,10 +175,10 @@ class Player {
                 if self.y - (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                     
                     self.isFalling = true
-
+                    
                     self.isJumping = false
                     self.isRising = false
-
+                    
                     self.ySpeed = 0
                     
                     setXY(x: self.x, y: block.y + (Block.height / 2) + (Player.height / 2))
@@ -217,7 +199,7 @@ class Player {
                         
                         self.canMove = false
                         
-                        setXY(x: block.x - (Block.width / 2) - (Player.width / 2) - Player.maxMoveSpeed, y: self.y)
+                        setXY(x: block.x - (Block.width / 2) - (Player.width / 2), y: self.y)
                     }
                     
                 } else if self.isMovingLeft == true {
@@ -225,7 +207,7 @@ class Player {
                     if self.x - (Player.width / 2) - Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x - (Player.width / 2) - Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
                         
                         self.canMove = false
-
+                        
                         setXY(x: block.x + (Block.width / 2) + (Player.width / 2), y: self.y)
                     }
                 }

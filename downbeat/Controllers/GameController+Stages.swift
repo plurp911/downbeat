@@ -18,6 +18,8 @@ extension GameController {
         
 //        stages[0].setPlayerStartXY(startX: Player.width * 2, startY: -Player.height * 2)
         
+//        stages[0].setPlayerStartXY(startX: (screenSize.height * (16 / 9)) / 2, startY: screenSize.height - (Player.height / 2))
+
         stages[0].setPlayerStartXY(startX: screenSize.width / 2, startY: screenSize.height / 2)
 
         for i in 0 ..< 50 {
@@ -44,6 +46,10 @@ extension GameController {
         stages[0].blocks.append(Block(xPos: 34, yPos: 2))
         stages[0].blocks.append(Block(xPos: 35, yPos: 1))
 
+        for i in 0 ..< 14 {
+            stages[0].blocks.append(Block(xPos: 49, yPos: i))
+        }
+        
         currentStage = stages[0]
     }
 }
