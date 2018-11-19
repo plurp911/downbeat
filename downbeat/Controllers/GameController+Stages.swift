@@ -18,7 +18,7 @@ extension GameController {
         
 //        stages[0].setPlayerStartXY(startX: Player.width * 2, startY: -Player.height * 2)
         
-//        stages[0].setPlayerStartXY(startX: (screenSize.height * (16 / 9)) / 2, startY: screenSize.height - (Player.height / 2))
+//        stages[0].setPlayerStartXY(startX: (screenSize.height * (screenRatio)) / 2, startY: screenSize.height - (Player.height / 2))
 
         stages[0].setPlayerStartXY(startX: screenSize.width / 2, startY: screenSize.height / 2)
 
@@ -50,6 +50,8 @@ extension GameController {
             stages[0].blocks.append(Block(xPos: 49, yPos: i))
         }
         
+        stages[0].enemies.append(Enemy(xPos: 5, yPos: 5, type: "follower"))
+
         currentStage = stages[0]
     }
 }

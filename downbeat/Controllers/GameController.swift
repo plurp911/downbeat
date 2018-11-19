@@ -214,7 +214,7 @@ class GameController: UIViewController {
         gameView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         gameView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         gameView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        gameView.widthAnchor.constraint(equalTo: gameView.heightAnchor, multiplier: 16 / 9).isActive = true
+        gameView.widthAnchor.constraint(equalTo: gameView.heightAnchor, multiplier: screenRatio).isActive = true
     }
     
     func setupLeftCoverView() {

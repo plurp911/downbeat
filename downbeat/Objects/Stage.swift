@@ -13,7 +13,8 @@ class Stage {
     // VARIABLES
     
     var blocks = [Block]()
-    
+    var enemies = [Enemy]()
+
     var playerStartX: CGFloat = 0
     var playerStartY: CGFloat = 0
     
@@ -46,6 +47,18 @@ class Stage {
             
             self.blocks[i].setX(x: self.x + (((CGFloat)(self.blocks[i].xPos)) * Block.width) + (Block.width / 2))
         }
+    }
+    
+    func moveEnemies() {
+        
+        for i in 0 ..< enemies.count {
+            
+            if self.enemies[i].isInBounds() == false {
+                
+                self.enemies[i].setXY(x: self.x + (((CGFloat)(self.enemies[i].xPos)) * Block.width) + (Block.width / 2), y: self.enemies[i].y)
+            }
+        }
+        
     }
     
     func reset() {

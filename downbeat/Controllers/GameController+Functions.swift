@@ -39,6 +39,27 @@ extension GameController {
                 
                 bullets.remove(at: bulletsToRemove[newI])
             }
+            
+            var enemiesToRemove = [Int]()
+            
+            for i in 0 ..< currentStage.enemies.count {
+            
+                if currentStage.enemies[i].isInBounds() == true {
+                    
+                    currentStage.enemies[i].move()
+
+                } else {
+                    
+                    enemiesToRemove.append(i)
+                }
+            }
+            
+            for i in 0 ..< enemiesToRemove.count {
+                
+                let newI = enemiesToRemove.count - i - 1
+                
+                currentStage.enemies.remove(at: enemiesToRemove[newI])
+            }
 
             if player.isMoving == true {
                 
@@ -61,6 +82,7 @@ extension GameController {
                             currentStage.move(direction: "left")
                             
                             moveBullets(direction: "left")
+                            moveEnemies(direction: "left")
 
                             currentStage.moveBlocks()
                         }
@@ -85,7 +107,8 @@ extension GameController {
                         currentStage.move(direction: "right")
                         
                         moveBullets(direction: "right")
-                        
+                        moveEnemies(direction: "right")
+
                         currentStage.moveBlocks()
                     }
                 }
@@ -112,6 +135,25 @@ extension GameController {
         
     }
     
+    func moveEnemies(direction: String) {
+        
+        for i in 0 ..< currentStage.enemies.count {
+            
+            if currentStage.enemies[i].isInBounds() == true {
+                
+                if direction == "left" {
+                    
+                    currentStage.enemies[i].setXY(x: currentStage.enemies[i].x + Player.maxMoveSpeed, y: currentStage.enemies[i].y)
+                    
+                } else if direction == "right" {
+                    
+                    currentStage.enemies[i].setXY(x: currentStage.enemies[i].x - Player.maxMoveSpeed, y: currentStage.enemies[i].y)
+                }
+            }
+            
+        }
+    }
+    
     func draw() {
         
         removeAllSubviews()
@@ -125,6 +167,10 @@ extension GameController {
             gameView.addSubview(b.view)
         }
 
+        for e in currentStage.enemies {
+            gameView.addSubview(e.view)
+        }
+        
         gameView.addSubview(player.view)
     }
     

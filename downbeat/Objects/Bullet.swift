@@ -72,7 +72,7 @@ class Bullet {
     
     func isInBounds() -> Bool {
         
-        if self.x + Bullet.radius >= 0 && self.x - Bullet.radius <= screenSize.height * (16 / 9) {
+        if self.x + Bullet.radius >= 0 && self.x - Bullet.radius <= screenSize.height * (screenRatio) {
             return true
         }
         
