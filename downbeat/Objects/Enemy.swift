@@ -186,6 +186,36 @@ class Enemy {
         return false
     }
     
+    func didHitBullet() -> Int {
+        
+        for i in 0 ..< bullets.count {
+            
+            if bullets[i].x + Bullet.radius >= self.x - (self.width / 2) && bullets[i].x - Bullet.radius <= self.x + (self.width / 2) && bullets[i].y + Bullet.radius >= self.y - (self.height / 2) && bullets[i].y - Bullet.radius <= self.y + (self.height / 2) {
+                return i
+            }
+        }
+        
+        return -1
+    }
+    
+    func handleHit() {
+        
+        self.isHit = true
+
+        self.health -= Bullet.damage
+        
+        self.isHit = false
+    }
+    
+    func isDead() -> Bool {
+        
+        if self.health <= 0 {
+            return true
+        }
+        
+        return false
+    }
+    
 //    func move() {
 //
 //        xSpeed = 0

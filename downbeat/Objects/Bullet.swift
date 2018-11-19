@@ -13,9 +13,11 @@ class Bullet {
     // CONSTANTS
     
     static let damage: CGFloat = 10
-    
-    static let radius: CGFloat = Block.width * (7 / 16) * (1 / 2)
-    
+
+    static let radius: CGFloat = Block.width * (6 / 16) * (1 / 2)
+    //    static let radius: CGFloat = Block.width * (7 / 16) * (1 / 2)
+//    static let radius: CGFloat = Block.width * (8 / 16) * (1 / 2)
+
     static let moveSpeed: CGFloat = 3
     
     static let color: UIColor = UIColor.white

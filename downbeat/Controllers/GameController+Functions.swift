@@ -42,16 +42,38 @@ extension GameController {
             
             var enemiesToRemove = [Int]()
             
+            bulletsToRemove.removeAll()
+            
             for i in 0 ..< currentStage.enemies.count {
             
                 if currentStage.enemies[i].isInBounds() == true {
                     
                     currentStage.enemies[i].move()
+                    
+                    let bulletPos: Int = currentStage.enemies[i].didHitBullet()
+                    
+                    if bulletPos >= 0 {
+                        
+                        bulletsToRemove.append(bulletPos)
+                        
+                        currentStage.enemies[i].handleHit()
+                        
+                        if currentStage.enemies[i].isDead() == true {
+                            enemiesToRemove.append(i)
+                        }
+                    }
 
                 } else {
                     
                     enemiesToRemove.append(i)
                 }
+            }
+            
+            for i in 0 ..< bulletsToRemove.count {
+                
+                let newI = bulletsToRemove.count - i - 1
+                
+                bullets.remove(at: bulletsToRemove[newI])
             }
             
             for i in 0 ..< enemiesToRemove.count {
