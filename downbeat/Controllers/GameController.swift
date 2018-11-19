@@ -14,8 +14,8 @@ class GameController: UIViewController {
     
     let mainButtonRadius: CGFloat = 37
     
-    let buttonSpacing: CGFloat = 30
-    
+    let mainButtonSpacing: CGFloat = 30
+        
     // VARIABLES
     
     var isPaused: Bool = false
@@ -230,28 +230,28 @@ class GameController: UIViewController {
     }
     
     func setupJumpButton() {
-        jumpButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -buttonSpacing).isActive = true
+        jumpButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -mainButtonSpacing).isActive = true
         jumpButton.widthAnchor.constraint(equalToConstant: mainButtonRadius * 2).isActive = true
         jumpButton.heightAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
-        jumpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -buttonSpacing).isActive = true
+        jumpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -mainButtonSpacing).isActive = true
     }
     
     func setupShootButton() {
-        shootButton.rightAnchor.constraint(equalTo: jumpButton.leftAnchor, constant: -buttonSpacing).isActive = true
+        shootButton.rightAnchor.constraint(equalTo: jumpButton.leftAnchor, constant: -mainButtonSpacing).isActive = true
         shootButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         shootButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         shootButton.centerYAnchor.constraint(equalTo: jumpButton.centerYAnchor).isActive = true
     }
     
     func setupLeftButton() {
-        leftButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: buttonSpacing).isActive = true
+        leftButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: mainButtonSpacing).isActive = true
         leftButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         leftButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         leftButton.centerYAnchor.constraint(equalTo: jumpButton.centerYAnchor).isActive = true
     }
     
     func setupRightButton() {
-        rightButton.leftAnchor.constraint(equalTo: leftButton.rightAnchor, constant: buttonSpacing).isActive = true
+        rightButton.leftAnchor.constraint(equalTo: leftButton.rightAnchor, constant: mainButtonSpacing).isActive = true
         rightButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         rightButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         rightButton.centerYAnchor.constraint(equalTo: jumpButton.centerYAnchor).isActive = true

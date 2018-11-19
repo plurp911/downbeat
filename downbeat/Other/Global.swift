@@ -18,8 +18,8 @@ var numberOfVerticalBricks: Int = 15
 
 let backgroundColor: UIColor = UIColor.black
 
-let mainButtonColor: UIColor = UIColor.gray
-let mainButtonOtherColor: UIColor = UIColor.lightGray
+let mainButtonColor: UIColor = UIColor.gray.withAlphaComponent(0.35)
+let mainButtonOtherColor: UIColor = UIColor.lightGray.withAlphaComponent(0.7)
 let mainButtonTextColor: UIColor = UIColor.white
 
 let gameViewColor: UIColor = UIColor.darkGray
