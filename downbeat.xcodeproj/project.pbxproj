@@ -15,6 +15,8 @@
 		92086A5721A23B5300AB51F8 /* downbeatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A5621A23B5300AB51F8 /* downbeatTests.swift */; };
 		92086A6221A23B5300AB51F8 /* downbeatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A6121A23B5300AB51F8 /* downbeatUITests.swift */; };
 		92086A7021A23D4200AB51F8 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A6F21A23D4200AB51F8 /* Global.swift */; };
+		92086A7221A2440700AB51F8 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A7121A2440700AB51F8 /* Player.swift */; };
+		92086A7721A279E200AB51F8 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A7621A279E200AB51F8 /* Block.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		92086A6121A23B5300AB51F8 /* downbeatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = downbeatUITests.swift; sourceTree = "<group>"; };
 		92086A6321A23B5300AB51F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92086A6F21A23D4200AB51F8 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		92086A7121A2440700AB51F8 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		92086A7621A279E200AB51F8 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,8 +104,9 @@
 			isa = PBXGroup;
 			children = (
 				92086A4121A23B5000AB51F8 /* AppDelegate.swift */,
-				92086A4321A23B5000AB51F8 /* GameController.swift */,
-				92086A6F21A23D4200AB51F8 /* Global.swift */,
+				92086A7421A2441F00AB51F8 /* Controllers */,
+				92086A7321A2441300AB51F8 /* Objects */,
+				92086A7521A2443A00AB51F8 /* Other */,
 				92086A4521A23B5000AB51F8 /* Main.storyboard */,
 				92086A4821A23B5200AB51F8 /* Assets.xcassets */,
 				92086A4A21A23B5200AB51F8 /* LaunchScreen.storyboard */,
@@ -126,6 +131,31 @@
 				92086A6321A23B5300AB51F8 /* Info.plist */,
 			);
 			path = downbeatUITests;
+			sourceTree = "<group>";
+		};
+		92086A7321A2441300AB51F8 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				92086A7121A2440700AB51F8 /* Player.swift */,
+				92086A7621A279E200AB51F8 /* Block.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		92086A7421A2441F00AB51F8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				92086A4321A23B5000AB51F8 /* GameController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		92086A7521A2443A00AB51F8 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				92086A6F21A23D4200AB51F8 /* Global.swift */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,7 +289,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92086A7221A2440700AB51F8 /* Player.swift in Sources */,
 				92086A4421A23B5000AB51F8 /* GameController.swift in Sources */,
+				92086A7721A279E200AB51F8 /* Block.swift in Sources */,
 				92086A4221A23B5000AB51F8 /* AppDelegate.swift in Sources */,
 				92086A7021A23D4200AB51F8 /* Global.swift in Sources */,
 			);

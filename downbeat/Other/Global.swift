@@ -14,4 +14,12 @@ let screenSize = UIScreen.main.bounds
 
 let backgroundColor: UIColor = UIColor.black
 
-let mainButtonColor: UIColor = UIColor.white
+let mainButtonColor: UIColor = UIColor.gray
+let mainButtonOtherColor: UIColor = UIColor.lightGray
+let mainButtonTextColor: UIColor = UIColor.white
+
+let gameViewColor: UIColor = UIColor.darkGray
+
+// VARIABLES
+
+//var currentStage: Stage

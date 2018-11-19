@@ -10,20 +10,37 @@ import UIKit
 
 class GameController: UIViewController {
     
+    // OBJECTS
+    
+    var player = Player()
+    
     // CONSTANTS
     
     let mainButtonRadius: CGFloat = 37
     
     let buttonSpacing: CGFloat = 30
+    
+    // VARIABLES
+    
+    var isPaused: Bool = false
+    
+    var gameView: UIView = {
+        let view = UIView()
+        view.backgroundColor = gameViewColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.borderWidth = 0
+        view.layer.borderColor = UIColor.black.cgColor
+        return view
+    }()
 
     lazy var jumpButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = mainButtonColor.withAlphaComponent(0.25)
+        button.backgroundColor = mainButtonColor
         button.setTitle("⇪", for: .normal)
-        button.setTitleColor(mainButtonColor, for: .normal)
+        button.setTitleColor(mainButtonTextColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
-        button.layer.borderColor = mainButtonColor.withAlphaComponent(0.35).cgColor
+        button.layer.borderColor = mainButtonOtherColor.cgColor
         button.layer.cornerRadius = mainButtonRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel!.textAlignment = .center
@@ -40,12 +57,12 @@ class GameController: UIViewController {
     
     lazy var shootButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = mainButtonColor.withAlphaComponent(0.25)
+        button.backgroundColor = mainButtonColor
         button.setTitle("◎", for: .normal)
-        button.setTitleColor(mainButtonColor, for: .normal)
+        button.setTitleColor(mainButtonTextColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
-        button.layer.borderColor = mainButtonColor.withAlphaComponent(0.35).cgColor
+        button.layer.borderColor = mainButtonOtherColor.cgColor
         button.layer.cornerRadius = mainButtonRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel!.textAlignment = .center
@@ -62,12 +79,12 @@ class GameController: UIViewController {
     
     lazy var leftButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = mainButtonColor.withAlphaComponent(0.25)
+        button.backgroundColor = mainButtonColor
         button.setTitle("⇧", for: .normal)
-        button.setTitleColor(mainButtonColor, for: .normal)
+        button.setTitleColor(mainButtonTextColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
-        button.layer.borderColor = mainButtonColor.withAlphaComponent(0.35).cgColor
+        button.layer.borderColor = mainButtonOtherColor.cgColor
         button.layer.cornerRadius = mainButtonRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel!.textAlignment = .center
@@ -85,12 +102,12 @@ class GameController: UIViewController {
     
     lazy var rightButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = mainButtonColor.withAlphaComponent(0.25)
+        button.backgroundColor = mainButtonColor
         button.setTitle("⇧", for: .normal)
-        button.setTitleColor(mainButtonColor, for: .normal)
+        button.setTitleColor(mainButtonTextColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
-        button.layer.borderColor = mainButtonColor.withAlphaComponent(0.35).cgColor
+        button.layer.borderColor = mainButtonOtherColor.cgColor
         button.layer.cornerRadius = mainButtonRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel!.textAlignment = .center
@@ -106,21 +123,116 @@ class GameController: UIViewController {
         
     }
     
+    // FUNCTIONS
+    
+    func loadStage() {
+        
+        
+        
+    }
+    
+    @objc func move() {
+        
+        if isPaused == false {
+
+            movePlayer()
+            
+            if player.isMoving == true {
+                moveBlocks()
+            }
+            
+            draw()
+        }
+    }
+    
+    func moveBlocks() {
+        
+//        for i in 0 ..< currentStage.blocks.count {
+//
+//        if player.isMovingLeft == true  {
+//
+//            currentStage.blocks[i].move(direction: "left")
+//
+//        } else player.isMovingRight == true {
+//
+//            currentStage.blocks[i].move(direction: "right")
+//        }
+//
+////            if currentStage.blocks[i].didHitPlayer() == true && player.isSafe == false {
+////
+////                handleGameOver()
+////
+////            }
+//        }
+        
+    }
+    
+    func movePlayer() {
+        
+        player.move()
+    }
+    
+    func draw() {
+        
+        removeAllSubviews()
+        removeAllLines()
+        
+//        for b in currentStage.blocks {
+//            gameView.addSubview(b.view)
+//        }
+        
+        gameView.addSubview(player.view)
+    }
+    
+    func removeAllSubviews() {
+        
+        for view in gameView.subviews {
+            
+            view.removeFromSuperview()
+            
+        }
+    }
+    
+    func removeAllLines() {
+        
+        if let lines = gameView.layer.sublayers {
+            
+            for line in lines {
+                
+                line.removeFromSuperlayer()
+                
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
+        loadStage()
+        
+//        player.reset(stage: currentStage)
+        
         view.backgroundColor = backgroundColor
         
+        view.addSubview(gameView)
         view.addSubview(jumpButton)
         view.addSubview(shootButton)
         view.addSubview(leftButton)
         view.addSubview(rightButton)
         
+        setupGameView()
         setupJumpButton()
         setupShootButton()
         setupLeftButton()
         setupRightButton()
+    }
+    
+    func setupGameView() {
+        gameView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        gameView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        gameView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        gameView.widthAnchor.constraint(equalTo: gameView.heightAnchor, multiplier: 16 / 9).isActive = true
     }
     
     func setupJumpButton() {
