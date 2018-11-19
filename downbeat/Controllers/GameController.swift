@@ -30,7 +30,25 @@ class GameController: UIViewController {
         view.layer.borderColor = UIColor.black.cgColor
         return view
     }()
-
+    
+    var leftCoverView: UIView = {
+        let view = UIView()
+        view.backgroundColor = backgroundColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.borderWidth = 0
+        view.layer.borderColor = UIColor.black.cgColor
+        return view
+    }()
+    
+    var rightCoverView: UIView = {
+        let view = UIView()
+        view.backgroundColor = backgroundColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.borderWidth = 0
+        view.layer.borderColor = UIColor.black.cgColor
+        return view
+    }()
+    
     lazy var jumpButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = mainButtonColor
@@ -172,12 +190,16 @@ class GameController: UIViewController {
         view.backgroundColor = backgroundColor
         
         view.addSubview(gameView)
+        view.addSubview(leftCoverView)
+        view.addSubview(rightCoverView)
         view.addSubview(jumpButton)
         view.addSubview(shootButton)
         view.addSubview(leftButton)
         view.addSubview(rightButton)
         
         setupGameView()
+        setupLeftCoverView()
+        setupRightCoverView()
         setupJumpButton()
         setupShootButton()
         setupLeftButton()
@@ -189,6 +211,20 @@ class GameController: UIViewController {
         gameView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         gameView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         gameView.widthAnchor.constraint(equalTo: gameView.heightAnchor, multiplier: 16 / 9).isActive = true
+    }
+    
+    func setupLeftCoverView() {
+        leftCoverView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        leftCoverView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        leftCoverView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        leftCoverView.rightAnchor.constraint(equalTo: gameView.leftAnchor).isActive = true
+    }
+    
+    func setupRightCoverView() {
+        rightCoverView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        rightCoverView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        rightCoverView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        rightCoverView.leftAnchor.constraint(equalTo: gameView.rightAnchor).isActive = true
     }
     
     func setupJumpButton() {
