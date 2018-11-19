@@ -14,29 +14,41 @@ class Player {
     
     static let maxHealth: CGFloat = 100
     
-    static let width: CGFloat = 50
-    static let height: CGFloat = 50
+    static let width: CGFloat = Block.width
+    static let height: CGFloat = Block.height
     
-    static let maxFallSpeed: CGFloat = 5
+    static let maxFallSpeed: CGFloat = 4
     
     static let maxMoveSpeed: CGFloat = 1
+    
+    static let ySpeedChange: CGFloat = 0.08
 
     // VARIABLES
 
     var x: CGFloat = 0
     var y: CGFloat = 0
     
+    var xSpeed: CGFloat = 0
+    var ySpeed: CGFloat = 0
+    
+    var isRising: Bool = false
     var isFalling: Bool = false
+    
     var isJumping: Bool = false
+    var isShooting: Bool = false
+    
     var isMoving: Bool = false
+    
     var isHit: Bool = false
     
     var isMovingLeft: Bool = false
     var isMovingRight: Bool = false
 
+    var canMove: Bool = true
+
     var health: CGFloat = 0
 
-    var color: UIColor = UIColor.red
+    var color: UIColor = UIColor.lightGray
 
     var view: UIView = UIView()
 
@@ -75,23 +87,129 @@ class Player {
 
         self.setXY(x: currentStage.playerStartX, y: currentStage.playerStartY)
 
+        self.isFalling = true
+        
+        self.xSpeed = 0
+        self.ySpeed = 0
+
+        self.isRising = false
+        
+        self.isJumping = false
+        self.isShooting = false
+        
+        self.isMoving = false
+        
+        self.isHit = false
+        
+        self.isMovingLeft = false
+        self.isMovingRight = false
+        
+        self.canMove = true
+        
+        self.health = Player.maxHealth
     }
     
     func move() {
         
+        if self.isJumping == true || self.isFalling == true {
+            
+            setXY(x: self.x, y: self.y + ySpeed)
+            
+            self.ySpeed += Player.ySpeedChange
+            
+            if self.ySpeed > 0 {
+                
+                self.isFalling = true
+
+                self.isRising = false
+                
+                if self.ySpeed > Player.maxFallSpeed {
+                    self.ySpeed = Player.maxFallSpeed
+                }
+            }
+            
+        }
         
+        if self.isMoving == true {
+
+            var isEmpty: Bool = true
+            
+            for block in currentStage.blocks {
+                
+                if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                    
+                    isEmpty = false
+                }
+            }
+            
+            if isEmpty == true {
+                
+                self.isFalling = true
+            }
+        }
+        
+        if self.isFalling == true {
+            
+            for block in currentStage.blocks {
+                
+                if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                    
+                    self.isJumping = false
+                    self.isFalling = false
+                    
+                    self.ySpeed = 0
+                    
+                    setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
+                }
+            }
+            
+        } else if isRising == true {
+            
+            
+            
+        }
+        
+        if isMoving == true {
+            
+            self.canMove = true
+            
+            for block in currentStage.blocks {
+                
+                if self.isMovingRight == true {
+                    
+                    if self.x + (Player.width / 2) + Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x + (Player.width / 2) + Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                        
+                        self.canMove = false
+                        
+                        setXY(x: block.x - (Block.width / 2) - (Player.width / 2), y: self.y)
+                    }
+                    
+                } else if self.isMovingLeft == true {
+                    
+                    if self.x - (Player.width / 2) - Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x - (Player.width / 2) - Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                        
+                        self.canMove = false
+
+                        setXY(x: block.x + (Block.width / 2) + (Player.width / 2), y: self.y)
+                    }
+                }
+                
+            }
+        }
         
     }
     
     func jump() {
         
+        self.isJumping = true
+        self.isRising = true
         
-        
+        self.ySpeed = -Player.maxFallSpeed
     }
     
     func shoot() {
         
-        
+        self.isShooting = true
         
     }
 }

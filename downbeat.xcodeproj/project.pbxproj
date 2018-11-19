@@ -153,8 +153,8 @@
 			isa = PBXGroup;
 			children = (
 				92086A4321A23B5000AB51F8 /* GameController.swift */,
-				92086A7821A2829800AB51F8 /* GameController+Stages.swift */,
 				92086A7A21A2833600AB51F8 /* GameController+Functions.swift */,
+				92086A7821A2829800AB51F8 /* GameController+Stages.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

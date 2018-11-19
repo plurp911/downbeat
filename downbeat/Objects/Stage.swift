@@ -61,17 +61,17 @@ class Stage {
             
             self.x += Player.maxMoveSpeed
             
-            if self.x >= ((CGFloat)(numberOfHorizontalBlocks)) * Block.width {
-                self.x = ((CGFloat)(numberOfHorizontalBlocks)) * Block.width
-            }
+//            if self.x >= ((CGFloat)(numberOfHorizontalBlocks)) * Block.width {
+//                self.x = ((CGFloat)(numberOfHorizontalBlocks)) * Block.width
+//            }
             
-        } else if direction == "left" {
+        } else if direction == "right" {
             
             self.x -= Player.maxMoveSpeed
             
-            if self.x <= 0 {
-                self.x = 0
-            }
+//            if self.x <= 0 {
+//                self.x = 0
+//            }
             
         }
     }

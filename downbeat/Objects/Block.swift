@@ -23,7 +23,7 @@ class Block {
     var x: CGFloat = 0
     var y: CGFloat = 0
 
-    var color: UIColor = UIColor.blue
+    var color: UIColor = UIColor.gray
 
     var view: UIView = UIView()
     

@@ -43,7 +43,7 @@ class GameController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel!.textAlignment = .center
         button.titleLabel!.numberOfLines = 1
-        button.addTarget(self, action: #selector(handleJump), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleJump), for: .touchDown)
         return button
     }()
     
@@ -51,6 +51,7 @@ class GameController: UIViewController {
         
         print("JUMP")
         
+        player.jump()
     }
     
     lazy var shootButton: UIButton = {
@@ -65,7 +66,7 @@ class GameController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel!.textAlignment = .center
         button.titleLabel!.numberOfLines = 1
-        button.addTarget(self, action: #selector(handleShoot), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleShoot), for: .touchDown)
         return button
     }()
     
@@ -73,6 +74,7 @@ class GameController: UIViewController {
         
         print("SHOOT")
         
+        player.shoot()
     }
     
     lazy var leftButton: UIButton = {
@@ -87,7 +89,12 @@ class GameController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel!.textAlignment = .center
         button.titleLabel!.numberOfLines = 1
-        button.addTarget(self, action: #selector(handleLeft), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleLeft), for: .touchDown)
+        button.addTarget(self, action: #selector(handleLeftCancel), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleLeftCancel), for: .touchUpOutside)
+        button.addTarget(self, action: #selector(handleLeftCancel), for: .touchCancel)
+//        button.addTarget(self, action: #selector(handleLeftCancel), for: .touchDragExit)
+//        button.addTarget(self, action: #selector(handleLeftCancel), for: .touchDragOutside)
         button.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
         return button
     }()
@@ -96,6 +103,18 @@ class GameController: UIViewController {
         
         print("LEFT")
         
+        handleRightCancel()
+        
+        player.isMoving = true
+        player.isMovingLeft = true
+    }
+    
+    @objc func handleLeftCancel() {
+        
+        print("LEFT CANCEL")
+
+        player.isMoving = false
+        player.isMovingLeft = false
     }
     
     lazy var rightButton: UIButton = {
@@ -110,7 +129,12 @@ class GameController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel!.textAlignment = .center
         button.titleLabel!.numberOfLines = 1
-        button.addTarget(self, action: #selector(handleRight), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleRight), for: .touchDown)
+        button.addTarget(self, action: #selector(handleRightCancel), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleRightCancel), for: .touchUpOutside)
+        button.addTarget(self, action: #selector(handleRightCancel), for: .touchCancel)
+//        button.addTarget(self, action: #selector(handleRightCancel), for: .touchDragExit)
+//        button.addTarget(self, action: #selector(handleRightCancel), for: .touchDragOutside)
         button.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         return button
     }()
@@ -119,8 +143,20 @@ class GameController: UIViewController {
         
         print("RIGHT")
         
-    }
+        handleLeftCancel()
         
+        player.isMoving = true
+        player.isMovingRight = true
+    }
+    
+    @objc func handleRightCancel() {
+        
+        print("RIGHT CANCEL")
+        
+        player.isMoving = false
+        player.isMovingRight = false
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()

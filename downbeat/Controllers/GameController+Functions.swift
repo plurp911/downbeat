@@ -17,11 +17,11 @@ extension GameController {
     }
     
     @objc func move() {
-        
+
         if isPaused == false {
             
-            movePlayer()
-            
+            player.move()
+
             if player.isMoving == true {
                 
                  if player.isMovingLeft == true {
@@ -32,25 +32,27 @@ extension GameController {
 //
 //                    }
                     
-                    currentStage.move(direction: "left")
-
-                    currentStage.moveBlocks()
+                    if player.canMove == true {
+                        
+                        currentStage.move(direction: "left")
+                        
+                        currentStage.moveBlocks()
+                    }
 
                 } else if player.isMovingRight == true {
                     
-                    currentStage.move(direction: "right")
-
-                    currentStage.moveBlocks()
+                    if player.canMove == true {
+                        
+                        currentStage.move(direction: "right")
+                        
+                        currentStage.moveBlocks()
+                    }
                 }
+                
             }
             
             draw()
         }
-    }
-    
-    func movePlayer() {
-        
-        player.move()
     }
     
     func draw() {
