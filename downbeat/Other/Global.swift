@@ -18,7 +18,8 @@ let maxBullets: Int = 3
 
 //let screenRatio: CGFloat = 16 / 9
 //let screenRatio: CGFloat = 4 / 3
-let screenRatio: CGFloat = 1
+let screenRatio: CGFloat = 16 / 15
+//let screenRatio: CGFloat = 1
 
 // COLORS
 
