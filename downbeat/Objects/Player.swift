@@ -23,7 +23,10 @@ class Player {
     
     static let ySpeedChange: CGFloat = 0.095
 
-    static let color: UIColor = UIColor.lightGray
+//    static let color: UIColor = UIColor.lightGray
+    static let color: UIColor = UIColor.clear
+
+    static let runRightImages = [UIImage(named: "playerRunRight1"), UIImage(named: "playerRunRight2"), UIImage(named: "playerRunRight3"), UIImage(named: "playerRunRight2")]
 
     // VARIABLES
 
@@ -52,7 +55,7 @@ class Player {
     
     var direction: String = "right"
 
-    var view: UIView = UIView()
+    var view: UIImageView = UIImageView()
 
     init() {
         
@@ -65,6 +68,8 @@ class Player {
         self.view.frame.size.height = Player.height
         
         self.view.backgroundColor = Player.color
+        
+//        self.view.image = UIImage(named: "player1")
     }
     
     func setXY(x: CGFloat, y: CGFloat) {
@@ -266,5 +271,24 @@ class Player {
         }
         
         self.isShooting = false
+    }
+    
+    func updateAnimation() {
+        
+        if isMoving == true {
+            
+            if isMovingLeft == true {
+                
+//                self.view.animationImages = Player.runRightImages as! [UIImage]
+                
+            } else if isMovingRight == true {
+                
+                self.view.animationImages = Player.runRightImages as! [UIImage]
+
+            }
+        }
+        
+        self.view.animationDuration = 0.55
+        self.view.startAnimating()
     }
 }

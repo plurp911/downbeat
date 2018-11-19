@@ -193,6 +193,8 @@ extension GameController {
             gameView.addSubview(e.view)
         }
         
+//        player.updateAnimation()
+
         gameView.addSubview(player.view)
     }
     

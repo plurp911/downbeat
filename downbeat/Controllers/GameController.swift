@@ -173,6 +173,8 @@ class GameController: UIViewController {
         player.isMovingRight = true
         
         player.direction = "right"
+        
+        player.updateAnimation()
     }
     
     @objc func handleRightCancel() {
