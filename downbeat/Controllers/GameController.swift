@@ -69,7 +69,7 @@ class GameController: UIViewController {
         
         print("JUMP")
         
-        if player.isJumping == false && player.isRising == false && player.isFalling == false && player.ySpeed == 0 {
+        if player.isJumping == false && player.ySpeed == 0 {
             player.jump()
         }
     }
