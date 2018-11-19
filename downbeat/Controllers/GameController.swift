@@ -129,6 +129,8 @@ class GameController: UIViewController {
         
         player.isMoving = true
         player.isMovingLeft = true
+        
+        player.direction = "left"
     }
     
     @objc func handleLeftCancel() {
@@ -169,6 +171,8 @@ class GameController: UIViewController {
         
         player.isMoving = true
         player.isMovingRight = true
+        
+        player.direction = "right"
     }
     
     @objc func handleRightCancel() {

@@ -35,7 +35,7 @@ class Bullet {
         
         if direction == "left" {
             xSpeed = -Bullet.moveSpeed
-        } else {
+        } else if direction == "right" {
             xSpeed = Bullet.moveSpeed
         }
 

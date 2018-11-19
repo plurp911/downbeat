@@ -17,11 +17,11 @@ class Player {
     static let width: CGFloat = Block.width
     static let height: CGFloat = Block.height
     
-    static let maxFallSpeed: CGFloat = 4
+    static let maxFallSpeed: CGFloat = 3.5
     
     static let maxMoveSpeed: CGFloat = 1
     
-    static let ySpeedChange: CGFloat = 0.08
+    static let ySpeedChange: CGFloat = 0.095
 
     static let color: UIColor = UIColor.lightGray
 
