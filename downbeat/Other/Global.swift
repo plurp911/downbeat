@@ -36,6 +36,7 @@ let gameViewColor = UIColor.darkGray
 var stages = [Stage]()
 
 var bullets = [Bullet]()
+var explosions = [Explosion]()
 
 var canMoveLeft: Bool = true
 var canMoveRight: Bool = true

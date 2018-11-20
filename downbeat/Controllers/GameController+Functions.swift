@@ -21,7 +21,7 @@ extension GameController {
         if isPaused == false {
             
             player.move()
-            
+
             var bulletsToRemove = [Int]()
             
             for i in 0 ..< bullets.count {
@@ -38,6 +38,22 @@ extension GameController {
                 let newI = bulletsToRemove.count - i - 1
                 
                 bullets.remove(at: bulletsToRemove[newI])
+            }
+            
+            var explosionsToRemove = [Int]()
+            
+            for i in 0 ..< explosions.count {
+                
+                if explosions[i].view.isAnimating == false {
+                    explosionsToRemove.append(i)
+                }
+            }
+            
+            for i in 0 ..< explosionsToRemove.count {
+                
+                let newI = explosionsToRemove.count - i - 1
+                
+                explosions.remove(at: explosionsToRemove[newI])
             }
             
             var enemiesToRemove = [Int]()
@@ -59,6 +75,9 @@ extension GameController {
                         currentStage.enemies[i].handleHit()
                         
                         if currentStage.enemies[i].isDead() == true {
+                            
+                            explosions.append(Explosion(x: currentStage.enemies[i].x, y: currentStage.enemies[i].y))
+                            
                             enemiesToRemove.append(i)
                         }
                     }
@@ -104,6 +123,7 @@ extension GameController {
                             currentStage.move(direction: "left")
                             
                             moveBullets(direction: "left")
+                            moveExplosions(direction: "left")
                             moveEnemies(direction: "left")
 
                             currentStage.moveBlocks()
@@ -129,6 +149,7 @@ extension GameController {
                         currentStage.move(direction: "right")
                         
                         moveBullets(direction: "right")
+                        moveExplosions(direction: "right")
                         moveEnemies(direction: "right")
 
                         currentStage.moveBlocks()
@@ -152,6 +173,22 @@ extension GameController {
             } else if direction == "right" {
                 
                 bullets[i].setXY(x: bullets[i].x - Player.maxMoveSpeed, y: bullets[i].y)
+            }
+        }
+        
+    }
+    
+    func moveExplosions(direction: String) {
+        
+        for i in 0 ..< explosions.count {
+            
+            if direction == "left" {
+                
+                explosions[i].setX(x: explosions[i].x + Player.maxMoveSpeed)
+                
+            } else if direction == "right" {
+                
+                explosions[i].setX(x: explosions[i].x - Player.maxMoveSpeed)
             }
         }
         
@@ -187,6 +224,10 @@ extension GameController {
         
         for b in bullets {
             gameView.addSubview(b.view)
+        }
+        
+        for e in explosions {
+            gameView.addSubview(e.view)
         }
 
         for e in currentStage.enemies {

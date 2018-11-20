@@ -19,7 +19,7 @@ class Enemy {
 //    static let ySpeedChange: CGFloat = 0.08
     
     static let color: UIColor = UIColor.clear
-//    static let color: UIColor = UIColor.red
+//    static let color: UIColor = UIColor.blue
     
     static let followerImages = [UIImage(named: "follower1"), UIImage(named: "follower2"), UIImage(named: "follower3"), UIImage(named: "follower4"), UIImage(named: "follower5"), UIImage(named: "follower6")]
     
@@ -112,8 +112,8 @@ class Enemy {
         self.x = x
         self.y = y
         
-        self.view.frame.origin.x = self.x - Player.width / 2
-        self.view.frame.origin.y = self.y - Player.height / 2
+        self.view.frame.origin.x = self.x - self.width / 2
+        self.view.frame.origin.y = self.y - self.height / 2
     }
     
     //    func didHitGoal() -> Bool {
