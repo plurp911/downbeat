@@ -44,7 +44,11 @@ class Block {
         
         self.view.backgroundColor = Block.color
         
-        self.view.image = UIImage(named: "block")
+        self.view.contentMode = .scaleAspectFill
+
+        self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        
+        self.view.image = UIImage(named: "topWoodBlock")
     }
     
     func setX(x: CGFloat) {

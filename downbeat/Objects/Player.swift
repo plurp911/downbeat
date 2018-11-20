@@ -14,8 +14,8 @@ class Player {
     
     static let maxHealth: CGFloat = 100
     
-    static let width: CGFloat = Block.width * 0.78
-    static let height: CGFloat = Block.height * 1.6
+    static let width: CGFloat = Block.width * 0.75
+    static let height: CGFloat = Block.height * 1.5
     
     static let maxFallSpeed: CGFloat = 3.5
     
@@ -28,17 +28,23 @@ class Player {
 
     static let hitBoxColor: UIColor = UIColor.red.withAlphaComponent(0.5)
 
-    static let runRightImages = [Player.scale(image: UIImage(named: "playerRunRight1")!), Player.scale(image: UIImage(named: "playerRunRight2")!), Player.scale(image: UIImage(named: "playerRunRight3")!), Player.scale(image: UIImage(named: "playerRunRight2")!)]
+//    static let runRightImages = [Player.scale(image: UIImage(named: "playerRunRight1")!), Player.scale(image: UIImage(named: "playerRunRight2")!), Player.scale(image: UIImage(named: "playerRunRight3")!), Player.scale(image: UIImage(named: "playerRunRight2")!)]
+    static let runRightImages = [UIImage(named: "playerRunRight1"), UIImage(named: "playerRunRight2"), UIImage(named: "playerRunRight3"), UIImage(named: "playerRunRight2")]
+
     static let runShootRightImages = [Player.scale(image: UIImage(named: "playerRunShootRight1")!), Player.scale(image: UIImage(named: "playerRunShootRight2")!), Player.scale(image: UIImage(named: "playerRunShootRight3")!), Player.scale(image: UIImage(named: "playerRunShootRight2")!)]
     
-    static let jumpRightImage = Player.scale(image: UIImage(named: "playerJumpRight")!)
+//    static let jumpRightImage = Player.scale(image: UIImage(named: "playerJumpRight")!)
+    static let jumpRightImage = UIImage(named: "playerJumpRight")
+
     static let jumpShootRightImage = Player.scale(image: UIImage(named: "playerJumpShootRight")!)
 
-    static let standRightImage = Player.scale(image: UIImage(named: "playerStandRight")!)
+//    static let standRightImage = Player.scale(image: UIImage(named: "playerStandRight")!)
+    static let standRightImage = UIImage(named: "playerStandRight")
+
     static let standShootRightImage = Player.scale(image: UIImage(named: "playerStandShootRight")!)
 
-    static let xShift: CGFloat = Block.width * 0.03
-    static let yShift: CGFloat = Block.height * 0.4
+    static let xShift: CGFloat = Block.width * (16 / 30)
+    static let yShift: CGFloat = Block.height * 0
 
     // VARIABLES
 
@@ -76,13 +82,13 @@ class Player {
         
         setXY(x: self.x, y: self.y)
     
-        self.view.frame.size.width = Player.width
-        self.view.frame.size.height = Player.height
+        self.view.frame.size.width = Block.width * (30 / 16)
+        self.view.frame.size.height = Block.height * (30 / 16)
         
         self.view.backgroundColor = Player.color
 
-//        self.view.contentMode = .scaleAspectFill
-        self.view.contentMode = .bottom
+        self.view.contentMode = .scaleAspectFill
+//        self.view.contentMode = .bottom
         
 //        self.view.clipsToBounds = true
         
@@ -100,12 +106,12 @@ class Player {
         self.y = y
         
         if self.direction == "left" {
-            self.view.frame.origin.x = self.x - Player.width / 2 - Player.xShift
+            self.view.frame.origin.x = self.x - Player.width / 2 - Player.xShift - (Block.width * (1 / 16))
         } else if self.direction == "right" {
-            self.view.frame.origin.x = self.x - Player.width / 2 + Player.xShift
+            self.view.frame.origin.x = self.x - Player.width / 2 - Player.xShift
         }
         
-        self.view.frame.origin.y = self.y - Player.height / 2 + Player.yShift
+        self.view.frame.origin.y = self.y - Player.height / 2 - Player.yShift
         
         self.hitBox.frame.origin.x = self.x - Player.width / 2
         self.hitBox.frame.origin.y = self.y - Player.height / 2
