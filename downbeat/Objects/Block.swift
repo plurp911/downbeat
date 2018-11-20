@@ -23,15 +23,19 @@ class Block {
     var xPos: Int = 0
     var yPos: Int = 0
     
+    var type: String = ""
+
     var x: CGFloat = 0
     var y: CGFloat = 0
 
     var view: UIImageView = UIImageView()
     
-    init(xPos: Int, yPos: Int) {
+    init(xPos: Int, yPos: Int, type: String) {
         
         self.xPos = xPos
         self.yPos = yPos
+        
+        self.type = type
         
         self.x = (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2)
         self.y = (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2)
@@ -48,7 +52,7 @@ class Block {
 
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
-        self.view.image = UIImage(named: "topWoodBlock")
+        self.view.image = UIImage(named: self.type)
     }
     
     func setX(x: CGFloat) {

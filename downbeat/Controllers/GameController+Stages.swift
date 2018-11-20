@@ -12,6 +12,9 @@ extension GameController {
     
     func loadStages() {
         
+//        let blockType: String = "topWoodBlock"
+        let blockType: String = "horizontalYellowMiddleBlock"
+
         stages.append(Stage())
         
         stages[0].numberOfHorizontalBlocks = 50
@@ -22,34 +25,57 @@ extension GameController {
 
         stages[0].setPlayerStartXY(startX: screenSize.width / 2, startY: screenSize.height / 2)
 
-        for i in 0 ..< 50 {
-            stages[0].blocks.append(Block(xPos: i, yPos: 14))
+        stages[0].blocks.append(Block(xPos: 0, yPos: 14, type: "horizontalYellowLeftBlock"))
+
+        for i in 1 ..< 49 {
+            stages[0].blocks.append(Block(xPos: i, yPos: 14, type: blockType))
         }
         
-        stages[0].blocks.append(Block(xPos: 10, yPos: 13))
-        stages[0].blocks.append(Block(xPos: 11, yPos: 13))
-        stages[0].blocks.append(Block(xPos: 12, yPos: 13))
-
-        stages[0].blocks.append(Block(xPos: 16, yPos: 12))
-        stages[0].blocks.append(Block(xPos: 17, yPos: 12))
-        stages[0].blocks.append(Block(xPos: 18, yPos: 12))
+        stages[0].blocks.append(Block(xPos: 49, yPos: 14, type: "horizontalYellowRightBlock"))
         
-        stages[0].blocks.append(Block(xPos: 25, yPos: 11))
-        stages[0].blocks.append(Block(xPos: 26, yPos: 10))
-        stages[0].blocks.append(Block(xPos: 27, yPos: 9))
-        stages[0].blocks.append(Block(xPos: 28, yPos: 8))
-        stages[0].blocks.append(Block(xPos: 29, yPos: 7))
-        stages[0].blocks.append(Block(xPos: 30, yPos: 6))
-        stages[0].blocks.append(Block(xPos: 31, yPos: 5))
-        stages[0].blocks.append(Block(xPos: 32, yPos: 4))
-        stages[0].blocks.append(Block(xPos: 33, yPos: 3))
-        stages[0].blocks.append(Block(xPos: 34, yPos: 2))
-        stages[0].blocks.append(Block(xPos: 35, yPos: 1))
+        stages[0].blocks.append(Block(xPos: 10, yPos: 13, type: "horizontalYellowLeftBlock"))
+        stages[0].blocks.append(Block(xPos: 11, yPos: 13, type: blockType))
+        stages[0].blocks.append(Block(xPos: 12, yPos: 13, type: "horizontalYellowRightBlock"))
 
-        for i in 0 ..< 14 {
-            stages[0].blocks.append(Block(xPos: 49, yPos: i))
+        stages[0].blocks.append(Block(xPos: 16, yPos: 12, type: "horizontalYellowLeftBlock"))
+        stages[0].blocks.append(Block(xPos: 17, yPos: 12, type: blockType))
+        stages[0].blocks.append(Block(xPos: 18, yPos: 12, type: "horizontalYellowRightBlock"))
+        
+        stages[0].blocks.append(Block(xPos: 20, yPos: 10, type: "verticalYellowTopBlock"))
+        stages[0].blocks.append(Block(xPos: 20, yPos: 11, type: "verticalYellowBottomBlock"))
+
+        stages[0].blocks.append(Block(xPos: 22, yPos: 10, type: "verticalYellowTopBlock"))
+        stages[0].blocks.append(Block(xPos: 22, yPos: 11, type: "verticalYellowBottomBlock"))
+
+        stages[0].blocks.append(Block(xPos: 24, yPos: 8, type: "verticalYellowTopBlock"))
+        stages[0].blocks.append(Block(xPos: 24, yPos: 9, type: "verticalYellowMiddleBlock"))
+        stages[0].blocks.append(Block(xPos: 24, yPos: 10, type: "verticalYellowBottomBlock"))
+        
+        stages[0].blocks.append(Block(xPos: 27, yPos: 11, type: "horizontalYellowLeftBlock"))
+        stages[0].blocks.append(Block(xPos: 28, yPos: 11, type: blockType))
+        stages[0].blocks.append(Block(xPos: 29, yPos: 11, type: "horizontalYellowRightBlock"))
+        
+        stages[0].blocks.append(Block(xPos: 32, yPos: 9, type: "horizontalYellowLeftBlock"))
+        stages[0].blocks.append(Block(xPos: 33, yPos: 9, type: "horizontalYellowRightBlock"))
+        
+        stages[0].blocks.append(Block(xPos: 37, yPos: 9, type: "horizontalYellowLeftBlock"))
+        stages[0].blocks.append(Block(xPos: 38, yPos: 9, type: blockType))
+        stages[0].blocks.append(Block(xPos: 39, yPos: 9, type: blockType))
+        stages[0].blocks.append(Block(xPos: 40, yPos: 9, type: "horizontalYellowRightBlock"))
+        
+        stages[0].blocks.append(Block(xPos: 44, yPos: 8, type: "horizontalYellowLeftBlock"))
+        stages[0].blocks.append(Block(xPos: 45, yPos: 8, type: blockType))
+        stages[0].blocks.append(Block(xPos: 46, yPos: 8, type: blockType))
+        stages[0].blocks.append(Block(xPos: 47, yPos: 8, type: "horizontalYellowRightBlock"))
+        
+        stages[0].blocks.append(Block(xPos: 49, yPos: 0, type: "verticalYellowTopBlock"))
+
+        for i in 1 ..< 13 {
+            stages[0].blocks.append(Block(xPos: 49, yPos: i, type: "verticalYellowMiddleBlock"))
         }
         
+        stages[0].blocks.append(Block(xPos: 49, yPos: 13, type: "verticalYellowBottomBlock"))
+
         stages[0].enemies.append(Enemy(xPos: 5, yPos: 5, type: "follower"))
 
         currentStage = stages[0]

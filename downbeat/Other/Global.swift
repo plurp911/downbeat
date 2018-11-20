@@ -29,7 +29,7 @@ let mainButtonColor = UIColor.gray.withAlphaComponent(0.35)
 let mainButtonOtherColor = UIColor.lightGray.withAlphaComponent(0.7)
 let mainButtonTextColor = UIColor.white
 
-let gameViewColor = UIColor.darkGray
+let gameViewColor = UIColor(red: 32 / 255, green: 56 / 255, blue: 236 / 255, alpha: 1)
 
 // VARIABLES
 
