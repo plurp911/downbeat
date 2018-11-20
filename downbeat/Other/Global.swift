@@ -45,21 +45,3 @@ var canMoveRight: Bool = true
 var currentStage = Stage()
 
 var player = Player()
-
-// FUNCTIONS
-
-func scaleUIImageToSize(image: UIImage, size: CGSize) -> UIImage {
-    
-    let hasAlpha = true
-    let scale: CGFloat = UIScreen.main.scale // Automatically use scale factor of main screen
-    
-    UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
-    
-    image.draw(in: CGRect(origin: CGPoint.zero, size: size))
-    
-    let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-    
-    UIGraphicsEndImageContext()
-    
-    return scaledImage!
-}

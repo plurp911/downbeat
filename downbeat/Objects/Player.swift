@@ -28,20 +28,14 @@ class Player {
 
     static let hitBoxColor: UIColor = UIColor.red.withAlphaComponent(0.5)
 
-//    static let runRightImages = [Player.scale(image: UIImage(named: "playerRunRight1")!), Player.scale(image: UIImage(named: "playerRunRight2")!), Player.scale(image: UIImage(named: "playerRunRight3")!), Player.scale(image: UIImage(named: "playerRunRight2")!)]
     static let runRightImages = [UIImage(named: "playerRunRight1"), UIImage(named: "playerRunRight2"), UIImage(named: "playerRunRight3"), UIImage(named: "playerRunRight2")]
-
-    static let runShootRightImages = [Player.scale(image: UIImage(named: "playerRunShootRight1")!), Player.scale(image: UIImage(named: "playerRunShootRight2")!), Player.scale(image: UIImage(named: "playerRunShootRight3")!), Player.scale(image: UIImage(named: "playerRunShootRight2")!)]
+    static let runShootRightImages = [UIImage(named: "playerRunShootRight1"), UIImage(named: "playerRunShootRight2"), UIImage(named: "playerRunShootRight3"), UIImage(named: "playerRunShootRight2")]
     
-//    static let jumpRightImage = Player.scale(image: UIImage(named: "playerJumpRight")!)
     static let jumpRightImage = UIImage(named: "playerJumpRight")
+    static let jumpShootRightImage = UIImage(named: "playerJumpShootRight")
 
-    static let jumpShootRightImage = Player.scale(image: UIImage(named: "playerJumpShootRight")!)
-
-//    static let standRightImage = Player.scale(image: UIImage(named: "playerStandRight")!)
     static let standRightImage = UIImage(named: "playerStandRight")
-
-    static let standShootRightImage = Player.scale(image: UIImage(named: "playerStandShootRight")!)
+    static let standShootRightImage = UIImage(named: "playerStandShootRight")
 
     static let xShift: CGFloat = Block.width * (16 / 30)
     static let yShift: CGFloat = Block.height * 0
@@ -88,9 +82,6 @@ class Player {
         self.view.backgroundColor = Player.color
 
         self.view.contentMode = .scaleAspectFill
-//        self.view.contentMode = .bottom
-        
-//        self.view.clipsToBounds = true
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
@@ -410,12 +401,5 @@ class Player {
         }
         
         setXY(x: self.x, y: self.y)
-        
-//        self.view.animationDuration = 0.55
-//        self.view.startAnimating()
-    }
-    
-    static func scale(image: UIImage) -> UIImage {
-        return scaleUIImageToSize(image: image, size: CGSize(width: Block.width * 2, height: Block.height * 2))
     }
 }

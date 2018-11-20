@@ -20,8 +20,9 @@ class Bullet {
 
     static let moveSpeed: CGFloat = 3
     
-    static let color: UIColor = UIColor.white
-    
+    static let color: UIColor = UIColor.clear
+//    static let color: UIColor = UIColor.red
+
     // VARIABLES
     
     var x: CGFloat = 0
@@ -29,8 +30,8 @@ class Bullet {
     
     var xSpeed: CGFloat = 0
     
-    var view: UIView = UIView()
-    
+    var view: UIImageView = UIImageView()
+
     init(x: CGFloat, y: CGFloat, direction: String) {
         
         if direction == "left" {
@@ -51,7 +52,17 @@ class Bullet {
         
         self.view.layer.cornerRadius = Bullet.radius
         
-//        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.contentMode = .scaleAspectFill
+        
+        self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        
+        self.view.image = UIImage(named: "bulletRight")
+        
+        if direction == "left" {
+            self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+        } else if direction == "right" {
+            self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+        }
     }
     
     func setXY(x: CGFloat, y: CGFloat) {

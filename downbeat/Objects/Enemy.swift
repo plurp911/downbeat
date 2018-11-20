@@ -18,7 +18,10 @@ class Enemy {
 //
 //    static let ySpeedChange: CGFloat = 0.08
     
-    static let color: UIColor = UIColor.black
+    static let color: UIColor = UIColor.clear
+//    static let color: UIColor = UIColor.red
+    
+    static let followerImages = [UIImage(named: "follower1"), UIImage(named: "follower2"), UIImage(named: "follower3"), UIImage(named: "follower4"), UIImage(named: "follower5"), UIImage(named: "follower6")]
     
     // VARIABLES
     
@@ -59,7 +62,7 @@ class Enemy {
     
     var type: String = ""
     
-    var view: UIView = UIView()
+    var view: UIImageView = UIImageView()
     
     init(xPos: Int, yPos: Int, type: String) {
         
@@ -88,6 +91,20 @@ class Enemy {
         self.view.frame.size.height = self.height
         
         self.view.backgroundColor = Enemy.color
+        
+        self.view.contentMode = .scaleAspectFill
+        
+        self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        
+        if self.type == "follower" {
+
+            self.view.stopAnimating()
+            
+            self.view.animationImages = Enemy.followerImages as! [UIImage]
+            
+            self.view.animationDuration = 1
+            self.view.startAnimating()
+        }
     }
     
     func setXY(x: CGFloat, y: CGFloat) {
