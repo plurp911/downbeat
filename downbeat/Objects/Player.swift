@@ -29,12 +29,15 @@ class Player {
     static let hitBoxColor: UIColor = UIColor.red.withAlphaComponent(0.5)
 
     static let runRightImages = [Player.scale(image: UIImage(named: "playerRunRight1")!), Player.scale(image: UIImage(named: "playerRunRight2")!), Player.scale(image: UIImage(named: "playerRunRight3")!), Player.scale(image: UIImage(named: "playerRunRight2")!)]
+    static let runShootRightImages = [Player.scale(image: UIImage(named: "playerRunShootRight1")!), Player.scale(image: UIImage(named: "playerRunShootRight2")!), Player.scale(image: UIImage(named: "playerRunShootRight3")!), Player.scale(image: UIImage(named: "playerRunShootRight2")!)]
     
     static let jumpRightImage = Player.scale(image: UIImage(named: "playerJumpRight")!)
-    
-    static let standRightImage = Player.scale(image: UIImage(named: "playerStandRight")!)
+    static let jumpShootRightImage = Player.scale(image: UIImage(named: "playerJumpShootRight")!)
 
-    static let xShift: CGFloat = Block.width * 0.105
+    static let standRightImage = Player.scale(image: UIImage(named: "playerStandRight")!)
+    static let standShootRightImage = Player.scale(image: UIImage(named: "playerStandShootRight")!)
+
+    static let xShift: CGFloat = Block.width * 0.03
     static let yShift: CGFloat = Block.height * 0.4
 
     // VARIABLES
@@ -97,9 +100,9 @@ class Player {
         self.y = y
         
         if self.direction == "left" {
-            self.view.frame.origin.x = self.x - Player.width / 2 + Player.xShift
-        } else if self.direction == "right" {
             self.view.frame.origin.x = self.x - Player.width / 2 - Player.xShift
+        } else if self.direction == "right" {
+            self.view.frame.origin.x = self.x - Player.width / 2 + Player.xShift
         }
         
         self.view.frame.origin.y = self.y - Player.height / 2 + Player.yShift
