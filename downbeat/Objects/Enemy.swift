@@ -102,7 +102,7 @@ class Enemy {
             
             self.view.animationImages = Enemy.followerImages as! [UIImage]
             
-            self.view.animationDuration = 1
+            self.view.animationDuration = 0.85
             self.view.startAnimating()
         }
     }
