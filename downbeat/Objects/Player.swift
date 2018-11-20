@@ -173,7 +173,7 @@ class Player {
 
         if self.isJumping == true || self.isFalling == true {
             
-            setXY(x: self.x, y: self.y + ySpeed)
+            self.setXY(x: self.x, y: self.y + ySpeed)
             
             self.ySpeed += Player.ySpeedChange
             
@@ -401,5 +401,30 @@ class Player {
         }
         
         setXY(x: self.x, y: self.y)
+    }
+    
+    func handlePowerup(type: String) {
+        
+        if type == "largeHealth" {
+            
+            self.health += 30
+            
+            if self.health > Player.maxHealth {
+                self.health = Player.maxHealth
+            }
+        }
+        
+    }
+    
+    func didHitPowerup() -> Int {
+        
+        for i in 0 ..< powerups.count {
+            
+            if powerups[i].x + (powerups[i].width / 2) >= self.x - (Player.width / 2) && powerups[i].x - (powerups[i].width / 2) <= self.x + (Player.width / 2) && powerups[i].y + (powerups[i].width / 2) >= self.y - (Player.height / 2) && powerups[i].y - (powerups[i].width / 2) <= self.y + (Player.height / 2) {
+                return i
+            }
+        }
+        
+        return -1
     }
 }

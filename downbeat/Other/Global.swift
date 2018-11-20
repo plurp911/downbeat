@@ -37,6 +37,7 @@ var stages = [Stage]()
 
 var bullets = [Bullet]()
 var explosions = [Explosion]()
+var powerups = [Powerup]()
 
 var canMoveLeft: Bool = true
 var canMoveRight: Bool = true

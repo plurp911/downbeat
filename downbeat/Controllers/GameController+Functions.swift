@@ -56,6 +56,33 @@ extension GameController {
                 explosions.remove(at: explosionsToRemove[newI])
             }
             
+            var powerupsToRemove = [Int]()
+            
+            for i in 0 ..< powerups.count {
+                
+                powerups[i].move()
+                
+                if powerups[i].view.isAnimating == false || powerups[i].isInBounds() == false {
+                    powerupsToRemove.append(i)
+                }
+            }
+            
+            for i in 0 ..< powerupsToRemove.count {
+                
+                let newI = powerupsToRemove.count - i - 1
+                
+                powerups.remove(at: powerupsToRemove[newI])
+            }
+            
+            let powerupPos: Int = player.didHitPowerup()
+            
+            if powerupPos >= 0 {
+                
+                player.handlePowerup(type: powerups[powerupPos].type)
+                
+                powerups.remove(at: powerupPos)
+            }
+        
             var enemiesToRemove = [Int]()
             
             bulletsToRemove.removeAll()
@@ -77,6 +104,8 @@ extension GameController {
                         if currentStage.enemies[i].isDead() == true {
                             
                             explosions.append(Explosion(x: currentStage.enemies[i].x, y: currentStage.enemies[i].y))
+                            
+                            powerups.append(Powerup(x: currentStage.enemies[i].x, y: currentStage.enemies[i].y, type: "largeHealth"))
                             
                             enemiesToRemove.append(i)
                         }
@@ -124,6 +153,7 @@ extension GameController {
                             
                             moveBullets(direction: "left")
                             moveExplosions(direction: "left")
+                            movePowerups(direction: "left")
                             moveEnemies(direction: "left")
 
                             currentStage.moveBlocks()
@@ -150,6 +180,7 @@ extension GameController {
                         
                         moveBullets(direction: "right")
                         moveExplosions(direction: "right")
+                        movePowerups(direction: "right")
                         moveEnemies(direction: "right")
 
                         currentStage.moveBlocks()
@@ -194,6 +225,22 @@ extension GameController {
         
     }
     
+    func movePowerups(direction: String) {
+        
+        for i in 0 ..< powerups.count {
+            
+            if direction == "left" {
+                
+                powerups[i].setXY(x: powerups[i].x + Player.maxMoveSpeed, y: powerups[i].y)
+                
+            } else if direction == "right" {
+                
+                powerups[i].setXY(x: powerups[i].x - Player.maxMoveSpeed, y: powerups[i].y)
+            }
+        }
+        
+    }
+    
     func moveEnemies(direction: String) {
         
         for i in 0 ..< currentStage.enemies.count {
@@ -228,6 +275,10 @@ extension GameController {
         
         for e in explosions {
             gameView.addSubview(e.view)
+        }
+        
+        for p in powerups {
+            gameView.addSubview(p.view)
         }
 
         for e in currentStage.enemies {

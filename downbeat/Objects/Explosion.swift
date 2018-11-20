@@ -18,12 +18,12 @@ class Explosion {
         static let color: UIColor = UIColor.clear
 //    static let color: UIColor = UIColor.red
     
+    static let images = [UIImage(named: "explosion1"), UIImage(named: "explosion2"), UIImage(named: "explosion3"), UIImage(named: "explosion4")]
+
     // VARIABLES
     
     var x: CGFloat = 0
     var y: CGFloat = 0
-    
-    static let images = [UIImage(named: "explosion1"), UIImage(named: "explosion2"), UIImage(named: "explosion3"), UIImage(named: "explosion4")]
     
     var view: UIImageView = UIImageView()
     
@@ -50,7 +50,7 @@ class Explosion {
         
         self.view.animationRepeatCount = 1
 
-        self.view.animationDuration = 0.1375
+        self.view.animationDuration = 0.135
         self.view.startAnimating()
     }
     
