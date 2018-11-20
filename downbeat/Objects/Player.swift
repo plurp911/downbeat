@@ -14,8 +14,8 @@ class Player {
     
     static let maxHealth: CGFloat = 100
     
-    static let width: CGFloat = Block.width
-    static let height: CGFloat = Block.height
+    static let width: CGFloat = Block.width * 0.78
+    static let height: CGFloat = Block.height * 1.6
     
     static let maxFallSpeed: CGFloat = 3.5
     
@@ -26,7 +26,14 @@ class Player {
 //    static let color: UIColor = UIColor.lightGray
     static let color: UIColor = UIColor.clear
 
-    static let runRightImages = [UIImage(named: "playerRunRight1"), UIImage(named: "playerRunRight2"), UIImage(named: "playerRunRight3"), UIImage(named: "playerRunRight2")]
+    static let hitBoxColor: UIColor = UIColor.red.withAlphaComponent(0.5)
+
+    static let runRightImages = [Player.scale(image: UIImage(named: "playerRunRight1")!), Player.scale(image: UIImage(named: "playerRunRight2")!), Player.scale(image: UIImage(named: "playerRunRight3")!), Player.scale(image: UIImage(named: "playerRunRight2")!)]
+    
+    static let jumpRightImage = Player.scale(image: UIImage(named: "playerJumpRight")!)
+    
+    static let xShift: CGFloat = Block.width * 0.105
+    static let yShift: CGFloat = Block.height * 0.4
 
     // VARIABLES
 
@@ -54,22 +61,32 @@ class Player {
     var health: CGFloat = 0
     
     var direction: String = "right"
-
+    
     var view: UIImageView = UIImageView()
+    var hitBox: UIView = UIView()
 
     init() {
         
         self.health = Player.maxHealth
         
-        self.view.frame.origin.x = self.x - Player.width / 2
-        self.view.frame.origin.y = self.y - Player.height / 2
-        
+        setXY(x: self.x, y: self.y)
+    
         self.view.frame.size.width = Player.width
         self.view.frame.size.height = Player.height
         
         self.view.backgroundColor = Player.color
+
+//        self.view.contentMode = .scaleAspectFill
+        self.view.contentMode = .bottom
         
-//        self.view.image = UIImage(named: "player1")
+//        self.view.clipsToBounds = true
+        
+        self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        
+        self.hitBox.backgroundColor = Player.hitBoxColor
+        
+        self.hitBox.frame.size.width = Player.width
+        self.hitBox.frame.size.height = Player.height
     }
     
     func setXY(x: CGFloat, y: CGFloat) {
@@ -77,8 +94,16 @@ class Player {
         self.x = x
         self.y = y
         
-        self.view.frame.origin.x = self.x - Player.width / 2
-        self.view.frame.origin.y = self.y - Player.height / 2
+        if self.direction == "left" {
+            self.view.frame.origin.x = self.x - Player.width / 2 + Player.xShift
+        } else if self.direction == "right" {
+            self.view.frame.origin.x = self.x - Player.width / 2 - Player.xShift
+        }
+        
+        self.view.frame.origin.y = self.y - Player.height / 2 + Player.yShift
+        
+        self.hitBox.frame.origin.x = self.x - Player.width / 2
+        self.hitBox.frame.origin.y = self.y - Player.height / 2
     }
     
 //    func didHitGoal() -> Bool {
@@ -138,7 +163,11 @@ class Player {
     
     func move() {
         
-        xSpeed = 0
+        self.xSpeed = 0
+        
+        if self.ySpeed != 0 {
+            self.updateAnimation()
+        }
 
         if self.isJumping == true || self.isFalling == true {
             
@@ -275,20 +304,50 @@ class Player {
     
     func updateAnimation() {
         
-        if isMoving == true {
+        self.view.stopAnimating()
+        
+        if ySpeed != 0 {
+            
+            if direction == "left" {
+                
+                self.view.image = Player.jumpRightImage
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if direction == "right" {
+                
+                self.view.image = Player.jumpRightImage
+
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if isMoving == true {
             
             if isMovingLeft == true {
                 
-//                self.view.animationImages = Player.runRightImages as! [UIImage]
+                self.view.animationImages = Player.runRightImages as! [UIImage]
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+
+                self.view.animationDuration = 0.55
+                self.view.startAnimating()
                 
             } else if isMovingRight == true {
                 
                 self.view.animationImages = Player.runRightImages as! [UIImage]
 
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+
+                self.view.animationDuration = 0.55
+                self.view.startAnimating()
             }
         }
         
-        self.view.animationDuration = 0.55
-        self.view.startAnimating()
+//        self.view.animationDuration = 0.55
+//        self.view.startAnimating()
+    }
+    
+    static func scale(image: UIImage) -> UIImage {
+        return scaleUIImageToSize(image: image, size: CGSize(width: Block.width * 2, height: Block.height * 2))
     }
 }

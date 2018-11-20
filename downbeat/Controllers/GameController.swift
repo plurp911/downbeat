@@ -70,7 +70,10 @@ class GameController: UIViewController {
         print("JUMP")
         
         if player.isJumping == false && player.ySpeed == 0 {
+            
             player.jump()
+            
+            player.updateAnimation()
         }
     }
     
@@ -131,6 +134,8 @@ class GameController: UIViewController {
         player.isMovingLeft = true
         
         player.direction = "left"
+        
+        player.updateAnimation()
     }
     
     @objc func handleLeftCancel() {
