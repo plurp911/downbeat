@@ -37,6 +37,9 @@ var stages = [Stage]()
 
 var bullets = [Bullet]()
 
+var canMoveLeft: Bool = true
+var canMoveRight: Bool = true
+
 // OBJECTS
 
 var currentStage = Stage()

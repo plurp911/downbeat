@@ -32,6 +32,8 @@ class Player {
     
     static let jumpRightImage = Player.scale(image: UIImage(named: "playerJumpRight")!)
     
+    static let standRightImage = Player.scale(image: UIImage(named: "playerStandRight")!)
+
     static let xShift: CGFloat = Block.width * 0.105
     static let yShift: CGFloat = Block.height * 0.4
 
@@ -223,6 +225,8 @@ class Player {
                     self.ySpeed = 0
                     
                     setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
+                    
+                    self.updateAnimation()
                 }
             }
             
@@ -304,18 +308,28 @@ class Player {
     
     func updateAnimation() {
         
-        self.view.stopAnimating()
-        
+        print("RUN")
+            
         if ySpeed != 0 {
             
             if direction == "left" {
                 
+                self.view.stopAnimating()
+
+                canMoveLeft = true
+                canMoveRight = true
+
                 self.view.image = Player.jumpRightImage
                 
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
                 
             } else if direction == "right" {
                 
+                self.view.stopAnimating()
+                
+                canMoveLeft = true
+                canMoveRight = true
+
                 self.view.image = Player.jumpRightImage
 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -325,23 +339,68 @@ class Player {
             
             if isMovingLeft == true {
                 
-                self.view.animationImages = Player.runRightImages as! [UIImage]
-                
-                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                if canMoveLeft == true {
+                    
+                    canMoveLeft = false
+                    
+                    canMoveRight = true
 
-                self.view.animationDuration = 0.55
-                self.view.startAnimating()
+                    self.view.stopAnimating()
+
+                    self.view.animationImages = Player.runRightImages as! [UIImage]
+                    
+                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                    
+                    self.view.animationDuration = 0.55
+                    self.view.startAnimating()
+                }
                 
             } else if isMovingRight == true {
                 
-                self.view.animationImages = Player.runRightImages as! [UIImage]
+                if canMoveRight == true {
+                    
+                    canMoveRight = false
+                    
+                    canMoveLeft = true
 
+                    self.view.stopAnimating()
+                    
+                    self.view.animationImages = Player.runRightImages as! [UIImage]
+                    
+                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    
+                    self.view.animationDuration = 0.55
+                    self.view.startAnimating()
+                }
+            }
+            
+        } else if isMoving == false && ySpeed == 0 && isJumping == false && self.isFalling == false && self.isRising == false {
+            
+            if direction == "left" {
+                
+                self.view.stopAnimating()
+                
+                canMoveLeft = true
+                canMoveRight = true
+
+                self.view.image = Player.standRightImage
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if direction == "right" {
+                
+                self.view.stopAnimating()
+                
+                canMoveLeft = true
+                canMoveRight = true
+
+                self.view.image = Player.standRightImage
+                
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-
-                self.view.animationDuration = 0.55
-                self.view.startAnimating()
             }
         }
+        
+        setXY(x: self.x, y: self.y)
         
 //        self.view.animationDuration = 0.55
 //        self.view.startAnimating()

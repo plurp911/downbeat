@@ -21,7 +21,7 @@ class GameController: UIViewController {
     var isPaused: Bool = false
     
     var moveTimer = Timer()
-    
+
     var gameView: UIView = {
         let view = UIView()
         view.backgroundColor = gameViewColor
@@ -128,10 +128,10 @@ class GameController: UIViewController {
         
         print("LEFT")
         
-        handleRightCancel()
-        
         player.isMoving = true
         player.isMovingLeft = true
+        
+        player.isMovingRight = false
         
         player.direction = "left"
         
@@ -144,6 +144,8 @@ class GameController: UIViewController {
 
         player.isMoving = false
         player.isMovingLeft = false
+        
+        player.updateAnimation()
     }
     
     lazy var rightButton: UIButton = {
@@ -172,10 +174,10 @@ class GameController: UIViewController {
         
         print("RIGHT")
         
-        handleLeftCancel()
-        
         player.isMoving = true
         player.isMovingRight = true
+        
+        player.isMovingLeft = false
         
         player.direction = "right"
         
@@ -188,6 +190,8 @@ class GameController: UIViewController {
         
         player.isMoving = false
         player.isMovingRight = false
+        
+        player.updateAnimation()
     }
     
     override func viewDidLoad() {
