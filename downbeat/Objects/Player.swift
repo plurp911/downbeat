@@ -427,4 +427,14 @@ class Player {
         
         return -1
     }
+    
+    func stopJump() {
+        
+        self.isFalling = true
+        
+        self.isJumping = false
+        self.isRising = false
+        
+        self.ySpeed = 0
+    }
 }

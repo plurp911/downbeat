@@ -62,6 +62,11 @@ class GameController: UIViewController {
         button.titleLabel!.textAlignment = .center
         button.titleLabel!.numberOfLines = 1
         button.addTarget(self, action: #selector(handleJump), for: .touchDown)
+        button.addTarget(self, action: #selector(handleJumpCancel), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleJumpCancel), for: .touchUpOutside)
+        button.addTarget(self, action: #selector(handleJumpCancel), for: .touchCancel)
+        //        button.addTarget(self, action: #selector(handleJumpCancel), for: .touchDragExit)
+        //        button.addTarget(self, action: #selector(handleJumpCancel), for: .touchDragOutside)
         return button
     }()
     
@@ -74,6 +79,15 @@ class GameController: UIViewController {
             player.jump()
             
             player.updateAnimation()
+        }
+    }
+    
+    @objc func handleJumpCancel() {
+        
+        print("JUMP CANCEL")
+        
+        if player.isRising == true && player.isJumping == true && player.ySpeed < 0 {
+            player.stopJump()
         }
     }
     
