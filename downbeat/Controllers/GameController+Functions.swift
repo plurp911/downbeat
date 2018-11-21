@@ -60,6 +60,13 @@ extension GameController {
         if isPaused == false {
             
             player.move()
+            
+            if player.isInBounds() == false {
+                
+                print("GAME OVER")
+                
+//                handleGameOver()
+            }
 
             var bulletsToRemove = [Int]()
             

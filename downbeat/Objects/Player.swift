@@ -583,7 +583,10 @@ class Player {
         self.health -= damage
         
         if self.health <= 0 {
+            
             print("GAME OVER")
+
+//            handleGameOver()
         }
         
         self.endHitTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Player.hitTime), target: self, selector: #selector(endHit), userInfo: nil, repeats: false)
@@ -677,4 +680,12 @@ class Player {
 //        }
     }
     
+    func isInBounds() -> Bool {
+        
+        if self.y - (Player.height / 2) >= screenSize.height {
+            return false
+        }
+        
+        return true
+    }
 }
