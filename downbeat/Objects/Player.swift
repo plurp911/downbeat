@@ -565,7 +565,7 @@ class Player {
     
     func didHitEnemyBullet() -> Int {
         
-        for i in 0 ..< powerups.count {
+        for i in 0 ..< enemyBullets.count {
             
             if enemyBullets[i].x + (enemyBullets[i].radius) >= self.x - (Player.width / 2) && enemyBullets[i].x - (enemyBullets[i].radius) <= self.x + (Player.width / 2) && enemyBullets[i].y + (enemyBullets[i].radius) >= self.y - (Player.height / 2) && enemyBullets[i].y - (enemyBullets[i].radius) <= self.y + (Player.height / 2) {
                 return i
