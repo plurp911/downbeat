@@ -112,7 +112,10 @@ class GameController: UIViewController {
         print("SHOOT")
         
         if bullets.count < 3 {
+            
             player.shoot()
+            
+            player.updateAnimation()
         }
     }
     

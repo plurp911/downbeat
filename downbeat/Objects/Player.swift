@@ -17,11 +17,11 @@ class Player {
     static let width: CGFloat = Block.width * 0.75
     static let height: CGFloat = Block.height * 1.5
     
-    static let maxFallSpeed: CGFloat = 3.5
+    static let maxFallSpeed: CGFloat = 4
     
     static let maxMoveSpeed: CGFloat = 1
     
-    static let ySpeedChange: CGFloat = 0.095
+    static let ySpeedChange: CGFloat = 0.105
 
 //    static let color: UIColor = UIColor.lightGray
     static let color: UIColor = UIColor.clear
@@ -66,6 +66,8 @@ class Player {
     var health: CGFloat = 0
     
     var direction: String = "right"
+    
+    var shootTimer = Timer()
     
     var view: UIImageView = UIImageView()
     var hitBox: UIView = UIView()
@@ -292,18 +294,35 @@ class Player {
     
     func shoot() {
         
-        self.isShooting = true
+        canMoveLeft = true
+        canMoveRight = true
         
-        if self.direction == "left" {
+        if self.isShooting == false {
             
-            bullets.append(Bullet(x: self.x - (Player.width / 2), y: self.y, direction: self.direction))
+            self.isShooting = true
 
-        } else if self.direction == "right" {
+            self.shootTimer = Timer.scheduledTimer(timeInterval: 0.125, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             
-            bullets.append(Bullet(x: self.x + (Player.width / 2), y: self.y, direction: self.direction))
+            if self.direction == "left" {
+                
+                bullets.append(Bullet(x: self.x - (Player.width / 2), y: self.y, direction: self.direction))
+                
+            } else if self.direction == "right" {
+                
+                bullets.append(Bullet(x: self.x + (Player.width / 2), y: self.y, direction: self.direction))
+            }
         }
         
+    }
+    
+    @objc func stopShoot() {
+        
+        canMoveLeft = true
+        canMoveRight = true
+        
         self.isShooting = false
+        
+        player.updateAnimation()
     }
     
     func updateAnimation() {
@@ -318,8 +337,12 @@ class Player {
 
                 canMoveLeft = true
                 canMoveRight = true
-
-                self.view.image = Player.jumpRightImage
+                
+                if self.isShooting == true {
+                    self.view.image = Player.jumpShootRightImage
+                } else {
+                    self.view.image = Player.jumpRightImage
+                }
                 
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
                 
@@ -330,8 +353,12 @@ class Player {
                 canMoveLeft = true
                 canMoveRight = true
 
-                self.view.image = Player.jumpRightImage
-
+                if self.isShooting == true {
+                    self.view.image = Player.jumpShootRightImage
+                } else {
+                    self.view.image = Player.jumpRightImage
+                }
+                
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
             
@@ -346,8 +373,12 @@ class Player {
                     canMoveRight = true
 
                     self.view.stopAnimating()
-
-                    self.view.animationImages = Player.runRightImages as! [UIImage]
+                    
+                    if self.isShooting == true {
+                        self.view.animationImages = Player.runShootRightImages as! [UIImage]
+                    } else {
+                        self.view.animationImages = Player.runRightImages as! [UIImage]
+                    }
                     
                     self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
                     
@@ -365,7 +396,11 @@ class Player {
 
                     self.view.stopAnimating()
                     
-                    self.view.animationImages = Player.runRightImages as! [UIImage]
+                    if self.isShooting == true {
+                        self.view.animationImages = Player.runShootRightImages as! [UIImage]
+                    } else {
+                        self.view.animationImages = Player.runRightImages as! [UIImage]
+                    }
                     
                     self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
                     
@@ -382,8 +417,12 @@ class Player {
                 
                 canMoveLeft = true
                 canMoveRight = true
-
-                self.view.image = Player.standRightImage
+                
+                if self.isShooting == true {
+                    self.view.image = Player.standShootRightImage
+                } else {
+                    self.view.image = Player.standRightImage
+                }
                 
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
                 
@@ -394,7 +433,11 @@ class Player {
                 canMoveLeft = true
                 canMoveRight = true
 
-                self.view.image = Player.standRightImage
+                if self.isShooting == true {
+                    self.view.image = Player.standShootRightImage
+                } else {
+                    self.view.image = Player.standRightImage
+                }
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
