@@ -120,15 +120,6 @@ class Enemy {
         self.view.frame.origin.y = self.y - self.height / 2
     }
     
-    //    func didHitGoal() -> Bool {
-    //
-    ////        if distance(x1: goal.x, y1: goal.y, x2: player.x, y2: player.y) <= Player.radius + (Goal.width / 2) {
-    ////            return true
-    ////        }
-    //
-    //        return false
-    //    }
-    
     func reset() {
         
         if self.type == "follower" {
@@ -237,137 +228,34 @@ class Enemy {
         return false
     }
     
-//    func move() {
-//
-//        xSpeed = 0
-//
-//        if self.isJumping == true || self.isFalling == true {
-//
-//            setXY(x: self.x, y: self.y + ySpeed)
-//
-//            self.ySpeed += Player.ySpeedChange
-//
-//            if self.ySpeed > 0 {
-//
-//                self.isFalling = true
-//
-//                self.isRising = false
-//
-//                if self.ySpeed > Player.maxFallSpeed {
-//                    self.ySpeed = Player.maxFallSpeed
-//                }
-//
-//            } else if ySpeed < 0 {
-//
-//                self.isRising = true
-//
-//                self.isFalling = false
-//            }
-//        }
-//
-//        if self.isMoving == true {
-//
-//            var isEmpty: Bool = true
-//
-//            for block in currentStage.blocks {
-//
-//                if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
-//
-//                    isEmpty = false
-//                }
-//            }
-//
-//            if isEmpty == true {
-//
-//                self.isFalling = true
-//            }
-//        }
-//
-//        if self.isFalling == true {
-//
-//            for block in currentStage.blocks {
-//
-//                if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
-//
-//                    self.isJumping = false
-//                    self.isFalling = false
-//
-//                    self.ySpeed = 0
-//
-//                    setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
-//                }
-//            }
-//
-//        } else if isRising == true {
-//
-//            for block in currentStage.blocks {
-//
-//                if self.y - (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
-//
-//                    self.isFalling = true
-//
-//                    self.isJumping = false
-//                    self.isRising = false
-//
-//                    self.ySpeed = 0
-//
-//                    setXY(x: self.x, y: block.y + (Block.height / 2) + (Player.height / 2))
-//                }
-//            }
-//
-//        }
-//
-//        if isMoving == true {
-//
-//            self.canMove = true
-//
-//            for block in currentStage.blocks {
-//
-//                if self.isMovingRight == true {
-//
-//                    if self.x + (Player.width / 2) + Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x + (Player.width / 2) + Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
-//
-//                        self.canMove = false
-//
-//                        setXY(x: block.x - (Block.width / 2) - (Player.width / 2) - Player.maxMoveSpeed, y: self.y)
-//                    }
-//
-//                } else if self.isMovingLeft == true {
-//
-//                    if self.x - (Player.width / 2) - Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x - (Player.width / 2) - Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
-//
-//                        self.canMove = false
-//
-//                        setXY(x: block.x + (Block.width / 2) + (Player.width / 2), y: self.y)
-//                    }
-//                }
-//
-//            }
-//        }
-//
-//    }
-//
 //    func jump() {
 //
-//        self.isJumping = true
-//        self.isRising = true
-//
-//        self.ySpeed = -Player.maxFallSpeed
 //    }
-//
-//    func shoot() {
-//
-//        self.isShooting = true
-//
-//        if self.direction == "left" {
-//
-//            bullets.append(Bullet(x: self.x - (Player.width / 2), y: self.y, direction: self.direction))
-//
-//        } else if self.direction == "right" {
-//
-//            bullets.append(Bullet(x: self.x + (Player.width / 2), y: self.y, direction: self.direction))
-//        }
-//
-//        self.isShooting = false
-//    }
+
+    func shoot() {
+
+        if self.isShooting == false {
+            
+            self.isShooting = true
+            
+//            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.125, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            
+            if self.direction == "left" {
+                
+                if self.type == "shooter" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0, type: "enemyBullet"))
+                }
+                
+            } else if self.direction == "right" {
+                
+                if self.type == "shooter" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0, type: "enemyBullet"))
+                }
+            }
+            
+        }
+    }
+    
 }

@@ -543,7 +543,7 @@ class Player {
         
         for i in 0 ..< powerups.count {
             
-            if powerups[i].x + (powerups[i].width / 2) >= self.x - (Player.width / 2) && powerups[i].x - (powerups[i].width / 2) <= self.x + (Player.width / 2) && powerups[i].y + (powerups[i].width / 2) >= self.y - (Player.height / 2) && powerups[i].y - (powerups[i].width / 2) <= self.y + (Player.height / 2) {
+            if powerups[i].x + (powerups[i].width / 2) >= self.x - (Player.width / 2) && powerups[i].x - (powerups[i].width / 2) <= self.x + (Player.width / 2) && powerups[i].y + (powerups[i].height / 2) >= self.y - (Player.height / 2) && powerups[i].y - (powerups[i].height / 2) <= self.y + (Player.height / 2) {
                 return i
             }
         }
@@ -555,7 +555,19 @@ class Player {
         
         for i in 0 ..< currentStage.enemies.count {
             
-            if currentStage.enemies[i].x + (currentStage.enemies[i].width / 2) >= self.x - (Player.width / 2) && currentStage.enemies[i].x - (currentStage.enemies[i].width / 2) <= self.x + (Player.width / 2) && currentStage.enemies[i].y + (currentStage.enemies[i].width / 2) >= self.y - (Player.height / 2) && currentStage.enemies[i].y - (currentStage.enemies[i].width / 2) <= self.y + (Player.height / 2) {
+            if currentStage.enemies[i].x + (currentStage.enemies[i].width / 2) >= self.x - (Player.width / 2) && currentStage.enemies[i].x - (currentStage.enemies[i].width / 2) <= self.x + (Player.width / 2) && currentStage.enemies[i].y + (currentStage.enemies[i].height / 2) >= self.y - (Player.height / 2) && currentStage.enemies[i].y - (currentStage.enemies[i].height / 2) <= self.y + (Player.height / 2) {
+                return i
+            }
+        }
+        
+        return -1
+    }
+    
+    func didHitEnemyBullet() -> Int {
+        
+        for i in 0 ..< powerups.count {
+            
+            if enemyBullets[i].x + (enemyBullets[i].radius) >= self.x - (Player.width / 2) && enemyBullets[i].x - (enemyBullets[i].radius) <= self.x + (Player.width / 2) && enemyBullets[i].y + (enemyBullets[i].radius) >= self.y - (Player.height / 2) && enemyBullets[i].y - (enemyBullets[i].radius) <= self.y + (Player.height / 2) {
                 return i
             }
         }

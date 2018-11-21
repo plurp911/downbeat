@@ -24,6 +24,7 @@
 		92086A8121A2D3C600AB51F8 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8021A2D3C600AB51F8 /* Enemy.swift */; };
 		92086A8321A412D100AB51F8 /* Explosion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8221A412D100AB51F8 /* Explosion.swift */; };
 		92086A8521A41B0500AB51F8 /* Powerup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8421A41B0500AB51F8 /* Powerup.swift */; };
+		92086A8721A5571C00AB51F8 /* EnemyBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8621A5571B00AB51F8 /* EnemyBullet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		92086A8021A2D3C600AB51F8 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		92086A8221A412D100AB51F8 /* Explosion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Explosion.swift; sourceTree = "<group>"; };
 		92086A8421A41B0500AB51F8 /* Powerup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Powerup.swift; sourceTree = "<group>"; };
+		92086A8621A5571B00AB51F8 /* EnemyBullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyBullet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 			children = (
 				92086A7121A2440700AB51F8 /* Player.swift */,
 				92086A7621A279E200AB51F8 /* Block.swift */,
+				92086A8621A5571B00AB51F8 /* EnemyBullet.swift */,
 				92086A7E21A2B11800AB51F8 /* Bullet.swift */,
 				92086A8021A2D3C600AB51F8 /* Enemy.swift */,
 				92086A8221A412D100AB51F8 /* Explosion.swift */,
@@ -312,6 +315,7 @@
 			files = (
 				92086A7221A2440700AB51F8 /* Player.swift in Sources */,
 				92086A4421A23B5000AB51F8 /* GameController.swift in Sources */,
+				92086A8721A5571C00AB51F8 /* EnemyBullet.swift in Sources */,
 				92086A8521A41B0500AB51F8 /* Powerup.swift in Sources */,
 				92086A7D21A283E600AB51F8 /* Stage.swift in Sources */,
 				92086A7921A2829800AB51F8 /* GameController+Stages.swift in Sources */,
