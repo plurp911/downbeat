@@ -127,7 +127,7 @@ extension GameController {
             if enemyPos >= 0 {
                 
                 if player.isHit == false {
-                    player.handleHit(damage: currentStage.enemies[enemyPos].damage)
+                    player.handleHit(damage: currentStage.enemies[enemyPos].damage, enemyDirection: currentStage.enemies[enemyPos].direction)
                 }
             }
         

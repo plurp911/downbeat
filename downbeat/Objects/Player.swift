@@ -22,7 +22,7 @@ class Player {
     static let maxMoveSpeed: CGFloat = 1
     
 //    static let knockBackMoveSpeed: CGFloat = 0.5
-    static let knockBackMoveSpeed: CGFloat = 0.45
+    static let knockBackMoveSpeed: CGFloat = 0.425
 
     static let ySpeedChange: CGFloat = 0.105
 
@@ -573,7 +573,7 @@ class Player {
         self.ySpeed = 0
     }
     
-    func handleHit(damage: Int) {
+    func handleHit(damage: Int, enemyDirection: String) {
         
 //        canMoveLeft = true
 //        canMoveRight = true
@@ -589,12 +589,12 @@ class Player {
         self.endHitTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Player.hitTime), target: self, selector: #selector(endHit), userInfo: nil, repeats: false)
         self.hitAnimationTimer = Timer.scheduledTimer(timeInterval: Player.animationCycleTime * 0.075, target: self, selector: #selector(handleHitAnimation), userInfo: nil, repeats: true)
 
-        self.handleKnockBack()
+        self.handleKnockBack(enemyDirection: enemyDirection)
         
 //        self.updateAnimation()
     }
     
-    func handleKnockBack() {
+    func handleKnockBack(enemyDirection: String) {
         
         //        canMoveLeft = true
         //        canMoveRight = true
@@ -608,7 +608,7 @@ class Player {
         
         self.isMoving = true
         
-        if direction == "left" {
+        if enemyDirection == "right" {
             
             direction = "right"
             
@@ -616,7 +616,7 @@ class Player {
             
             self.isMovingLeft = false
         
-        } else if direction == "right" {
+        } else if enemyDirection == "left" {
             
             direction = "left"
             
