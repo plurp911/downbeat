@@ -74,12 +74,16 @@ class GameController: UIViewController {
         
         print("JUMP")
         
-        if player.isJumping == false && player.ySpeed == 0 {
+        if player.isKnockedBack == false {
             
-            player.jump()
-            
-            player.updateAnimation()
+            if player.isJumping == false && player.ySpeed == 0 {
+                
+                player.jump()
+                
+                player.updateAnimation()
+            }
         }
+        
     }
     
     @objc func handleJumpCancel() {
@@ -111,12 +115,16 @@ class GameController: UIViewController {
         
         print("SHOOT")
         
-        if bullets.count < 3 {
+        if player.isKnockedBack == false {
             
-            player.shoot()
-            
-            player.updateAnimation()
+            if bullets.count < 3 {
+                
+                player.shoot()
+                
+                player.updateAnimation()
+            }
         }
+        
     }
     
     lazy var leftButton: UIButton = {
@@ -143,26 +151,32 @@ class GameController: UIViewController {
     
     @objc func handleLeft() {
         
-        print("LEFT")
-        
-        player.isMoving = true
-        player.isMovingLeft = true
-        
-        player.isMovingRight = false
-        
-        player.direction = "left"
-        
-        player.updateAnimation()
+        if player.isKnockedBack == false {
+            
+            print("LEFT")
+            
+            player.isMoving = true
+            player.isMovingLeft = true
+            
+            player.isMovingRight = false
+            
+            player.direction = "left"
+            
+            player.updateAnimation()
+        }
     }
     
     @objc func handleLeftCancel() {
         
         print("LEFT CANCEL")
 
-        player.isMoving = false
-        player.isMovingLeft = false
+//        if player.isKnockedBack == false {
         
-        player.updateAnimation()
+            player.isMoving = false
+            player.isMovingLeft = false
+            
+            player.updateAnimation()
+//        }
     }
     
     lazy var rightButton: UIButton = {
@@ -189,26 +203,32 @@ class GameController: UIViewController {
     
     @objc func handleRight() {
         
-        print("RIGHT")
-        
-        player.isMoving = true
-        player.isMovingRight = true
-        
-        player.isMovingLeft = false
-        
-        player.direction = "right"
-        
-        player.updateAnimation()
+        if player.isKnockedBack == false {
+            
+            print("RIGHT")
+            
+            player.isMoving = true
+            player.isMovingRight = true
+            
+            player.isMovingLeft = false
+            
+            player.direction = "right"
+            
+            player.updateAnimation()
+        }
     }
     
     @objc func handleRightCancel() {
         
         print("RIGHT CANCEL")
         
-        player.isMoving = false
-        player.isMovingRight = false
+//        if player.isKnockedBack == false {
         
-        player.updateAnimation()
+            player.isMoving = false
+            player.isMovingRight = false
+            
+            player.updateAnimation()
+//        }
     }
     
     override func viewDidLoad() {

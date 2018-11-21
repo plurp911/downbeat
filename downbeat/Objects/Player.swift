@@ -27,29 +27,25 @@ class Player {
     static let color: UIColor = UIColor.clear
 
     static let hitBoxColor: UIColor = UIColor.red.withAlphaComponent(0.5)
+    
+    static let knockedBackRightImages = [UIImage(named: "playerKnockedBackRight1"), UIImage(named: "playerKnockedBackRight2"), UIImage(named: "playerKnockedBackRight1"), UIImage(named: "playerKnockedBackRight2"), UIImage(named: "playerKnockedBackRight1")]
 
     static let runRightImages = [UIImage(named: "playerRunRight1"), UIImage(named: "playerRunRight2"), UIImage(named: "playerRunRight3"), UIImage(named: "playerRunRight2")]
-    static let runRightHitImages = [UIImage(named: "playerRunRight1"), UIImage(named: "empty"), UIImage(named: "playerRunRight2"), UIImage(named: "empty"), UIImage(named: "playerRunRight3"), UIImage(named: "empty"), UIImage(named: "playerRunRight2"), UIImage(named: "empty")]
-
     static let runShootRightImages = [UIImage(named: "playerRunShootRight1"), UIImage(named: "playerRunShootRight2"), UIImage(named: "playerRunShootRight3"), UIImage(named: "playerRunShootRight2")]
-    static let runShootRightHitImages = [UIImage(named: "playerRunShootRight1"), UIImage(named: "empty"), UIImage(named: "playerRunShootRight2"), UIImage(named: "empty"), UIImage(named: "playerRunShootRight3"), UIImage(named: "empty"), UIImage(named: "playerRunShootRight2"), UIImage(named: "empty")]
 
     static let jumpRightImage = UIImage(named: "playerJumpRight")
-    static let jumpRightHitImages = [UIImage(named: "playerJumpRight"), UIImage(named: "empty")]
-
     static let jumpShootRightImage = UIImage(named: "playerJumpShootRight")
-    static let jumpShootRightHitImages = [UIImage(named: "playerJumpShootRight"), UIImage(named: "empty")]
 
     static let standRightImage = UIImage(named: "playerStandRight")
-    static let standRightHitImages = [UIImage(named: "playerStandRight"), UIImage(named: "empty")]
-
     static let standShootRightImage = UIImage(named: "playerStandShootRight")
-    static let standShootRightHitImages = [UIImage(named: "playerStandShootRight"), UIImage(named: "empty")]
 
     static let xShift: CGFloat = Block.width * (16 / 30)
     static let yShift: CGFloat = Block.height * 0
     
     static let animationCycleTime: Double = 0.55
+
+    static let hitTime: CGFloat = 3
+    static let knockBackTime: CGFloat = 0.675
 
     // VARIABLES
 
@@ -69,6 +65,8 @@ class Player {
     
     var isHit: Bool = false
     
+    var isKnockedBack: Bool = false
+
     var isMovingLeft: Bool = false
     var isMovingRight: Bool = false
 
@@ -78,11 +76,13 @@ class Player {
     
     var direction: String = "right"
     
-    var shootTimer = Timer()
+    var endShootTimer = Timer()
     
     var endHitTimer = Timer()
     var hitAnimationTimer = Timer()
     
+    var endKnockBackTimer = Timer()
+
     var view: UIImageView = UIImageView()
     var hitBox: UIView = UIView()
 
@@ -315,7 +315,7 @@ class Player {
             
             self.isShooting = true
 
-            self.shootTimer = Timer.scheduledTimer(timeInterval: 0.125, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.125, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             
             if self.direction == "left" {
                 
@@ -342,8 +342,28 @@ class Player {
     func updateAnimation() {
         
         print("RUN")
+        
+        if self.isKnockedBack == true {
             
-        if ySpeed != 0 {
+            if canBeKnockedBack == true {
+                
+                canBeKnockedBack = false
+                
+                if direction == "left" {
+                    
+                    self.handleKnockedBackAnimation()
+                    
+                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                    
+                } else if direction == "right" {
+                    
+                    self.handleKnockedBackAnimation()
+                    
+                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
+            }
+            
+        } else if self.ySpeed != 0 {
             
             if direction == "left" {
 
@@ -406,6 +426,16 @@ class Player {
         setXY(x: self.x, y: self.y)
     }
     
+    func handleKnockedBackAnimation() {
+        
+        self.view.stopAnimating()
+        
+        self.view.animationImages = Player.knockedBackRightImages as! [UIImage]
+        
+        self.view.animationDuration = (Double)(Player.knockBackTime)
+        self.view.startAnimating()
+    }
+    
     func handleJumpAnimation() {
         
         self.view.stopAnimating()
@@ -415,37 +445,12 @@ class Player {
         
         if self.isShooting == true {
             
-//            if self.isHit == true {
-//
-//                self.view.animationImages = Player.jumpShootRightHitImages as! [UIImage]
-//
-//                self.view.animationDuration = Player.animationCycleTime * 0.5
-//                self.view.startAnimating()
-//
-//            } else {
-//
-//                self.view.image = Player.jumpShootRightImage
-//            }
-            
             self.view.image = Player.jumpShootRightImage
 
         } else {
             
-//            if self.isHit == true {
-//
-//                self.view.animationImages = Player.jumpRightHitImages as! [UIImage]
-//
-//                self.view.animationDuration = Player.animationCycleTime * 0.5
-//                self.view.startAnimating()
-//
-//            } else {
-//
-//                self.view.image = Player.jumpRightImage
-//            }
-            
             self.view.image = Player.jumpRightImage
         }
-        
     }
     
     func handleRunAnimation() {
@@ -453,22 +458,7 @@ class Player {
         self.view.stopAnimating()
         
         if self.isShooting == true {
-            
-//            if self.isHit == true {
-//
-//                self.view.animationImages = Player.runShootRightHitImages as! [UIImage]
-//
-//                self.view.animationDuration = Player.animationCycleTime * 2
-//                self.view.startAnimating()
-//
-//            } else {
-//
-//                self.view.animationImages = Player.runShootRightImages as! [UIImage]
-//
-//                self.view.animationDuration = Player.animationCycleTime
-//                self.view.startAnimating()
-//            }
-            
+
             self.view.animationImages = Player.runShootRightImages as! [UIImage]
             
             self.view.animationDuration = Player.animationCycleTime
@@ -476,27 +466,11 @@ class Player {
             
         } else {
             
-//            if self.isHit == true {
-//
-//                self.view.animationImages = Player.runRightHitImages as! [UIImage]
-//
-//                self.view.animationDuration = Player.animationCycleTime * 2
-//                self.view.startAnimating()
-//
-//            } else {
-//
-//                self.view.animationImages = Player.runRightImages as! [UIImage]
-//
-//                self.view.animationDuration = Player.animationCycleTime
-//                self.view.startAnimating()
-//            }
-            
             self.view.animationImages = Player.runRightImages as! [UIImage]
             
             self.view.animationDuration = Player.animationCycleTime
             self.view.startAnimating()
         }
-        
     }
     
     func handleStandAnimation() {
@@ -508,37 +482,12 @@ class Player {
         
         if self.isShooting == true {
             
-//            if self.isHit == true {
-//
-//                self.view.animationImages = Player.standShootRightHitImages as! [UIImage]
-//
-//                self.view.animationDuration = Player.animationCycleTime * 0.5
-//                self.view.startAnimating()
-//
-//            } else {
-//
-//                self.view.image = Player.standShootRightImage
-//            }
-            
             self.view.image = Player.standShootRightImage
 
         } else {
-            
-//            if self.isHit == true {
-//
-//                self.view.animationImages = Player.standRightHitImages as! [UIImage]
-//
-//                self.view.animationDuration = Player.animationCycleTime * 0.5
-//                self.view.startAnimating()
-//
-//            } else {
-//
-//                self.view.image = Player.standRightImage
-//            }
-            
+
             self.view.image = Player.standRightImage
         }
-        
     }
     
     func handlePowerup(type: String) {
@@ -590,8 +539,6 @@ class Player {
     
     func handleHit(damage: Int) {
         
-        print("000000000000000000")
-        
 //        canMoveLeft = true
 //        canMoveRight = true
         
@@ -603,10 +550,36 @@ class Player {
             print("GAME OVER")
         }
         
-        self.endHitTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(endHit), userInfo: nil, repeats: false)
+        self.endHitTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Player.hitTime), target: self, selector: #selector(endHit), userInfo: nil, repeats: false)
         self.hitAnimationTimer = Timer.scheduledTimer(timeInterval: Player.animationCycleTime / 5, target: self, selector: #selector(handleHitAnimation), userInfo: nil, repeats: true)
 
+        self.handleKnockBack()
+        
 //        self.updateAnimation()
+    }
+    
+    func handleKnockBack() {
+        
+        //        canMoveLeft = true
+        //        canMoveRight = true
+        
+        self.isKnockedBack = true
+        
+        endKnockBackTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Player.knockBackTime), target: self, selector: #selector(endKnockBack), userInfo: nil, repeats: false)
+        
+        self.updateAnimation()
+    }
+    
+    @objc func endKnockBack() {
+        
+        canMoveLeft = true
+        canMoveRight = true
+        
+        canBeKnockedBack = true
+        
+        self.isKnockedBack = false
+        
+        player.updateAnimation()
     }
     
     @objc func endHit() {
@@ -624,6 +597,10 @@ class Player {
     }
     
     @objc func handleHitAnimation() {
-        self.view.isHidden = !self.view.isHidden
+        
+        if self.isKnockedBack == false {
+            self.view.isHidden = !self.view.isHidden
+        }
     }
+    
 }
