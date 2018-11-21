@@ -38,9 +38,9 @@ class EnemyBullet {
         
         self.type = type
         
-        if self.type == "enemyBullet" {
+        if self.type == "smallEnemyBullet" {
            
-            self.radius = Block.width * (8 / 16) * (1 / 2)
+            self.radius = Block.width * (6 / 16) * (1 / 2)
             
             self.damage = 5
         }
