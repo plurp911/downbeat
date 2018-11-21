@@ -72,7 +72,11 @@ class Stage {
         
         if direction == "left" {
             
-            self.x += Player.maxMoveSpeed
+            if player.isKnockedBack == true {
+                self.x += Player.knockBackMoveSpeed
+            } else {
+                self.x += Player.maxMoveSpeed
+            }
             
 //            if self.x >= ((CGFloat)(numberOfHorizontalBlocks)) * Block.width {
 //                self.x = ((CGFloat)(numberOfHorizontalBlocks)) * Block.width
@@ -80,7 +84,11 @@ class Stage {
             
         } else if direction == "right" {
             
-            self.x -= Player.maxMoveSpeed
+            if player.isKnockedBack == true {
+                self.x -= Player.knockBackMoveSpeed
+            } else {
+                self.x -= Player.maxMoveSpeed
+            }
             
 //            if self.x <= 0 {
 //                self.x = 0

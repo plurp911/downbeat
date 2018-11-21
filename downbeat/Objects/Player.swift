@@ -21,6 +21,9 @@ class Player {
     
     static let maxMoveSpeed: CGFloat = 1
     
+//    static let knockBackMoveSpeed: CGFloat = 0.5
+    static let knockBackMoveSpeed: CGFloat = 0.45
+
     static let ySpeedChange: CGFloat = 0.105
 
 //    static let color: UIColor = UIColor.lightGray
@@ -28,7 +31,7 @@ class Player {
 
     static let hitBoxColor: UIColor = UIColor.red.withAlphaComponent(0.5)
     
-    static let knockedBackRightImages = [UIImage(named: "playerKnockedBackRight1"), UIImage(named: "playerKnockedBackRight2"), UIImage(named: "playerKnockedBackRight1"), UIImage(named: "playerKnockedBackRight2"), UIImage(named: "playerKnockedBackRight1")]
+    static let knockedBackRightImages = [UIImage(named: "playerKnockedBackRight1"), UIImage(named: "playerKnockedBackRight2"), UIImage(named: "playerKnockedBackRight1"), UIImage(named: "playerKnockedBackRight2"), UIImage(named: "playerKnockedBackRight1"), UIImage(named: "playerKnockedBackRight2")]
 
     static let runRightImages = [UIImage(named: "playerRunRight1"), UIImage(named: "playerRunRight2"), UIImage(named: "playerRunRight3"), UIImage(named: "playerRunRight2")]
     static let runShootRightImages = [UIImage(named: "playerRunShootRight1"), UIImage(named: "playerRunShootRight2"), UIImage(named: "playerRunShootRight3"), UIImage(named: "playerRunShootRight2")]
@@ -46,8 +49,8 @@ class Player {
 
     static let hitTime: CGFloat = 2
     
-//    static let knockBackTime: CGFloat = 0.675
-    static let knockBackTime: CGFloat = 0.3375
+//    static let knockBackTime: CGFloat = 0.3375
+    static let knockBackTime: CGFloat = 0.475
 
     // VARIABLES
 
@@ -169,13 +172,21 @@ class Player {
         
         if self.direction == "left" {
             
-            xSpeed = -Player.maxMoveSpeed
+            if self.isKnockedBack == true {
+                self.xSpeed = -Player.knockBackMoveSpeed
+            } else {
+                self.xSpeed = -Player.maxMoveSpeed
+            }
             
             setXY(x: self.x + self.xSpeed, y: self.y)
             
         } else if self.direction == "right" {
             
-            xSpeed = Player.maxMoveSpeed
+            if self.isKnockedBack == true {
+                self.xSpeed = Player.knockBackMoveSpeed
+            } else {
+                self.xSpeed = Player.maxMoveSpeed
+            }
             
             setXY(x: self.x + self.xSpeed, y: self.y)
         }
@@ -278,21 +289,46 @@ class Player {
                 
                 if self.isMovingRight == true {
                     
-                    if self.x + (Player.width / 2) + Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x + (Player.width / 2) + Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                    if self.isKnockedBack == true {
                         
-                        self.canMove = false
+                        if self.x + (Player.width / 2) + Player.knockBackMoveSpeed < block.x + (Block.width / 2) && self.x + (Player.width / 2) + Player.knockBackMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            self.canMove = false
+                            
+                            setXY(x: block.x - (Block.width / 2) - (Player.width / 2) - Player.knockBackMoveSpeed, y: self.y)
+                        }
                         
-                        setXY(x: block.x - (Block.width / 2) - (Player.width / 2) - Player.maxMoveSpeed, y: self.y)
+                    } else {
+                        
+                        if self.x + (Player.width / 2) + Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x + (Player.width / 2) + Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            self.canMove = false
+                            
+                            setXY(x: block.x - (Block.width / 2) - (Player.width / 2) - Player.maxMoveSpeed, y: self.y)
+                        }
                     }
                     
                 } else if self.isMovingLeft == true {
                     
-                    if self.x - (Player.width / 2) - Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x - (Player.width / 2) - Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
-                        
-                        self.canMove = false
+                    if self.isKnockedBack == true {
 
-                        setXY(x: block.x + (Block.width / 2) + (Player.width / 2), y: self.y)
+                        if self.x - (Player.width / 2) - Player.knockBackMoveSpeed < block.x + (Block.width / 2) && self.x - (Player.width / 2) - Player.knockBackMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            self.canMove = false
+                            
+                            setXY(x: block.x + (Block.width / 2) + (Player.width / 2), y: self.y)
+                        }
+                        
+                    } else {
+                        
+                        if self.x - (Player.width / 2) - Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x - (Player.width / 2) - Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            self.canMove = false
+                            
+                            setXY(x: block.x + (Block.width / 2) + (Player.width / 2), y: self.y)
+                        }
                     }
+
                 }
                 
             }
@@ -551,7 +587,7 @@ class Player {
         }
         
         self.endHitTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Player.hitTime), target: self, selector: #selector(endHit), userInfo: nil, repeats: false)
-        self.hitAnimationTimer = Timer.scheduledTimer(timeInterval: Player.animationCycleTime / 5, target: self, selector: #selector(handleHitAnimation), userInfo: nil, repeats: true)
+        self.hitAnimationTimer = Timer.scheduledTimer(timeInterval: Player.animationCycleTime * 0.075, target: self, selector: #selector(handleHitAnimation), userInfo: nil, repeats: true)
 
         self.handleKnockBack()
         
@@ -562,6 +598,11 @@ class Player {
         
         //        canMoveLeft = true
         //        canMoveRight = true
+        
+        self.isJumping = true
+        self.isRising = true
+        
+        self.ySpeed = -Player.maxFallSpeed * 0.125
         
         self.isKnockedBack = true
         
@@ -631,9 +672,9 @@ class Player {
     
     @objc func handleHitAnimation() {
         
-        if self.isKnockedBack == false {
+//        if self.isKnockedBack == false {
             self.view.isHidden = !self.view.isHidden
-        }
+//        }
     }
     
 }

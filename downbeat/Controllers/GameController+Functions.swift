@@ -247,14 +247,22 @@ extension GameController {
             
             if direction == "left" {
                 
-                bullets[i].setXY(x: bullets[i].x + Player.maxMoveSpeed, y: bullets[i].y)
+                if player.isKnockedBack == true {
+                    bullets[i].setXY(x: bullets[i].x + Player.knockBackMoveSpeed, y: bullets[i].y)
+                } else {
+                    bullets[i].setXY(x: bullets[i].x + Player.maxMoveSpeed, y: bullets[i].y)
+                }
                 
             } else if direction == "right" {
                 
-                bullets[i].setXY(x: bullets[i].x - Player.maxMoveSpeed, y: bullets[i].y)
+                if player.isKnockedBack == true {
+                    bullets[i].setXY(x: bullets[i].x - Player.knockBackMoveSpeed, y: bullets[i].y)
+                } else {
+                    bullets[i].setXY(x: bullets[i].x - Player.maxMoveSpeed, y: bullets[i].y)
+                }
             }
+            
         }
-        
     }
     
     func moveExplosions(direction: String) {
@@ -263,14 +271,22 @@ extension GameController {
             
             if direction == "left" {
                 
-                explosions[i].setX(x: explosions[i].x + Player.maxMoveSpeed)
+                if player.isKnockedBack == true {
+                    explosions[i].setX(x: explosions[i].x + Player.knockBackMoveSpeed)
+                } else {
+                    explosions[i].setX(x: explosions[i].x + Player.maxMoveSpeed)
+                }
                 
             } else if direction == "right" {
                 
-                explosions[i].setX(x: explosions[i].x - Player.maxMoveSpeed)
+                if player.isKnockedBack == true {
+                    explosions[i].setX(x: explosions[i].x - Player.knockBackMoveSpeed)
+                } else {
+                    explosions[i].setX(x: explosions[i].x - Player.maxMoveSpeed)
+                }
             }
+            
         }
-        
     }
     
     func movePowerups(direction: String) {
@@ -279,14 +295,22 @@ extension GameController {
             
             if direction == "left" {
                 
-                powerups[i].setXY(x: powerups[i].x + Player.maxMoveSpeed, y: powerups[i].y)
+                if player.isKnockedBack == true {
+                    powerups[i].setXY(x: powerups[i].x + Player.knockBackMoveSpeed, y: powerups[i].y)
+                } else {
+                    powerups[i].setXY(x: powerups[i].x + Player.maxMoveSpeed, y: powerups[i].y)
+                }
                 
             } else if direction == "right" {
                 
-                powerups[i].setXY(x: powerups[i].x - Player.maxMoveSpeed, y: powerups[i].y)
+                if player.isKnockedBack == true {
+                    powerups[i].setXY(x: powerups[i].x - Player.knockBackMoveSpeed, y: powerups[i].y)
+                } else {
+                    powerups[i].setXY(x: powerups[i].x - Player.maxMoveSpeed, y: powerups[i].y)
+                }
             }
+            
         }
-        
     }
     
     func moveEnemies(direction: String) {
@@ -297,12 +321,21 @@ extension GameController {
                 
                 if direction == "left" {
                     
-                    currentStage.enemies[i].setXY(x: currentStage.enemies[i].x + Player.maxMoveSpeed, y: currentStage.enemies[i].y)
+                    if player.isKnockedBack == true {
+                        currentStage.enemies[i].setXY(x: currentStage.enemies[i].x + Player.knockBackMoveSpeed, y: currentStage.enemies[i].y)
+                    } else {
+                        currentStage.enemies[i].setXY(x: currentStage.enemies[i].x + Player.maxMoveSpeed, y: currentStage.enemies[i].y)
+                    }
                     
                 } else if direction == "right" {
                     
-                    currentStage.enemies[i].setXY(x: currentStage.enemies[i].x - Player.maxMoveSpeed, y: currentStage.enemies[i].y)
+                    if player.isKnockedBack == true {
+                        currentStage.enemies[i].setXY(x: currentStage.enemies[i].x - Player.knockBackMoveSpeed, y: currentStage.enemies[i].y)
+                    } else {
+                        currentStage.enemies[i].setXY(x: currentStage.enemies[i].x - Player.maxMoveSpeed, y: currentStage.enemies[i].y)
+                    }
                 }
+                
             }
             
         }
