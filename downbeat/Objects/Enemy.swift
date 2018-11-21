@@ -25,8 +25,10 @@ class Enemy {
     
     // VARIABLES
     
-    var maxHealth: CGFloat = 0
+    var maxHealth: Int = 0
     
+    var damage: Int = 0
+
     var width: CGFloat = 0
     var height: CGFloat = 0
     
@@ -56,7 +58,7 @@ class Enemy {
     
     var canMove: Bool = true
     
-    var health: CGFloat = 0
+    var health: Int = 0
     
     var direction: String = ""
     
@@ -74,6 +76,8 @@ class Enemy {
         if self.type == "follower" {
             
             self.maxHealth = 10
+            
+            self.damage = 5
             
             self.width = Block.width
             self.height = self.width

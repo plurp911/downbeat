@@ -82,6 +82,15 @@ extension GameController {
                 
                 powerups.remove(at: powerupPos)
             }
+            
+            let enemyPos: Int = player.didHitEnemy()
+
+            if enemyPos >= 0 {
+                
+                if player.isHit == false {
+                    player.handleHit(damage: currentStage.enemies[enemyPos].damage)
+                }
+            }
         
             var enemiesToRemove = [Int]()
             

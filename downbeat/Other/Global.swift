@@ -42,6 +42,9 @@ var powerups = [Powerup]()
 var canMoveLeft: Bool = true
 var canMoveRight: Bool = true
 
+//var canJump: Bool = true
+//var canShoot: Bool = true
+
 // OBJECTS
 
 var currentStage = Stage()
