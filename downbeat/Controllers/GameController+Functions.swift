@@ -79,12 +79,7 @@ extension GameController {
                 }
             }
             
-            for i in 0 ..< bulletsToRemove.count {
-                
-                let newI = bulletsToRemove.count - i - 1
-                
-                bullets.remove(at: bulletsToRemove[newI])
-            }
+            removeObjects(type: "bullets", toRemove: bulletsToRemove)
             
             var explosionsToRemove = [Int]()
             
@@ -95,13 +90,8 @@ extension GameController {
                 }
             }
             
-            for i in 0 ..< explosionsToRemove.count {
-                
-                let newI = explosionsToRemove.count - i - 1
-                
-                explosions.remove(at: explosionsToRemove[newI])
-            }
-            
+            removeObjects(type: "explosions", toRemove: explosionsToRemove)
+
             var powerupsToRemove = [Int]()
             
             for i in 0 ..< powerups.count {
@@ -113,12 +103,7 @@ extension GameController {
                 }
             }
             
-            for i in 0 ..< powerupsToRemove.count {
-                
-                let newI = powerupsToRemove.count - i - 1
-                
-                powerups.remove(at: powerupsToRemove[newI])
-            }
+            removeObjects(type: "powerups", toRemove: powerupsToRemove)
             
             let powerupPos: Int = player.didHitPowerup()
             
@@ -172,19 +157,8 @@ extension GameController {
                 }
             }
             
-            for i in 0 ..< bulletsToRemove.count {
-                
-                let newI = bulletsToRemove.count - i - 1
-                
-                bullets.remove(at: bulletsToRemove[newI])
-            }
-            
-            for i in 0 ..< enemiesToRemove.count {
-                
-                let newI = enemiesToRemove.count - i - 1
-                
-                currentStage.enemies.remove(at: enemiesToRemove[newI])
-            }
+            removeObjects(type: "bullets", toRemove: bulletsToRemove)
+            removeObjects(type: "enemies", toRemove: enemiesToRemove)
 
             if player.isMoving == true {
                 
@@ -246,6 +220,25 @@ extension GameController {
             
             draw()
         }
+    }
+    
+    func removeObjects(type: String, toRemove: [Int]) {
+        
+        for i in 0 ..< toRemove.count {
+            
+            let newI = toRemove.count - i - 1
+            
+            if type == "bullets" {
+                bullets.remove(at: toRemove[newI])
+            } else if type == "powerups" {
+                powerups.remove(at: toRemove[newI])
+            } else if type == "explosions" {
+                explosions.remove(at: toRemove[newI])
+            } else if type == "enemies" {
+                currentStage.enemies.remove(at: toRemove[newI])
+            }
+        }
+        
     }
     
     func moveBullets(direction: String) {
