@@ -44,8 +44,10 @@ class Player {
     
     static let animationCycleTime: Double = 0.55
 
-    static let hitTime: CGFloat = 3
-    static let knockBackTime: CGFloat = 0.675
+    static let hitTime: CGFloat = 2
+    
+//    static let knockBackTime: CGFloat = 0.675
+    static let knockBackTime: CGFloat = 0.3375
 
     // VARIABLES
 
@@ -341,8 +343,6 @@ class Player {
     
     func updateAnimation() {
         
-        print("RUN")
-        
         if self.isKnockedBack == true {
             
             if canBeKnockedBack == true {
@@ -353,13 +353,13 @@ class Player {
                     
                     self.handleKnockedBackAnimation()
                     
-                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
                     
                 } else if direction == "right" {
                     
                     self.handleKnockedBackAnimation()
                     
-                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
                 }
             }
             
@@ -383,7 +383,7 @@ class Player {
             if isMovingLeft == true {
                 
                 if canMoveLeft == true {
-                    
+
                     canMoveLeft = false
                     
                     canMoveRight = true
@@ -565,6 +565,25 @@ class Player {
         
         self.isKnockedBack = true
         
+        self.isMoving = true
+        
+        if direction == "left" {
+            
+            direction = "right"
+            
+            self.isMovingRight = true
+            
+            self.isMovingLeft = false
+        
+        } else if direction == "right" {
+            
+            direction = "left"
+            
+            self.isMovingLeft = true
+
+            self.isMovingRight = false
+        }
+        
         endKnockBackTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Player.knockBackTime), target: self, selector: #selector(endKnockBack), userInfo: nil, repeats: false)
         
         self.updateAnimation()
@@ -579,7 +598,21 @@ class Player {
         
         self.isKnockedBack = false
         
-        player.updateAnimation()
+        self.isMoving = false
+        
+        self.isMovingLeft = false
+        self.isMovingRight = false
+        
+        if direction == "left" {
+            
+            direction = "right"
+            
+        } else if direction == "right" {
+            
+            direction = "left"
+        }
+        
+        self.updateAnimation()
     }
     
     @objc func endHit() {
@@ -593,7 +626,7 @@ class Player {
         
         self.isHit = false
         
-//        player.updateAnimation()
+//        self.updateAnimation()
     }
     
     @objc func handleHitAnimation() {

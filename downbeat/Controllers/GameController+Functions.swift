@@ -17,6 +17,45 @@ extension GameController {
     }
     
     @objc func move() {
+        
+        if player.isKnockedBack == false {
+            
+            if isRightPressed == false {
+                
+                player.isMoving = false
+                player.isMovingRight = false
+                
+                if isLeftPressed == true {
+                    
+                    player.isMoving = true
+                    player.isMovingLeft = true
+                    
+                    player.isMovingRight = false
+                    
+                    player.direction = "left"
+                }
+                
+                player.updateAnimation()
+            }
+            
+            if isLeftPressed == false {
+                
+                player.isMoving = false
+                player.isMovingLeft = false
+                
+                if isRightPressed == true {
+                    
+                    player.isMoving = true
+                    player.isMovingRight = true
+                    
+                    player.isMovingLeft = false
+                    
+                    player.direction = "right"
+                }
+                
+                player.updateAnimation()
+            }
+        }
 
         if isPaused == false {
             

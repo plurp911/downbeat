@@ -151,32 +151,33 @@ class GameController: UIViewController {
     
     @objc func handleLeft() {
         
-        if player.isKnockedBack == false {
-            
-            print("LEFT")
-            
-            player.isMoving = true
-            player.isMovingLeft = true
-            
-            player.isMovingRight = false
-            
-            player.direction = "left"
-            
-            player.updateAnimation()
-        }
+        isLeftPressed = true
+        
+//        if player.isKnockedBack == false {
+//
+//            print("LEFT")
+//
+//            player.isMoving = true
+//            player.isMovingLeft = true
+//
+//            player.isMovingRight = false
+//
+//            player.direction = "left"
+//
+//            player.updateAnimation()
+//        }
     }
     
     @objc func handleLeftCancel() {
         
-        print("LEFT CANCEL")
-
-//        if player.isKnockedBack == false {
+        isLeftPressed = false
         
-            player.isMoving = false
-            player.isMovingLeft = false
-            
-            player.updateAnimation()
-//        }
+//        print("LEFT CANCEL")
+//
+//        player.isMoving = false
+//        player.isMovingLeft = false
+//
+//        player.updateAnimation()
     }
     
     lazy var rightButton: UIButton = {
@@ -203,32 +204,33 @@ class GameController: UIViewController {
     
     @objc func handleRight() {
         
-        if player.isKnockedBack == false {
-            
-            print("RIGHT")
-            
-            player.isMoving = true
-            player.isMovingRight = true
-            
-            player.isMovingLeft = false
-            
-            player.direction = "right"
-            
-            player.updateAnimation()
-        }
+        isRightPressed = true
+        
+//        if player.isKnockedBack == false {
+//
+//            print("RIGHT")
+//
+//            player.isMoving = true
+//            player.isMovingRight = true
+//
+//            player.isMovingLeft = false
+//
+//            player.direction = "right"
+//
+//            player.updateAnimation()
+//        }
     }
     
     @objc func handleRightCancel() {
         
-        print("RIGHT CANCEL")
-        
-//        if player.isKnockedBack == false {
-        
-            player.isMoving = false
-            player.isMovingRight = false
-            
-            player.updateAnimation()
-//        }
+        isRightPressed = false
+
+//        print("RIGHT CANCEL")
+//
+//        player.isMoving = false
+//        player.isMovingRight = false
+//
+//        player.updateAnimation()
     }
     
     override func viewDidLoad() {

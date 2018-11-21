@@ -47,6 +47,9 @@ var canBeKnockedBack: Bool = true
 //var canJump: Bool = true
 //var canShoot: Bool = true
 
+var isLeftPressed: Bool = false
+var isRightPressed: Bool = false
+
 // OBJECTS
 
 var currentStage = Stage()
