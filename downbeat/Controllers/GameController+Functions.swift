@@ -167,7 +167,8 @@ extension GameController {
                 if currentStage.enemies[i].isInBounds() == true {
                     
                     currentStage.enemies[i].move()
-                    
+                    currentStage.enemies[i].updateAnimation()
+
                     let bulletPos: Int = currentStage.enemies[i].didHitBullet()
                     
                     if bulletPos >= 0 {
@@ -266,14 +267,24 @@ extension GameController {
             let newI = toRemove.count - i - 1
             
             if type == "bullets" {
+                
                 bullets.remove(at: toRemove[newI])
+                
             } else if type == "powerups" {
+                
                 powerups.remove(at: toRemove[newI])
+                
             } else if type == "explosions" {
+                
                 explosions.remove(at: toRemove[newI])
+                
             } else if type == "enemies" {
+                
+                currentStage.enemies[toRemove[newI]].endTimers()
                 currentStage.enemies.remove(at: toRemove[newI])
+                
             } else if type == "enemyBullets" {
+                
                 enemyBullets.remove(at: toRemove[newI])
             }
         }
@@ -413,10 +424,6 @@ extension GameController {
             gameView.addSubview(b.view)
         }
         
-        for b in bullets {
-            gameView.addSubview(b.view)
-        }
-        
         for e in explosions {
             gameView.addSubview(e.view)
         }
@@ -428,7 +435,11 @@ extension GameController {
         for e in enemyBullets {
             gameView.addSubview(e.view)
         }
-
+        
+        for b in bullets {
+            gameView.addSubview(b.view)
+        }
+        
         for e in currentStage.enemies {
             gameView.addSubview(e.view)
         }

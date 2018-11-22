@@ -64,7 +64,9 @@ class Player {
     var isFalling: Bool = false
     
     var isJumping: Bool = false
+    
     var isShooting: Bool = false
+    var isShootingAnimation: Bool = false
     
     var isMoving: Bool = false
     
@@ -82,7 +84,8 @@ class Player {
     var direction: String = "right"
     
     var endShootTimer = Timer()
-    
+    var endShootAnimationTimer = Timer()
+
     var endHitTimer = Timer()
     var hitAnimationTimer = Timer()
     
@@ -150,7 +153,9 @@ class Player {
         self.isRising = false
         
         self.isJumping = false
+        
         self.isShooting = false
+        self.isShootingAnimation = false
         
         self.isMoving = false
         
@@ -352,8 +357,10 @@ class Player {
         if self.isShooting == false {
             
             self.isShooting = true
+            self.isShootingAnimation = true
 
-            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.125, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.375, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
             
             if self.direction == "left" {
                 
@@ -374,6 +381,13 @@ class Player {
         
         self.isShooting = false
         
+        player.updateAnimation()
+    }
+    
+    @objc func stopShootAnimation() {
+        
+        self.isShootingAnimation = false
+
         player.updateAnimation()
     }
     

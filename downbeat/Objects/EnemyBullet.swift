@@ -14,6 +14,8 @@ class EnemyBullet {
     
 //    static let color: UIColor = UIColor.clear
     static let color: UIColor = UIColor.red
+    
+    static let smallEnemyBulletImage = UIImage(named: "enemyBullet")
 
     // VARIABLES
     
@@ -43,6 +45,8 @@ class EnemyBullet {
             self.radius = Block.width * (6 / 16) * (1 / 2)
             
             self.damage = 5
+            
+            self.view.image = EnemyBullet.smallEnemyBulletImage
         }
 
         self.view.frame.origin.x = self.x - self.radius
@@ -58,8 +62,6 @@ class EnemyBullet {
         self.view.contentMode = .scaleAspectFill
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        
-        self.view.image = UIImage(named: type)
         
         if self.xSpeed <= 0 {
             
