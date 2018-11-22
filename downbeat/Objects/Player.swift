@@ -360,7 +360,7 @@ class Player {
             self.isShootingAnimation = true
 
             self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
-            self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.375, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
+            self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
             
             if self.direction == "left" {
                 
@@ -493,7 +493,7 @@ class Player {
         canMoveLeft = true
         canMoveRight = true
         
-        if self.isShooting == true {
+        if self.isShootingAnimation == true {
             
             self.view.image = Player.jumpShootRightImage
 
@@ -507,7 +507,7 @@ class Player {
         
         self.view.stopAnimating()
         
-        if self.isShooting == true {
+        if self.isShootingAnimation == true {
 
             self.view.animationImages = Player.runShootRightImages as! [UIImage]
             
@@ -530,7 +530,7 @@ class Player {
         canMoveLeft = true
         canMoveRight = true
         
-        if self.isShooting == true {
+        if self.isShootingAnimation == true {
             
             self.view.image = Player.standShootRightImage
 
