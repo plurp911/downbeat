@@ -272,7 +272,7 @@ class Enemy {
                         return i
                     }
                     
-                } else if self.type == "hat" {
+                } else if self.type == "follower" {
                     
                     return i
                 }

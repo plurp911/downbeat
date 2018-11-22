@@ -76,7 +76,7 @@ extension GameController {
         
         stages[0].blocks.append(Block(xPos: 49, yPos: 13, type: "verticalYellowBottomBlock"))
 
-//        stages[0].enemies.append(Enemy(xPos: 5, yPos: 5, type: "follower"))
+        stages[0].enemies.append(Enemy(xPos: 2, yPos: 2, type: "follower"))
 
         stages[0].enemies.append(Enemy(xPos: 3, yPos: 13, type: "hat"))
 
