@@ -96,6 +96,8 @@ class Player {
     var hitAnimationTimer = Timer()
     
     var endKnockBackTimer = Timer()
+    
+//    var freezeTimer = Timer()
 
     var view: UIImageView = UIImageView()
     var hitBox: UIView = UIView()
@@ -591,6 +593,10 @@ class Player {
         
         if type == "largeHealth" {
             
+//            if self.health < Player.maxHealth {
+//                self.freezeTime()
+//            }
+            
             self.health += 30
             
             if self.health > Player.maxHealth {
@@ -767,4 +773,16 @@ class Player {
         
         return true
     }
+    
+//    func freezeTime() {
+//
+//        self.freezeTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stopFreezeTime), userInfo: nil, repeats: false)
+//
+//        isPaused = true
+//    }
+//
+//    @objc func stopFreezeTime() {
+//
+//        isPaused = false
+//    }
 }

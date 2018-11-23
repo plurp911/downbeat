@@ -18,8 +18,6 @@ class GameController: UIViewController {
         
     // VARIABLES
     
-    var isPaused: Bool = false
-    
     var moveTimer = Timer()
 
     var gameView: UIView = {

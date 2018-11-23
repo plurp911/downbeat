@@ -18,48 +18,48 @@ extension GameController {
     
     @objc func move() {
         
-        player.updateAnimation()
-        
-        if player.isKnockedBack == false {
+        if isPaused == false {
             
-            if isRightPressed == false {
+            player.updateAnimation()
+            
+            if player.isKnockedBack == false {
                 
-                player.isMoving = false
-                player.isMovingRight = false
-                
-                if isLeftPressed == true {
+                if isRightPressed == false {
                     
-                    player.isMoving = true
-                    player.isMovingLeft = true
-                    
+                    player.isMoving = false
                     player.isMovingRight = false
                     
-                    player.direction = "left"
+                    if isLeftPressed == true {
+                        
+                        player.isMoving = true
+                        player.isMovingLeft = true
+                        
+                        player.isMovingRight = false
+                        
+                        player.direction = "left"
+                    }
+                    
+                    //                player.updateAnimation()
                 }
                 
-//                player.updateAnimation()
-            }
-            
-            if isLeftPressed == false {
-                
-                player.isMoving = false
-                player.isMovingLeft = false
-                
-                if isRightPressed == true {
+                if isLeftPressed == false {
                     
-                    player.isMoving = true
-                    player.isMovingRight = true
-                    
+                    player.isMoving = false
                     player.isMovingLeft = false
                     
-                    player.direction = "right"
+                    if isRightPressed == true {
+                        
+                        player.isMoving = true
+                        player.isMovingRight = true
+                        
+                        player.isMovingLeft = false
+                        
+                        player.direction = "right"
+                    }
+                    
+                    //                player.updateAnimation()
                 }
-                
-//                player.updateAnimation()
             }
-        }
-
-        if isPaused == false {
             
             player.move()
             
@@ -67,9 +67,9 @@ extension GameController {
                 
                 print("GAME OVER")
                 
-//                handleGameOver()
+                //                handleGameOver()
             }
-
+            
             var bulletsToRemove = [Int]()
             
             for i in 0 ..< bullets.count {
@@ -482,5 +482,5 @@ extension GameController {
             }
         }
     }
-    
+
 }

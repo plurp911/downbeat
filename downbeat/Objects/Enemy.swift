@@ -358,6 +358,20 @@ class Enemy {
         
     }
     
+//    func updateFreeze() {
+//
+//        if isPaused == true {
+//
+//            if self.view.isAnimating == true {
+//                self.view.stopAnimating()
+//            }
+//
+//        } else {
+//
+//            self.view.startAnimating()
+//        }
+//    }
+    
     @objc func stopShoot() {
         
 //        self.canMove = true
