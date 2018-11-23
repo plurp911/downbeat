@@ -25,6 +25,7 @@
 		92086A8321A412D100AB51F8 /* Explosion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8221A412D100AB51F8 /* Explosion.swift */; };
 		92086A8521A41B0500AB51F8 /* Powerup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8421A41B0500AB51F8 /* Powerup.swift */; };
 		92086A8721A5571C00AB51F8 /* EnemyBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8621A5571B00AB51F8 /* EnemyBullet.swift */; };
+		92086A8921A77A9D00AB51F8 /* DeflectedBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8821A77A9D00AB51F8 /* DeflectedBullet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		92086A8221A412D100AB51F8 /* Explosion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Explosion.swift; sourceTree = "<group>"; };
 		92086A8421A41B0500AB51F8 /* Powerup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Powerup.swift; sourceTree = "<group>"; };
 		92086A8621A5571B00AB51F8 /* EnemyBullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyBullet.swift; sourceTree = "<group>"; };
+		92086A8821A77A9D00AB51F8 /* DeflectedBullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeflectedBullet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 				92086A8621A5571B00AB51F8 /* EnemyBullet.swift */,
 				92086A7E21A2B11800AB51F8 /* Bullet.swift */,
 				92086A8021A2D3C600AB51F8 /* Enemy.swift */,
+				92086A8821A77A9D00AB51F8 /* DeflectedBullet.swift */,
 				92086A8221A412D100AB51F8 /* Explosion.swift */,
 				92086A8421A41B0500AB51F8 /* Powerup.swift */,
 				92086A7C21A283E600AB51F8 /* Stage.swift */,
@@ -313,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92086A8921A77A9D00AB51F8 /* DeflectedBullet.swift in Sources */,
 				92086A7221A2440700AB51F8 /* Player.swift in Sources */,
 				92086A4421A23B5000AB51F8 /* GameController.swift in Sources */,
 				92086A8721A5571C00AB51F8 /* EnemyBullet.swift in Sources */,

@@ -45,6 +45,10 @@ class Player {
     static let xShift: CGFloat = Block.width * (16 / 30)
     static let yShift: CGFloat = Block.height * 0
     
+//    static let xShiftBullet: CGFloat = Block.width * (12 / 16)
+    static let xShiftBullet: CGFloat = Block.width * (8 / 16)
+    static let yShiftBullet: CGFloat = Block.height * (1 / 16)
+    
     static let animationCycleTime: Double = 0.55
 
     static let hitTime: CGFloat = 2
@@ -76,6 +80,8 @@ class Player {
 
     var isMovingLeft: Bool = false
     var isMovingRight: Bool = false
+    
+    var isAtPeak: Bool = false
 
     var canMove: Bool = true
 
@@ -202,7 +208,7 @@ class Player {
         self.xSpeed = 0
         
         if self.ySpeed != 0 {
-            self.updateAnimation()
+            self.isAtPeak = false
         }
 
         if self.isJumping == true || self.isFalling == true {
@@ -260,7 +266,7 @@ class Player {
                     
                     setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
                     
-                    self.updateAnimation()
+//                    self.updateAnimation()
                 }
             }
             
@@ -359,16 +365,23 @@ class Player {
             self.isShooting = true
             self.isShootingAnimation = true
 
-            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
-            self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
+            self.endShootTimer.invalidate()
+            self.endShootAnimationTimer.invalidate()
+
+//            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+//            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            
+            self.isShooting = false
+
+            self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.175, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
             
             if self.direction == "left" {
                 
-                bullets.append(Bullet(x: self.x - (Player.width / 2), y: self.y, direction: self.direction))
+                bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction))
                 
             } else if self.direction == "right" {
                 
-                bullets.append(Bullet(x: self.x + (Player.width / 2), y: self.y, direction: self.direction))
+                bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction))
             }
         }
         
@@ -376,19 +389,22 @@ class Player {
     
     @objc func stopShoot() {
         
-        canMoveLeft = true
-        canMoveRight = true
+//        canMoveLeft = true
+//        canMoveRight = true
         
         self.isShooting = false
         
-        player.updateAnimation()
+//        self.updateAnimation()
     }
     
     @objc func stopShootAnimation() {
         
+        canMoveLeft = true
+        canMoveRight = true
+        
         self.isShootingAnimation = false
 
-        player.updateAnimation()
+//        self.updateAnimation()
     }
     
     func updateAnimation() {
@@ -430,50 +446,81 @@ class Player {
             
         } else if isMoving == true {
             
-            if isMovingLeft == true {
+            if self.didHandleJumpAnimation() == false {
                 
-                if canMoveLeft == true {
-
-                    canMoveLeft = false
+                if isMovingLeft == true {
                     
-                    canMoveRight = true
-
-                    self.handleRunAnimation()
-
-                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                    if canMoveLeft == true {
+                        
+                        canMoveLeft = false
+                        
+                        canMoveRight = true
+                        
+                        self.handleRunAnimation()
+                        
+                        self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                    }
+                    
+                } else if isMovingRight == true {
+                    
+                    if canMoveRight == true {
+                        
+                        canMoveRight = false
+                        
+                        canMoveLeft = true
+                        
+                        self.handleRunAnimation()
+                        
+                        self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    }
                 }
                 
-            } else if isMovingRight == true {
+            }
+            
+        } else if isMoving == false && ySpeed == 0 && isJumping == false && self.isFalling == false && self.isRising == false {
+            
+            if self.didHandleJumpAnimation() == false {
                 
-                if canMoveRight == true {
+                if direction == "left" {
                     
-                    canMoveRight = false
+                    self.handleStandAnimation()
                     
-                    canMoveLeft = true
-
-                    self.handleRunAnimation()
+                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                    
+                } else if direction == "right" {
+                    
+                    self.handleStandAnimation()
                     
                     self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
                 }
             }
             
-        } else if isMoving == false && ySpeed == 0 && isJumping == false && self.isFalling == false && self.isRising == false {
-            
-            if direction == "left" {
-                
-                self.handleStandAnimation()
-                
-                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-                
-            } else if direction == "right" {
-                
-                self.handleStandAnimation()
-
-                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }
         }
         
         setXY(x: self.x, y: self.y)
+    }
+    
+    func didHandleJumpAnimation() -> Bool {
+        
+        if self.isAtPeak == true {
+
+            if direction == "left" {
+
+                self.handleJumpAnimation()
+
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+
+            } else if direction == "right" {
+
+                self.handleJumpAnimation()
+
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+
+            return true
+        }
+        
+        return false
     }
     
     func handleKnockedBackAnimation() {
@@ -591,6 +638,7 @@ class Player {
     
     func stopJump() {
         
+        self.isAtPeak = true
         self.isFalling = true
         
         self.isJumping = false
@@ -615,6 +663,9 @@ class Player {
 //            handleGameOver()
         }
         
+        self.endHitTimer.invalidate()
+        self.hitAnimationTimer.invalidate()
+
         self.endHitTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Player.hitTime), target: self, selector: #selector(endHit), userInfo: nil, repeats: false)
         self.hitAnimationTimer = Timer.scheduledTimer(timeInterval: Player.animationCycleTime * 0.075, target: self, selector: #selector(handleHitAnimation), userInfo: nil, repeats: true)
 
@@ -654,9 +705,11 @@ class Player {
             self.isMovingRight = false
         }
         
-        endKnockBackTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Player.knockBackTime), target: self, selector: #selector(endKnockBack), userInfo: nil, repeats: false)
+        self.endKnockBackTimer.invalidate()
         
-        self.updateAnimation()
+        self.endKnockBackTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Player.knockBackTime), target: self, selector: #selector(endKnockBack), userInfo: nil, repeats: false)
+        
+//        self.updateAnimation()
     }
     
     @objc func endKnockBack() {
@@ -682,7 +735,7 @@ class Player {
             direction = "left"
         }
         
-        self.updateAnimation()
+//        self.updateAnimation()
     }
     
     @objc func endHit() {

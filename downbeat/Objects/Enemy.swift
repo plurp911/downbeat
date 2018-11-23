@@ -261,15 +261,27 @@ class Enemy {
     
     func didHitBullet() -> Int {
         
+        var bulletsToRemove = [Int]()
+        
         for i in 0 ..< bullets.count {
             
             if bullets[i].x + Bullet.radius >= self.x - (self.width / 2) && bullets[i].x - Bullet.radius <= self.x + (self.width / 2) && bullets[i].y + Bullet.radius >= self.y - (self.height / 2) && bullets[i].y - Bullet.radius <= self.y + (self.height / 2) {
                 
-                
                 if self.type == "hat" {
                     
                     if self.isShooting == true {
+                        
                         return i
+                        
+                    } else {
+                        
+                        if bullets[i].xSpeed >= 0 {
+                            deflectedBullets.append(DeflectedBullet(x: bullets[i].x, y: bullets[i].y, direction: "left"))
+                        } else {
+                            deflectedBullets.append(DeflectedBullet(x: bullets[i].x, y: bullets[i].y, direction: "right"))
+                        }
+                        
+                        bulletsToRemove.append(i)
                     }
                     
                 } else if self.type == "follower" {
@@ -278,6 +290,10 @@ class Enemy {
                 }
                 
             }
+        }
+        
+        if bulletsToRemove.count > 0 {
+            removeObjects(type: "bullets", toRemove: bulletsToRemove)
         }
         
         return -1

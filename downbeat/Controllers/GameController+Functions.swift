@@ -18,6 +18,8 @@ extension GameController {
     
     @objc func move() {
         
+        player.updateAnimation()
+        
         if player.isKnockedBack == false {
             
             if isRightPressed == false {
@@ -35,7 +37,7 @@ extension GameController {
                     player.direction = "left"
                 }
                 
-                player.updateAnimation()
+//                player.updateAnimation()
             }
             
             if isLeftPressed == false {
@@ -53,7 +55,7 @@ extension GameController {
                     player.direction = "right"
                 }
                 
-                player.updateAnimation()
+//                player.updateAnimation()
             }
         }
 
@@ -80,6 +82,19 @@ extension GameController {
             }
             
             removeObjects(type: "bullets", toRemove: bulletsToRemove)
+            
+            var deflectedBulletsToRemove = [Int]()
+            
+            for i in 0 ..< deflectedBullets.count {
+                
+                deflectedBullets[i].move()
+                
+                if deflectedBullets[i].isInBounds() == false {
+                    deflectedBulletsToRemove.append(i)
+                }
+            }
+            
+            removeObjects(type: "deflectedBullets", toRemove: deflectedBulletsToRemove)
             
             var explosionsToRemove = [Int]()
             
@@ -181,7 +196,7 @@ extension GameController {
                             
                             explosions.append(Explosion(x: currentStage.enemies[i].x, y: currentStage.enemies[i].y))
                             
-                            powerups.append(Powerup(x: currentStage.enemies[i].x, y: currentStage.enemies[i].y, type: "largeHealth"))
+//                            powerups.append(Powerup(x: currentStage.enemies[i].x, y: currentStage.enemies[i].y, type: "largeHealth"))
                             
                             enemiesToRemove.append(i)
                         }
@@ -217,6 +232,7 @@ extension GameController {
                             currentStage.move(direction: "left")
                             
                             moveBullets(direction: "left")
+                            moveDeflectedBullets(direction: "left")
                             moveExplosions(direction: "left")
                             movePowerups(direction: "left")
                             moveEnemies(direction: "left")
@@ -245,6 +261,7 @@ extension GameController {
                         currentStage.move(direction: "right")
                         
                         moveBullets(direction: "right")
+                        moveDeflectedBullets(direction: "right")
                         moveExplosions(direction: "right")
                         movePowerups(direction: "right")
                         moveEnemies(direction: "right")
@@ -258,37 +275,6 @@ extension GameController {
             
             draw()
         }
-    }
-    
-    func removeObjects(type: String, toRemove: [Int]) {
-        
-        for i in 0 ..< toRemove.count {
-            
-            let newI = toRemove.count - i - 1
-            
-            if type == "bullets" {
-                
-                bullets.remove(at: toRemove[newI])
-                
-            } else if type == "powerups" {
-                
-                powerups.remove(at: toRemove[newI])
-                
-            } else if type == "explosions" {
-                
-                explosions.remove(at: toRemove[newI])
-                
-            } else if type == "enemies" {
-                
-                currentStage.enemies[toRemove[newI]].endTimers()
-                currentStage.enemies.remove(at: toRemove[newI])
-                
-            } else if type == "enemyBullets" {
-                
-                enemyBullets.remove(at: toRemove[newI])
-            }
-        }
-        
     }
     
     func moveBullets(direction: String) {
@@ -309,6 +295,30 @@ extension GameController {
                     bullets[i].setXY(x: bullets[i].x - Player.knockBackMoveSpeed, y: bullets[i].y)
                 } else {
                     bullets[i].setXY(x: bullets[i].x - Player.maxMoveSpeed, y: bullets[i].y)
+                }
+            }
+            
+        }
+    }
+    
+    func moveDeflectedBullets(direction: String) {
+        
+        for i in 0 ..< deflectedBullets.count {
+            
+            if direction == "left" {
+                
+                if player.isKnockedBack == true {
+                    deflectedBullets[i].setXY(x: deflectedBullets[i].x + Player.knockBackMoveSpeed, y: deflectedBullets[i].y)
+                } else {
+                    deflectedBullets[i].setXY(x: deflectedBullets[i].x + Player.maxMoveSpeed, y: deflectedBullets[i].y)
+                }
+                
+            } else if direction == "right" {
+                
+                if player.isKnockedBack == true {
+                    deflectedBullets[i].setXY(x: deflectedBullets[i].x - Player.knockBackMoveSpeed, y: deflectedBullets[i].y)
+                } else {
+                    deflectedBullets[i].setXY(x: deflectedBullets[i].x - Player.maxMoveSpeed, y: deflectedBullets[i].y)
                 }
             }
             
@@ -438,6 +448,10 @@ extension GameController {
         
         for b in bullets {
             gameView.addSubview(b.view)
+        }
+        
+        for d in deflectedBullets {
+            gameView.addSubview(d.view)
         }
         
         for e in currentStage.enemies {

@@ -80,7 +80,7 @@ class GameController: UIViewController {
                 
                 player.jump()
                 
-                player.updateAnimation()
+//                player.updateAnimation()
             }
         }
         
@@ -121,7 +121,7 @@ class GameController: UIViewController {
                 
                 player.shoot()
                 
-                player.updateAnimation()
+//                player.updateAnimation()
             }
         }
         

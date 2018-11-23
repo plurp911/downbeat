@@ -39,6 +39,7 @@ var bullets = [Bullet]()
 var explosions = [Explosion]()
 var powerups = [Powerup]()
 var enemyBullets = [EnemyBullet]()
+var deflectedBullets = [DeflectedBullet]()
 
 var canMoveLeft: Bool = true
 var canMoveRight: Bool = true
@@ -56,3 +57,40 @@ var isRightPressed: Bool = false
 var currentStage = Stage()
 
 var player = Player()
+
+// FUNCTIONS
+
+public func removeObjects(type: String, toRemove: [Int]) {
+    
+    for i in 0 ..< toRemove.count {
+        
+        let newI = toRemove.count - i - 1
+        
+        if type == "bullets" {
+            
+            bullets.remove(at: toRemove[newI])
+            
+        } else if type == "deflectedBullets" {
+            
+            deflectedBullets.remove(at: toRemove[newI])
+            
+        } else if type == "powerups" {
+            
+            powerups.remove(at: toRemove[newI])
+            
+        } else if type == "explosions" {
+            
+            explosions.remove(at: toRemove[newI])
+            
+        } else if type == "enemies" {
+            
+            currentStage.enemies[toRemove[newI]].endTimers()
+            currentStage.enemies.remove(at: toRemove[newI])
+            
+        } else if type == "enemyBullets" {
+            
+            enemyBullets.remove(at: toRemove[newI])
+        }
+    }
+    
+}
