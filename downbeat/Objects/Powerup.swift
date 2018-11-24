@@ -20,7 +20,8 @@ class Powerup {
     //    static let color: UIColor = UIColor.red
     
     static let largeHealthImages = [UIImage(named: "largeHealthPowerup1"), UIImage(named: "largeHealthPowerup2")]
-    
+    static let smallHealthImages = [UIImage(named: "smallHealthPowerup1"), UIImage(named: "smallHealthPowerup2")]
+
     // VARIABLES
     
     var x: CGFloat = 0
@@ -51,6 +52,11 @@ class Powerup {
             
             self.width = Block.width
             self.height = self.width
+            
+        } else if self.type == "smallHealth" {
+            
+            self.width = Block.width * 0.5
+            self.height = self.width
         }
         
         self.setXY(x: self.x, y: self.y)
@@ -64,11 +70,20 @@ class Powerup {
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
+        self.view.stopAnimating()
+
         if self.type == "largeHealth" {
             
-            self.view.stopAnimating()
-            
             self.view.animationImages = Powerup.largeHealthImages as! [UIImage]
+            
+            self.view.animationRepeatCount = 20
+            
+            self.view.animationDuration = 0.3
+            self.view.startAnimating()
+            
+        } else if self.type == "smallHealth" {
+            
+            self.view.animationImages = Powerup.smallHealthImages as! [UIImage]
             
             self.view.animationRepeatCount = 20
             

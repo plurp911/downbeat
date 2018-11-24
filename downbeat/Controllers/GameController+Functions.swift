@@ -196,7 +196,7 @@ extension GameController {
                             
                             explosions.append(Explosion(x: currentStage.enemies[i].x, y: currentStage.enemies[i].y))
                             
-//                            powerups.append(Powerup(x: currentStage.enemies[i].x, y: currentStage.enemies[i].y, type: "largeHealth"))
+                            powerups.append(Powerup(x: currentStage.enemies[i].x, y: currentStage.enemies[i].y, type: "smallHealth"))
                             
                             enemiesToRemove.append(i)
                         }
