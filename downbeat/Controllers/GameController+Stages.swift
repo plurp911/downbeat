@@ -17,14 +17,16 @@ extension GameController {
 
         stages.append(Stage())
         
+        // SIZE
+        
         stages[0].numberOfHorizontalBlocks = 50
         
-//        stages[0].setPlayerStartXY(startX: Player.width * 2, startY: -Player.height * 2)
-        
-//        stages[0].setPlayerStartXY(startX: (screenSize.height * (screenRatio)) / 2, startY: screenSize.height - (Player.height / 2))
+        // PLAYER
 
         stages[0].setPlayerStartXY(startX: (screenSize.height * screenRatio) / 2, startY: -Player.height / 2)
 
+        // BLOCKS
+        
         stages[0].blocks.append(Block(xPos: 0, yPos: 14, type: "horizontalYellowLeftBlock"))
 
         for i in 1 ..< 49 {
@@ -76,12 +78,18 @@ extension GameController {
         
         stages[0].blocks.append(Block(xPos: 49, yPos: 13, type: "verticalYellowBottomBlock"))
 
+        // ENEMIES
+        
 //        stages[0].enemies.append(Enemy(xPos: 2, yPos: 2, type: "follower"))
 
 //        stages[0].enemies.append(Enemy(xPos: 3, yPos: 13, type: "hat"))
         
         stages[0].enemies.append(Enemy(xPos: 16, yPos: 10, type: "penguin"))
-
+        
+        // POWERUPS
+        
+        stages[0].powerups.append(Powerup(xPos: 3, yPos: 13, type: "smallEnergy"))
+        
         currentStage = stages[0]
     }
 }

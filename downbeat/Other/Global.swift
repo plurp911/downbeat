@@ -80,6 +80,10 @@ public func removeObjects(type: String, toRemove: [Int]) {
             
             powerups.remove(at: toRemove[newI])
             
+        } else if type == "stagePowerups" {
+            
+            currentStage.powerups.remove(at: toRemove[newI])
+            
         } else if type == "explosions" {
             
             explosions.remove(at: toRemove[newI])

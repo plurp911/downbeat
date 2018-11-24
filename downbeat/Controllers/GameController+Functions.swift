@@ -120,6 +120,19 @@ extension GameController {
             
             removeObjects(type: "powerups", toRemove: powerupsToRemove)
             
+            powerupsToRemove.removeAll()
+            
+            for i in 0 ..< currentStage.powerups.count {
+                
+                currentStage.powerups[i].move()
+                
+                if currentStage.powerups[i].view.isAnimating == false || currentStage.powerups[i].isInBounds() == false {
+                    powerupsToRemove.append(i)
+                }
+            }
+            
+            removeObjects(type: "stagePowerups", toRemove: powerupsToRemove)
+            
             var enemyBulletsToRemove = [Int]()
             
             for i in 0 ..< enemyBullets.count {
@@ -140,6 +153,15 @@ extension GameController {
                 player.handlePowerup(type: powerups[powerupPos].type)
                 
                 powerups.remove(at: powerupPos)
+            }
+            
+            let stagePowerupPos: Int = player.didHitStagePowerup()
+            
+            if stagePowerupPos >= 0 {
+                
+                player.handlePowerup(type: currentStage.powerups[stagePowerupPos].type)
+                
+                currentStage.powerups.remove(at: stagePowerupPos)
             }
             
             let enemyPos: Int = player.didHitEnemy()
@@ -239,6 +261,7 @@ extension GameController {
                             moveEnemyBullets(direction: "left")
 
                             currentStage.moveBlocks()
+                            currentStage.movePowerups()
                         }
                     }
 
@@ -249,6 +272,7 @@ extension GameController {
                         currentStage.x = (((CGFloat)(-currentStage.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width
                         
                         currentStage.moveBlocks()
+                        currentStage.movePowerups()
 
                         player.move(direction: "right")
                         
@@ -268,6 +292,7 @@ extension GameController {
                         moveEnemyBullets(direction: "right")
 
                         currentStage.moveBlocks()
+                        currentStage.movePowerups()
                     }
                 }
                 
@@ -439,6 +464,10 @@ extension GameController {
         }
         
         for p in powerups {
+            gameView.addSubview(p.view)
+        }
+        
+        for p in currentStage.powerups {
             gameView.addSubview(p.view)
         }
         

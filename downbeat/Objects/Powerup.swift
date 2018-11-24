@@ -27,6 +27,9 @@ class Powerup {
     
     // VARIABLES
     
+    var xPos: Int = 0
+    var yPos: Int = 0
+    
     var x: CGFloat = 0
     var y: CGFloat = 0
     
@@ -45,6 +48,22 @@ class Powerup {
     var view: UIImageView = UIImageView()
     
     init(x: CGFloat, y: CGFloat, type: String) {
+        
+        self.xPos = -1
+        self.yPos = -1
+        
+        self.setup(x: x, y: y, type: type, shouldFade: true)
+    }
+    
+    init(xPos: Int, yPos: Int, type: String) {
+        
+        self.xPos = xPos
+        self.yPos = yPos
+
+        self.setup(x: ((CGFloat)(self.xPos) * Block.width) + (Block.width / 2), y: ((CGFloat)(self.yPos) * Block.height) + (Block.height / 2), type: type, shouldFade: false)
+    }
+    
+    func setup(x: CGFloat, y: CGFloat, type: String, shouldFade: Bool) {
         
         self.x = x
         self.y = y
@@ -84,43 +103,31 @@ class Powerup {
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
         self.view.stopAnimating()
-
+        
         if self.type == "largeHealth" {
             
             self.view.animationImages = Powerup.largeHealthImages as! [UIImage]
-            
-            self.view.animationRepeatCount = 20
-            
-            self.view.animationDuration = 0.3
-            self.view.startAnimating()
             
         } else if self.type == "smallHealth" {
             
             self.view.animationImages = Powerup.smallHealthImages as! [UIImage]
             
-            self.view.animationRepeatCount = 20
-            
-            self.view.animationDuration = 0.3
-            self.view.startAnimating()
-            
         } else if self.type == "largeEnergy" {
             
             self.view.animationImages = Powerup.largeEnergyImages as! [UIImage]
             
-            self.view.animationRepeatCount = 20
-            
-            self.view.animationDuration = 0.3
-            self.view.startAnimating()
-            
         } else if self.type == "smallEnergy" {
             
             self.view.animationImages = Powerup.smallEnergyImages as! [UIImage]
+        }
+        
+        if shouldFade == true {
             
             self.view.animationRepeatCount = 20
-            
-            self.view.animationDuration = 0.3
-            self.view.startAnimating()
         }
+        
+        self.view.animationDuration = 0.3
+        self.view.startAnimating()
         
         self.jump()
     }

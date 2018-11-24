@@ -14,6 +14,7 @@ class Stage {
     
     var blocks = [Block]()
     var enemies = [Enemy]()
+    var powerups = [Powerup]()
 
     var playerStartX: CGFloat = 0
     var playerStartY: CGFloat = 0
@@ -57,6 +58,18 @@ class Stage {
                 
                 self.enemies[i].setXY(x: self.x + (((CGFloat)(self.enemies[i].xPos)) * Block.width) + (Block.width / 2), y: self.enemies[i].y)
             }
+        }
+        
+    }
+    
+    func movePowerups() {
+        
+        for i in 0 ..< self.powerups.count {
+            
+//            if self.powerups[i].isInBounds() == false {
+            
+                self.powerups[i].setXY(x: self.x + (((CGFloat)(self.powerups[i].xPos)) * Block.width) + (Block.width / 2), y: self.powerups[i].y)
+//            }
         }
         
     }

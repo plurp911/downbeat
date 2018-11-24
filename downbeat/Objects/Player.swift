@@ -640,6 +640,18 @@ class Player {
         return -1
     }
     
+    func didHitStagePowerup() -> Int {
+        
+        for i in 0 ..< currentStage.powerups.count {
+            
+            if currentStage.powerups[i].x + (currentStage.powerups[i].width / 2) >= self.x - (Player.width / 2) && currentStage.powerups[i].x - (currentStage.powerups[i].width / 2) <= self.x + (Player.width / 2) && currentStage.powerups[i].y + (currentStage.powerups[i].height / 2) >= self.y - (Player.height / 2) && currentStage.powerups[i].y - (currentStage.powerups[i].height / 2) <= self.y + (Player.height / 2) {
+                return i
+            }
+        }
+        
+        return -1
+    }
+    
     func didHitEnemy() -> Int {
         
         for i in 0 ..< currentStage.enemies.count {
