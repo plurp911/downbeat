@@ -26,6 +26,8 @@ class Enemy {
     static let hatLeft1Image = UIImage(named: "hatEnemyLeft1")
     static let hatLeft2Image = UIImage(named: "hatEnemyLeft2")
 
+    static let penguinLeftImages = [UIImage(named: "penguinEnemyLeft1"), UIImage(named: "penguinEnemyLeft2")]
+
     // VARIABLES
     
     var maxHealth: Int = 0
@@ -109,6 +111,19 @@ class Enemy {
             self.moveSpeed = 0
             
             self.direction = "right"
+            
+        } else if self.type == "penguin" {
+            
+            self.maxHealth = 10
+            
+            self.damage = 5
+            
+            self.width = Block.width * (24 / 16)
+            self.height = Block.width * (15 / 16)
+            
+            self.moveSpeed = 1.25
+            
+            self.direction = "left"
         }
         
         self.health = self.maxHealth
@@ -146,6 +161,13 @@ class Enemy {
             }
             
             self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
+            
+        } else if self.type == "penguin" {
+            
+            self.view.animationImages = Enemy.penguinLeftImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * (1 / 3)
+            self.view.startAnimating()
         }
     }
     
@@ -161,6 +183,10 @@ class Enemy {
     func reset() {
         
         if self.type == "follower" {
+            
+            self.direction = "left"
+            
+        } else if self.type == "penguin" {
             
             self.direction = "left"
         }
@@ -205,8 +231,10 @@ class Enemy {
                 
                 self.view.image = Enemy.hatLeft1Image
             }
+            
+        } else if type == "penguin" {
+            
         }
-        
     }
     
     func move() {
@@ -247,6 +275,16 @@ class Enemy {
             
         } else if self.type == "hat" {
             
+        } else if self.type == "penguin" {
+            
+            // distance from player spawn ?
+            
+            self.direction = "left"
+            
+            self.xSpeed = -self.moveSpeed
+            self.ySpeed = 0
+            
+            setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
         }
     }
     
@@ -267,7 +305,11 @@ class Enemy {
             
             if bullets[i].x + Bullet.radius >= self.x - (self.width / 2) && bullets[i].x - Bullet.radius <= self.x + (self.width / 2) && bullets[i].y + Bullet.radius >= self.y - (self.height / 2) && bullets[i].y - Bullet.radius <= self.y + (self.height / 2) {
                 
-                if self.type == "hat" {
+                if self.type == "follower" {
+                    
+                    return i
+                    
+                } else if self.type == "hat" {
                     
                     if self.isShooting == true {
                         
@@ -284,7 +326,7 @@ class Enemy {
                         bulletsToRemove.append(i)
                     }
                     
-                } else if self.type == "follower" {
+                } else if self.type == "penguin" {
                     
                     return i
                 }
@@ -340,22 +382,32 @@ class Enemy {
             
             if self.direction == "left" {
                 
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: -0.75, type: "smallEnemyBullet"))
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0, type: "smallEnemyBullet"))
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0.75, type: "smallEnemyBullet"))
+//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: -0.75, type: "smallRegular"))
+//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0, type: "smallRegular"))
+//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0.75, type: "smallRegular"))
+                
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: -1.5, type: "smallRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0, type: "smallRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 1.5, type: "smallRegular"))
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.5 / 2, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
 
             } else if self.direction == "right" {
                 
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: -0.75, type: "smallEnemyBullet"))
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0, type: "smallEnemyBullet"))
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0.75, type: "smallEnemyBullet"))
+//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: -0.75, type: "smallRegular"))
+//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0, type: "smallRegular"))
+//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0.75, type: "smallRegular"))
+                
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: -1.5, type: "smallRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0, type: "smallRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 1.5, type: "smallRegular"))
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.5 / 2, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
+            
+        } else if self.type == "penguin" {
+            
         }
-        
     }
     
 //    func updateFreeze() {

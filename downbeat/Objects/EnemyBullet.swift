@@ -15,7 +15,7 @@ class EnemyBullet {
 //    static let color: UIColor = UIColor.clear
     static let color: UIColor = UIColor.red
     
-    static let smallEnemyBulletImage = UIImage(named: "enemyBullet")
+    static let smallRegularEnemyBulletImage = UIImage(named: "smallRegularEnemyBullet")
 
     // VARIABLES
     
@@ -27,7 +27,8 @@ class EnemyBullet {
     
     var type: String = ""
     
-    var radius: CGFloat = 0
+    var width: CGFloat = 0
+    var height: CGFloat = 0
 
     var damage: Int = 0
 
@@ -35,29 +36,32 @@ class EnemyBullet {
     
     init(x: CGFloat, y: CGFloat, xSpeed: CGFloat, ySpeed: CGFloat, type: String) {
         
-        self.setXY(x: x, y: y)
-        self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
-        
         self.type = type
         
-        if self.type == "smallEnemyBullet" {
+        self.view.stopAnimating()
+        
+        if self.type == "smallRegular" {
            
-            self.radius = Block.width * (6 / 16) * (1 / 2)
+            self.width = Block.width * (6 / 16)
+            self.height = self.width
             
             self.damage = 5
             
-            self.view.image = EnemyBullet.smallEnemyBulletImage
+            self.view.image = EnemyBullet.smallRegularEnemyBulletImage
         }
-
-        self.view.frame.origin.x = self.x - self.radius
-        self.view.frame.origin.y = self.y - self.radius
         
-        self.view.frame.size.width = self.radius * 2
-        self.view.frame.size.height = self.radius * 2
+        self.setXY(x: x, y: y)
+        self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
+
+        self.view.frame.origin.x = self.x - (self.width / 2)
+        self.view.frame.origin.y = self.y - (self.height / 2)
+        
+        self.view.frame.size.width = self.width
+        self.view.frame.size.height = self.height
         
         self.view.backgroundColor = EnemyBullet.color
         
-        self.view.layer.cornerRadius = self.radius
+//        self.view.layer.cornerRadius = self.width / 2
         
         self.view.contentMode = .scaleAspectFill
         
@@ -93,8 +97,8 @@ class EnemyBullet {
         self.x = x
         self.y = y
         
-        self.view.frame.origin.x = self.x - self.radius
-        self.view.frame.origin.y = self.y - self.radius
+        self.view.frame.origin.x = self.x - (self.width / 2)
+        self.view.frame.origin.y = self.y - (self.height / 2)
     }
     
     func setXYSpeed(xSpeed: CGFloat, ySpeed: CGFloat) {
@@ -105,7 +109,7 @@ class EnemyBullet {
     
     func isInBounds() -> Bool {
         
-        if self.x + self.radius >= 0 && self.x - self.radius <= screenSize.height * (screenRatio) && self.y - self.radius <= screenSize.height && self.y + self.radius >= 0 {
+        if self.x + (self.width / 2) >= 0 && self.x - (self.width / 2) <= screenSize.height * (screenRatio) && self.y - (self.height / 2) <= screenSize.height && self.y + (self.height / 2) >= 0 {
             return true
         }
         

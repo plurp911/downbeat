@@ -11,7 +11,7 @@ import UIKit
 class Player {
     
     // CONSTANTS
-    
+        
     static let maxHealth: Int = 100
     static let maxEnergy: Int = 100
 
@@ -656,7 +656,7 @@ class Player {
         
         for i in 0 ..< enemyBullets.count {
             
-            if enemyBullets[i].x + (enemyBullets[i].radius) >= self.x - (Player.width / 2) && enemyBullets[i].x - (enemyBullets[i].radius) <= self.x + (Player.width / 2) && enemyBullets[i].y + (enemyBullets[i].radius) >= self.y - (Player.height / 2) && enemyBullets[i].y - (enemyBullets[i].radius) <= self.y + (Player.height / 2) {
+            if enemyBullets[i].x + (enemyBullets[i].width / 2) >= self.x - (Player.width / 2) && enemyBullets[i].x - (enemyBullets[i].width / 2) <= self.x + (Player.width / 2) && enemyBullets[i].y + (enemyBullets[i].height / 2) >= self.y - (Player.height / 2) && enemyBullets[i].y - (enemyBullets[i].height / 2) <= self.y + (Player.height / 2) {
                 return i
             }
         }
