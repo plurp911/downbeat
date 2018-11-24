@@ -13,7 +13,8 @@ class Player {
     // CONSTANTS
     
     static let maxHealth: Int = 100
-    
+    static let maxEnergy: Int = 100
+
     static let width: CGFloat = Block.width * 0.75
     static let height: CGFloat = Block.height * 1.5
     
@@ -86,7 +87,8 @@ class Player {
     var canMove: Bool = true
 
     var health: Int = 0
-    
+    var energy: Int = 0
+
     var direction: String = "right"
     
     var endShootTimer = Timer()
@@ -105,7 +107,8 @@ class Player {
     init() {
         
         self.health = Player.maxHealth
-        
+        self.energy = Player.maxEnergy
+
         setXY(x: self.x, y: self.y)
     
         self.view.frame.size.width = Block.width * (30 / 16)
@@ -599,11 +602,30 @@ class Player {
             
             self.health += 30
             
-            if self.health > Player.maxHealth {
-                self.health = Player.maxHealth
-            }
+        } else if type == "smallHealth" {
+            
+            //            if self.health < Player.maxHealth {
+            //                self.freezeTime()
+            //            }
+            
+            self.health += 10
+            
+        } else if type == "largeEnergy" {
+            
+            self.energy += 30
+            
+        } else if type == "smallEnergy" {
+            
+            self.energy += 10
+        }
+
+        if self.health > Player.maxHealth {
+            self.health = Player.maxHealth
         }
         
+        if self.energy > Player.maxEnergy {
+            self.energy = Player.maxEnergy
+        }
     }
     
     func didHitPowerup() -> Int {
