@@ -12,8 +12,8 @@ class EnemyBullet {
     
     // CONSTANTS
     
-//    static let color: UIColor = UIColor.clear
-    static let color: UIColor = UIColor.red
+    static let color: UIColor = UIColor.clear
+//    static let color: UIColor = UIColor.red
     
     static let smallRegularEnemyBulletImage = UIImage(named: "smallRegularEnemyBullet")
 

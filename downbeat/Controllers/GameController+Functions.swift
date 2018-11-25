@@ -242,7 +242,7 @@ extension GameController {
                             
                             explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y))
                             
-                            powerups.append(Powerup(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "largeEnergy"))
+//                            powerups.append(Powerup(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "largeEnergy"))
                             
                             selectedEnemiesToRemove.append(i)
                         }
@@ -253,11 +253,6 @@ extension GameController {
 //                    selectedEnemiesToRemove.append(i)
 //                }
             }
-            
-            print()
-            print("BULLETS")
-            print(bulletsToRemove)
-            print()
             
 //            removeObjects(type: "selectedEnemies", toRemove: selectedEnemiesToRemove)
             removeObjects(type: "bullets", toRemove: bulletsToRemove)
@@ -285,12 +280,12 @@ extension GameController {
                             
                             currentStage.move(direction: "left")
                             
-//                            moveBullets(direction: "left")
-//                            moveDeflectedBullets(direction: "left")
+                            moveBullets(direction: "left")
+                            moveDeflectedBullets(direction: "left")
                             moveExplosions(direction: "left")
                             movePowerups(direction: "left")
                             moveEnemies(direction: "left")
-//                            moveEnemyBullets(direction: "left")
+                            moveEnemyBullets(direction: "left")
                             
 //                            currentStage.updateObjectArrays(direction: "left")
 
@@ -324,12 +319,12 @@ extension GameController {
                         
                         currentStage.move(direction: "right")
                         
-//                        moveBullets(direction: "right")
-//                        moveDeflectedBullets(direction: "right")
+                        moveBullets(direction: "right")
+                        moveDeflectedBullets(direction: "right")
                         moveExplosions(direction: "right")
                         movePowerups(direction: "right")
                         moveEnemies(direction: "right")
-//                        moveEnemyBullets(direction: "right")
+                        moveEnemyBullets(direction: "right")
 
 //                        currentStage.updateObjectArrays(direction: "right")
 

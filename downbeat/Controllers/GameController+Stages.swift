@@ -36,9 +36,12 @@ extension GameController {
         
         stages[0].blocks.append(Block(xPos: 49, yPos: 14, type: "horizontalYellowRightBlock"))
         
-//        stages[0].blocks.append(Block(xPos: 10, yPos: 13, type: "horizontalYellowLeftBlock"))
-//        stages[0].blocks.append(Block(xPos: 11, yPos: 13, type: blockType))
-//        stages[0].blocks.append(Block(xPos: 12, yPos: 13, type: "horizontalYellowRightBlock"))
+        stages[0].blocks.append(Block(xPos: 4, yPos: 12, type: "horizontalYellowLeftBlock"))
+        stages[0].blocks.append(Block(xPos: 5, yPos: 12, type: blockType))
+        stages[0].blocks.append(Block(xPos: 6, yPos: 12, type: "horizontalYellowRightBlock"))
+        
+        stages[0].blocks.append(Block(xPos: 9, yPos: 9, type: "verticalYellowTopBlock"))
+        stages[0].blocks.append(Block(xPos: 9, yPos: 10, type: "verticalYellowBottomBlock"))
 
         stages[0].blocks.append(Block(xPos: 16, yPos: 12, type: "horizontalYellowLeftBlock"))
         stages[0].blocks.append(Block(xPos: 17, yPos: 12, type: blockType))
@@ -83,9 +86,9 @@ extension GameController {
         
         stages[0].enemies.append(Enemy(xPos: 2, yPos: 2, type: "follower"))
 
-        stages[0].enemies.append(Enemy(xPos: 3, yPos: 13, type: "hat"))
+        stages[0].enemies.append(Enemy(xPos: 17, yPos: 11, type: "hat"))
 
-        stages[0].enemies.append(Enemy(xPos: 16, yPos: 10, type: "penguin"))
+//        stages[0].enemies.append(Enemy(xPos: 16, yPos: 10, type: "penguin"))
         
         // POWERUPS
         

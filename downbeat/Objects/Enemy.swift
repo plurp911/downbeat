@@ -42,8 +42,8 @@ class Enemy {
     var x: CGFloat = 0
     var y: CGFloat = 0
     
-    var xPos: Int = 0
-    var yPos: Int = 0
+    var xPos: Int = -1
+    var yPos: Int = -1
     
     var xSpeed: CGFloat = 0
     var ySpeed: CGFloat = 0
@@ -80,11 +80,21 @@ class Enemy {
     var isUsed: Bool = false
 
     var view: UIImageView = UIImageView()
-
+    
     init(xPos: Int, yPos: Int, type: String) {
         
         self.xPos = xPos
         self.yPos = yPos
+        
+        setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: type)
+    }
+    
+    init(x: CGFloat, y: CGFloat, type: String) {
+        
+        setup(x: x, y: y, type: type)
+    }
+
+    func setup(x: CGFloat, y: CGFloat, type: String) {
         
         self.type = type
         
@@ -112,7 +122,7 @@ class Enemy {
             
             self.moveSpeed = 0
             
-            self.direction = "right"
+            self.direction = "left"
             
         } else if self.type == "penguin" {
             
@@ -130,7 +140,7 @@ class Enemy {
         
         self.health = self.maxHealth
         
-        self.setXY(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2))
+        self.setXY(x: x, y: y)
 
         self.view.frame.size.width = self.width
         self.view.frame.size.height = self.height
