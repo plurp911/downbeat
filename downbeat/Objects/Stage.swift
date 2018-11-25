@@ -76,7 +76,7 @@ class Stage {
                     
                     isMatch = true
 
-//                    break
+                    break
                 }
             }
             
@@ -143,6 +143,13 @@ class Stage {
         self.powerups = self.powerups.sorted(by: { $0.x < $1.x })
     }
     
+//    func sortSelectedArrays() {
+//
+//        selectedBlocks = selectedBlocks.sorted(by: { $0.x < $1.x })
+//        selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
+//        selectedPowerups = selectedPowerups.sorted(by: { $0.x < $1.x })
+//    }
+    
     func setupSelectedArrays() {
         
         selectedBlocks.removeAll()
@@ -194,8 +201,34 @@ class Stage {
         self.updatePowerups(direction: direction)
     }
     
-    func updateBlocks(direction: String) {
+    func isMatch(object: AnyObject, objectArray: [AnyObject]) -> Bool {
         
+        for otherObject in objectArray {
+            
+            if object === otherObject {
+                
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    func getMatchPos(object: AnyObject, objectArray: [AnyObject]) -> Int {
+        
+        for i in 0 ..< objectArray.count {
+            
+            if object === objectArray[i] {
+                
+                return i
+            }
+        }
+        
+        return -1
+    }
+    
+    func updateBlocks(direction: String) {
+
         var isInBounds: Bool = false
         
         var selectedToRemove = [Int]()
@@ -288,140 +321,14 @@ class Stage {
             
         }
         
+//        sortObjectArrays()
+//        sortSelectedArrays()
+
         removeObjects(type: "selectedBlocks", toRemove: selectedToRemove)
     }
     
-//    func updateEnemies(direction: String) {
-//
-//        var isInBounds: Bool = false
-//
-//        var selectedToRemove = [Int]()
-//
-//        if direction == "left" {
-//
-//            repeat {
-//
-//                isInBounds = false
-//
-//                if self.enemyStartIndex >= 0 && self.enemyStartIndex < self.enemies.count {
-//
-//                    if self.enemies[self.enemyStartIndex].isInBounds() == true {
-//
-//                        isInBounds = true
-//
-//                        if self.enemies[self.enemyStartIndex].isUsed == false {
-//
-//                            selectedEnemies.insert(self.enemies[self.enemyStartIndex], at: 0)
-//                        }
-//
-////                        self.enemyStartIndex -= 1
-//
-//                        if self.enemyStartIndex > 0 {
-//
-//                            self.enemyStartIndex -= 1
-//
-//                        } else {
-//
-//                            break
-//                        }
-//
-//                    }
-//                }
-//
-//            } while (isInBounds == true)
-//
-//            for i in 0 ..< selectedEnemies.count {
-//
-//                let newI = selectedEnemies.count - i - 1
-//
-//                if selectedEnemies[newI].isInBounds() == false {
-//
-//                    selectedToRemove.append(newI)
-//
-//                    self.enemyEndIndex -= 1
-//
-////                    if self.enemyEndIndex > 0 {
-////
-////                        self.enemyEndIndex -= 1
-////
-////                    } else {
-////
-////                        break
-////                    }
-//
-//                } else {
-//
-//                    break
-//                }
-//            }
-//
-//        } else if direction == "right" {
-//
-//            repeat {
-//
-//                isInBounds = false
-//
-//                if self.enemyEndIndex < self.enemies.count && self.enemyEndIndex >= 0 {
-//
-//                    if self.enemies[self.enemyEndIndex].isInBounds() == true {
-//
-//                        isInBounds = true
-//
-//                        if self.enemies[self.enemyEndIndex].isUsed == false {
-//
-//                            selectedEnemies.append(self.enemies[self.enemyEndIndex])
-//                        }
-//
-////                        self.enemyEndIndex += 1
-//
-//                        if self.enemyEndIndex < self.enemies.count - 1 {
-//
-//                            self.enemyEndIndex += 1
-//
-//                        } else {
-//
-//                            break
-//                        }
-//
-//                    }
-//                }
-//
-//            } while (isInBounds == true)
-//
-//            for i in 0 ..< selectedEnemies.count {
-//
-//                if selectedEnemies[i].isInBounds() == false {
-//
-//                    selectedToRemove.append(i)
-//
-//                    self.enemyStartIndex += 1
-//
-////                    if self.enemyStartIndex < self.enemies.count - 1 {
-////
-////                        self.enemyStartIndex += 1
-////
-////                    } else {
-////
-////                        break
-////                    }
-//
-//                } else {
-//
-//                    break
-//                }
-//            }
-//
-//        }
-//
-//        removeObjects(type: "selectedEnemies", toRemove: selectedToRemove)
-//    }
-    
     func updatePowerups(direction: String) {
         
-        print("POWERUP")
-        print(powerupStartIndex)
-        print(powerupEndIndex)
-
         var isInBounds: Bool = false
         
         var selectedToRemove = [Int]()
@@ -440,7 +347,10 @@ class Stage {
                         
                         if self.powerups[self.powerupStartIndex].isUsed == false {
                             
-                            selectedPowerups.insert(self.powerups[self.powerupStartIndex], at: 0)
+                            if isMatch(object: self.powerups[self.powerupStartIndex], objectArray: selectedPowerups) == false {
+                                
+                                selectedPowerups.insert(self.powerups[self.powerupStartIndex], at: 0)
+                            }
                         }
                         
                         if self.powerupStartIndex > 0 {
@@ -457,20 +367,25 @@ class Stage {
                 
             } while (isInBounds == true)
             
-            for i in 0 ..< selectedPowerups.count {
+            for i in 0 ..< self.powerups.count {
                 
-                let newI = selectedPowerups.count - i - 1
+                let newI: Int = self.powerups.count - i - 1
                 
-                if selectedPowerups[newI].isInBounds() == false {
+                if self.powerups[newI].isInBounds() == true {
                     
-                    selectedToRemove.append(newI)
+                    self.powerupEndIndex = newI
                     
-                    self.powerupEndIndex -= 1
+                    break
                     
                 } else {
                     
-                    break
+                    let matchPos: Int = getMatchPos(object: self.powerups[newI], objectArray: selectedPowerups)
+                    
+                    if matchPos >= 0 {
+                        selectedToRemove.append(matchPos)
+                    }
                 }
+                
             }
             
         } else if direction == "right" {
@@ -487,10 +402,11 @@ class Stage {
                         
                         if self.powerups[self.powerupEndIndex].isUsed == false {
 
-                            selectedPowerups.append(self.powerups[self.powerupEndIndex])
+                            if isMatch(object: self.powerups[self.powerupEndIndex], objectArray: selectedPowerups) == false {
+                                
+                                selectedPowerups.append(self.powerups[self.powerupEndIndex])
+                            }
                         }
-                        
-//                        self.powerupEndIndex += 1
                         
                         if self.powerupEndIndex < self.powerups.count - 1 {
                             
@@ -500,37 +416,40 @@ class Stage {
                             
                             break
                         }
-                        
+
                     }
                 }
                 
             } while (isInBounds == true)
             
-            for i in 0 ..< selectedPowerups.count {
+            for i in 0 ..< self.powerups.count {
                 
-                if selectedPowerups[i].isInBounds() == false {
+                if self.powerups[i].isInBounds() == true {
                     
-                    selectedToRemove.append(i)
+                    self.powerupStartIndex = i
                     
-                    self.powerupStartIndex += 1
+                    break
                     
                 } else {
                     
-                    break
+                    let matchPos: Int = getMatchPos(object: self.powerups[i], objectArray: selectedPowerups)
+                    
+                    if matchPos >= 0 {
+                        selectedToRemove.append(matchPos)
+                    }
                 }
+                
             }
-            
         }
+
+//        sortObjectArrays()
+//        sortSelectedArrays()
         
         removeObjects(type: "selectedPowerups", toRemove: selectedToRemove)
     }
     
     func updateEnemies(direction: String) {
-        
-        print("ENEMIES")
-        print(enemyStartIndex)
-        print(enemyEndIndex)
-        
+
         var isInBounds: Bool = false
         
         var selectedToRemove = [Int]()
@@ -549,7 +468,10 @@ class Stage {
                         
                         if self.enemies[self.enemyStartIndex].isUsed == false {
                             
-                            selectedEnemies.insert(self.enemies[self.enemyStartIndex], at: 0)
+                            if isMatch(object: self.enemies[self.enemyStartIndex], objectArray: selectedEnemies) == false {
+                                
+                                selectedEnemies.insert(self.enemies[self.enemyStartIndex], at: 0)
+                            }
                         }
                         
                         if self.enemyStartIndex > 0 {
@@ -566,22 +488,27 @@ class Stage {
                 
             } while (isInBounds == true)
             
-            for i in 0 ..< selectedEnemies.count {
+            for i in 0 ..< self.enemies.count {
                 
-                let newI = selectedEnemies.count - i - 1
+                let newI: Int = self.enemies.count - i - 1
                 
-                if selectedEnemies[newI].isInBounds() == false {
+                if self.enemies[newI].isInBounds() == true {
                     
-                    selectedToRemove.append(newI)
+                    self.enemyEndIndex = newI
                     
-                    self.enemyEndIndex -= 1
+                    break
                     
                 } else {
                     
-                    break
+                    let matchPos: Int = getMatchPos(object: self.enemies[newI], objectArray: selectedEnemies)
+                    
+                    if matchPos >= 0 {
+                        selectedToRemove.append(matchPos)
+                    }
                 }
+                
             }
-            
+
         } else if direction == "right" {
             
             repeat {
@@ -596,10 +523,11 @@ class Stage {
                         
                         if self.enemies[self.enemyEndIndex].isUsed == false {
                             
-                            selectedEnemies.append(self.enemies[self.enemyEndIndex])
+                            if isMatch(object: self.enemies[self.enemyEndIndex], objectArray: selectedEnemies) == false {
+                                
+                                selectedEnemies.append(self.enemies[self.enemyEndIndex])
+                            }
                         }
-                        
-                        //                        self.enemyEndIndex += 1
                         
                         if self.enemyEndIndex < self.enemies.count - 1 {
                             
@@ -615,22 +543,32 @@ class Stage {
                 
             } while (isInBounds == true)
             
-            for i in 0 ..< selectedEnemies.count {
+            for i in 0 ..< self.enemies.count {
                 
-                if selectedEnemies[i].isInBounds() == false {
+                if self.enemies[i].isInBounds() == true {
                     
-                    selectedToRemove.append(i)
-                    
-                    self.enemyStartIndex += 1
-                    
-                } else {
+                    self.enemyStartIndex = i
                     
                     break
+
+                } else {
+                    
+                    let matchPos: Int = getMatchPos(object: self.enemies[i], objectArray: selectedEnemies)
+                    
+                    if matchPos >= 0 {
+                        selectedToRemove.append(matchPos)
+                    }
                 }
+                
             }
-            
         }
         
+//        sortObjectArrays()
+//        sortSelectedArrays()
+        
+        self.enemies = self.enemies.sorted(by: { $0.x < $1.x })
+        selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
+
         removeObjects(type: "selectedEnemies", toRemove: selectedToRemove)
     }
 }

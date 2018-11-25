@@ -81,17 +81,21 @@ extension GameController {
 
         // ENEMIES
         
-//        stages[0].enemies.append(Enemy(xPos: 2, yPos: 2, type: "follower"))
+        stages[0].enemies.append(Enemy(xPos: 2, yPos: 2, type: "follower"))
 
         stages[0].enemies.append(Enemy(xPos: 3, yPos: 13, type: "hat"))
-//        stages[0].enemies.append(Enemy(xPos: 18, yPos: 13, type: "hat"))
 
-//        stages[0].enemies.append(Enemy(xPos: 16, yPos: 10, type: "penguin"))
+        stages[0].enemies.append(Enemy(xPos: 16, yPos: 10, type: "penguin"))
         
         // POWERUPS
         
-        stages[0].powerups.append(Powerup(xPos: 1, yPos: 13, type: "smallEnergy"))
-        
+//        stages[0].powerups.append(Powerup(xPos: 0, yPos: 13, type: "largeEnergy"))
+//        stages[0].powerups.append(Powerup(xPos: 1, yPos: 13, type: "smallEnergy"))
+//        stages[0].powerups.append(Powerup(xPos: 2, yPos: 13, type: "smallHealth"))
+//        stages[0].powerups.append(Powerup(xPos: 3, yPos: 13, type: "largeHealth"))
+//        stages[0].powerups.append(Powerup(xPos: 4, yPos: 13, type: "smallEnergy"))
+//        stages[0].powerups.append(Powerup(xPos: 20, yPos: 13, type: "largeEnergy"))
+
         // FINAL SETUP
         
         stages[0].sortObjectArrays()

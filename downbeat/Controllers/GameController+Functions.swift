@@ -238,6 +238,8 @@ extension GameController {
                             
                             selectedEnemies[i].isUsed = true
                             
+                            selectedEnemies[i].endTimers()
+                            
                             explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y))
                             
                             powerups.append(Powerup(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "largeEnergy"))
@@ -294,7 +296,7 @@ extension GameController {
 
                             currentStage.moveBlocks()
                             currentStage.movePowerups()
-//                            currentStage.moveEnemies()
+                            currentStage.moveEnemies()
 
                             currentStage.updateObjectArrays(direction: "left")
                         }
@@ -308,7 +310,7 @@ extension GameController {
                         
                         currentStage.moveBlocks()
                         currentStage.movePowerups()
-//                        currentStage.moveEnemies()
+                        currentStage.moveEnemies()
 
                         player.move(direction: "right")
                         
@@ -333,7 +335,7 @@ extension GameController {
 
                         currentStage.moveBlocks()
                         currentStage.movePowerups()
-//                        currentStage.moveEnemies()
+                        currentStage.moveEnemies()
 
                         currentStage.updateObjectArrays(direction: "right")
                     }
@@ -443,7 +445,6 @@ extension GameController {
     
     func moveEnemies(direction: String) {
        
-        /*
         for i in 0 ..< selectedEnemies.count {
             
 //            if selectedEnemies[i].isInBounds() == true {
@@ -468,7 +469,6 @@ extension GameController {
 //            }
             
         }
-        */
         
     }
     
