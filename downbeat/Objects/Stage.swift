@@ -261,20 +261,25 @@ class Stage {
                 
             } while (isInBounds == true)
             
-            for i in 0 ..< selectedBlocks.count {
+            for i in 0 ..< self.blocks.count {
                 
-                let newI = selectedBlocks.count - i - 1
+                let newI: Int = self.blocks.count - i - 1
                 
-                if selectedBlocks[newI].isInBounds() == false {
+                if self.blocks[newI].isInBounds() == true {
                     
-                    selectedToRemove.append(newI)
+                    self.blockEndIndex = newI
                     
-                    self.blockEndIndex -= 1
+                    break
                     
                 } else {
                     
-                    break
+                    let matchPos: Int = getMatchPos(object: self.blocks[newI], objectArray: selectedBlocks)
+                    
+                    if matchPos >= 0 {
+                        selectedToRemove.append(matchPos)
+                    }
                 }
+                
             }
             
         } else if direction == "right" {
@@ -304,21 +309,25 @@ class Stage {
                 }
                 
             } while (isInBounds == true)
-            
-            for i in 0 ..< selectedBlocks.count {
+
+            for i in 0 ..< self.blocks.count {
                 
-                if selectedBlocks[i].isInBounds() == false {
+                if self.blocks[i].isInBounds() == true {
                     
-                    selectedToRemove.append(i)
+                    self.blockStartIndex = i
                     
-                    self.blockStartIndex += 1
+                    break
                     
                 } else {
                     
-                    break
+                    let matchPos: Int = getMatchPos(object: self.blocks[i], objectArray: selectedBlocks)
+                    
+                    if matchPos >= 0 {
+                        selectedToRemove.append(matchPos)
+                    }
                 }
+                
             }
-            
         }
         
 //        sortObjectArrays()
