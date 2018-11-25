@@ -20,7 +20,8 @@ extension GameController {
         // SIZE
         
         stages[0].numberOfHorizontalBlocks = 50
-        
+//        stages[0].numberOfHorizontalBlocks = 16
+
         // PLAYER
 
         stages[0].setPlayerStartXY(startX: (screenSize.height * screenRatio) / 2, startY: -Player.height / 2)
@@ -35,9 +36,9 @@ extension GameController {
         
         stages[0].blocks.append(Block(xPos: 49, yPos: 14, type: "horizontalYellowRightBlock"))
         
-        stages[0].blocks.append(Block(xPos: 10, yPos: 13, type: "horizontalYellowLeftBlock"))
-        stages[0].blocks.append(Block(xPos: 11, yPos: 13, type: blockType))
-        stages[0].blocks.append(Block(xPos: 12, yPos: 13, type: "horizontalYellowRightBlock"))
+//        stages[0].blocks.append(Block(xPos: 10, yPos: 13, type: "horizontalYellowLeftBlock"))
+//        stages[0].blocks.append(Block(xPos: 11, yPos: 13, type: blockType))
+//        stages[0].blocks.append(Block(xPos: 12, yPos: 13, type: "horizontalYellowRightBlock"))
 
         stages[0].blocks.append(Block(xPos: 16, yPos: 12, type: "horizontalYellowLeftBlock"))
         stages[0].blocks.append(Block(xPos: 17, yPos: 12, type: blockType))
@@ -82,14 +83,20 @@ extension GameController {
         
 //        stages[0].enemies.append(Enemy(xPos: 2, yPos: 2, type: "follower"))
 
-//        stages[0].enemies.append(Enemy(xPos: 3, yPos: 13, type: "hat"))
-        
-        stages[0].enemies.append(Enemy(xPos: 16, yPos: 10, type: "penguin"))
+        stages[0].enemies.append(Enemy(xPos: 3, yPos: 13, type: "hat"))
+//        stages[0].enemies.append(Enemy(xPos: 18, yPos: 13, type: "hat"))
+
+//        stages[0].enemies.append(Enemy(xPos: 16, yPos: 10, type: "penguin"))
         
         // POWERUPS
         
-        stages[0].powerups.append(Powerup(xPos: 3, yPos: 13, type: "smallEnergy"))
+        stages[0].powerups.append(Powerup(xPos: 1, yPos: 13, type: "smallEnergy"))
         
+        // FINAL SETUP
+        
+        stages[0].sortObjectArrays()
+        stages[0].setupSelectedArrays()
+
         currentStage = stages[0]
     }
 }

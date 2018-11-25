@@ -244,7 +244,7 @@ class Player {
 
             var isEmpty: Bool = true
             
-            for block in currentStage.blocks {
+            for block in selectedBlocks {
                 
                 if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                     
@@ -260,7 +260,7 @@ class Player {
         
         if self.isFalling == true {
             
-            for block in currentStage.blocks {
+            for block in selectedBlocks {
                 
                 if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                     
@@ -279,7 +279,7 @@ class Player {
         
         if self.isRising == true {
             
-            for block in currentStage.blocks {
+            for block in selectedBlocks {
                 
 //                if self.y - (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                 if self.y - (Player.height / 2) + self.ySpeed <= block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
@@ -301,7 +301,7 @@ class Player {
             
             self.canMove = true
             
-            for block in currentStage.blocks {
+            for block in selectedBlocks {
                 
                 if self.isMovingRight == true {
                     
@@ -640,11 +640,23 @@ class Player {
         return -1
     }
     
-    func didHitStagePowerup() -> Int {
+//    func didHitStagePowerup() -> Int {
+//
+//        for i in 0 ..< currentStage.powerups.count {
+//
+//            if currentStage.powerups[i].x + (currentStage.powerups[i].width / 2) >= self.x - (Player.width / 2) && currentStage.powerups[i].x - (currentStage.powerups[i].width / 2) <= self.x + (Player.width / 2) && currentStage.powerups[i].y + (currentStage.powerups[i].height / 2) >= self.y - (Player.height / 2) && currentStage.powerups[i].y - (currentStage.powerups[i].height / 2) <= self.y + (Player.height / 2) {
+//                return i
+//            }
+//        }
+//
+//        return -1
+//    }
+    
+    func didHitSelectedPowerup() -> Int {
         
-        for i in 0 ..< currentStage.powerups.count {
+        for i in 0 ..< selectedPowerups.count {
             
-            if currentStage.powerups[i].x + (currentStage.powerups[i].width / 2) >= self.x - (Player.width / 2) && currentStage.powerups[i].x - (currentStage.powerups[i].width / 2) <= self.x + (Player.width / 2) && currentStage.powerups[i].y + (currentStage.powerups[i].height / 2) >= self.y - (Player.height / 2) && currentStage.powerups[i].y - (currentStage.powerups[i].height / 2) <= self.y + (Player.height / 2) {
+            if selectedPowerups[i].x + (selectedPowerups[i].width / 2) >= self.x - (Player.width / 2) && selectedPowerups[i].x - (selectedPowerups[i].width / 2) <= self.x + (Player.width / 2) && selectedPowerups[i].y + (selectedPowerups[i].height / 2) >= self.y - (Player.height / 2) && selectedPowerups[i].y - (selectedPowerups[i].height / 2) <= self.y + (Player.height / 2) {
                 return i
             }
         }
@@ -652,11 +664,23 @@ class Player {
         return -1
     }
     
-    func didHitEnemy() -> Int {
+//    func didHitEnemy() -> Int {
+//
+//        for i in 0 ..< currentStage.enemies.count {
+//
+//            if currentStage.enemies[i].x + (currentStage.enemies[i].width / 2) >= self.x - (Player.width / 2) && currentStage.enemies[i].x - (currentStage.enemies[i].width / 2) <= self.x + (Player.width / 2) && currentStage.enemies[i].y + (currentStage.enemies[i].height / 2) >= self.y - (Player.height / 2) && currentStage.enemies[i].y - (currentStage.enemies[i].height / 2) <= self.y + (Player.height / 2) {
+//                return i
+//            }
+//        }
+//
+//        return -1
+//    }
+    
+    func didHitSelectedEnemy() -> Int {
         
-        for i in 0 ..< currentStage.enemies.count {
+        for i in 0 ..< selectedEnemies.count {
             
-            if currentStage.enemies[i].x + (currentStage.enemies[i].width / 2) >= self.x - (Player.width / 2) && currentStage.enemies[i].x - (currentStage.enemies[i].width / 2) <= self.x + (Player.width / 2) && currentStage.enemies[i].y + (currentStage.enemies[i].height / 2) >= self.y - (Player.height / 2) && currentStage.enemies[i].y - (currentStage.enemies[i].height / 2) <= self.y + (Player.height / 2) {
+            if selectedEnemies[i].x + (selectedEnemies[i].width / 2) >= self.x - (Player.width / 2) && selectedEnemies[i].x - (selectedEnemies[i].width / 2) <= self.x + (Player.width / 2) && selectedEnemies[i].y + (selectedEnemies[i].height / 2) >= self.y - (Player.height / 2) && selectedEnemies[i].y - (selectedEnemies[i].height / 2) <= self.y + (Player.height / 2) {
                 return i
             }
         }

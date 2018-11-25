@@ -120,18 +120,18 @@ extension GameController {
             
             removeObjects(type: "powerups", toRemove: powerupsToRemove)
             
-            powerupsToRemove.removeAll()
-            
-            for i in 0 ..< currentStage.powerups.count {
-                
-                currentStage.powerups[i].move()
-                
-                if currentStage.powerups[i].view.isAnimating == false || currentStage.powerups[i].isInBounds() == false {
-                    powerupsToRemove.append(i)
-                }
-            }
-            
-            removeObjects(type: "stagePowerups", toRemove: powerupsToRemove)
+//            powerupsToRemove.removeAll()
+//
+//            for i in 0 ..< currentStage.powerups.count {
+//
+//                currentStage.powerups[i].move()
+//
+//                if currentStage.powerups[i].view.isAnimating == false || currentStage.powerups[i].isInBounds() == false {
+//                    powerupsToRemove.append(i)
+//                }
+//            }
+//
+//            removeObjects(type: "stagePowerups", toRemove: powerupsToRemove)
             
             var enemyBulletsToRemove = [Int]()
             
@@ -155,21 +155,41 @@ extension GameController {
                 powerups.remove(at: powerupPos)
             }
             
-            let stagePowerupPos: Int = player.didHitStagePowerup()
+//            let stagePowerupPos: Int = player.didHitStagePowerup()
+//
+//            if stagePowerupPos >= 0 {
+//
+//                player.handlePowerup(type: currentStage.powerups[stagePowerupPos].type)
+//
+//                currentStage.powerups.remove(at: stagePowerupPos)
+//            }
             
-            if stagePowerupPos >= 0 {
+            let selectedPowerupPos: Int = player.didHitSelectedPowerup()
+            
+            if selectedPowerupPos >= 0 {
                 
-                player.handlePowerup(type: currentStage.powerups[stagePowerupPos].type)
+                player.handlePowerup(type: selectedPowerups[selectedPowerupPos].type)
                 
-                currentStage.powerups.remove(at: stagePowerupPos)
+                selectedPowerups[selectedPowerupPos].isUsed = true
+                
+                selectedPowerups.remove(at: selectedPowerupPos)
             }
-            
-            let enemyPos: Int = player.didHitEnemy()
 
-            if enemyPos >= 0 {
+//            let enemyPos: Int = player.didHitEnemy()
+//
+//            if enemyPos >= 0 {
+//
+//                if player.isHit == false {
+//                    player.handleHit(damage: currentStage.enemies[enemyPos].damage, enemyDirection: currentStage.enemies[enemyPos].direction)
+//                }
+//            }
+            
+            let selectedEnemyPos: Int = player.didHitSelectedEnemy()
+            
+            if selectedEnemyPos >= 0 {
                 
                 if player.isHit == false {
-                    player.handleHit(damage: currentStage.enemies[enemyPos].damage, enemyDirection: currentStage.enemies[enemyPos].direction)
+                    player.handleHit(damage: selectedEnemies[selectedEnemyPos].damage, enemyDirection: selectedEnemies[selectedEnemyPos].direction)
                 }
             }
             
@@ -195,43 +215,43 @@ extension GameController {
             
             removeObjects(type: "enemyBullets", toRemove: enemyBulletsToRemove)
         
-            var enemiesToRemove = [Int]()
+            var selectedEnemiesToRemove = [Int]()
             
             bulletsToRemove.removeAll()
             
-            for i in 0 ..< currentStage.enemies.count {
+            for i in 0 ..< selectedEnemies.count {
             
-                if currentStage.enemies[i].isInBounds() == true {
+                if selectedEnemies[i].isInBounds() == true {
                     
-                    currentStage.enemies[i].move()
-                    currentStage.enemies[i].updateAnimation()
+                    selectedEnemies[i].move()
+                    selectedEnemies[i].updateAnimation()
 
-                    let bulletPos: Int = currentStage.enemies[i].didHitBullet()
+                    let bulletPos: Int = selectedEnemies[i].didHitBullet()
                     
                     if bulletPos >= 0 {
                         
                         bulletsToRemove.append(bulletPos)
                         
-                        currentStage.enemies[i].handleHit()
+                        selectedEnemies[i].handleHit()
                         
-                        if currentStage.enemies[i].isDead() == true {
+                        if selectedEnemies[i].isDead() == true {
                             
-                            explosions.append(Explosion(x: currentStage.enemies[i].x, y: currentStage.enemies[i].y))
+                            explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y))
                             
-                            powerups.append(Powerup(x: currentStage.enemies[i].x, y: currentStage.enemies[i].y, type: "largeEnergy"))
+                            powerups.append(Powerup(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "largeEnergy"))
                             
-                            enemiesToRemove.append(i)
+                            selectedEnemiesToRemove.append(i)
                         }
                     }
 
                 } else {
                     
-                    enemiesToRemove.append(i)
+                    selectedEnemiesToRemove.append(i)
                 }
             }
             
             removeObjects(type: "bullets", toRemove: bulletsToRemove)
-            removeObjects(type: "enemies", toRemove: enemiesToRemove)
+            removeObjects(type: "selectedEnemies", toRemove: selectedEnemiesToRemove)
 
             if player.isMoving == true {
                 
@@ -244,6 +264,8 @@ extension GameController {
                             currentStage.reset()
                             
                             player.move(direction: "left")
+                            
+//                            currentStage.updateObjectArrays(direction: "left")
 
                         } else if player.x > (gameView.frame.size.width / 2) {
                             
@@ -259,9 +281,14 @@ extension GameController {
                             movePowerups(direction: "left")
                             moveEnemies(direction: "left")
                             moveEnemyBullets(direction: "left")
+                            
+//                            currentStage.updateObjectArrays(direction: "left")
 
                             currentStage.moveBlocks()
                             currentStage.movePowerups()
+                            currentStage.moveEnemies()
+
+                            currentStage.updateObjectArrays(direction: "left")
                         }
                     }
 
@@ -273,8 +300,11 @@ extension GameController {
                         
                         currentStage.moveBlocks()
                         currentStage.movePowerups()
+                        currentStage.moveEnemies()
 
                         player.move(direction: "right")
+                        
+//                        currentStage.updateObjectArrays(direction: "right")
                         
                     } else if player.x < (gameView.frame.size.width / 2) {
                         
@@ -291,8 +321,13 @@ extension GameController {
                         moveEnemies(direction: "right")
                         moveEnemyBullets(direction: "right")
 
+//                        currentStage.updateObjectArrays(direction: "right")
+
                         currentStage.moveBlocks()
                         currentStage.movePowerups()
+                        currentStage.moveEnemies()
+
+                        currentStage.updateObjectArrays(direction: "right")
                     }
                 }
                 
@@ -400,28 +435,28 @@ extension GameController {
     
     func moveEnemies(direction: String) {
         
-        for i in 0 ..< currentStage.enemies.count {
+        for i in 0 ..< selectedEnemies.count {
             
-            if currentStage.enemies[i].isInBounds() == true {
-                
+//            if selectedEnemies[i].isInBounds() == true {
+            
                 if direction == "left" {
                     
                     if player.isKnockedBack == true {
-                        currentStage.enemies[i].setXY(x: currentStage.enemies[i].x + Player.knockBackMoveSpeed, y: currentStage.enemies[i].y)
+                        selectedEnemies[i].setXY(x: selectedEnemies[i].x + Player.knockBackMoveSpeed, y: selectedEnemies[i].y)
                     } else {
-                        currentStage.enemies[i].setXY(x: currentStage.enemies[i].x + Player.maxMoveSpeed, y: currentStage.enemies[i].y)
+                        selectedEnemies[i].setXY(x: selectedEnemies[i].x + Player.maxMoveSpeed, y: selectedEnemies[i].y)
                     }
                     
                 } else if direction == "right" {
                     
                     if player.isKnockedBack == true {
-                        currentStage.enemies[i].setXY(x: currentStage.enemies[i].x - Player.knockBackMoveSpeed, y: currentStage.enemies[i].y)
+                        selectedEnemies[i].setXY(x: selectedEnemies[i].x - Player.knockBackMoveSpeed, y: selectedEnemies[i].y)
                     } else {
-                        currentStage.enemies[i].setXY(x: currentStage.enemies[i].x - Player.maxMoveSpeed, y: currentStage.enemies[i].y)
+                        selectedEnemies[i].setXY(x: selectedEnemies[i].x - Player.maxMoveSpeed, y: selectedEnemies[i].y)
                     }
                 }
                 
-            }
+//            }
             
         }
     }
@@ -455,7 +490,7 @@ extension GameController {
         removeAllSubviews()
         removeAllLines()
         
-        for b in currentStage.blocks {
+        for b in selectedBlocks {
             gameView.addSubview(b.view)
         }
         
@@ -467,7 +502,7 @@ extension GameController {
             gameView.addSubview(p.view)
         }
         
-        for p in currentStage.powerups {
+        for p in selectedPowerups {
             gameView.addSubview(p.view)
         }
         
@@ -483,7 +518,7 @@ extension GameController {
             gameView.addSubview(d.view)
         }
         
-        for e in currentStage.enemies {
+        for e in selectedEnemies {
             gameView.addSubview(e.view)
         }
         

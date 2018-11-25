@@ -41,6 +41,10 @@ var powerups = [Powerup]()
 var enemyBullets = [EnemyBullet]()
 var deflectedBullets = [DeflectedBullet]()
 
+var selectedBlocks = [Block]()
+var selectedEnemies = [Enemy]()
+var selectedPowerups = [Powerup]()
+
 var canMoveLeft: Bool = true
 var canMoveRight: Bool = true
 
@@ -63,6 +67,8 @@ var player = Player()
 // FUNCTIONS
 
 public func removeObjects(type: String, toRemove: [Int]) {
+    
+    var toRemove = toRemove.sorted(by: { $0 < $1 })
     
     for i in 0 ..< toRemove.count {
         
@@ -96,6 +102,14 @@ public func removeObjects(type: String, toRemove: [Int]) {
         } else if type == "enemyBullets" {
             
             enemyBullets.remove(at: toRemove[newI])
+            
+        } else if type == "selectedBlocks" {
+            
+            selectedBlocks.remove(at: toRemove[newI])
+            
+        } else if type == "selectedEnemies" {
+            
+            selectedEnemies.remove(at: toRemove[newI])
         }
     }
     

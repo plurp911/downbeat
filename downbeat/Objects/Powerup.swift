@@ -45,6 +45,8 @@ class Powerup {
     
     var isJumping: Bool = false
     
+    var isUsed: Bool = false
+    
     var view: UIImageView = UIImageView()
     
     init(x: CGFloat, y: CGFloat, type: String) {
@@ -60,7 +62,7 @@ class Powerup {
         self.xPos = xPos
         self.yPos = yPos
 
-        self.setup(x: ((CGFloat)(self.xPos) * Block.width) + (Block.width / 2), y: ((CGFloat)(self.yPos) * Block.height) + (Block.height / 2), type: type, shouldFade: false)
+        self.setup(x: ((CGFloat)(self.xPos) * Block.width) + (Block.width / 2), y: ((CGFloat)(self.yPos) * Block.height) + Block.height, type: type, shouldFade: false)
     }
     
     func setup(x: CGFloat, y: CGFloat, type: String, shouldFade: Bool) {
@@ -89,6 +91,10 @@ class Powerup {
             
             self.width = Block.width * 0.5
             self.height = self.width
+        }
+        
+        if shouldFade == false {
+            self.y -= (self.height / 2)
         }
         
         self.setXY(x: self.x, y: self.y)
@@ -129,7 +135,9 @@ class Powerup {
         self.view.animationDuration = 0.3
         self.view.startAnimating()
         
-        self.jump()
+        if shouldFade == true {
+            self.jump()
+        }
     }
     
     func move() {
@@ -160,7 +168,7 @@ class Powerup {
         
         if self.isFalling == true {
             
-            for block in currentStage.blocks {
+            for block in selectedBlocks {
                 
                 if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
                     

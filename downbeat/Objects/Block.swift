@@ -62,11 +62,11 @@ class Block {
         self.view.frame.origin.x = self.x - Block.width / 2
     }
     
-    func didHitGoal() -> Bool {
+    func isInBounds() -> Bool {
         
-        //        if distance(x1: goal.x, y1: goal.y, x2: player.x, y2: player.y) <= Player.radius + (Goal.width / 2) {
-        //            return true
-        //        }
+        if self.x + (Block.width / 2) >= 0 && self.x - (Block.width / 2) <= screenSize.height * (screenRatio) {
+            return true
+        }
         
         return false
     }
