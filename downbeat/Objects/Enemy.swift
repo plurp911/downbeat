@@ -71,13 +71,15 @@ class Enemy {
     
     var type: String = ""
     
-    var view: UIImageView = UIImageView()
-    
     var shootTimer = Timer()
     var endShootTimer = Timer()
-//    var endShootAnimation = Timer()
-
+    //    var endShootAnimation = Timer()
+    
     var shootTimeInterval: CGFloat = 0
+    
+    var isUsed: Bool = false
+
+    var view: UIImageView = UIImageView()
 
     init(xPos: Int, yPos: Int, type: String) {
         

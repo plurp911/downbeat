@@ -66,38 +66,26 @@ class Stage {
 //            }
 //        }
         
-//        var enemiesToMove = [Enemy]()
-        
         for enemy in self.enemies {
             
-            var isSelected: Bool = false
+            var isMatch: Bool = false
             
             for otherEnemy in selectedEnemies {
                 
-                if enemy.xPos == otherEnemy.xPos && enemy.yPos == otherEnemy.yPos && enemy.type == otherEnemy.type {
+                if enemy === otherEnemy {
                     
-                    isSelected = true
+                    isMatch = true
 
 //                    break
                 }
             }
             
-            if isSelected == false {
+            if isMatch == false {
                 
                 enemy.setXY(x: self.x + (((CGFloat)(enemy.xPos)) * Block.width) + (Block.width / 2), y: enemy.y)
-                
-//                enemiesToMove.append(enemy)
             }
         }
-        
-//        for i in 0 ..< enemiesToMove.count {
-//
-//            print(counter)
-//
-//            counter += 1
-//
-//            enemiesToMove[i].setXY(x: self.x + (((CGFloat)(enemiesToMove[i].xPos)) * Block.width) + (Block.width / 2), y: enemiesToMove[i].y)
-//        }
+
     }
     
     func movePowerups() {
@@ -303,123 +291,137 @@ class Stage {
         removeObjects(type: "selectedBlocks", toRemove: selectedToRemove)
     }
     
-    func updateEnemies(direction: String) {
-        
-        var isInBounds: Bool = false
-        
-        var selectedToRemove = [Int]()
-        
-        if direction == "left" {
-            
-            repeat {
-                
-                isInBounds = false
-                
-                if self.enemyStartIndex >= 0 && self.enemyStartIndex < self.enemies.count {
-                    
-                    if self.enemies[self.enemyStartIndex].isInBounds() == true {
-                        
-                        isInBounds = true
-                        
-                        selectedEnemies.insert(self.enemies[self.enemyStartIndex], at: 0)
-                        
-                        if self.enemyStartIndex > 0 {
-                            
-                            self.enemyStartIndex -= 1
-                            
-                        } else {
-                            
-                            break
-                        }
-                        
-                    }
-                }
-                
-            } while (isInBounds == true)
-            
-            for i in 0 ..< selectedEnemies.count {
-                
-                let newI = selectedEnemies.count - i - 1
-                
-                if selectedEnemies[newI].isInBounds() == false {
-                    
-                    selectedToRemove.append(newI)
-                    
+//    func updateEnemies(direction: String) {
+//
+//        var isInBounds: Bool = false
+//
+//        var selectedToRemove = [Int]()
+//
+//        if direction == "left" {
+//
+//            repeat {
+//
+//                isInBounds = false
+//
+//                if self.enemyStartIndex >= 0 && self.enemyStartIndex < self.enemies.count {
+//
+//                    if self.enemies[self.enemyStartIndex].isInBounds() == true {
+//
+//                        isInBounds = true
+//
+//                        if self.enemies[self.enemyStartIndex].isUsed == false {
+//
+//                            selectedEnemies.insert(self.enemies[self.enemyStartIndex], at: 0)
+//                        }
+//
+////                        self.enemyStartIndex -= 1
+//
+//                        if self.enemyStartIndex > 0 {
+//
+//                            self.enemyStartIndex -= 1
+//
+//                        } else {
+//
+//                            break
+//                        }
+//
+//                    }
+//                }
+//
+//            } while (isInBounds == true)
+//
+//            for i in 0 ..< selectedEnemies.count {
+//
+//                let newI = selectedEnemies.count - i - 1
+//
+//                if selectedEnemies[newI].isInBounds() == false {
+//
+//                    selectedToRemove.append(newI)
+//
 //                    self.enemyEndIndex -= 1
-                    
-                    if self.enemyEndIndex > 0 {
-
-                        self.enemyEndIndex -= 1
-
-                    } else {
-
-                        break
-                    }
-                    
-                } else {
-                    
-                    break
-                }
-            }
-            
-        } else if direction == "right" {
-            
-            repeat {
-                
-                isInBounds = false
-                
-                if self.enemyEndIndex < self.enemies.count && self.enemyEndIndex >= 0 {
-                    
-                    if self.enemies[self.enemyEndIndex].isInBounds() == true {
-                        
-                        isInBounds = true
-                        
-                        selectedEnemies.append(self.enemies[self.enemyEndIndex])
-                        
-                        if self.enemyEndIndex < self.enemies.count - 1 {
-                            
-                            self.enemyEndIndex += 1
-                            
-                        } else {
-                            
-                            break
-                        }
-
-                    }
-                }
-                
-            } while (isInBounds == true)
-            
-            for i in 0 ..< selectedEnemies.count {
-                
-                if selectedEnemies[i].isInBounds() == false {
-                    
-                    selectedToRemove.append(i)
-                    
+//
+////                    if self.enemyEndIndex > 0 {
+////
+////                        self.enemyEndIndex -= 1
+////
+////                    } else {
+////
+////                        break
+////                    }
+//
+//                } else {
+//
+//                    break
+//                }
+//            }
+//
+//        } else if direction == "right" {
+//
+//            repeat {
+//
+//                isInBounds = false
+//
+//                if self.enemyEndIndex < self.enemies.count && self.enemyEndIndex >= 0 {
+//
+//                    if self.enemies[self.enemyEndIndex].isInBounds() == true {
+//
+//                        isInBounds = true
+//
+//                        if self.enemies[self.enemyEndIndex].isUsed == false {
+//
+//                            selectedEnemies.append(self.enemies[self.enemyEndIndex])
+//                        }
+//
+////                        self.enemyEndIndex += 1
+//
+//                        if self.enemyEndIndex < self.enemies.count - 1 {
+//
+//                            self.enemyEndIndex += 1
+//
+//                        } else {
+//
+//                            break
+//                        }
+//
+//                    }
+//                }
+//
+//            } while (isInBounds == true)
+//
+//            for i in 0 ..< selectedEnemies.count {
+//
+//                if selectedEnemies[i].isInBounds() == false {
+//
+//                    selectedToRemove.append(i)
+//
 //                    self.enemyStartIndex += 1
-                    
-                    if self.enemyStartIndex < self.enemies.count - 1 {
-
-                        self.enemyStartIndex += 1
-
-                    } else {
-
-                        break
-                    }
-                    
-                } else {
-                    
-                    break
-                }
-            }
-            
-        }
-        
-        removeObjects(type: "selectedEnemies", toRemove: selectedToRemove)
-    }
+//
+////                    if self.enemyStartIndex < self.enemies.count - 1 {
+////
+////                        self.enemyStartIndex += 1
+////
+////                    } else {
+////
+////                        break
+////                    }
+//
+//                } else {
+//
+//                    break
+//                }
+//            }
+//
+//        }
+//
+//        removeObjects(type: "selectedEnemies", toRemove: selectedToRemove)
+//    }
     
     func updatePowerups(direction: String) {
         
+        print("POWERUP")
+        print(powerupStartIndex)
+        print(powerupEndIndex)
+
         var isInBounds: Bool = false
         
         var selectedToRemove = [Int]()
@@ -488,7 +490,7 @@ class Stage {
                             selectedPowerups.append(self.powerups[self.powerupEndIndex])
                         }
                         
-                        self.powerupEndIndex += 1
+//                        self.powerupEndIndex += 1
                         
                         if self.powerupEndIndex < self.powerups.count - 1 {
                             
@@ -521,5 +523,114 @@ class Stage {
         }
         
         removeObjects(type: "selectedPowerups", toRemove: selectedToRemove)
+    }
+    
+    func updateEnemies(direction: String) {
+        
+        print("ENEMIES")
+        print(enemyStartIndex)
+        print(enemyEndIndex)
+        
+        var isInBounds: Bool = false
+        
+        var selectedToRemove = [Int]()
+        
+        if direction == "left" {
+            
+            repeat {
+                
+                isInBounds = false
+                
+                if self.enemyStartIndex >= 0 && self.enemyStartIndex < self.enemies.count {
+                    
+                    if self.enemies[self.enemyStartIndex].isInBounds() == true {
+                        
+                        isInBounds = true
+                        
+                        if self.enemies[self.enemyStartIndex].isUsed == false {
+                            
+                            selectedEnemies.insert(self.enemies[self.enemyStartIndex], at: 0)
+                        }
+                        
+                        if self.enemyStartIndex > 0 {
+                            
+                            self.enemyStartIndex -= 1
+                            
+                        } else {
+                            
+                            break
+                        }
+                        
+                    }
+                }
+                
+            } while (isInBounds == true)
+            
+            for i in 0 ..< selectedEnemies.count {
+                
+                let newI = selectedEnemies.count - i - 1
+                
+                if selectedEnemies[newI].isInBounds() == false {
+                    
+                    selectedToRemove.append(newI)
+                    
+                    self.enemyEndIndex -= 1
+                    
+                } else {
+                    
+                    break
+                }
+            }
+            
+        } else if direction == "right" {
+            
+            repeat {
+                
+                isInBounds = false
+                
+                if self.enemyEndIndex < self.enemies.count && self.enemyEndIndex >= 0 {
+                    
+                    if self.enemies[self.enemyEndIndex].isInBounds() == true {
+                        
+                        isInBounds = true
+                        
+                        if self.enemies[self.enemyEndIndex].isUsed == false {
+                            
+                            selectedEnemies.append(self.enemies[self.enemyEndIndex])
+                        }
+                        
+                        //                        self.enemyEndIndex += 1
+                        
+                        if self.enemyEndIndex < self.enemies.count - 1 {
+                            
+                            self.enemyEndIndex += 1
+                            
+                        } else {
+                            
+                            break
+                        }
+                        
+                    }
+                }
+                
+            } while (isInBounds == true)
+            
+            for i in 0 ..< selectedEnemies.count {
+                
+                if selectedEnemies[i].isInBounds() == false {
+                    
+                    selectedToRemove.append(i)
+                    
+                    self.enemyStartIndex += 1
+                    
+                } else {
+                    
+                    break
+                }
+            }
+            
+        }
+        
+        removeObjects(type: "selectedEnemies", toRemove: selectedToRemove)
     }
 }

@@ -68,48 +68,49 @@ var player = Player()
 
 public func removeObjects(type: String, toRemove: [Int]) {
     
-    var toRemove = toRemove.sorted(by: { $0 < $1 })
+    var newToRemove = toRemove.sorted(by: { $0 < $1 })
     
-    for i in 0 ..< toRemove.count {
+    for i in 0 ..< newToRemove.count {
         
-        let newI = toRemove.count - i - 1
-        
+        let newI = newToRemove.count - i - 1
+//        let newI = i
+
         if type == "bullets" {
             
-            bullets.remove(at: toRemove[newI])
+            bullets.remove(at: newToRemove[newI])
             
         } else if type == "deflectedBullets" {
             
-            deflectedBullets.remove(at: toRemove[newI])
+            deflectedBullets.remove(at: newToRemove[newI])
             
         } else if type == "powerups" {
             
-            powerups.remove(at: toRemove[newI])
+            powerups.remove(at: newToRemove[newI])
             
         } else if type == "stagePowerups" {
             
-            currentStage.powerups.remove(at: toRemove[newI])
+            currentStage.powerups.remove(at: newToRemove[newI])
             
         } else if type == "explosions" {
             
-            explosions.remove(at: toRemove[newI])
+            explosions.remove(at: newToRemove[newI])
             
         } else if type == "enemies" {
             
-            currentStage.enemies[toRemove[newI]].endTimers()
-            currentStage.enemies.remove(at: toRemove[newI])
+            currentStage.enemies[newToRemove[newI]].endTimers()
+            currentStage.enemies.remove(at: newToRemove[newI])
             
         } else if type == "enemyBullets" {
             
-            enemyBullets.remove(at: toRemove[newI])
+            enemyBullets.remove(at: newToRemove[newI])
             
         } else if type == "selectedBlocks" {
             
-            selectedBlocks.remove(at: toRemove[newI])
+            selectedBlocks.remove(at: newToRemove[newI])
             
         } else if type == "selectedEnemies" {
             
-            selectedEnemies.remove(at: toRemove[newI])
+            selectedEnemies.remove(at: newToRemove[newI])
         }
     }
     

@@ -221,8 +221,8 @@ extension GameController {
             
             for i in 0 ..< selectedEnemies.count {
             
-                if selectedEnemies[i].isInBounds() == true {
-                    
+//                if selectedEnemies[i].isInBounds() == true {
+                
                     selectedEnemies[i].move()
                     selectedEnemies[i].updateAnimation()
 
@@ -236,6 +236,8 @@ extension GameController {
                         
                         if selectedEnemies[i].isDead() == true {
                             
+                            selectedEnemies[i].isUsed = true
+                            
                             explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y))
                             
                             powerups.append(Powerup(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "largeEnergy"))
@@ -244,12 +246,18 @@ extension GameController {
                         }
                     }
 
-                } else {
-                    
-                    selectedEnemiesToRemove.append(i)
-                }
+//                } else {
+//
+//                    selectedEnemiesToRemove.append(i)
+//                }
             }
             
+            print()
+            print("BULLETS")
+            print(bulletsToRemove)
+            print()
+            
+//            removeObjects(type: "selectedEnemies", toRemove: selectedEnemiesToRemove)
             removeObjects(type: "bullets", toRemove: bulletsToRemove)
             removeObjects(type: "selectedEnemies", toRemove: selectedEnemiesToRemove)
 
@@ -275,18 +283,18 @@ extension GameController {
                             
                             currentStage.move(direction: "left")
                             
-                            moveBullets(direction: "left")
-                            moveDeflectedBullets(direction: "left")
+//                            moveBullets(direction: "left")
+//                            moveDeflectedBullets(direction: "left")
                             moveExplosions(direction: "left")
                             movePowerups(direction: "left")
                             moveEnemies(direction: "left")
-                            moveEnemyBullets(direction: "left")
+//                            moveEnemyBullets(direction: "left")
                             
 //                            currentStage.updateObjectArrays(direction: "left")
 
                             currentStage.moveBlocks()
                             currentStage.movePowerups()
-                            currentStage.moveEnemies()
+//                            currentStage.moveEnemies()
 
                             currentStage.updateObjectArrays(direction: "left")
                         }
@@ -300,7 +308,7 @@ extension GameController {
                         
                         currentStage.moveBlocks()
                         currentStage.movePowerups()
-                        currentStage.moveEnemies()
+//                        currentStage.moveEnemies()
 
                         player.move(direction: "right")
                         
@@ -314,18 +322,18 @@ extension GameController {
                         
                         currentStage.move(direction: "right")
                         
-                        moveBullets(direction: "right")
-                        moveDeflectedBullets(direction: "right")
+//                        moveBullets(direction: "right")
+//                        moveDeflectedBullets(direction: "right")
                         moveExplosions(direction: "right")
                         movePowerups(direction: "right")
                         moveEnemies(direction: "right")
-                        moveEnemyBullets(direction: "right")
+//                        moveEnemyBullets(direction: "right")
 
 //                        currentStage.updateObjectArrays(direction: "right")
 
                         currentStage.moveBlocks()
                         currentStage.movePowerups()
-                        currentStage.moveEnemies()
+//                        currentStage.moveEnemies()
 
                         currentStage.updateObjectArrays(direction: "right")
                     }
@@ -434,7 +442,8 @@ extension GameController {
     }
     
     func moveEnemies(direction: String) {
-        
+       
+        /*
         for i in 0 ..< selectedEnemies.count {
             
 //            if selectedEnemies[i].isInBounds() == true {
@@ -459,6 +468,8 @@ extension GameController {
 //            }
             
         }
+        */
+        
     }
     
     func moveEnemyBullets(direction: String) {
