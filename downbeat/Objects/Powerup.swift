@@ -170,18 +170,22 @@ class Powerup {
             
             for block in selectedBlocks {
                 
-                if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                if block.isLadder == false {
                     
-                    self.isJumping = false
-                    self.isFalling = false
-                    
-                    self.ySpeed = 0
-                    
-                    setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                    if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                        
+                        self.isJumping = false
+                        self.isFalling = false
+                        
+                        self.ySpeed = 0
+                        
+                        setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                    }
                 }
+                
             }
-            
         }
+        
     }
     
     func setXY(x: CGFloat, y: CGFloat) {

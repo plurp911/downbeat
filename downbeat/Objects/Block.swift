@@ -27,6 +27,8 @@ class Block {
 
     var x: CGFloat = 0
     var y: CGFloat = 0
+    
+    var isLadder: Bool = false
 
     var view: UIImageView = UIImageView()
     
@@ -36,6 +38,10 @@ class Block {
         self.yPos = yPos
         
         self.type = type
+        
+        if self.type == "ladder" {
+            self.isLadder = true
+        }
         
         self.x = (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2)
         self.y = (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2)
@@ -70,11 +76,4 @@ class Block {
         
         return false
     }
-    
-//        func reset(stage: Stage) {
-//
-//            self.setXY(x: stage.playerStartX, y: stage.playerStartY)
-//
-//        }
-    
 }
