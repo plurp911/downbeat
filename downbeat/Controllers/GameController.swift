@@ -12,9 +12,9 @@ class GameController: UIViewController {
     
     // CONSTANTS
     
-    let mainButtonRadius: CGFloat = 37
+    let mainButtonRadius: CGFloat = 35
     
-    let mainButtonSpacing: CGFloat = 30
+    let mainButtonSpacing: CGFloat = 35
         
     // VARIABLES
     
@@ -63,30 +63,22 @@ class GameController: UIViewController {
         button.addTarget(self, action: #selector(handleJumpCancel), for: .touchUpInside)
         button.addTarget(self, action: #selector(handleJumpCancel), for: .touchUpOutside)
         button.addTarget(self, action: #selector(handleJumpCancel), for: .touchCancel)
-        //        button.addTarget(self, action: #selector(handleJumpCancel), for: .touchDragExit)
-        //        button.addTarget(self, action: #selector(handleJumpCancel), for: .touchDragOutside)
         return button
     }()
     
     @objc func handleJump() {
-        
-        print("JUMP")
         
         if player.isKnockedBack == false {
             
             if player.isJumping == false && player.ySpeed == 0 {
                 
                 player.jump()
-                
-//                player.updateAnimation()
             }
         }
         
     }
     
     @objc func handleJumpCancel() {
-        
-        print("JUMP CANCEL")
         
         if player.isRising == true && player.isJumping == true && player.ySpeed < 0 {
             player.stopJump()
@@ -111,15 +103,11 @@ class GameController: UIViewController {
     
     @objc func handleShoot() {
         
-        print("SHOOT")
-        
         if player.isKnockedBack == false {
             
             if bullets.count < 3 {
                 
                 player.shoot()
-                
-//                player.updateAnimation()
             }
         }
         
@@ -141,41 +129,16 @@ class GameController: UIViewController {
         button.addTarget(self, action: #selector(handleLeftCancel), for: .touchUpInside)
         button.addTarget(self, action: #selector(handleLeftCancel), for: .touchUpOutside)
         button.addTarget(self, action: #selector(handleLeftCancel), for: .touchCancel)
-//        button.addTarget(self, action: #selector(handleLeftCancel), for: .touchDragExit)
-//        button.addTarget(self, action: #selector(handleLeftCancel), for: .touchDragOutside)
         button.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
         return button
     }()
     
     @objc func handleLeft() {
-        
         isLeftPressed = true
-        
-//        if player.isKnockedBack == false {
-//
-//            print("LEFT")
-//
-//            player.isMoving = true
-//            player.isMovingLeft = true
-//
-//            player.isMovingRight = false
-//
-//            player.direction = "left"
-//
-//            player.updateAnimation()
-//        }
     }
     
     @objc func handleLeftCancel() {
-        
         isLeftPressed = false
-        
-//        print("LEFT CANCEL")
-//
-//        player.isMoving = false
-//        player.isMovingLeft = false
-//
-//        player.updateAnimation()
     }
     
     lazy var rightButton: UIButton = {
@@ -194,41 +157,71 @@ class GameController: UIViewController {
         button.addTarget(self, action: #selector(handleRightCancel), for: .touchUpInside)
         button.addTarget(self, action: #selector(handleRightCancel), for: .touchUpOutside)
         button.addTarget(self, action: #selector(handleRightCancel), for: .touchCancel)
-//        button.addTarget(self, action: #selector(handleRightCancel), for: .touchDragExit)
-//        button.addTarget(self, action: #selector(handleRightCancel), for: .touchDragOutside)
         button.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         return button
     }()
     
     @objc func handleRight() {
-        
         isRightPressed = true
-        
-//        if player.isKnockedBack == false {
-//
-//            print("RIGHT")
-//
-//            player.isMoving = true
-//            player.isMovingRight = true
-//
-//            player.isMovingLeft = false
-//
-//            player.direction = "right"
-//
-//            player.updateAnimation()
-//        }
     }
     
     @objc func handleRightCancel() {
-        
         isRightPressed = false
-
-//        print("RIGHT CANCEL")
-//
-//        player.isMoving = false
-//        player.isMovingRight = false
-//
-//        player.updateAnimation()
+    }
+    
+    lazy var upButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = mainButtonColor
+        button.setTitle("⇧", for: .normal)
+        button.setTitleColor(mainButtonTextColor, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
+        button.layer.borderWidth = 4
+        button.layer.borderColor = mainButtonOtherColor.cgColor
+        button.layer.cornerRadius = mainButtonRadius
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel!.textAlignment = .center
+        button.titleLabel!.numberOfLines = 1
+        button.addTarget(self, action: #selector(handleUp), for: .touchDown)
+        button.addTarget(self, action: #selector(handleUpCancel), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleUpCancel), for: .touchUpOutside)
+        button.addTarget(self, action: #selector(handleUpCancel), for: .touchCancel)
+        return button
+    }()
+    
+    @objc func handleUp() {
+        isUpPressed = true
+    }
+    
+    @objc func handleUpCancel() {
+        isUpPressed = false
+    }
+    
+    lazy var downButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = mainButtonColor
+        button.setTitle("⇧", for: .normal)
+        button.setTitleColor(mainButtonTextColor, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
+        button.layer.borderWidth = 4
+        button.layer.borderColor = mainButtonOtherColor.cgColor
+        button.layer.cornerRadius = mainButtonRadius
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel!.textAlignment = .center
+        button.titleLabel!.numberOfLines = 1
+        button.addTarget(self, action: #selector(handleDown), for: .touchDown)
+        button.addTarget(self, action: #selector(handleDownCancel), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleDownCancel), for: .touchUpOutside)
+        button.addTarget(self, action: #selector(handleDownCancel), for: .touchCancel)
+        button.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+        return button
+    }()
+    
+    @objc func handleDown() {
+        isDownPressed = true
+    }
+    
+    @objc func handleDownCancel() {
+        isDownPressed = false
     }
     
     override func viewDidLoad() {
@@ -252,6 +245,8 @@ class GameController: UIViewController {
         view.addSubview(shootButton)
         view.addSubview(leftButton)
         view.addSubview(rightButton)
+        view.addSubview(upButton)
+        view.addSubview(downButton)
         
         setupGameView()
         setupLeftCoverView()
@@ -260,6 +255,8 @@ class GameController: UIViewController {
         setupShootButton()
         setupLeftButton()
         setupRightButton()
+        setupUpButton()
+        setupDownButton()
     }
     
     func setupGameView() {
@@ -287,7 +284,7 @@ class GameController: UIViewController {
         jumpButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -mainButtonSpacing).isActive = true
         jumpButton.widthAnchor.constraint(equalToConstant: mainButtonRadius * 2).isActive = true
         jumpButton.heightAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
-        jumpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -mainButtonSpacing).isActive = true
+        jumpButton.centerYAnchor.constraint(equalTo: leftButton.centerYAnchor).isActive = true
     }
     
     func setupShootButton() {
@@ -301,13 +298,27 @@ class GameController: UIViewController {
         leftButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: mainButtonSpacing).isActive = true
         leftButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         leftButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
-        leftButton.centerYAnchor.constraint(equalTo: jumpButton.centerYAnchor).isActive = true
+        leftButton.bottomAnchor.constraint(equalTo: downButton.centerYAnchor, constant: -mainButtonSpacing / 2).isActive = true
     }
     
     func setupRightButton() {
         rightButton.leftAnchor.constraint(equalTo: leftButton.rightAnchor, constant: mainButtonSpacing).isActive = true
         rightButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         rightButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
-        rightButton.centerYAnchor.constraint(equalTo: jumpButton.centerYAnchor).isActive = true
+        rightButton.centerYAnchor.constraint(equalTo: leftButton.centerYAnchor).isActive = true
+    }
+    
+    func setupUpButton() {
+        upButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
+        upButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
+        upButton.bottomAnchor.constraint(equalTo: leftButton.centerYAnchor, constant: -mainButtonSpacing / 2).isActive = true
+        upButton.leftAnchor.constraint(equalTo: leftButton.centerXAnchor, constant: mainButtonSpacing / 2).isActive = true
+    }
+    
+    func setupDownButton() {
+        downButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
+        downButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
+        downButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -mainButtonSpacing / 2).isActive = true
+        downButton.centerXAnchor.constraint(equalTo: upButton.centerXAnchor).isActive = true
     }
 }

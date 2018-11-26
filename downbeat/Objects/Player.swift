@@ -84,6 +84,8 @@ class Player {
     
     var isAtPeak: Bool = false
 
+    var isClimbing: Bool = false
+
     var canMove: Bool = true
 
     var health: Int = 0
@@ -177,6 +179,8 @@ class Player {
         self.isMovingLeft = false
         self.isMovingRight = false
         
+        self.isAtPeak = false
+        
         self.canMove = true
         
         self.health = Player.maxHealth
@@ -250,7 +254,14 @@ class Player {
             
             for block in selectedBlocks {
                 
-                if block.isLadder == false {
+                if block.isTopLadder == true {
+                    
+                    if self.y + (Player.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (Player.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                        
+                        isEmpty = false
+                    }
+                    
+                } else if block.isLadder == false {
                     
                     if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                         
@@ -270,7 +281,23 @@ class Player {
             
             for block in selectedBlocks {
                 
-                if block.isLadder == false {
+                if block.isTopLadder == true {
+                    
+                    if self.y + (Player.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (Player.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                        
+                        self.isJumping = false
+                        self.isFalling = false
+                        
+                        self.ySpeed = 0
+                        
+                        self.isAtPeak = false
+                        
+                        setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
+                        
+                        //                    self.updateAnimation()
+                    }
+                    
+                } else if block.isLadder == false {
                     
                     if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                         
@@ -278,6 +305,8 @@ class Player {
                         self.isFalling = false
                         
                         self.ySpeed = 0
+                        
+                        self.isAtPeak = false
                         
                         setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
                         
@@ -292,7 +321,7 @@ class Player {
             
             for block in selectedBlocks {
                 
-                if block.isLadder == false {
+                if block.isLadder == false && block.isTopLadder == false {
                     
                     //                if self.y - (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                     if self.y - (Player.height / 2) + self.ySpeed <= block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
@@ -303,6 +332,8 @@ class Player {
                         self.isRising = false
                         
                         self.ySpeed = 0
+                        
+                        self.isAtPeak = false
                         
                         setXY(x: self.x, y: block.y + (Block.height / 2) + (Player.height / 2))
                     }
@@ -317,7 +348,7 @@ class Player {
             
             for block in selectedBlocks {
                 
-                if block.isLadder == false {
+                if block.isLadder == false && block.isTopLadder == false {
                     
                     if self.isMovingRight == true {
                         
@@ -431,6 +462,13 @@ class Player {
     
     func updateAnimation() {
         
+//        print()
+//        print(self.ySpeed)
+//        print(self.isMoving)
+//        print(self.isJumping)
+//        print(self.isFalling)
+//        print(self.isRising)
+        
         if self.isKnockedBack == true {
             
             if canBeKnockedBack == true {
@@ -501,15 +539,23 @@ class Player {
             
         } else if isMoving == false && ySpeed == 0 && isJumping == false && self.isFalling == false && self.isRising == false {
             
+            print("1")
+            
             if self.didHandleJumpAnimation() == false {
                 
+                print("2")
+                
                 if direction == "left" {
+                    
+                    print("3")
                     
                     self.handleStandAnimation()
                     
                     self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
                     
                 } else if direction == "right" {
+                    
+                    print("4")
                     
                     self.handleStandAnimation()
                     

@@ -44,7 +44,7 @@ extension GameController {
         stages[0].blocks.append(Block(xPos: 7, yPos: 12, type: "ladder"))
         stages[0].blocks.append(Block(xPos: 7, yPos: 11, type: "ladder"))
         stages[0].blocks.append(Block(xPos: 7, yPos: 10, type: "ladder"))
-        stages[0].blocks.append(Block(xPos: 7, yPos: 9, type: "ladder"))
+        stages[0].blocks.append(Block(xPos: 7, yPos: 9, type: "topLadder"))
 
         stages[0].blocks.append(Block(xPos: 8, yPos: 9, type: "horizontalYellowLeftBlock"))
         stages[0].blocks.append(Block(xPos: 9, yPos: 9, type: blockType))

@@ -55,6 +55,8 @@ var canBeKnockedBack: Bool = true
 
 var isLeftPressed: Bool = false
 var isRightPressed: Bool = false
+var isUpPressed: Bool = false
+var isDownPressed: Bool = false
 
 var isPaused: Bool = false
 

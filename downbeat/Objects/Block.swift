@@ -29,6 +29,7 @@ class Block {
     var y: CGFloat = 0
     
     var isLadder: Bool = false
+    var isTopLadder: Bool = false
 
     var view: UIImageView = UIImageView()
     
@@ -40,7 +41,12 @@ class Block {
         self.type = type
         
         if self.type == "ladder" {
+            
             self.isLadder = true
+            
+        } else if self.type == "topLadder" {
+            
+            self.isTopLadder = true
         }
         
         self.x = (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2)
