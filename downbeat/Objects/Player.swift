@@ -22,6 +22,8 @@ class Player {
     
     static let maxMoveSpeed: CGFloat = 1
     
+    static let climbSpeed: CGFloat = 0.75
+    
 //    static let knockBackMoveSpeed: CGFloat = 0.5
     static let knockBackMoveSpeed: CGFloat = 0.425
 
@@ -42,6 +44,9 @@ class Player {
 
     static let standRightImage = UIImage(named: "playerStandRight")
     static let standShootRightImage = UIImage(named: "playerStandShootRight")
+
+    static let climbImage = UIImage(named: "playerClimb1")
+    static let climbImages = [UIImage(named: "playerClimb1"), UIImage(named: "playerClimb2")]
 
     static let xShift: CGFloat = Block.width * (16 / 30)
     static let yShift: CGFloat = Block.height * 0
@@ -224,7 +229,11 @@ class Player {
             self.isAtPeak = false
         }
 
-        if self.isJumping == true || self.isFalling == true {
+        if self.isClimbing == true {
+            
+            self.setXY(x: self.x, y: self.y + ySpeed)
+            
+        } else if self.isJumping == true || self.isFalling == true {
             
             self.setXY(x: self.x, y: self.y + ySpeed)
             
@@ -469,6 +478,10 @@ class Player {
 //        print(self.isFalling)
 //        print(self.isRising)
         
+        if self.isClimbing == false || self.ySpeed == 0 {
+            canClimb = true
+        }
+        
         if self.isKnockedBack == true {
             
             if canBeKnockedBack == true {
@@ -486,6 +499,22 @@ class Player {
                     self.handleKnockedBackAnimation()
                     
                     self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                }
+            }
+            
+        } else if isClimbing == true {
+            
+            if self.ySpeed == 0 {
+                
+                handleStopClimbAnimation()
+                
+            } else {
+                
+                if canClimb == true {
+                    
+                    canClimb = false
+                    
+                    handleClimbAnimation()
                 }
             }
             
@@ -539,23 +568,15 @@ class Player {
             
         } else if isMoving == false && ySpeed == 0 && isJumping == false && self.isFalling == false && self.isRising == false {
             
-            print("1")
-            
             if self.didHandleJumpAnimation() == false {
                 
-                print("2")
-                
                 if direction == "left" {
-                    
-                    print("3")
                     
                     self.handleStandAnimation()
                     
                     self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
                     
                 } else if direction == "right" {
-                    
-                    print("4")
                     
                     self.handleStandAnimation()
                     
@@ -598,6 +619,29 @@ class Player {
         self.view.animationImages = Player.knockedBackRightImages as! [UIImage]
         
         self.view.animationDuration = (Double)(Player.knockBackTime)
+        self.view.startAnimating()
+    }
+    
+    func handleStopClimbAnimation() {
+        
+        self.view.stopAnimating()
+        
+        canMoveLeft = true
+        canMoveRight = true
+        
+        self.view.image = Player.climbImage
+    }
+    
+    func handleClimbAnimation() {
+        
+        self.view.stopAnimating()
+        
+        canMoveLeft = true
+        canMoveRight = true
+
+        self.view.animationImages = Player.climbImages as! [UIImage]
+        
+        self.view.animationDuration = Player.animationCycleTime * 0.75
         self.view.startAnimating()
     }
     
@@ -703,6 +747,22 @@ class Player {
         }
         
         return -1
+    }
+    
+    func didHitLadder() -> Block? {
+        
+        for block in selectedBlocks {
+            
+            if block.isLadder == true || block.isTopLadder == true {
+                
+                if block.x + (Block.width / 2) >= self.x && block.x - (Block.width / 2) <= self.x && block.y + (Block.height / 2) >= self.y - (Player.height / 2) && block.y - (Block.height / 2) <= self.y + (Player.height / 2) {
+                    return block
+                }
+                
+            }
+        }
+        
+        return nil
     }
     
 //    func didHitStagePowerup() -> Int {

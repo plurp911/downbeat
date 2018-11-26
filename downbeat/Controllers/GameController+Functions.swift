@@ -59,6 +59,66 @@ extension GameController {
                     
                     //                player.updateAnimation()
                 }
+                
+                if player.isClimbing == true {
+                    
+                    if isUpPressed == false && isDownPressed == false {
+                        player.ySpeed = 0
+                    }
+                }
+                
+                if isLeftPressed == false && isRightPressed == false {
+                    
+                    if isUpPressed == true {
+
+                        if let ladder = player.didHitLadder() {
+                            
+                            player.direction = "right"
+                            
+                            if ladder.x != player.x {
+                                
+                                if ladder.x > player.x {
+                                    
+                                    player.isMoving = true
+                                    player.isMovingRight = true
+                                    
+                                    repeat {
+                                        
+                                        handleMoving()
+                                        
+                                    } while (ladder.x > player.x)
+                                    
+                                } else if ladder.x < player.x {
+                                    
+                                    player.isMoving = true
+                                    player.isMovingLeft = true
+                                    
+                                    repeat {
+                                        
+                                        handleMoving()
+                                        
+                                    } while (ladder.x < player.x)
+                                }
+                                
+                                player.x = ladder.x
+                                
+                                player.isMoving = false
+                                player.isMovingLeft = false
+                                player.isMovingRight = false
+                            }
+                            
+                            player.ySpeed = -Player.climbSpeed
+
+                            player.isClimbing = true
+                            
+                        } else {
+                            
+                            player.isClimbing = false
+                        }
+                        
+                    }
+                }
+                
             }
             
             player.move()
@@ -258,87 +318,92 @@ extension GameController {
             removeObjects(type: "bullets", toRemove: bulletsToRemove)
             removeObjects(type: "selectedEnemies", toRemove: selectedEnemiesToRemove)
 
-            if player.isMoving == true {
+            handleMoving()
+            
+            draw()
+        }
+    }
+    
+    func handleMoving() {
+        
+        if player.isMoving == true {
+            
+            if player.isMovingLeft == true {
                 
-                 if player.isMovingLeft == true {
+                if player.canMove == true {
                     
-                    if player.canMove == true {
+                    if currentStage.x >= 0 {
                         
-                        if currentStage.x >= 0 {
-                            
-                            currentStage.reset()
-                            
-                            player.move(direction: "left")
-                            
-//                            currentStage.updateObjectArrays(direction: "left")
-
-                        } else if player.x > (gameView.frame.size.width / 2) {
-                            
-                            player.move(direction: "left")
-
-                        } else {
-                            
-                            currentStage.move(direction: "left")
-                            
-                            moveBullets(direction: "left")
-                            moveDeflectedBullets(direction: "left")
-                            moveExplosions(direction: "left")
-                            movePowerups(direction: "left")
-                            moveEnemies(direction: "left")
-                            moveEnemyBullets(direction: "left")
-                            
-//                            currentStage.updateObjectArrays(direction: "left")
-
-                            currentStage.moveBlocks()
-                            currentStage.movePowerups()
-                            currentStage.moveEnemies()
-
-                            currentStage.updateObjectArrays(direction: "left")
-                        }
-                    }
-
-                } else if player.isMovingRight == true {
-                    
-                    if currentStage.x <= (((CGFloat)(-currentStage.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width {
+                        currentStage.reset()
                         
-                        currentStage.x = (((CGFloat)(-currentStage.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width
+                        player.move(direction: "left")
                         
-                        currentStage.moveBlocks()
-                        currentStage.movePowerups()
-                        currentStage.moveEnemies()
-
-                        player.move(direction: "right")
+                        //                            currentStage.updateObjectArrays(direction: "left")
                         
-//                        currentStage.updateObjectArrays(direction: "right")
+                    } else if player.x > (gameView.frame.size.width / 2) {
                         
-                    } else if player.x < (gameView.frame.size.width / 2) {
-                        
-                        player.move(direction: "right")
+                        player.move(direction: "left")
                         
                     } else {
                         
-                        currentStage.move(direction: "right")
+                        currentStage.move(direction: "left")
                         
-                        moveBullets(direction: "right")
-                        moveDeflectedBullets(direction: "right")
-                        moveExplosions(direction: "right")
-                        movePowerups(direction: "right")
-                        moveEnemies(direction: "right")
-                        moveEnemyBullets(direction: "right")
-
-//                        currentStage.updateObjectArrays(direction: "right")
-
+                        moveBullets(direction: "left")
+                        moveDeflectedBullets(direction: "left")
+                        moveExplosions(direction: "left")
+                        movePowerups(direction: "left")
+                        moveEnemies(direction: "left")
+                        moveEnemyBullets(direction: "left")
+                        
+                        //                            currentStage.updateObjectArrays(direction: "left")
+                        
                         currentStage.moveBlocks()
                         currentStage.movePowerups()
                         currentStage.moveEnemies()
-
-                        currentStage.updateObjectArrays(direction: "right")
+                        
+                        currentStage.updateObjectArrays(direction: "left")
                     }
                 }
                 
+            } else if player.isMovingRight == true {
+                
+                if currentStage.x <= (((CGFloat)(-currentStage.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width {
+                    
+                    currentStage.x = (((CGFloat)(-currentStage.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width
+                    
+                    currentStage.moveBlocks()
+                    currentStage.movePowerups()
+                    currentStage.moveEnemies()
+                    
+                    player.move(direction: "right")
+                    
+                    //                        currentStage.updateObjectArrays(direction: "right")
+                    
+                } else if player.x < (gameView.frame.size.width / 2) {
+                    
+                    player.move(direction: "right")
+                    
+                } else {
+                    
+                    currentStage.move(direction: "right")
+                    
+                    moveBullets(direction: "right")
+                    moveDeflectedBullets(direction: "right")
+                    moveExplosions(direction: "right")
+                    movePowerups(direction: "right")
+                    moveEnemies(direction: "right")
+                    moveEnemyBullets(direction: "right")
+                    
+                    //                        currentStage.updateObjectArrays(direction: "right")
+                    
+                    currentStage.moveBlocks()
+                    currentStage.movePowerups()
+                    currentStage.moveEnemies()
+                    
+                    currentStage.updateObjectArrays(direction: "right")
+                }
             }
             
-            draw()
         }
     }
     

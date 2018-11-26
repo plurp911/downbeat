@@ -50,6 +50,8 @@ var canMoveRight: Bool = true
 
 var canBeKnockedBack: Bool = true
 
+var canClimb: Bool = true
+
 //var canJump: Bool = true
 //var canShoot: Bool = true
 
