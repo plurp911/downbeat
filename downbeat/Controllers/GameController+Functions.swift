@@ -24,6 +24,10 @@ extension GameController {
             
             if player.isKnockedBack == false {
                 
+                if player.isClimbing == true {
+                    player.direction = "right"
+                }
+                
                 if isRightPressed == false {
                     
                     player.isMoving = false
@@ -31,8 +35,11 @@ extension GameController {
                     
                     if isLeftPressed == true {
                         
-                        player.isMoving = true
-                        player.isMovingLeft = true
+                        if player.isClimbing == false {
+                            
+                            player.isMoving = true
+                            player.isMovingLeft = true
+                        }
                         
                         player.isMovingRight = false
                         
@@ -49,8 +56,11 @@ extension GameController {
                     
                     if isRightPressed == true {
                         
-                        player.isMoving = true
-                        player.isMovingRight = true
+                        if player.isClimbing == false {
+                            
+                            player.isMoving = true
+                            player.isMovingRight = true
+                        }
                         
                         player.isMovingLeft = false
                         
@@ -65,55 +75,98 @@ extension GameController {
                     if isUpPressed == false && isDownPressed == false {
                         player.ySpeed = 0
                     }
+                    
+                } else if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
+                    
+//                    player.ySpeed = 0
+//
+//                    canClimb = true
                 }
                 
                 if isLeftPressed == false && isRightPressed == false {
                     
-                    if isUpPressed == true {
-
+                    if (isUpPressed == true && isDownPressed == false) || (isUpPressed == false && isDownPressed == true) {
+                        
                         if let ladder = player.didHitLadder() {
                             
-                            player.direction = "right"
+//                            player.direction = "right"
                             
-                            if ladder.x != player.x {
-                                
-                                if ladder.x > player.x {
-                                    
-                                    player.isMoving = true
-                                    player.isMovingRight = true
-                                    
-                                    repeat {
-                                        
-                                        handleMoving()
-                                        
-                                    } while (ladder.x > player.x)
-                                    
-                                } else if ladder.x < player.x {
-                                    
-                                    player.isMoving = true
-                                    player.isMovingLeft = true
-                                    
-                                    repeat {
-                                        
-                                        handleMoving()
-                                        
-                                    } while (ladder.x < player.x)
-                                }
-                                
-                                player.x = ladder.x
-                                
-                                player.isMoving = false
-                                player.isMovingLeft = false
-                                player.isMovingRight = false
+                            var shouldClimb: Bool = true
+                            
+                            if isDownPressed == true {
+                                print()
+                                print(ladder.y + (Block.height / 2))
+                                print(player.y + (Player.height / 2))
                             }
                             
-                            player.ySpeed = -Player.climbSpeed
-
-                            player.isClimbing = true
+                            if player.isClimbing == false {
+                                
+                                if (isUpPressed == true && ladder.y - (Block.height / 2) == player.y + (Player.height / 2)) || (isDownPressed == true && ladder.y + (Block.height / 2) == player.y + (Player.height / 2)) {
+                                    
+                                    //                                print("SHOULD CLIMB")
+                                    
+                                    shouldClimb = false
+                                }
+                            }
+                            
+                            if shouldClimb == true {
+                                
+                                if ladder.x != player.x {
+                                    
+                                    if ladder.x > player.x {
+                                        
+                                        player.isMoving = true
+                                        player.isMovingRight = true
+                                        
+                                        repeat {
+                                            
+                                            handleMoving()
+                                            
+                                        } while (ladder.x > player.x)
+                                        
+                                    } else if ladder.x < player.x {
+                                        
+                                        player.isMoving = true
+                                        player.isMovingLeft = true
+                                        
+                                        repeat {
+                                            
+                                            handleMoving()
+                                            
+                                        } while (ladder.x < player.x)
+                                    }
+                                    
+                                    player.setXY(x: ladder.x, y: player.y)
+                                    
+                                    player.isMoving = false
+                                    player.isMovingLeft = false
+                                    player.isMovingRight = false
+                                }
+                                
+                                if isUpPressed == true {
+                                    player.ySpeed = -Player.climbSpeed
+                                } else {
+                                    player.ySpeed = Player.climbSpeed
+                                }
+                                
+                                player.isClimbing = true
+                            }
                             
                         } else {
                             
+                            player.move()
+                            
                             player.isClimbing = false
+                            
+//                            if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
+//
+                                player.ySpeed = 0
+//
+//                                player.isFalling = true
+//                                player.isLanding = true
+//
+//                                //                    canClimb = true
+//                            }
                         }
                         
                     }
