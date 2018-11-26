@@ -45,7 +45,7 @@ class EnemyBullet {
             self.width = Block.width * (6 / 16)
             self.height = self.width
             
-            self.damage = 5
+            self.damage = 1
             
             self.view.image = EnemyBullet.smallRegularEnemyBulletImage
         }

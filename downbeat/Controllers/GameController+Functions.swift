@@ -530,6 +530,12 @@ extension GameController {
         
 //        gameView.addSubview(player.hitBox)
         gameView.addSubview(player.view)
+        
+        gameView.addSubview(player.healthBar.view)
+        
+        for t in player.healthBar.ticks {
+            gameView.addSubview(t.view)
+        }
     }
     
     func removeAllSubviews() {

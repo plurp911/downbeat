@@ -12,7 +12,7 @@ class Bullet {
     
     // CONSTANTS
     
-    static let damage: Int = 10
+    static let damage: Int = 1
 
     static let radius: CGFloat = Block.width * (6 / 16) * (1 / 2)
     //    static let radius: CGFloat = Block.width * (7 / 16) * (1 / 2)

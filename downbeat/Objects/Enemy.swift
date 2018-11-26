@@ -100,9 +100,9 @@ class Enemy {
         
         if self.type == "follower" {
             
-            self.maxHealth = 10
+            self.maxHealth = 1
             
-            self.damage = 5
+            self.damage = 3
             
             self.width = Block.width
             self.height = self.width
@@ -113,9 +113,9 @@ class Enemy {
             
         } else if self.type == "hat" {
             
-            self.maxHealth = 10
+            self.maxHealth = 1
             
-            self.damage = 5
+            self.damage = 3
             
             self.width = Block.width * (18 / 16)
             self.height = self.width
@@ -126,9 +126,9 @@ class Enemy {
             
         } else if self.type == "penguin" {
             
-            self.maxHealth = 10
+            self.maxHealth = 1
             
-            self.damage = 5
+            self.damage = 3
             
             self.width = Block.width * (24 / 16)
             self.height = Block.width * (15 / 16)

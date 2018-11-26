@@ -12,8 +12,8 @@ class Player {
     
     // CONSTANTS
         
-    static let maxHealth: Int = 100
-    static let maxEnergy: Int = 100
+    static let maxHealth: Int = 28
+    static let maxEnergy: Int = 28
 
     static let width: CGFloat = Block.width * 0.75
     static let height: CGFloat = Block.height * 1.5
@@ -100,6 +100,8 @@ class Player {
     var endKnockBackTimer = Timer()
     
 //    var freezeTimer = Timer()
+    
+    var healthBar: HealthBar = HealthBar()
 
     var view: UIImageView = UIImageView()
     var hitBox: UIView = UIView()
@@ -180,6 +182,8 @@ class Player {
         self.health = Player.maxHealth
         
         self.direction = "right"
+        
+        self.healthBar.setHealth(health: self.health)
     }
     
     func move(direction: String) {
@@ -600,7 +604,7 @@ class Player {
 //                self.freezeTime()
 //            }
             
-            self.health += 30
+            self.health += 3
             
         } else if type == "smallHealth" {
             
@@ -608,15 +612,15 @@ class Player {
             //                self.freezeTime()
             //            }
             
-            self.health += 10
+            self.health += 1
             
         } else if type == "largeEnergy" {
             
-            self.energy += 30
+            self.energy += 3
             
         } else if type == "smallEnergy" {
             
-            self.energy += 10
+            self.energy += 1
         }
 
         if self.health > Player.maxHealth {
@@ -626,6 +630,8 @@ class Player {
         if self.energy > Player.maxEnergy {
             self.energy = Player.maxEnergy
         }
+        
+        self.healthBar.setHealth(health: self.health)
     }
     
     func didHitPowerup() -> Int {
@@ -719,6 +725,8 @@ class Player {
         self.isHit = true
         
         self.health -= damage
+        
+        self.healthBar.setHealth(health: self.health)
         
         if self.health <= 0 {
             
