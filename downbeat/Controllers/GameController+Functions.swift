@@ -154,13 +154,19 @@ extension GameController {
                             
                         } else {
                             
-                            player.move()
-                            
-                            player.isClimbing = false
-                            
-//                            if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
-//
+                            if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
+                                
+                                canMoveLeft = true
+                                canMoveRight = true
+                                
+                                player.move()
+                                
+                                player.isClimbing = false
+                                
+                                //                            if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
+                                //
                                 player.ySpeed = 0
+                            }
 //
 //                                player.isFalling = true
 //                                player.isLanding = true

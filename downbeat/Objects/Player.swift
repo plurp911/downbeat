@@ -262,7 +262,7 @@ class Player {
         }
         
 //        if self.isMoving == true || self.isClimbing == true {
-        if self.isMoving == true {
+        if self.isMoving == true && self.isRising == false {
 
             var isEmpty: Bool = true
             
@@ -357,7 +357,7 @@ class Player {
                         
                         self.ySpeed = 0
                         
-                        self.isAtPeak = false
+                        self.isAtPeak = true
                         
                         setXY(x: self.x, y: block.y + (Block.height / 2) + (Player.height / 2))
                     }
@@ -488,9 +488,12 @@ class Player {
     
     func updateAnimation() {
         
+        if self.ySpeed == 0 {
+            self.isRising = false
+        }
+        
 //        print()
 //        print(self.ySpeed)
-//        print(self.isMoving)
 //        print(self.isJumping)
 //        print(self.isFalling)
 //        print(self.isRising)
