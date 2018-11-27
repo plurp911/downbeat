@@ -371,6 +371,24 @@ class Player {
             }
         }
         
+        if self.isClimbing == true && self.ySpeed < 0 {
+            
+            for block in selectedBlocks {
+                
+                if block.isLadder == false && block.isTopLadder == false {
+                    
+                    //                if self.y - (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                    if self.y - (Player.height / 2) + self.ySpeed <= block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                        
+                        self.ySpeed = 0
+                        
+                        setXY(x: self.x, y: block.y + (Block.height / 2) + (Player.height / 2))
+                    }
+                }
+                
+            }
+        }
+        
         if isMoving == true {
             
             self.canMove = true
