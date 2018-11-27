@@ -9,7 +9,38 @@
 import UIKit
 
 extension GameController {
+
+    func loadLevels() {
+        
+        let stages = [[Stage(fileName: "1-3"), Stage(fileName: "1-2"), Stage(fileName: "1-2")]]
+        
+        levels.append(Level(stages: stages))
+        
+        //        stage.setPlayerStartXY(startX: (screenSize.height * screenRatio) / 2, startY: -Player.height / 2)
+//        stage.setPlayerStartXY(startX: Block.width * 3, startY: screenSize.height - Block.height - (Player.height / 2))
+        
+//        stage.sortObjectArrays()
+//        stage.setupSelectedArrays()
+        
+//        currentStage = stage
+    }
     
+    func setLevel(level: Level) {
+        
+        currentLevel = level
+        currentStage = level.startStage
+        
+        currentStage!.setupSelectedArrays()
+
+//        setupStage()
+        
+        player.reset()
+        
+        moveTimer = Timer.scheduledTimer(timeInterval: (1 / 120), target: self, selector: #selector(move), userInfo: nil, repeats: true)
+    }
+    
+    /*
+     
     func loadStages() {
         
 //        let blockType: String = "topWoodBlock"
@@ -159,4 +190,6 @@ extension GameController {
         
         currentStage = stage
     }
+ 
+    */
 }

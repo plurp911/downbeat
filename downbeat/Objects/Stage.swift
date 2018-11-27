@@ -17,8 +17,8 @@ class Stage {
     var powerups = [Powerup]()
     var enemySpawners = [EnemySpawner]()
 
-    var playerStartX: CGFloat = 0
-    var playerStartY: CGFloat = 0
+    var playerStartX: CGFloat = -1
+    var playerStartY: CGFloat = -1
     
     var blockStartIndex: Int = 0
     var blockEndIndex: Int = 0
@@ -53,6 +53,8 @@ class Stage {
             let text = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
             
             var stageText = text.components(separatedBy: "\n")
+            
+            stageText.removeLast()
             
             for i in 0 ..< stageText.count {
                 
@@ -150,11 +152,20 @@ class Stage {
                     powerups.append(Powerup(xPos: j, yPos: i, type: "smallEnergy"))
                 } else if text == "9" {
                     powerups.append(Powerup(xPos: j, yPos: i, type: "largeEnergy"))
+                } else if text == ":" {
+                    self.setPlayerStartXYPos(startXPos: j, startYPos: i)
                 }
                 
             }
         }
         
+        self.sortObjectArrays()
+    }
+    
+    func setPlayerStartXYPos(startXPos: Int, startYPos: Int) {
+        
+        self.playerStartX = ((CGFloat)(startXPos) * Block.width) + (Block.width / 2)
+        self.playerStartY = ((CGFloat)(startYPos) * Block.height) + (Block.height / 2)
     }
     
     func isInBounds(i: Int, j: Int) -> Bool {
@@ -177,12 +188,6 @@ class Stage {
         }
         
         return false
-    }
-    
-    func setPlayerStartXY(startX: CGFloat, startY: CGFloat) {
-        
-        self.playerStartX = startX
-        self.playerStartY = startY
     }
     
     func moveBlocks() {

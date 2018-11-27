@@ -10,11 +10,9 @@ import UIKit
 
 extension GameController {
     
-    func setupStage() {
-    
-        
-        
-    }
+//    func setupStage() {
+//
+//    }
     
     @objc func move() {
         
@@ -247,11 +245,11 @@ extension GameController {
             
 //            powerupsToRemove.removeAll()
 //
-//            for i in 0 ..< currentStage.powerups.count {
+//            for i in 0 ..< currentStage!.powerups.count {
 //
-//                currentStage.powerups[i].move()
+//                currentStage!.powerups[i].move()
 //
-//                if currentStage.powerups[i].view.isAnimating == false || currentStage.powerups[i].isInBounds() == false {
+//                if currentStage!.powerups[i].view.isAnimating == false || currentStage!.powerups[i].isInBounds() == false {
 //                    powerupsToRemove.append(i)
 //                }
 //            }
@@ -284,9 +282,9 @@ extension GameController {
 //
 //            if stagePowerupPos >= 0 {
 //
-//                player.handlePowerup(type: currentStage.powerups[stagePowerupPos].type)
+//                player.handlePowerup(type: currentStage!.powerups[stagePowerupPos].type)
 //
-//                currentStage.powerups.remove(at: stagePowerupPos)
+//                currentStage!.powerups.remove(at: stagePowerupPos)
 //            }
             
             let selectedPowerupPos: Int = player.didHitSelectedPowerup()
@@ -305,7 +303,7 @@ extension GameController {
 //            if enemyPos >= 0 {
 //
 //                if player.isHit == false {
-//                    player.handleHit(damage: currentStage.enemies[enemyPos].damage, enemyDirection: currentStage.enemies[enemyPos].direction)
+//                    player.handleHit(damage: currentStage!.enemies[enemyPos].damage, enemyDirection: currentStage!.enemies[enemyPos].direction)
 //                }
 //            }
             
@@ -397,13 +395,13 @@ extension GameController {
                 
                 if player.canMove == true {
                     
-                    if currentStage.x >= 0 {
+                    if currentStage!.x >= 0 {
                         
-                        currentStage.reset()
+                        currentStage!.reset()
                         
                         player.move(direction: "left")
                         
-                        //                            currentStage.updateObjectArrays(direction: "left")
+                        //                            currentStage!.updateObjectArrays(direction: "left")
                         
                     } else if player.x > (gameView.frame.size.width / 2) {
                         
@@ -411,29 +409,29 @@ extension GameController {
                         
                     } else {
                         
-                        currentStage.move(direction: "left")
+                        currentStage!.move(direction: "left")
                         
                         moveObjects(direction: "left")
                         
-                        //                            currentStage.updateObjectArrays(direction: "left")
+                        //                            currentStage!.updateObjectArrays(direction: "left")
                         
-                        currentStage.moveObjects()
+                        currentStage!.moveObjects()
 
-                        currentStage.updateObjectArrays(direction: "left")
+                        currentStage!.updateObjectArrays(direction: "left")
                     }
                 }
                 
             } else if player.isMovingRight == true {
                 
-                if currentStage.x <= (((CGFloat)(-currentStage.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width {
+                if currentStage!.x <= (((CGFloat)(-currentStage!.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width {
                     
-                    currentStage.x = (((CGFloat)(-currentStage.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width
+                    currentStage!.x = (((CGFloat)(-currentStage!.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width
                     
-                    currentStage.moveObjects()
+                    currentStage!.moveObjects()
                     
                     player.move(direction: "right")
                     
-                    //                        currentStage.updateObjectArrays(direction: "right")
+                    //                        currentStage!.updateObjectArrays(direction: "right")
                     
                 } else if player.x < (gameView.frame.size.width / 2) {
                     
@@ -441,15 +439,15 @@ extension GameController {
                     
                 } else {
                     
-                    currentStage.move(direction: "right")
+                    currentStage!.move(direction: "right")
                     
                     moveObjects(direction: "right")
                     
-                    //                        currentStage.updateObjectArrays(direction: "right")
+                    //                        currentStage!.updateObjectArrays(direction: "right")
                     
-                    currentStage.moveObjects()
+                    currentStage!.moveObjects()
 
-                    currentStage.updateObjectArrays(direction: "right")
+                    currentStage!.updateObjectArrays(direction: "right")
                 }
             }
             

@@ -169,7 +169,7 @@ class Player {
 
     func reset() {
 
-        self.setXY(x: currentStage.playerStartX, y: currentStage.playerStartY)
+        self.setXY(x: currentStage!.playerStartX, y: currentStage!.playerStartY)
 
         self.isFalling = true
         

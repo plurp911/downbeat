@@ -229,13 +229,11 @@ class GameController: UIViewController {
         super.viewDidLoad()
         
 //        loadStages()
-        newLoadStages()
+//        newLoadStages()
         
-        setupStage()
+        loadLevels()
         
-        player.reset()
-        
-        moveTimer = Timer.scheduledTimer(timeInterval: (1 / 120), target: self, selector: #selector(move), userInfo: nil, repeats: true)
+        setLevel(level: levels[0])
         
         view.backgroundColor = backgroundColor
         

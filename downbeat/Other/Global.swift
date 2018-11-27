@@ -35,7 +35,8 @@ let gameViewColor = UIColor(red: 32 / 255, green: 56 / 255, blue: 236 / 255, alp
 
 // VARIABLES
 
-var stages = [Stage]()
+//var stages = [Stage]()
+var levels = [Level]()
 
 var bullets = [Bullet]()
 var explosions = [Explosion]()
@@ -67,7 +68,8 @@ var isPaused: Bool = false
 
 // OBJECTS
 
-var currentStage = Stage(fileName: "1-1")
+var currentLevel: Level?
+var currentStage: Stage?
 
 var player = Player()
 
@@ -129,7 +131,7 @@ public func removeObjects(type: String, toRemove: [Int]) {
             
 //            currentStage.powerups.remove(at: newToRemove[newI])
             
-            currentStage.powerups = tryToRemove(array: currentStage.powerups, value: newToRemove[newI]) as! [Powerup]
+            currentStage!.powerups = tryToRemove(array: currentStage!.powerups, value: newToRemove[newI]) as! [Powerup]
 
         } else if type == "explosions" {
             
@@ -139,10 +141,10 @@ public func removeObjects(type: String, toRemove: [Int]) {
 
         } else if type == "enemies" {
             
-            currentStage.enemies[newToRemove[newI]].endTimers()
+            currentStage!.enemies[newToRemove[newI]].endTimers()
 //            currentStage.enemies.remove(at: newToRemove[newI])
             
-            currentStage.enemies = tryToRemove(array: currentStage.enemies, value: newToRemove[newI]) as! [Enemy]
+            currentStage!.enemies = tryToRemove(array: currentStage!.enemies, value: newToRemove[newI]) as! [Enemy]
 
         } else if type == "enemyBullets" {
             
