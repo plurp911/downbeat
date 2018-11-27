@@ -928,18 +928,28 @@ class Player {
 //        canMoveLeft = true
 //        canMoveRight = true
         
+        if self.isClimbing == true {
+            
+            self.ySpeed = 0
+
+            self.isClimbing = false
+            self.isFalling = true
+        }
+        
         self.isHit = true
         
         self.health -= damage
         
-        self.healthBar.setHealth(health: self.health)
-        
         if self.health <= 0 {
+            
+            self.health = 0
             
             print("GAME OVER")
 
 //            handleGameOver()
         }
+        
+        self.healthBar.setHealth(health: self.health)
         
         self.endHitTimer.invalidate()
         self.hitAnimationTimer.invalidate()
