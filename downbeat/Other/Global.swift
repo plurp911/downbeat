@@ -21,6 +21,8 @@ let maxBullets: Int = 3
 let screenRatio: CGFloat = 16 / 15
 //let screenRatio: CGFloat = 1
 
+let chanceOfPowerup: CGFloat = 0.25
+
 // COLORS
 
 let backgroundColor = UIColor.black

@@ -367,7 +367,7 @@ extension GameController {
                             
                             explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y))
                             
-//                            powerups.append(Powerup(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "largeEnergy"))
+                            handleMakePowerup(x: selectedEnemies[i].x, y: selectedEnemies[i].y)
                             
                             selectedEnemiesToRemove.append(i)
                         }
@@ -684,6 +684,26 @@ extension GameController {
                 line.removeFromSuperlayer()
                 
             }
+        }
+        
+    }
+    
+    func handleMakePowerup(x: CGFloat, y: CGFloat) {
+        
+        if CGFloat(arc4random()) / CGFloat(UInt32.max) < chanceOfPowerup {
+            
+            let random = arc4random_uniform(4)
+            
+            if random == 0 {
+                powerups.append(Powerup(x: x, y: y, type: "smallHealth"))
+            } else if random == 1 {
+                powerups.append(Powerup(x: x, y: y, type: "largeHealth"))
+            } else if random == 2 {
+                powerups.append(Powerup(x: x, y: y, type: "smallEnergy"))
+            } else {
+                powerups.append(Powerup(x: x, y: y, type: "largeEnergy"))
+            }
+
         }
     }
 
