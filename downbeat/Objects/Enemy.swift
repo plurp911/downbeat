@@ -303,7 +303,7 @@ class Enemy {
                 
                 self.ySpeed = self.moveSpeed
                 
-            } else if player.x < self.x {
+            } else if player.y < self.y {
                 
                 self.ySpeed = -self.moveSpeed
                 
