@@ -97,19 +97,41 @@ class Stage {
 //                }
                 
                 if text == "#" {
-                    blocks.append(Block(xPos: j, yPos: i, type: "yellowBlock"))
+                    
+                    if isEqual(i: i - 1, j: j, block: "#") && isEqual(i: i + 1, j: j, block: "#") {
+                        
+                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowMiddleBlock"))
+                        
+                    } else if isEqual(i: i, j: j - 1, block: "#") && isEqual(i: i, j: j + 1, block: "#") {
+                        
+                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowMiddleBlock"))
+                        
+                    } else if isEqual(i: i, j: j - 1, block: "#") {
+                        
+                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowRightBlock"))
+                        
+                    } else if isEqual(i: i, j: j + 1, block: "#") {
+                        
+                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowLeftBlock"))
+                        
+                    } else if isEqual(i: i - 1, j: j, block: "#") {
+                        
+                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowBottomBlock"))
+                        
+                    } else if isEqual(i: i + 1, j: j, block: "#") {
+                        
+                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowTopBlock"))
+                    }
+
                 } else if text == "=" {
                     
-                    if i - 1 >= 0 {
+                    if isEqual(i: i - 1, j: j, block: "=") {
                         
-                        if textArray[i - 1][j] == "=" {
-                            
-                            blocks.append(Block(xPos: j, yPos: i, type: "ladder"))
-                            
-                        } else {
-                            
-                            blocks.append(Block(xPos: j, yPos: i, type: "topLadder"))
-                        }
+                        blocks.append(Block(xPos: j, yPos: i, type: "ladder"))
+                        
+                    } else {
+                        
+                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder"))
                     }
                     
                 } else if text == "H" {
@@ -137,7 +159,22 @@ class Stage {
     
     func isInBounds(i: Int, j: Int) -> Bool {
         
+        if i >= 0 && i < textArray.count && j >= 0 && j < textArray[i].count {
+            return true
+        }
         
+        return false
+    }
+    
+    func isEqual(i: Int, j: Int, block: String) -> Bool {
+        
+        if isInBounds(i: i, j: j) == true {
+            
+            if textArray[i][j] == block {
+                
+                return true
+            }
+        }
         
         return false
     }

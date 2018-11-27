@@ -393,6 +393,25 @@ class Player {
             
             self.canMove = true
             
+            if self.isMovingRight == true {
+                
+                if self.x + (Player.width / 2) >= screenSize.height * screenRatio {
+                    
+                    self.canMove = false
+                    
+                    setXY(x: (screenSize.height * screenRatio) - (Player.width / 2) - self.xSpeed, y: self.y)
+                }
+                
+            } else if self.isMovingLeft == true {
+                
+                if self.x - (Player.width / 2) <= 0 {
+                    
+                    self.canMove = false
+                    
+                    setXY(x: (Player.width / 2) + self.xSpeed, y: self.y)
+                }
+            }
+            
             for block in selectedBlocks {
                 
                 if block.isLadder == false && block.isTopLadder == false {
