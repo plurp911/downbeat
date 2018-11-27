@@ -112,7 +112,8 @@ class Player {
     
 //    var freezeTimer = Timer()
     
-    var healthBar: HealthBar = HealthBar()
+    var healthBar: EnergyBar = EnergyBar(type: "health")
+    var energyBar: EnergyBar = EnergyBar(type: "energy")
 
     var view: UIImageView = UIImageView()
     var hitBox: UIView = UIView()
@@ -194,10 +195,12 @@ class Player {
         self.canMove = true
         
         self.health = Player.maxHealth
-        
+        self.energy = Player.maxEnergy
+
         self.direction = "right"
         
-        self.healthBar.setHealth(health: self.health)
+        self.healthBar.setEnergy(energy: self.health)
+        self.energyBar.setEnergy(energy: self.energy)
     }
     
     func move(direction: String) {
@@ -821,7 +824,8 @@ class Player {
             self.energy = Player.maxEnergy
         }
         
-        self.healthBar.setHealth(health: self.health)
+        self.healthBar.setEnergy(energy: self.health)
+        self.energyBar.setEnergy(energy: self.energy)
     }
     
     func didHitPowerup() -> Int {
@@ -949,7 +953,7 @@ class Player {
 //            handleGameOver()
         }
         
-        self.healthBar.setHealth(health: self.health)
+        self.healthBar.setEnergy(energy: self.health)
         
         self.endHitTimer.invalidate()
         self.hitAnimationTimer.invalidate()

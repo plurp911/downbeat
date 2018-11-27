@@ -1,5 +1,5 @@
 //
-//  HealthBarTick.swift
+//  EnergyBarTick.swift
 //  downbeat
 //
 //  Created by Collin Howard on 11/25/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HealthBarTick {
+class EnergyBarTick {
     
     // CONSTANTS
     
@@ -23,25 +23,34 @@ class HealthBarTick {
     var x: CGFloat = 0
     var y: CGFloat = 0
     
+    var type: String
+    
     var view: UIImageView = UIImageView()
     
-    init(x: CGFloat, y: CGFloat) {
+    init(x: CGFloat, y: CGFloat, type: String) {
         
         self.x = x
         self.y = y
         
-        self.view.frame.origin.x = self.x - (HealthBarTick.width / 2)
-        self.view.frame.origin.y = self.y - (HealthBarTick.height / 2)
+        self.type = type
         
-        self.view.frame.size.width = HealthBarTick.width
-        self.view.frame.size.height = HealthBarTick.height
+        self.view.frame.origin.x = self.x - (EnergyBarTick.width / 2)
+        self.view.frame.origin.y = self.y - (EnergyBarTick.height / 2)
         
-        self.view.backgroundColor = HealthBarTick.color
+        self.view.frame.size.width = EnergyBarTick.width
+        self.view.frame.size.height = EnergyBarTick.height
+        
+        self.view.backgroundColor = EnergyBarTick.color
         
         self.view.contentMode = .scaleAspectFill
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
-        self.view.image = UIImage(named: "healthBarTick")
+        if self.type == "health" {
+            self.view.image = UIImage(named: "healthBarTick")
+        } else if self.type == "energy" {
+            self.view.image = UIImage(named: "energyBarTick")
+        }
     }
+    
 }

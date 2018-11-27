@@ -27,8 +27,8 @@
 		92086A8721A5571C00AB51F8 /* EnemyBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8621A5571B00AB51F8 /* EnemyBullet.swift */; };
 		92086A8921A77A9D00AB51F8 /* DeflectedBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8821A77A9D00AB51F8 /* DeflectedBullet.swift */; };
 		92086A8B21AB699000AB51F8 /* EnemySpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8A21AB698F00AB51F8 /* EnemySpawner.swift */; };
-		92086A8D21ABC2C700AB51F8 /* HealthBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8C21ABC2C700AB51F8 /* HealthBar.swift */; };
-		92086A8F21ABC55C00AB51F8 /* HealthBarTick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8E21ABC55C00AB51F8 /* HealthBarTick.swift */; };
+		92086A8D21ABC2C700AB51F8 /* EnergyBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8C21ABC2C700AB51F8 /* EnergyBar.swift */; };
+		92086A8F21ABC55C00AB51F8 /* EnergyBarTick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A8E21ABC55C00AB51F8 /* EnergyBarTick.swift */; };
 		925BECEF21ACEDFF0092C3E0 /* 1-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 925BECEE21ACEDFF0092C3E0 /* 1-1.txt */; };
 		925BECF121ACFD140092C3E0 /* 1-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 925BECF021ACFD140092C3E0 /* 1-2.txt */; };
 /* End PBXBuildFile section */
@@ -77,8 +77,8 @@
 		92086A8621A5571B00AB51F8 /* EnemyBullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyBullet.swift; sourceTree = "<group>"; };
 		92086A8821A77A9D00AB51F8 /* DeflectedBullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeflectedBullet.swift; sourceTree = "<group>"; };
 		92086A8A21AB698F00AB51F8 /* EnemySpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemySpawner.swift; sourceTree = "<group>"; };
-		92086A8C21ABC2C700AB51F8 /* HealthBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthBar.swift; sourceTree = "<group>"; };
-		92086A8E21ABC55C00AB51F8 /* HealthBarTick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthBarTick.swift; sourceTree = "<group>"; };
+		92086A8C21ABC2C700AB51F8 /* EnergyBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyBar.swift; sourceTree = "<group>"; };
+		92086A8E21ABC55C00AB51F8 /* EnergyBarTick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyBarTick.swift; sourceTree = "<group>"; };
 		925BECEE21ACEDFF0092C3E0 /* 1-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "1-1.txt"; path = "../../../Desktop/1-1.txt"; sourceTree = "<group>"; };
 		925BECF021ACFD140092C3E0 /* 1-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "1-2.txt"; path = "../../../Desktop/1-2.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,8 +176,8 @@
 				92086A8221A412D100AB51F8 /* Explosion.swift */,
 				92086A8421A41B0500AB51F8 /* Powerup.swift */,
 				92086A7C21A283E600AB51F8 /* Stage.swift */,
-				92086A8C21ABC2C700AB51F8 /* HealthBar.swift */,
-				92086A8E21ABC55C00AB51F8 /* HealthBarTick.swift */,
+				92086A8C21ABC2C700AB51F8 /* EnergyBar.swift */,
+				92086A8E21ABC55C00AB51F8 /* EnergyBarTick.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -337,9 +337,9 @@
 				92086A7221A2440700AB51F8 /* Player.swift in Sources */,
 				92086A4421A23B5000AB51F8 /* GameController.swift in Sources */,
 				92086A8721A5571C00AB51F8 /* EnemyBullet.swift in Sources */,
-				92086A8F21ABC55C00AB51F8 /* HealthBarTick.swift in Sources */,
+				92086A8F21ABC55C00AB51F8 /* EnergyBarTick.swift in Sources */,
 				92086A8521A41B0500AB51F8 /* Powerup.swift in Sources */,
-				92086A8D21ABC2C700AB51F8 /* HealthBar.swift in Sources */,
+				92086A8D21ABC2C700AB51F8 /* EnergyBar.swift in Sources */,
 				92086A7D21A283E600AB51F8 /* Stage.swift in Sources */,
 				92086A7921A2829800AB51F8 /* GameController+Stages.swift in Sources */,
 				92086A8B21AB699000AB51F8 /* EnemySpawner.swift in Sources */,

@@ -660,8 +660,13 @@ extension GameController {
         gameView.addSubview(player.view)
         
         gameView.addSubview(player.healthBar.view)
-        
+        gameView.addSubview(player.energyBar.view)
+
         for t in player.healthBar.ticks {
+            gameView.addSubview(t.view)
+        }
+        
+        for t in player.energyBar.ticks {
             gameView.addSubview(t.view)
         }
     }
