@@ -83,6 +83,8 @@ extension GameController {
 //                    canClimb = true
                 }
                 
+//                if player.isShooting == false {
+
                 if isLeftPressed == false && isRightPressed == false {
                     
                     if (isUpPressed == true && isDownPressed == false) || (isUpPressed == false && isDownPressed == true) {
@@ -136,8 +138,8 @@ extension GameController {
                                         } while (ladder.x < player.x)
                                     }
                                     
-                                    player.setXY(x: ladder.x, y: player.y)
-                                    
+//                                    player.setXY(x: ladder.x, y: player.y)
+
                                     player.isMoving = false
                                     player.isMovingLeft = false
                                     player.isMovingRight = false
@@ -150,6 +152,8 @@ extension GameController {
                                 }
                                 
                                 player.isClimbing = true
+                                
+                                player.setXY(x: ladder.x, y: player.y)
                             }
                             
                         } else {
@@ -177,6 +181,8 @@ extension GameController {
                         
                     }
                 }
+                
+//            }
                 
             }
             

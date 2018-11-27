@@ -48,6 +48,10 @@ class Player {
     static let climbImage = UIImage(named: "playerClimb1")
     static let climbImages = [UIImage(named: "playerClimb1"), UIImage(named: "playerClimb2")]
 
+    static let climbShootRightImage = UIImage(named: "playerClimbShootRight")
+
+    static let climbEndImage = UIImage(named: "playerClimbEnd")
+
     static let xShift: CGFloat = Block.width * (16 / 30)
     static let yShift: CGFloat = Block.height * 0
     
@@ -140,10 +144,20 @@ class Player {
         self.x = x
         self.y = y
         
-        if self.direction == "left" {
-            self.view.frame.origin.x = self.x - Player.width / 2 - Player.xShift - (Block.width * (1 / 16))
-        } else if self.direction == "right" {
+        if self.isClimbing == true && self.isShootingAnimation == false {
+            
             self.view.frame.origin.x = self.x - Player.width / 2 - Player.xShift
+
+        } else {
+            
+            if self.direction == "left" {
+                
+                self.view.frame.origin.x = self.x - Player.width / 2 - Player.xShift - (Block.width * (1 / 16))
+                
+            } else if self.direction == "right" {
+                
+                self.view.frame.origin.x = self.x - Player.width / 2 - Player.xShift
+            }
         }
         
         self.view.frame.origin.y = self.y - Player.height / 2 - Player.yShift
@@ -151,16 +165,7 @@ class Player {
         self.hitBox.frame.origin.x = self.x - Player.width / 2
         self.hitBox.frame.origin.y = self.y - Player.height / 2
     }
-    
-//    func didHitGoal() -> Bool {
-//
-////        if distance(x1: goal.x, y1: goal.y, x2: player.x, y2: player.y) <= Player.radius + (Goal.width / 2) {
-////            return true
-////        }
-//
-//        return false
-//    }
-    
+
     func reset() {
 
         self.setXY(x: currentStage.playerStartX, y: currentStage.playerStartY)
@@ -441,26 +446,31 @@ class Player {
         
         if self.isShooting == false {
             
-            self.isShooting = true
-            self.isShootingAnimation = true
-
-            self.endShootTimer.invalidate()
-            self.endShootAnimationTimer.invalidate()
-
-//            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
-//            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
-            
-            self.isShooting = false
-
-            self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.175, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
-            
-            if self.direction == "left" {
+            if self.isClimbing == false || (self.isClimbing == true && self.ySpeed == 0) {
                 
-                bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction))
+                self.isShooting = true
+                self.isShootingAnimation = true
                 
-            } else if self.direction == "right" {
+                self.endShootTimer.invalidate()
+                self.endShootAnimationTimer.invalidate()
                 
-                bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction))
+                //            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+                //            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+                
+                self.isShooting = false
+                
+                //            self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.175, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
+                self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
+                
+                if self.direction == "left" {
+                    
+                    bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction))
+                    
+                } else if self.direction == "right" {
+                    
+                    bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction))
+                }
+                
             }
         }
         
@@ -526,7 +536,7 @@ class Player {
             
             if self.ySpeed == 0 {
                 
-                handleStopClimbAnimation()
+                self.handleStopClimbAnimation()
                 
             } else {
                 
@@ -649,7 +659,25 @@ class Player {
         canMoveLeft = true
         canMoveRight = true
         
-        self.view.image = Player.climbImage
+        if self.isShootingAnimation == true {
+            
+            self.view.image = Player.climbShootRightImage
+            
+            if direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+
+        } else {
+            
+            self.view.image = Player.climbImage
+            
+            self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+        }
     }
     
     func handleClimbAnimation() {
@@ -663,6 +691,8 @@ class Player {
         
         self.view.animationDuration = Player.animationCycleTime * 0.75
         self.view.startAnimating()
+        
+        self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
     }
     
     func handleJumpAnimation() {
