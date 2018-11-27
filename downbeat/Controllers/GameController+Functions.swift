@@ -413,19 +413,12 @@ extension GameController {
                         
                         currentStage.move(direction: "left")
                         
-                        moveBullets(direction: "left")
-                        moveDeflectedBullets(direction: "left")
-                        moveExplosions(direction: "left")
-                        movePowerups(direction: "left")
-                        moveEnemies(direction: "left")
-                        moveEnemyBullets(direction: "left")
+                        moveObjects(direction: "left")
                         
                         //                            currentStage.updateObjectArrays(direction: "left")
                         
-                        currentStage.moveBlocks()
-                        currentStage.movePowerups()
-                        currentStage.moveEnemies()
-                        
+                        currentStage.moveObjects()
+
                         currentStage.updateObjectArrays(direction: "left")
                     }
                 }
@@ -436,9 +429,7 @@ extension GameController {
                     
                     currentStage.x = (((CGFloat)(-currentStage.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width
                     
-                    currentStage.moveBlocks()
-                    currentStage.movePowerups()
-                    currentStage.moveEnemies()
+                    currentStage.moveObjects()
                     
                     player.move(direction: "right")
                     
@@ -452,19 +443,12 @@ extension GameController {
                     
                     currentStage.move(direction: "right")
                     
-                    moveBullets(direction: "right")
-                    moveDeflectedBullets(direction: "right")
-                    moveExplosions(direction: "right")
-                    movePowerups(direction: "right")
-                    moveEnemies(direction: "right")
-                    moveEnemyBullets(direction: "right")
+                    moveObjects(direction: "right")
                     
                     //                        currentStage.updateObjectArrays(direction: "right")
                     
-                    currentStage.moveBlocks()
-                    currentStage.movePowerups()
-                    currentStage.moveEnemies()
-                    
+                    currentStage.moveObjects()
+
                     currentStage.updateObjectArrays(direction: "right")
                 }
             }
@@ -621,6 +605,16 @@ extension GameController {
         }
     }
     
+    func moveObjects(direction: String) {
+        
+        moveBullets(direction: direction)
+        moveDeflectedBullets(direction: direction)
+        moveExplosions(direction: direction)
+        movePowerups(direction: direction)
+        moveEnemies(direction: direction)
+        moveEnemyBullets(direction: direction)
+    }
+    
     func draw() {
         
         removeAllSubviews()
@@ -628,6 +622,10 @@ extension GameController {
         
         for b in selectedBlocks {
             gameView.addSubview(b.view)
+        }
+        
+        for e in selectedEnemySpawners {
+            gameView.addSubview(e.view)
         }
         
         for e in explosions {

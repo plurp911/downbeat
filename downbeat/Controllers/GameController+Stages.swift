@@ -79,6 +79,10 @@ extension GameController {
         stages[0].blocks.append(Block(xPos: 17, yPos: 7, type: "ladder"))
         stages[0].blocks.append(Block(xPos: 17, yPos: 6, type: "ladder"))
         
+        stages[0].blocks.append(Block(xPos: 18, yPos: 8, type: "horizontalYellowLeftBlock"))
+        stages[0].blocks.append(Block(xPos: 19, yPos: 8, type: blockType))
+        stages[0].blocks.append(Block(xPos: 20, yPos: 8, type: "horizontalYellowRightBlock"))
+        
         stages[0].blocks.append(Block(xPos: 20, yPos: 10, type: "verticalYellowTopBlock"))
         stages[0].blocks.append(Block(xPos: 20, yPos: 11, type: "verticalYellowBottomBlock"))
 
@@ -130,6 +134,10 @@ extension GameController {
 //        stages[0].powerups.append(Powerup(xPos: 3, yPos: 13, type: "largeHealth"))
 //        stages[0].powerups.append(Powerup(xPos: 4, yPos: 13, type: "smallEnergy"))
 //        stages[0].powerups.append(Powerup(xPos: 20, yPos: 13, type: "largeEnergy"))
+        
+        // ENEMY SPAWNERS
+        
+        stages[0].enemySpawners.append(EnemySpawner(xPos: 3, yPos: 3, type: "follower"))
 
         // FINAL SETUP
         

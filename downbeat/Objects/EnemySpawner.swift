@@ -28,6 +28,10 @@ class EnemySpawner {
     var x: CGFloat = 0
     var y: CGFloat = 0
     
+    var spawnTimer = Timer()
+    
+    var spawnTimeInterval: CGFloat = 0
+    
     var view: UIImageView = UIImageView()
     
     init(xPos: Int, yPos: Int, type: String) {
@@ -36,6 +40,13 @@ class EnemySpawner {
         self.yPos = yPos
         
         self.type = type
+        
+        if self.type == "follower" {
+            
+            self.spawnTimeInterval = 2
+            
+//            self.spawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.spawnTimeInterval), target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
+        }
         
         self.x = (((CGFloat)(self.xPos)) * EnemySpawner.width) + (EnemySpawner.width / 2)
         self.y = (((CGFloat)(self.yPos)) * EnemySpawner.height) + (EnemySpawner.height / 2)
@@ -69,6 +80,20 @@ class EnemySpawner {
         }
         
         return false
+    }
+    
+    func startSpawning() {
+        
+        if self.spawnTimer.isValid == false {
+            
+            self.spawnTimer.invalidate()
+            
+            self.spawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.spawnTimeInterval), target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
+        }
+    }
+    
+    func stopSpawning() {
+        self.spawnTimer.invalidate()
     }
     
     @objc func createEnemy() {

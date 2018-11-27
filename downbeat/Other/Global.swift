@@ -44,6 +44,7 @@ var deflectedBullets = [DeflectedBullet]()
 var selectedBlocks = [Block]()
 var selectedEnemies = [Enemy]()
 var selectedPowerups = [Powerup]()
+var selectedEnemySpawners = [EnemySpawner]()
 
 var canMoveLeft: Bool = true
 var canMoveRight: Bool = true
@@ -115,6 +116,11 @@ public func removeObjects(type: String, toRemove: [Int]) {
         } else if type == "selectedEnemies" {
             
             selectedEnemies.remove(at: newToRemove[newI])
+            
+        } else if type == "selectedEnemySpawners" {
+            
+            selectedEnemySpawners[newToRemove[newI]].stopSpawning()
+            selectedEnemySpawners.remove(at: newToRemove[newI])
         }
     }
     

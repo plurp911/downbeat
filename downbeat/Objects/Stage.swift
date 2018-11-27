@@ -15,6 +15,7 @@ class Stage {
     var blocks = [Block]()
     var enemies = [Enemy]()
     var powerups = [Powerup]()
+    var enemySpawners = [EnemySpawner]()
 
     var playerStartX: CGFloat = 0
     var playerStartY: CGFloat = 0
@@ -27,6 +28,9 @@ class Stage {
     
     var powerupStartIndex: Int = 0
     var powerupEndIndex: Int = 0
+    
+    var enemySpawnerStartIndex: Int = 0
+    var enemySpawnerEndIndex: Int = 0
     
     var x: CGFloat = 0
     
@@ -100,6 +104,14 @@ class Stage {
         
     }
     
+    func moveEnemySpawners() {
+        
+        for i in 0 ..< enemySpawners.count {
+            
+            self.enemySpawners[i].setX(x: self.x + (((CGFloat)(self.enemySpawners[i].xPos)) * EnemySpawner.width) + (EnemySpawner.width / 2))
+        }
+    }
+    
     func reset() {
         
         self.x = 0
@@ -136,11 +148,20 @@ class Stage {
         }
     }
     
+    func moveObjects() {
+        
+        self.moveBlocks()
+        self.movePowerups()
+        self.moveEnemies()
+        self.moveEnemySpawners()
+    }
+    
     func sortObjectArrays() {
         
         self.blocks = self.blocks.sorted(by: { $0.x < $1.x })
         self.enemies = self.enemies.sorted(by: { $0.x < $1.x })
         self.powerups = self.powerups.sorted(by: { $0.x < $1.x })
+        self.enemySpawners = self.enemySpawners.sorted(by: { $0.x < $1.x })
     }
     
 //    func sortSelectedArrays() {
@@ -152,9 +173,23 @@ class Stage {
     
     func setupSelectedArrays() {
         
+
+        
+        
+        
+        
+        
+        // reset all enemy and enemy spawners to have their timers all stopped...
+        
+        
+        
+        
+        
+        
         selectedBlocks.removeAll()
         selectedEnemies.removeAll()
         selectedPowerups.removeAll()
+        selectedEnemySpawners.removeAll()
 
         for block in self.blocks {
             
@@ -192,6 +227,20 @@ class Stage {
             }
         }
     
+        for enemySpawner in self.enemySpawners {
+            
+            if enemySpawner.isInBounds() == true {
+                
+                enemySpawner.startSpawning()
+                
+                selectedEnemySpawners.append(enemySpawner)
+                
+            } else {
+                
+                break
+            }
+        }
+        
     }
     
     func updateObjectArrays(direction: String) {
@@ -199,6 +248,7 @@ class Stage {
         self.updateBlocks(direction: direction)
         self.updateEnemies(direction: direction)
         self.updatePowerups(direction: direction)
+        self.updateEnemySpawners(direction: direction)
     }
     
     func isMatch(object: AnyObject, objectArray: [AnyObject]) -> Bool {
@@ -579,5 +629,115 @@ class Stage {
         selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
 
         removeObjects(type: "selectedEnemies", toRemove: selectedToRemove)
+    }
+    
+    func updateEnemySpawners(direction: String) {
+        
+        var isInBounds: Bool = false
+        
+        var selectedToRemove = [Int]()
+        
+        if direction == "left" {
+            
+            repeat {
+                
+                isInBounds = false
+                
+                if self.enemySpawnerStartIndex >= 0 && self.enemySpawnerStartIndex < self.enemySpawners.count {
+                    
+                    if self.enemySpawners[self.enemySpawnerStartIndex].isInBounds() == true {
+                        
+                        isInBounds = true
+                        
+                        self.enemySpawners[self.enemySpawnerStartIndex].startSpawning()
+                        
+                        selectedEnemySpawners.insert(self.enemySpawners[self.enemySpawnerStartIndex], at: 0)
+                        
+                        if self.enemySpawnerStartIndex > 0 {
+                            
+                            self.enemySpawnerStartIndex -= 1
+                            
+                        } else {
+                            
+                            break
+                        }
+                        
+                    }
+                }
+                
+            } while (isInBounds == true)
+            
+            for i in 0 ..< self.enemySpawners.count {
+                
+                let newI: Int = self.enemySpawners.count - i - 1
+                
+                if self.enemySpawners[newI].isInBounds() == true {
+                    
+                    self.enemySpawnerEndIndex = newI
+                    
+                    break
+                    
+                } else {
+                    
+                    let matchPos: Int = getMatchPos(object: self.enemySpawners[newI], objectArray: selectedEnemySpawners)
+                    
+                    if matchPos >= 0 {
+                        selectedToRemove.append(matchPos)
+                    }
+                }
+                
+            }
+            
+        } else if direction == "right" {
+            
+            repeat {
+                
+                isInBounds = false
+                
+                if self.enemySpawnerEndIndex < self.enemySpawners.count && self.enemySpawnerEndIndex >= 0 {
+                    
+                    if self.enemySpawners[self.enemySpawnerEndIndex].isInBounds() == true {
+                        
+                        isInBounds = true
+                        
+                        self.enemySpawners[self.enemySpawnerEndIndex].startSpawning()
+                        
+                        selectedEnemySpawners.append(self.enemySpawners[self.enemySpawnerEndIndex])
+                        
+                        if self.enemySpawnerEndIndex < self.enemySpawners.count - 1 {
+                            
+                            self.enemySpawnerEndIndex += 1
+                            
+                        } else {
+                            
+                            break
+                        }
+                        
+                    }
+                }
+                
+            } while (isInBounds == true)
+            
+            for i in 0 ..< self.enemySpawners.count {
+                
+                if self.enemySpawners[i].isInBounds() == true {
+                    
+                    self.enemySpawnerStartIndex = i
+                    
+                    break
+                    
+                } else {
+                    
+                    let matchPos: Int = getMatchPos(object: self.enemySpawners[i], objectArray: selectedEnemySpawners)
+                    
+                    if matchPos >= 0 {
+                        selectedToRemove.append(matchPos)
+                    }
+                }
+                
+            }
+        }
+        
+        removeObjects(type: "selectedEnemySpawners", toRemove: selectedToRemove)
     }
 }
