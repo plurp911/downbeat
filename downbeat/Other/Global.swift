@@ -82,6 +82,18 @@ public func removeDuplicateInts(values: [Int]) -> [Int] {
     return result
 }
 
+public func tryToRemove(array: [AnyObject], value: Int) -> [AnyObject] {
+    
+    var newArray = array
+    
+    if value >= 0 && value < array.count {
+        
+        newArray.remove(at: value)
+    }
+    
+    return newArray
+}
+
 public func removeObjects(type: String, toRemove: [Int]) {
     
     var newToRemove = removeDuplicateInts(values: toRemove)
@@ -95,45 +107,66 @@ public func removeObjects(type: String, toRemove: [Int]) {
 
         if type == "bullets" {
             
-            bullets.remove(at: newToRemove[newI])
+//            bullets.remove(at: newToRemove[newI])
+
+            bullets = tryToRemove(array: bullets, value: newToRemove[newI]) as! [Bullet]
             
         } else if type == "deflectedBullets" {
             
-            deflectedBullets.remove(at: newToRemove[newI])
+//            deflectedBullets.remove(at: newToRemove[newI])
             
+            deflectedBullets = tryToRemove(array: deflectedBullets, value: newToRemove[newI]) as! [DeflectedBullet]
+
         } else if type == "powerups" {
             
-            powerups.remove(at: newToRemove[newI])
+//            powerups.remove(at: newToRemove[newI])
             
+            powerups = tryToRemove(array: powerups, value: newToRemove[newI]) as! [Powerup]
+
         } else if type == "stagePowerups" {
             
-            currentStage.powerups.remove(at: newToRemove[newI])
+//            currentStage.powerups.remove(at: newToRemove[newI])
             
+            currentStage.powerups = tryToRemove(array: currentStage.powerups, value: newToRemove[newI]) as! [Powerup]
+
         } else if type == "explosions" {
             
-            explosions.remove(at: newToRemove[newI])
+//            explosions.remove(at: newToRemove[newI])
             
+            explosions = tryToRemove(array: explosions, value: newToRemove[newI]) as! [Explosion]
+
         } else if type == "enemies" {
             
             currentStage.enemies[newToRemove[newI]].endTimers()
-            currentStage.enemies.remove(at: newToRemove[newI])
+//            currentStage.enemies.remove(at: newToRemove[newI])
             
+            currentStage.enemies = tryToRemove(array: currentStage.enemies, value: newToRemove[newI]) as! [Enemy]
+
         } else if type == "enemyBullets" {
             
-            enemyBullets.remove(at: newToRemove[newI])
+//            enemyBullets.remove(at: newToRemove[newI])
             
+            enemyBullets = tryToRemove(array: enemyBullets, value: newToRemove[newI]) as! [EnemyBullet]
+
         } else if type == "selectedBlocks" {
             
-            selectedBlocks.remove(at: newToRemove[newI])
+//            selectedBlocks.remove(at: newToRemove[newI])
             
+            selectedBlocks = tryToRemove(array: selectedBlocks, value: newToRemove[newI]) as! [Block]
+
         } else if type == "selectedEnemies" {
             
-            selectedEnemies.remove(at: newToRemove[newI])
+            selectedEnemies[newToRemove[newI]].endTimers()
+//            selectedEnemies.remove(at: newToRemove[newI])
             
+            selectedEnemies = tryToRemove(array: selectedEnemies, value: newToRemove[newI]) as! [Enemy]
+
         } else if type == "selectedEnemySpawners" {
             
             selectedEnemySpawners[newToRemove[newI]].stopSpawning()
-            selectedEnemySpawners.remove(at: newToRemove[newI])
+//            selectedEnemySpawners.remove(at: newToRemove[newI])
+            
+            selectedEnemySpawners = tryToRemove(array: selectedEnemySpawners, value: newToRemove[newI]) as! [EnemySpawner]
         }
     }
     

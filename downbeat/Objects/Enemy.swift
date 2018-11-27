@@ -77,6 +77,8 @@ class Enemy {
     
     var shootTimeInterval: CGFloat = 0
     
+    var totalShootTimeInterval: CGFloat = 0
+
     var isUsed: Bool = false
 
     var view: UIImageView = UIImageView()
@@ -86,12 +88,12 @@ class Enemy {
         self.xPos = xPos
         self.yPos = yPos
         
-        setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: type)
+        self.setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: type)
     }
     
     init(x: CGFloat, y: CGFloat, type: String) {
         
-        setup(x: x, y: y, type: type)
+        self.setup(x: x, y: y, type: type)
     }
 
     func setup(x: CGFloat, y: CGFloat, type: String) {
@@ -162,8 +164,11 @@ class Enemy {
             
         } else if self.type == "hat" {
             
-            self.shootTimeInterval = 3.25
+//            self.shootTimeInterval = 3.25
+            self.shootTimeInterval = 2.25
             
+            self.totalShootTimeInterval = 0.875
+
             self.view.image = Enemy.hatLeft1Image
             
             if self.direction == "right" {
@@ -172,7 +177,7 @@ class Enemy {
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
             
-            self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
+//            self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
             
         } else if self.type == "penguin" {
             
@@ -194,26 +199,50 @@ class Enemy {
     
     func reset() {
         
-        if self.type == "follower" {
-            
-            self.direction = "left"
-            
-        } else if self.type == "penguin" {
-            
-            self.direction = "left"
-        }
-        
-        self.isFalling = false
+//        if self.type == "follower" {
+//
+//            self.direction = "left"
+//
+//        } else if self.type == "penguin" {
+//
+//            self.direction = "left"
+//        }
+//
+//        self.isFalling = false
+//
+//        self.xSpeed = 0
+//        self.ySpeed = 0
+//
+//        self.isRising = false
+//
+//        self.isJumping = false
+//
+//        self.isShooting = false
+////        self.isShootingAnimation = false
+//
+//        self.isMoving = false
+//
+//        self.isHit = false
+//
+//        self.isMovingLeft = false
+//        self.isMovingRight = false
+//
+//        self.canMove = true
+//
+//        self.health = self.maxHealth
+//
+//        self.setXY(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2))
         
         self.xSpeed = 0
         self.ySpeed = 0
         
         self.isRising = false
+        self.isFalling = false
         
         self.isJumping = false
         
         self.isShooting = false
-//        self.isShootingAnimation = false
+        //    self.isShootingAnimation = false
         
         self.isMoving = false
         
@@ -224,9 +253,9 @@ class Enemy {
         
         self.canMove = true
         
-        self.health = self.maxHealth
+        self.isUsed = false
 
-        self.setXY(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2))
+        self.setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: self.type)
     }
     
     func updateAnimation() {
@@ -382,7 +411,7 @@ class Enemy {
             self.isShooting = true
             //            self.isShootingAnimation = true
             
-            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.5 / 2, target: self, selector: #selector(realShoot), userInfo: nil, repeats: false)
+            self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(realShoot), userInfo: nil, repeats: false)
         }
     }
     
@@ -402,7 +431,7 @@ class Enemy {
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0, type: "smallRegular"))
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 1.5, type: "smallRegular"))
                 
-                self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.5 / 2, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
 
             } else if self.direction == "right" {
                 
@@ -414,7 +443,7 @@ class Enemy {
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0, type: "smallRegular"))
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 1.5, type: "smallRegular"))
                 
-                self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.5 / 2, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
             
         } else if self.type == "penguin" {
@@ -441,6 +470,20 @@ class Enemy {
 //        self.canMove = true
         
         self.isShooting = false
+    }
+    
+    func startTimers() {
+        
+        if self.shootTimeInterval > 0 {
+            
+            if self.shootTimer.isValid == false {
+                
+                self.shootTimer.invalidate()
+                
+                self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
+            }
+        }
+        
     }
     
     func endTimers() {

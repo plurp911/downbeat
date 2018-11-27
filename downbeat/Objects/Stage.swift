@@ -344,6 +344,8 @@ class Stage {
             
             if enemy.isInBounds() == true {
                 
+                enemy.startTimers()
+                
                 selectedEnemies.append(enemy)
                 
             } else {
@@ -666,6 +668,8 @@ class Stage {
                             
                             if isMatch(object: self.enemies[self.enemyStartIndex], objectArray: selectedEnemies) == false {
                                 
+                                self.enemies[self.enemyStartIndex].startTimers()
+                                
                                 selectedEnemies.insert(self.enemies[self.enemyStartIndex], at: 0)
                             }
                         }
@@ -699,7 +703,14 @@ class Stage {
                     let matchPos: Int = getMatchPos(object: self.enemies[newI], objectArray: selectedEnemies)
                     
                     if matchPos >= 0 {
+                        
+//                        selectedEnemies[matchPos].isUsed = false
+                        
                         selectedToRemove.append(matchPos)
+                        
+                    } else {
+                        
+                        self.enemies[newI].reset()
                     }
                 }
                 
@@ -721,6 +732,8 @@ class Stage {
                             
                             if isMatch(object: self.enemies[self.enemyEndIndex], objectArray: selectedEnemies) == false {
                                 
+                                self.enemies[self.enemyEndIndex].startTimers()
+
                                 selectedEnemies.append(self.enemies[self.enemyEndIndex])
                             }
                         }
@@ -752,7 +765,14 @@ class Stage {
                     let matchPos: Int = getMatchPos(object: self.enemies[i], objectArray: selectedEnemies)
                     
                     if matchPos >= 0 {
+                        
+//                        selectedEnemies[matchPos].isUsed = false
+
                         selectedToRemove.append(matchPos)
+                        
+                    } else {
+                        
+                        self.enemies[i].reset()
                     }
                 }
                 
