@@ -65,15 +65,28 @@ var isPaused: Bool = false
 
 // OBJECTS
 
-var currentStage = Stage()
+var currentStage = Stage(fileName: "1-1")
 
 var player = Player()
 
 // FUNCTIONS
 
+public func removeDuplicateInts(values: [Int]) -> [Int] {
+    
+    // Convert array into a set to get unique values.
+    let uniques = Set<Int>(values)
+    
+    // Convert set back into an Array of Ints.
+    let result = Array<Int>(uniques)
+    
+    return result
+}
+
 public func removeObjects(type: String, toRemove: [Int]) {
     
-    var newToRemove = toRemove.sorted(by: { $0 < $1 })
+    var newToRemove = removeDuplicateInts(values: toRemove)
+
+    newToRemove = newToRemove.sorted(by: { $0 < $1 })
     
     for i in 0 ..< newToRemove.count {
         

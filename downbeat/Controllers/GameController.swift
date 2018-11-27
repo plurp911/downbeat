@@ -228,7 +228,8 @@ class GameController: UIViewController {
         
         super.viewDidLoad()
         
-        loadStages()
+//        loadStages()
+        newLoadStages()
         
         setupStage()
         

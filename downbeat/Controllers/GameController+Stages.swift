@@ -15,7 +15,7 @@ extension GameController {
 //        let blockType: String = "topWoodBlock"
         let blockType: String = "horizontalYellowMiddleBlock"
 
-        stages.append(Stage())
+//        stages.append(Stage())
         
         // SIZE
         
@@ -145,5 +145,18 @@ extension GameController {
         stages[0].setupSelectedArrays()
 
         currentStage = stages[0]
+    }
+    
+    func newLoadStages() {
+        
+        let stage = Stage(fileName: "1-2")
+        
+//        stage.setPlayerStartXY(startX: (screenSize.height * screenRatio) / 2, startY: -Player.height / 2)
+        stage.setPlayerStartXY(startX: Block.width * 3, startY: screenSize.height - Block.height - (Player.height / 2))
+
+        stage.sortObjectArrays()
+        stage.setupSelectedArrays()
+        
+        currentStage = stage
     }
 }

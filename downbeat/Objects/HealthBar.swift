@@ -52,13 +52,17 @@ class HealthBar {
     }
     
     func setHealth(health: Int) {
-
-        for i in 0 ..< ticks.count {
-            ticks[i].view.isHidden = false
-        }
         
-        for i in 0 ..< Player.maxHealth - health {
-            ticks[i].view.isHidden = true
+        if health >= 0 {
+            
+            for i in 0 ..< ticks.count {
+                ticks[i].view.isHidden = false
+            }
+            
+            for i in 0 ..< Player.maxHealth - health {
+                ticks[i].view.isHidden = true
+            }
+            
         }
     }
     

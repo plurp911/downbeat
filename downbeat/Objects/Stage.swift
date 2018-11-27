@@ -38,8 +38,108 @@ class Stage {
 
     var counter: Int = 0
     
-    init() {
+    var textArray = [[String]]()
+    
+    init(fileName: String) {
         
+        let path = Bundle.main.path(forResource: fileName, ofType: "txt")
+        
+        for _ in 0 ..< numberOfVerticalBricks {
+            textArray.append([""])
+        }
+        
+        do {
+            
+            let text = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
+            
+            var stageText = text.components(separatedBy: "\n")
+            
+            for i in 0 ..< stageText.count {
+                
+                stageText[i].removeLast()
+                
+                let newText = stageText[i].components(separatedBy: ".")
+
+                textArray[i] = newText
+            }
+            
+        } catch let error { print(error) }
+        
+        self.numberOfHorizontalBlocks = textArray[0].count
+        
+        for i in 0 ..< textArray.count {
+            for j in 0 ..< textArray[i].count {
+                
+                let text = textArray[i][j]
+                
+//                if text == "[]" {
+//                    blocks.append(Block(xPos: j, yPos: i, type: "yellowBlock"))
+//                } else if text == "==" {
+//                    blocks.append(Block(xPos: j, yPos: i, type: "ladder"))
+//                } else if text == "^^" {
+//                    blocks.append(Block(xPos: j, yPos: i, type: "topLadder"))
+//                } else if text == ">|" {
+//                    enemies.append(Enemy(xPos: j, yPos: i, type: "hat"))
+//                } else if text == "<>" {
+//                    enemies.append(Enemy(xPos: j, yPos: i, type: "follower"))
+//                } else if text == "<-" {
+//                    enemies.append(Enemy(xPos: j, yPos: i, type: "penguin"))
+//                } else if text == "FS" {
+//                    enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "follower"))
+//                } else if text == "sh" {
+//                    powerups.append(Powerup(xPos: j, yPos: i, type: "smallHealth"))
+//                } else if text == "lh" {
+//                    powerups.append(Powerup(xPos: j, yPos: i, type: "largeHealth"))
+//                } else if text == "se" {
+//                    powerups.append(Powerup(xPos: j, yPos: i, type: "smallEnergy"))
+//                } else if text == "le" {
+//                    powerups.append(Powerup(xPos: j, yPos: i, type: "largeEnergy"))
+//                }
+                
+                if text == "#" {
+                    blocks.append(Block(xPos: j, yPos: i, type: "yellowBlock"))
+                } else if text == "=" {
+                    
+                    if i - 1 >= 0 {
+                        
+                        if textArray[i - 1][j] == "=" {
+                            
+                            blocks.append(Block(xPos: j, yPos: i, type: "ladder"))
+                            
+                        } else {
+                            
+                            blocks.append(Block(xPos: j, yPos: i, type: "topLadder"))
+                        }
+                    }
+                    
+                } else if text == "H" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "hat"))
+                } else if text == "F" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "follower"))
+                } else if text == "P" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "penguin"))
+                } else if text == "S" {
+                    enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "follower"))
+                } else if text == "1" {
+                    powerups.append(Powerup(xPos: j, yPos: i, type: "smallHealth"))
+                } else if text == "2" {
+                    powerups.append(Powerup(xPos: j, yPos: i, type: "largeHealth"))
+                } else if text == "8" {
+                    powerups.append(Powerup(xPos: j, yPos: i, type: "smallEnergy"))
+                } else if text == "9" {
+                    powerups.append(Powerup(xPos: j, yPos: i, type: "largeEnergy"))
+                }
+                
+            }
+        }
+        
+    }
+    
+    func isInBounds(i: Int, j: Int) -> Bool {
+        
+        
+        
+        return false
     }
     
     func setPlayerStartXY(startX: CGFloat, startY: CGFloat) {
