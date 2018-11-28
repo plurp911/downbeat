@@ -710,53 +710,71 @@ class Player {
     
     func shoot() {
         
-        canMoveLeft = true
-        canMoveRight = true
+        var canShootBullet: Bool = false
         
-        if self.isShooting == false {
+        if self.power == "regular" {
             
-            if self.isClimbing == false || (self.isClimbing == true && self.ySpeed == 0) {
-                
-                self.isShooting = true
-                self.isShootingAnimation = true
-                
-                self.endShootTimer.invalidate()
-                self.endShootAnimationTimer.invalidate()
-                
-                //            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
-                //            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
-                
-                self.isShooting = false
-                
-                //            self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.175, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
-                self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
-                
-                if self.power == "regular" {
-                    
-                    if self.direction == "left" {
-                        
-                        bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
-                        
-                    } else if self.direction == "right" {
-                        
-                        bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
-                    }
-                    
-                } else if self.power == "cutter" {
-                    
-                    if self.direction == "left" {
-                        
-                        bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
-                        
-                    } else if self.direction == "right" {
-                        
-                        bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
-                    }
-                }
-                
+            if bullets.count < 3 {
+                canShootBullet = true
+            }
+            
+        } else if self.power == "cutter" {
+            
+            if bullets.count < 1 {
+                canShootBullet = true
             }
         }
         
+        if canShootBullet == true {
+            
+            canMoveLeft = true
+            canMoveRight = true
+            
+            if self.isShooting == false {
+                
+                if self.isClimbing == false || (self.isClimbing == true && self.ySpeed == 0) {
+                    
+                    self.isShooting = true
+                    self.isShootingAnimation = true
+                    
+                    self.endShootTimer.invalidate()
+                    self.endShootAnimationTimer.invalidate()
+                    
+                    //            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+                    //            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+                    
+                    self.isShooting = false
+                    
+                    //            self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.175, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
+                    self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
+                    
+                    if self.power == "regular" {
+                        
+                        if self.direction == "left" {
+                            
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            
+                        } else if self.direction == "right" {
+                            
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                        }
+                        
+                    } else if self.power == "cutter" {
+                        
+                        if self.direction == "left" {
+                            
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            
+                        } else if self.direction == "right" {
+                            
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                        }
+                    }
+                    
+                }
+            }
+            
+        }
     }
     
     @objc func stopShoot() {
@@ -1181,9 +1199,9 @@ class Player {
     
     func didHitOwnBullet() -> Int {
         
-        for i in 0 ..< enemyBullets.count {
+        for i in 0 ..< bullets.count {
             
-            if enemyBullets[i].x + (enemyBullets[i].width / 2) >= self.x - (Player.width / 2) && enemyBullets[i].x - (enemyBullets[i].width / 2) <= self.x + (Player.width / 2) && enemyBullets[i].y + (enemyBullets[i].height / 2) >= self.y - (Player.height / 2) && enemyBullets[i].y - (enemyBullets[i].height / 2) <= self.y + (Player.height / 2) {
+            if bullets[i].x + (bullets[i].width / 2) >= self.x - (Player.width / 2) && bullets[i].x - (bullets[i].width / 2) <= self.x + (bullets[i].width / 2) && bullets[i].y + (bullets[i].height / 2) >= self.y - (Player.height / 2) && bullets[i].y - (bullets[i].height / 2) <= self.y + (Player.height / 2) {
                 return i
             }
         }

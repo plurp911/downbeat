@@ -416,6 +416,38 @@ extension GameController {
             }
             
             removeObjects(type: "enemyBullets", toRemove: enemyBulletsToRemove)
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            bulletsToRemove.removeAll()
+            
+            let bulletPos: Int = player.didHitOwnBullet()
+            
+            if bulletPos >= 0 {
+
+                bulletsToRemove.append(bulletPos)
+            }
+            
+            removeObjects(type: "bullets", toRemove: bulletsToRemove)
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         
             var selectedEnemiesToRemove = [Int]()
             
@@ -432,7 +464,13 @@ extension GameController {
                     
                     if bulletPos >= 0 {
                         
-                        bulletsToRemove.append(bulletPos)
+                        if bullets[bulletPos].type == "regular" {
+                           
+                            bulletsToRemove.append(bulletPos)
+                            
+                        } else if bullets[bulletPos].type == "cutter" {
+                            
+                        }
                         
                         selectedEnemies[i].handleHit(bulletDamage: bullets[bulletPos].damage)
                         

@@ -74,8 +74,9 @@ class Bullet {
             self.width = Block.width * (10 / 16)
             self.height = self.width
             
-            self.moveSpeed = 2.5
-            
+//            self.moveSpeed = 2.5
+            self.moveSpeed = 2
+
             self.damage = 3
             
 //            self.xDist = Block.width * 4
@@ -84,15 +85,16 @@ class Bullet {
                 
                 self.xGoal = x - (Block.width * 4)
                 
-                self.xSpeed = -self.moveSpeed
+//                self.xSpeed = -self.moveSpeed
                 
             } else if self.direction == "right" {
                 
                 self.xGoal = x + (Block.width * 4)
 
-                self.xSpeed = self.moveSpeed
+//                self.xSpeed = self.moveSpeed
             }
             
+            self.xSpeed = self.moveSpeed
             self.ySpeed = self.moveSpeed * 0.2
         }
 
@@ -126,7 +128,9 @@ class Bullet {
             
             self.view.animationImages = Bullet.cutterImagesRight as! [UIImage]
             
-            self.view.animationDuration = 0.85 * (4 / 6)
+//            self.view.animationDuration = 0.85 * (4 / 6)
+            self.view.animationDuration = 0.85 * 0.6875
+
             self.view.startAnimating()
             
             if self.direction == "left" {
@@ -161,6 +165,15 @@ class Bullet {
     
     func move() {
         
+//        print()
+//        print("X")
+//        print(self.x)
+//        print("X GOAL")
+//        print(self.xGoal)
+//        print("DID REACH GOAL")
+//        print(self.didReachGoal)
+//        print()
+
         if self.type == "regular" {
 
             setXY(x: self.x + self.xSpeed, y: self.y)
@@ -171,39 +184,54 @@ class Bullet {
                 
                 if self.x <= self.xGoal {
                     
-                    self.didReachGoal = true
+                    if self.didReachGoal == false {
+                        
+                        self.didReachGoal = true
+
+                        self.view.animationDuration = 0.85 * 0.5
+                        
+                        self.view.startAnimating()
+                    }
                 }
                 
             } else if self.direction == "right" {
                 
                 if self.x >= self.xGoal {
                     
-                    self.didReachGoal = true
+                    if self.didReachGoal == false {
+                        
+                        self.didReachGoal = true
+                        
+                        self.view.animationDuration = 0.85 * 0.5
+                        
+                        self.view.startAnimating()
+                    }
                 }
+                
             }
             
             if self.didReachGoal == false {
                 
                 if self.direction == "left" {
                     
-                    if self.x <= self.xGoal / 2 {
+                    if self.x <= self.xGoal + (Block.width * 2) {
                         
-                        setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+                        setXY(x: self.x - self.xSpeed, y: self.y + self.ySpeed)
 
                     } else {
                         
-                        setXY(x: self.x + self.xSpeed, y: self.y - self.ySpeed)
+                        setXY(x: self.x - self.xSpeed, y: self.y - self.ySpeed)
                     }
                     
                 } else if self.direction == "right" {
                     
-                    if self.x >= self.xGoal / 2 {
+                    if self.x >= self.xGoal - (Block.width * 2) {
                         
-                        setXY(x: self.x + self.xSpeed, y: self.y - self.ySpeed)
+                        setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
                         
                     } else {
                         
-                        setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+                        setXY(x: self.x + self.xSpeed, y: self.y - self.ySpeed)
                     }
                 }
                 
@@ -211,21 +239,21 @@ class Bullet {
                 
                 if self.x < player.x {
                     
-                    setXY(x: self.x + self.xSpeed, y: self.y)
+                    setXY(x: self.x + (self.xSpeed * 1.375), y: self.y)
                     
                 } else if self.x > player.x {
                     
-                    setXY(x: self.x - self.xSpeed, y: self.y)
+                    setXY(x: self.x - (self.xSpeed * 1.375), y: self.y)
                     
                 }
                 
                 if self.y < player.y {
                     
-                    setXY(x: self.x, y: self.y + self.ySpeed)
+                    setXY(x: self.x, y: self.y + (self.ySpeed * 1.375))
                     
                 } else if self.y > player.y {
                     
-                    setXY(x: self.x, y: self.y - self.ySpeed)
+                    setXY(x: self.x, y: self.y - (self.ySpeed * 1.375))
                 }
             }
             

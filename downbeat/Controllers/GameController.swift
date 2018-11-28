@@ -111,10 +111,10 @@ class GameController: UIViewController {
         
         if player.isKnockedBack == false {
             
-            if bullets.count < 3 {
-                
+//            if bullets.count < 3 {
+            
                 player.shoot()
-            }
+//            }
         }
         
     }
