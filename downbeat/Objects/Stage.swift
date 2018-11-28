@@ -285,7 +285,20 @@ class Stage {
             self.moveObjects()
             //            self.updateObjectArrays(direction: direction)
             
-            self.beginSelectedArrays()
+//            self.beginSelectedArrays()
+            
+            for block in self.blocks {
+                
+                if block.isInBounds() == true {
+                    
+                    selectedBlocks.append(block)
+                    
+                } else {
+                    
+                    break
+                }
+            }
+            
 //            self.sortSelectedArrays()
             
         } else if direction == "down" {
@@ -296,7 +309,20 @@ class Stage {
             self.moveObjects()
 //            self.updateObjectArrays(direction: direction)
             
-            self.beginSelectedArrays()
+//            self.beginSelectedArrays()
+            
+            for block in self.blocks {
+                
+                if block.isInBounds() == true {
+                    
+                    selectedBlocks.append(block)
+                    
+                } else {
+                    
+                    break
+                }
+            }
+            
 //            self.sortSelectedArrays()
         }
     }
@@ -447,6 +473,8 @@ class Stage {
             
             if enemy.isInBounds() == true {
                 
+                enemy.isUsed = false
+                
                 enemy.startTimers()
                 
                 selectedEnemies.append(enemy)
@@ -461,6 +489,8 @@ class Stage {
             
             if powerup.isInBounds() == true {
                 
+//                powerup.isUsed = false
+
                 selectedPowerups.append(powerup)
                 
             } else {

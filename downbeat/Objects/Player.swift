@@ -683,7 +683,7 @@ class Player {
                         nextStage = nil
                         
                         currentLevel!.updateCurrentStagePos()
-//                        currentStage!.setupSelectedArrays()
+                        currentStage!.setupSelectedArrays()
                         
                         self.ySpeed = self.beforeYSpeed
 //                        self.isFalling = true
