@@ -261,9 +261,6 @@ class GameController: UIViewController {
         joystick.resetInnerXY()
         joystick.showViews()
         
-//        loadStages()
-//        newLoadStages()
-        
         loadLevels()
         
         setLevel(level: levels[0])

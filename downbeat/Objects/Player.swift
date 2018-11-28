@@ -377,8 +377,6 @@ class Player {
                                 
                                 self.isClimbing = false
                             }
-                            
-                            //                    self.updateAnimation()
                         }
                         
                     } else if block.isLadder == false {
@@ -399,7 +397,6 @@ class Player {
                                 self.isClimbing = false
                             }
                             
-                            //                    self.updateAnimation()
                         }
                     }
                     
@@ -450,61 +447,12 @@ class Player {
                 
             }
         }
-        
-//        if self.ySpeed < 0 {
-//
-//            if self.y - (Player.height / 2) <= 0 {
-//
-//                if isTransitioningUp == false {
-//
-//                    if currentLevel?.isNextStage(direction: "up") != nil {
-//
-//                        nextStage = currentLevel?.isNextStage(direction: "up")
-//
-//                        nextStage!.setupAsNextStage(direction: "up")
-//
-//                        isTransitioningUp = true
-//
-//                        self.isMovingUp = true
-//                    }
-//                }
-//
-//            }
-//
-//        } else if self.ySpeed > 0 {
-//            
-//            if self.y + (Player.height / 2) >= screenSize.height {
-//
-//                if isTransitioningDown == false {
-//
-//                    if currentLevel?.isNextStage(direction: "down") != nil {
-//
-//                        nextStage = currentLevel?.isNextStage(direction: "down")
-//
-//                        nextStage!.setupAsNextStage(direction: "down")
-//
-//                        isTransitioningDown = true
-//
-//                        self.isMovingDown = true
-//                    }
-//                }
-//
-//            }
-//        }
 
 //        if self.ySpeed < 0 {
         if self.isMovingUp == true {
             
             if self.y - (Player.height / 2) <= 0 {
 
-
-
-                
-                
-
-                
-                
-                
                 if isTransitioningUp == false {
                     
                     if currentLevel?.isNextStage(direction: "up") != nil {
@@ -522,31 +470,11 @@ class Player {
                     
                     setXY(x: self.x, y: (Player.width / 2) + Player.maxFallSpeed)
                 }
-                
-                
-                
-                
-//                setXY(x: self.x, y: (Player.width / 2) + self.ySpeed)
-//                setXY(x: self.x, y: (Player.width / 2) + 10)
-
-                
-                
-
 
             } else {
-                
-                
-                
-                
-                
-                
-                
+
                 if isTransitioningUp == true {
-                    
-                    
-                    
-                    
-                    
+
                     if self.y + (Player.height / 2) >= screenSize.height {
                         
                         //                        self.canMove = false
@@ -554,11 +482,7 @@ class Player {
 //                        setXY(x: self.x, y: screenSize.height - (Player.width / 2) + (self.ySpeed * 2))
                         setXY(x: self.x, y: screenSize.height - (Player.width / 2) - 10)
                     }
-                    
-                    
-                    
-                    
-                    
+
                     if currentStage!.y >= screenSize.height {
                         
                         isTransitioningUp = false
@@ -574,40 +498,14 @@ class Player {
                         
                         self.ySpeed = self.beforeYSpeed
                     }
-                    
-                    
-                    
-                    
-                    
                 }
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+
             }
             
 //        } else if self.ySpeed > 0 {
         } else if self.isMovingDown == true {
             
             if self.y + (Player.height / 2) >= screenSize.height {
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 
                 if isTransitioningDown == false {
                     
@@ -633,35 +531,10 @@ class Player {
                     setXY(x: self.x, y: screenSize.height - (Player.width / 2) - Player.maxFallSpeed)
                 }
                 
-                
-                
-//                setXY(x: self.x, y: screenSize.height - (Player.width / 2) + (self.ySpeed * 2))
-//                setXY(x: self.x, y: screenSize.height - (Player.width / 2) - 10)
-
-                
-                
-                
-                
-                
-                
-                
-                
             } else {
-                
-                
-                
-                
-                
-                
-                
-                
-                
+
                 if isTransitioningDown == true {
-                    
-                    
-                    
-                    
-                    
+                
                     if self.y - (Player.height / 2) <= 0 {
                         
 //                        self.canMove = false
@@ -669,11 +542,7 @@ class Player {
 //                        setXY(x: self.x, y: (Player.width / 2) - self.ySpeed)
                         setXY(x: self.x, y: (Player.width / 2) + 10)
                     }
-                    
-                    
-                    
-                    
-                    
+
 //                    if currentStage!.x <= -((CGFloat)(currentStage!.numberOfHorizontalBlocks) * Block.width)  {
                     if currentStage!.y <= -screenSize.height {
 
@@ -692,22 +561,7 @@ class Player {
                         self.ySpeed = self.beforeYSpeed
 //                        self.isFalling = true
                     }
-                    
-                    
-                    
-                    
-                    
                 }
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 
             }
         }
@@ -741,24 +595,7 @@ class Player {
                     
                 } else {
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     if isTransitioningRight == true {
-                        
-                        
-                        
-                        
                         
                         if self.x - (Player.width / 2) <= 0 {
                             
@@ -766,11 +603,7 @@ class Player {
 
                             setXY(x: (Player.width / 2) + self.xSpeed, y: self.y)
                         }
-                        
-                        
-                        
-                        
-                        
+
                         if currentStage!.x <= -((CGFloat)(currentStage!.numberOfHorizontalBlocks) * Block.width)  {
                             
                             isTransitioningRight = false
@@ -786,24 +619,8 @@ class Player {
                             
                             self.ySpeed = self.beforeYSpeed
                         }
-                        
-                        
-                        
-                        
-                        
                     }
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+                
                 }
                 
             } else if self.isMovingLeft == true {
@@ -814,23 +631,7 @@ class Player {
                     
                     setXY(x: (Player.width / 2) + self.xSpeed, y: self.y)
                 }
-                
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
             for block in selectedBlocks {
                 
@@ -951,8 +752,6 @@ class Player {
 //        canMoveRight = true
         
         self.isShooting = false
-        
-//        self.updateAnimation()
     }
     
     @objc func stopShootAnimation() {
@@ -961,8 +760,6 @@ class Player {
         canMoveRight = true
         
         self.isShootingAnimation = false
-
-//        self.updateAnimation()
     }
     
     func updateAnimation() {
@@ -972,12 +769,6 @@ class Player {
             if self.ySpeed == 0 {
                 self.isRising = false
             }
-            
-            //        print()
-            //        print(self.ySpeed)
-            //        print(self.isJumping)
-            //        print(self.isFalling)
-            //        print(self.isRising)
             
             if self.isClimbing == false || self.ySpeed == 0 {
                 canClimb = true
@@ -1323,18 +1114,6 @@ class Player {
         return nil
     }
     
-//    func didHitStagePowerup() -> Int {
-//
-//        for i in 0 ..< currentStage.powerups.count {
-//
-//            if currentStage.powerups[i].x + (currentStage.powerups[i].width / 2) >= self.x - (Player.width / 2) && currentStage.powerups[i].x - (currentStage.powerups[i].width / 2) <= self.x + (Player.width / 2) && currentStage.powerups[i].y + (currentStage.powerups[i].height / 2) >= self.y - (Player.height / 2) && currentStage.powerups[i].y - (currentStage.powerups[i].height / 2) <= self.y + (Player.height / 2) {
-//                return i
-//            }
-//        }
-//
-//        return -1
-//    }
-    
     func didHitSelectedPowerup() -> Int {
         
         for i in 0 ..< selectedPowerups.count {
@@ -1346,19 +1125,7 @@ class Player {
         
         return -1
     }
-    
-//    func didHitEnemy() -> Int {
-//
-//        for i in 0 ..< currentStage.enemies.count {
-//
-//            if currentStage.enemies[i].x + (currentStage.enemies[i].width / 2) >= self.x - (Player.width / 2) && currentStage.enemies[i].x - (currentStage.enemies[i].width / 2) <= self.x + (Player.width / 2) && currentStage.enemies[i].y + (currentStage.enemies[i].height / 2) >= self.y - (Player.height / 2) && currentStage.enemies[i].y - (currentStage.enemies[i].height / 2) <= self.y + (Player.height / 2) {
-//                return i
-//            }
-//        }
-//
-//        return -1
-//    }
-    
+
     func didHitSelectedEnemy() -> Int {
         
         for i in 0 ..< selectedEnemies.count {
@@ -1429,8 +1196,6 @@ class Player {
         self.hitAnimationTimer = Timer.scheduledTimer(timeInterval: Player.animationCycleTime * 0.075, target: self, selector: #selector(handleHitAnimation), userInfo: nil, repeats: true)
 
         self.handleKnockBack(enemyDirection: enemyDirection)
-        
-//        self.updateAnimation()
     }
     
     func handleKnockBack(enemyDirection: String) {
@@ -1467,8 +1232,6 @@ class Player {
         self.endKnockBackTimer.invalidate()
         
         self.endKnockBackTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Player.knockBackTime), target: self, selector: #selector(endKnockBack), userInfo: nil, repeats: false)
-        
-//        self.updateAnimation()
     }
     
     @objc func endKnockBack() {
@@ -1493,8 +1256,6 @@ class Player {
             
             direction = "left"
         }
-        
-//        self.updateAnimation()
     }
     
     @objc func endHit() {
@@ -1507,8 +1268,6 @@ class Player {
 //        canMoveRight = true
         
         self.isHit = false
-        
-//        self.updateAnimation()
     }
     
     @objc func handleHitAnimation() {

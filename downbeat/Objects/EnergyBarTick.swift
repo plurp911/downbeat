@@ -47,8 +47,11 @@ class EnergyBarTick {
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
         if self.type == "health" {
+            
             self.view.image = UIImage(named: "healthBarTick")
+            
         } else if self.type == "energy" {
+            
             self.view.image = UIImage(named: "energyBarTick")
         }
     }

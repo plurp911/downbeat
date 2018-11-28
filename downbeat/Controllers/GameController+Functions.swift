@@ -129,68 +129,16 @@ extension GameController {
                     if (isUpPressed == true && isDownPressed == false) || (isUpPressed == false && isDownPressed == true) {
                         
                         if let ladder = player.didHitLadder() {
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-//                            if ladder.isTopLadder == true {
-                            
-                                
-                                
-                                
-                                
-                            print("1")
 
-                                
-                                
-                                
-                                
-                            print()
-                            print("LADDER COUNT")
-                            print(player.numberOfLaddersTouching())
-                            print()
+//                            if ladder.isTopLadder == true {
 
                                 if player.numberOfLaddersTouching() == 1 {
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    print("2")
 
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
                                     if let topLadder = player.isTouchingTopLadder() {
-                                        
-                                        
-                                        
-                                        
-                                        print("3")
-                                        
-                                        
-                                        
-                                        
+
                                         if isUpPressed == true {
                                             
-                                            
                                             if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
-                                                
-                                                print("4")
                                                 
                                                 player.setXY(x: player.x, y: topLadder.y - (Block.height / 2) - (Player.height / 2))
                                                 
@@ -204,83 +152,19 @@ extension GameController {
                                                 player.ySpeed = 0
                                             }
                                             
-                                            
                                         } else if isDownPressed == true {
-                                            
-                                            
-                                            
-                                            
-                                            print("5")
-                                            
-                                            
-                                            
-                                            
                                             
                                             if player.isClimbing == true {
                                                 
                                                 player.setXY(x: player.x, y: topLadder.y + (Block.height / 2) - (Player.height / 2))
                                                 
                                             }
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
                                         }
                                         
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
                                     }
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
                                 }
-                                
-                                
-                                
-                                
-                                
-                                
-                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
+
 //                            } else {
-                            
-                                
-                                
-                                
-                                
-                            
-                            
-                            
-                            
-                            
-                            
                             
 //                            player.direction = "right"
                             
@@ -347,27 +231,8 @@ extension GameController {
                                 player.setXY(x: ladder.x, y: player.y)
                             }
                             
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
 //                            }
-                            
-                                
-                                
-                                
-                                
-                                
-                            
-                            
-                            
-                            
-                            
+
                         } else {
                             
                             if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
@@ -636,22 +501,7 @@ extension GameController {
                 }
                 
             } else if player.isMovingRight == true {
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+
                 if isTransitioningRight == true {
                     
                     handleTransition(direction: "right")
@@ -685,89 +535,18 @@ extension GameController {
                         currentStage!.updateObjectArrays(direction: "right")
                     }
                 }
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         if player.isMovingUp == true && isTransitioningUp == true {
-            
-            
-            
-            
-            
             
             handleTransition(direction: "up")
             
-            
-            
-            
-            
         } else if player.isMovingDown == true && isTransitioningDown == true {
-            
-            
-            
-            
-            
-            
-            handleTransition(direction: "down")
 
-            
-            
-            
-            
+            handleTransition(direction: "down")
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
     
     func handleTransition(direction: String) {

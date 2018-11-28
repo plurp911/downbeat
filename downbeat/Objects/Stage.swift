@@ -44,8 +44,6 @@ class Stage {
     var canEnterFromTop: Bool = false
     var canEnterFromBottom: Bool = false
     var canEnterFromLeft: Bool = false
-
-//    var isUsed: Bool = false
     
     init(fileName: String) {
         
@@ -80,30 +78,6 @@ class Stage {
             for j in 0 ..< textArray[i].count {
                 
                 let text = textArray[i][j]
-                
-//                if text == "[]" {
-//                    blocks.append(Block(xPos: j, yPos: i, type: "yellowBlock"))
-//                } else if text == "==" {
-//                    blocks.append(Block(xPos: j, yPos: i, type: "ladder"))
-//                } else if text == "^^" {
-//                    blocks.append(Block(xPos: j, yPos: i, type: "topLadder"))
-//                } else if text == ">|" {
-//                    enemies.append(Enemy(xPos: j, yPos: i, type: "hat"))
-//                } else if text == "<>" {
-//                    enemies.append(Enemy(xPos: j, yPos: i, type: "follower"))
-//                } else if text == "<-" {
-//                    enemies.append(Enemy(xPos: j, yPos: i, type: "penguin"))
-//                } else if text == "FS" {
-//                    enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "follower"))
-//                } else if text == "sh" {
-//                    powerups.append(Powerup(xPos: j, yPos: i, type: "smallHealth"))
-//                } else if text == "lh" {
-//                    powerups.append(Powerup(xPos: j, yPos: i, type: "largeHealth"))
-//                } else if text == "se" {
-//                    powerups.append(Powerup(xPos: j, yPos: i, type: "smallEnergy"))
-//                } else if text == "le" {
-//                    powerups.append(Powerup(xPos: j, yPos: i, type: "largeEnergy"))
-//                }
                 
                 if text == "#" {
                     
@@ -214,18 +188,6 @@ class Stage {
     
     func moveEnemies() {
         
-//        for i in 0 ..< self.enemies.count {
-//
-//            if self.enemies[i].isInBounds() == false {
-//
-//                print(counter)
-//
-//                counter += 1
-//
-//                self.enemies[i].setXY(x: self.x + (((CGFloat)(self.enemies[i].xPos)) * Block.width) + (Block.width / 2), y: self.enemies[i].y)
-//            }
-//        }
-        
         for enemy in self.enemies {
             
             var isMatch: Bool = false
@@ -242,7 +204,6 @@ class Stage {
             
             if isMatch == false {
                 
-//                enemy.setXY(x: self.x + (((CGFloat)(enemy.xPos)) * Block.width) + (Block.width / 2), y: enemy.y)
                 enemy.setXY(x: self.x + (((CGFloat)(enemy.xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(enemy.yPos)) * Block.height) + Block.height - (enemy.height / 2))
             }
         }
@@ -255,7 +216,6 @@ class Stage {
             
 //            if self.powerups[i].isInBounds() == false {
             
-//                self.powerups[i].setXY(x: self.x + (((CGFloat)(self.powerups[i].xPos)) * Block.width) + (Block.width / 2), y: self.powerups[i].y)
             self.powerups[i].setXY(x: self.x + (((CGFloat)(self.powerups[i].xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(self.powerups[i].yPos)) * Block.height) + Block.height - (self.powerups[i].height / 2))
 //            }
         }
@@ -266,7 +226,6 @@ class Stage {
         
         for i in 0 ..< enemySpawners.count {
             
-//            self.enemySpawners[i].setX(x: self.x + (((CGFloat)(self.enemySpawners[i].xPos)) * EnemySpawner.width) + (EnemySpawner.width / 2))
             self.enemySpawners[i].setXY(x: self.x + (((CGFloat)(self.enemySpawners[i].xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(self.enemySpawners[i].yPos)) * Block.height) + (Block.height / 2))
         }
     }
@@ -667,9 +626,6 @@ class Stage {
                 
             }
         }
-        
-//        sortObjectArrays()
-//        sortSelectedArrays()
 
         removeObjects(type: "selectedBlocks", toRemove: selectedToRemove)
     }
@@ -789,9 +745,6 @@ class Stage {
             }
         }
 
-//        sortObjectArrays()
-//        sortSelectedArrays()
-        
         removeObjects(type: "selectedPowerups", toRemove: selectedToRemove)
     }
     
@@ -927,10 +880,7 @@ class Stage {
                 
             }
         }
-        
-//        sortObjectArrays()
-//        sortSelectedArrays()
-        
+
         self.enemies = self.enemies.sorted(by: { $0.x < $1.x })
         selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
 

@@ -65,9 +65,6 @@ class Level {
         } else if direction == "right" {
             xOffset = 1
         }
-        
-//        print(currentStageXPos + xOffset)
-//        print(currentStageYPos + yOffset)
 
         if currentStageXPos + xOffset >= 0 && currentStageXPos + xOffset < self.stages[0].count && currentStageYPos + yOffset >= 0 && currentStageYPos + yOffset < self.stages.count {
             
