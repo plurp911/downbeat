@@ -34,6 +34,22 @@ class Level {
         
     }
     
+    func updateCurrentStagePos() {
+        
+        for i in 0 ..< self.stages.count {
+            for j in 0 ..< self.stages[i].count {
+                
+                if self.stages[i][j] === currentStage {
+                    
+                    currentStageXPos = j
+                    currentStageYPos = i
+                }
+                
+            }
+        }
+        
+    }
+    
     func isNextStage(direction: String) -> Stage? {
         
         var xOffset: Int = 0

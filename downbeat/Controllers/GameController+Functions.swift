@@ -447,7 +447,7 @@ extension GameController {
                 
                 if isTransitioningRight == true {
                     
-//                    for _ in 0 ..< 2 {
+                    for _ in 0 ..< 5 {
                     
                         currentStage!.move(direction: "right")
                         nextStage!.move(direction: "right")
@@ -463,7 +463,7 @@ extension GameController {
                         
                         currentStage!.updateObjectArrays(direction: "right")
                         nextStage!.updateObjectArrays(direction: "right")
-//                    }
+                    }
 
                 } else {
                     

@@ -462,6 +462,8 @@ class Player {
                             
                             currentStage = nextStage
                             nextStage = nil
+                            
+                            currentLevel!.updateCurrentStagePos()
                         }
                         
                         
