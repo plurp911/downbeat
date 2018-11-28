@@ -130,6 +130,132 @@ extension GameController {
                         
                         if let ladder = player.didHitLadder() {
                             
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+//                            if ladder.isTopLadder == true {
+                            
+                                
+                                
+                                
+                                
+                            print("1")
+
+                                
+                                
+                                
+                                
+                            
+                            print("LADDER COUNT")
+                            print(player.numberOfLaddersTouching())
+
+                                if player.numberOfLaddersTouching() == 1 {
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    print("2")
+
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    if let topLadder = player.isTouchingTopLadder() {
+                                        
+                                        
+                                        
+                                        
+                                        print("3")
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
+                                            
+                                            print("4")
+
+                                            player.setXY(x: player.x, y: topLadder.y - (Block.height / 2) - (Player.height / 2))
+                                            
+                                            canMoveLeft = true
+                                            canMoveRight = true
+                                            
+                                            player.move()
+                                            
+                                            player.isClimbing = false
+         
+                                            player.ySpeed = 0
+                                        }
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                }
+                                
+                                
+                                
+                                
+                                
+                                
+                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+//                            } else {
+                            
+                                
+                                
+                                
+                                
+                            
+                            
+                            
+                            
+                            
+                            
+                            
 //                            player.direction = "right"
                             
                             var shouldClimb: Bool = true
@@ -194,6 +320,27 @@ extension GameController {
                                 
                                 player.setXY(x: ladder.x, y: player.y)
                             }
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+//                            }
+                            
+                                
+                                
+                                
+                                
+                                
+                            
+                            
+                            
+                            
                             
                         } else {
                             

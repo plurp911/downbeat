@@ -577,7 +577,10 @@ class Stage {
                         
                         isInBounds = true
                         
-                        selectedBlocks.insert(self.blocks[self.blockStartIndex], at: 0)
+                        if isMatch(object: self.blocks[self.blockStartIndex], objectArray: selectedBlocks) == false {
+                            
+                            selectedBlocks.insert(self.blocks[self.blockStartIndex], at: 0)
+                        }
                         
                         if self.blockStartIndex > 0 {
                             
@@ -626,7 +629,10 @@ class Stage {
                         
                         isInBounds = true
                         
-                        selectedBlocks.append(self.blocks[self.blockEndIndex])
+                        if isMatch(object: self.blocks[self.blockEndIndex], objectArray: selectedBlocks) == false {
+
+                            selectedBlocks.append(self.blocks[self.blockEndIndex])
+                        }
                         
                         if self.blockEndIndex < self.blocks.count - 1 {
                             
@@ -949,9 +955,12 @@ class Stage {
                         
                         isInBounds = true
                         
-                        self.enemySpawners[self.enemySpawnerStartIndex].startSpawning()
-                        
-                        selectedEnemySpawners.insert(self.enemySpawners[self.enemySpawnerStartIndex], at: 0)
+                        if isMatch(object: self.enemySpawners[self.enemySpawnerStartIndex], objectArray: selectedEnemySpawners) == false {
+
+                            self.enemySpawners[self.enemySpawnerStartIndex].startSpawning()
+                            
+                            selectedEnemySpawners.insert(self.enemySpawners[self.enemySpawnerStartIndex], at: 0)
+                        }
                         
                         if self.enemySpawnerStartIndex > 0 {
                             
@@ -1000,9 +1009,12 @@ class Stage {
                         
                         isInBounds = true
                         
-                        self.enemySpawners[self.enemySpawnerEndIndex].startSpawning()
-                        
-                        selectedEnemySpawners.append(self.enemySpawners[self.enemySpawnerEndIndex])
+                        if isMatch(object: self.enemySpawners[self.enemySpawnerEndIndex], objectArray: selectedEnemySpawners) == false {
+                            
+                            self.enemySpawners[self.enemySpawnerEndIndex].startSpawning()
+                            
+                            selectedEnemySpawners.append(self.enemySpawners[self.enemySpawnerEndIndex])
+                        }
                         
                         if self.enemySpawnerEndIndex < self.enemySpawners.count - 1 {
                             

@@ -888,12 +888,21 @@ class Player {
     
     func jump() {
         
-        self.isJumping = true
-        self.isRising = true
-        
-        self.isClimbing = false
+        if self.isClimbing == true {
+            
+            self.isFalling = true
+            
+            self.isClimbing = false
+            
+            self.ySpeed = 0
 
-        self.ySpeed = -Player.maxFallSpeed
+        } else {
+            
+            self.isJumping = true
+            self.isRising = true
+            
+            self.ySpeed = -Player.maxFallSpeed
+        }
     }
     
     func shoot() {
@@ -1268,6 +1277,60 @@ class Player {
         for block in selectedBlocks {
             
             if block.isLadder == true || block.isTopLadder == true {
+                
+                if block.x + (Block.width / 2) >= self.x && block.x - (Block.width / 2) <= self.x && block.y + (Block.height / 2) >= self.y - (Player.height / 2) && block.y - (Block.height / 2) <= self.y + (Player.height / 2) {
+                    return block
+                }
+                
+            }
+        }
+        
+        return nil
+    }
+    
+    func numberOfLaddersTouching() -> Int {
+        
+        var count: Int = 0
+        
+        for block in selectedBlocks {
+            
+            for otherBlock in selectedBlocks {
+                
+                if block === otherBlock {
+                    
+                    count += 1
+                }
+                
+            }
+        }
+        
+        print()
+        print("TOTAL 1")
+        print(count)
+        print("TOTAL 2")
+        print(selectedBlocks.count)
+        print()
+
+        for block in selectedBlocks {
+            
+            if block.isLadder == true || block.isTopLadder == true {
+                
+                if block.x + (Block.width / 2) >= self.x && block.x - (Block.width / 2) <= self.x && block.y + (Block.height / 2) >= self.y - (Player.height / 2) && block.y - (Block.height / 2) <= self.y + (Player.height / 2) {
+                    
+                    count += 1
+                }
+                
+            }
+        }
+        
+        return count
+    }
+    
+    func isTouchingTopLadder() -> Block? {
+        
+        for block in selectedBlocks {
+            
+            if block.isTopLadder == true {
                 
                 if block.x + (Block.width / 2) >= self.x && block.x - (Block.width / 2) <= self.x && block.y + (Block.height / 2) >= self.y - (Player.height / 2) && block.y - (Block.height / 2) <= self.y + (Player.height / 2) {
                     return block
