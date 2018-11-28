@@ -223,7 +223,14 @@ class Player {
                 self.xSpeed = -Player.maxMoveSpeed
             }
             
-            setXY(x: self.x + self.xSpeed, y: self.y)
+            if isTransitioningRight == true {
+                
+                setXY(x: self.x + (self.xSpeed * (((screenSize.height * screenRatio) - Player.width) / (screenSize.height * screenRatio))), y: self.y)
+                
+            } else {
+                
+                setXY(x: self.x + self.xSpeed, y: self.y)
+            }
             
         } else if direction == "right" {
             
@@ -243,15 +250,14 @@ class Player {
 //
 //            self.isMovingUp = true
             
-            print("1")
-            
             if self.isKnockedBack == true {
                 self.ySpeed = -Player.knockBackMoveSpeed
             } else {
                 self.ySpeed = -Player.maxMoveSpeed
             }
             
-            setXY(x: self.x, y: self.y + self.ySpeed)
+//            setXY(x: self.x, y: self.y + self.ySpeed)
+            setXY(x: self.x, y: self.y + (self.ySpeed * ((screenSize.height - Player.height) / screenSize.height)))
             
         } else if direction == "down" {
             
@@ -259,18 +265,15 @@ class Player {
 //
 //            self.isMovingDown = true
             
-            print("2")
-
             if self.isKnockedBack == true {
                 self.ySpeed = Player.knockBackMoveSpeed
             } else {
                 self.ySpeed = Player.maxMoveSpeed
             }
 
-            setXY(x: self.x, y: self.y + self.ySpeed)
+//            setXY(x: self.x, y: self.y + self.ySpeed)
+            setXY(x: self.x, y: self.y + (self.ySpeed * ((screenSize.height - Player.height) / screenSize.height)))
         }
-        
-        print(self.ySpeed)
     }
     
     func move() {
@@ -484,18 +487,6 @@ class Player {
 //
 //            }
 //        }
-        
-        print()
-        print("HERE")
-        print()
-        print(self.isMovingUp)
-        print(self.isMovingDown)
-        print()
-        print(isTransitioningUp)
-        print(isTransitioningDown)
-        print()
-        print(self.ySpeed)
-        print()
 
 //        if self.ySpeed < 0 {
         if self.isMovingUp == true {
