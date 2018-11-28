@@ -66,10 +66,19 @@ var isDownPressed: Bool = false
 
 var isPaused: Bool = false
 
+var currentStageXPos: Int = -1
+var currentStageYPos: Int = -1
+
+var isTransitioningRight: Bool = false
+var isTransitioningUp: Bool = false
+var isTransitioningDown: Bool = false
+
 // OBJECTS
 
 var currentLevel: Level?
+
 var currentStage: Stage?
+var nextStage: Stage?
 
 var player = Player()
 

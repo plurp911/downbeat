@@ -392,7 +392,7 @@ class Player {
             }
         }
         
-        if isMoving == true {
+        if self.isMoving == true {
             
             self.canMove = true
             
@@ -400,9 +400,82 @@ class Player {
                 
                 if self.x + (Player.width / 2) >= screenSize.height * screenRatio {
                     
+                    
+                    
+                    
+                    
+                    
+                    
+                    if isTransitioningRight == false {
+                        
+                        if currentLevel?.isNextStage(direction: "right") != nil {
+                            
+                            nextStage = currentLevel?.isNextStage(direction: "right")
+                            
+                            nextStage!.setupAsNextStage(direction: "right")
+                            
+                            isTransitioningRight = true
+                        }
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     self.canMove = false
                     
                     setXY(x: (screenSize.height * screenRatio) - (Player.width / 2) - self.xSpeed, y: self.y)
+                    
+                } else {
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    if isTransitioningRight == true {
+                        
+                        
+                        
+                        
+                        
+                        if self.x - (Player.width / 2) <= 0 {
+                            
+                            self.canMove = false
+
+                            setXY(x: (Player.width / 2) + self.xSpeed, y: self.y)
+                        }
+                        
+                        
+                        
+                        
+                        
+                        if currentStage!.x <= -((CGFloat)(currentStage!.numberOfHorizontalBlocks) * Block.width)  {
+                            
+                            isTransitioningRight = false
+                            
+                            currentStage = nextStage
+                            nextStage = nil
+                        }
+                        
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                 }
                 
             } else if self.isMovingLeft == true {
@@ -538,97 +611,119 @@ class Player {
     
     func updateAnimation() {
         
-        if self.ySpeed == 0 {
-            self.isRising = false
-        }
-        
-//        print()
-//        print(self.ySpeed)
-//        print(self.isJumping)
-//        print(self.isFalling)
-//        print(self.isRising)
-        
-        if self.isClimbing == false || self.ySpeed == 0 {
-            canClimb = true
-        }
-        
-        if self.isKnockedBack == true {
-            
-            if canBeKnockedBack == true {
-                
-                canBeKnockedBack = false
-                
-                if direction == "left" {
-                    
-                    self.handleKnockedBackAnimation()
-                    
-                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-                    
-                } else if direction == "right" {
-                    
-                    self.handleKnockedBackAnimation()
-                    
-                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-                }
-            }
-            
-        } else if isClimbing == true {
+        if isTransitioningRight == false && isTransitioningUp == false && isTransitioningDown == false {
             
             if self.ySpeed == 0 {
-                
-                self.handleStopClimbAnimation()
-                
-            } else {
-                
-                if canClimb == true {
-                    
-                    canClimb = false
-                    
-                    handleClimbAnimation()
-                }
+                self.isRising = false
             }
             
-        } else if self.ySpeed != 0 {
+            //        print()
+            //        print(self.ySpeed)
+            //        print(self.isJumping)
+            //        print(self.isFalling)
+            //        print(self.isRising)
             
-            if direction == "left" {
-
-                self.handleJumpAnimation()
-                
-                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-                
-            } else if direction == "right" {
-                
-                self.handleJumpAnimation()
-                
-                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            if self.isClimbing == false || self.ySpeed == 0 {
+                canClimb = true
             }
             
-        } else if isMoving == true {
-            
-            if self.didHandleJumpAnimation() == false {
+            if self.isKnockedBack == true {
                 
-                if isMovingLeft == true {
+                if canBeKnockedBack == true {
                     
-                    if canMoveLeft == true {
+                    canBeKnockedBack = false
+                    
+                    if direction == "left" {
                         
-                        canMoveLeft = false
+                        self.handleKnockedBackAnimation()
                         
-                        canMoveRight = true
+                        self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
                         
-                        self.handleRunAnimation()
+                    } else if direction == "right" {
+                        
+                        self.handleKnockedBackAnimation()
                         
                         self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
                     }
+                }
+                
+            } else if isClimbing == true {
+                
+                if self.ySpeed == 0 {
                     
-                } else if isMovingRight == true {
+                    self.handleStopClimbAnimation()
                     
-                    if canMoveRight == true {
+                } else {
+                    
+                    if canClimb == true {
                         
-                        canMoveRight = false
+                        canClimb = false
                         
-                        canMoveLeft = true
+                        handleClimbAnimation()
+                    }
+                }
+                
+            } else if self.ySpeed != 0 {
+                
+                if direction == "left" {
+                    
+                    self.handleJumpAnimation()
+                    
+                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                    
+                } else if direction == "right" {
+                    
+                    self.handleJumpAnimation()
+                    
+                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
+                
+            } else if isMoving == true {
+                
+                if self.didHandleJumpAnimation() == false {
+                    
+                    if isMovingLeft == true {
                         
-                        self.handleRunAnimation()
+                        if canMoveLeft == true {
+                            
+                            canMoveLeft = false
+                            
+                            canMoveRight = true
+                            
+                            self.handleRunAnimation()
+                            
+                            self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                        }
+                        
+                    } else if isMovingRight == true {
+                        
+                        if canMoveRight == true {
+                            
+                            canMoveRight = false
+                            
+                            canMoveLeft = true
+                            
+                            self.handleRunAnimation()
+                            
+                            self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                        }
+                    }
+                    
+                }
+                
+            } else if isMoving == false && ySpeed == 0 && isJumping == false && self.isFalling == false && self.isRising == false {
+                
+                if self.didHandleJumpAnimation() == false {
+                    
+                    if direction == "left" {
+                        
+                        self.handleStandAnimation()
+                        
+                        self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                        
+                    } else if direction == "right" {
+                        
+                        self.handleStandAnimation()
                         
                         self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
                     }
@@ -636,27 +731,8 @@ class Player {
                 
             }
             
-        } else if isMoving == false && ySpeed == 0 && isJumping == false && self.isFalling == false && self.isRising == false {
-            
-            if self.didHandleJumpAnimation() == false {
-                
-                if direction == "left" {
-                    
-                    self.handleStandAnimation()
-                    
-                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-                    
-                } else if direction == "right" {
-                    
-                    self.handleStandAnimation()
-                    
-                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-                }
-            }
-            
+            setXY(x: self.x, y: self.y)
         }
-        
-        setXY(x: self.x, y: self.y)
     }
     
     func didHandleJumpAnimation() -> Bool {

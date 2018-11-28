@@ -254,11 +254,19 @@ class Stage {
         }
     }
     
-    func reset() {
+//    func reset() {
+//
+//        self.x = 0
+//
+//        self.moveBlocks()
+//    }
+    
+    func setupAsNextStage(direction: String) {
         
-        self.x = 0
-
-        self.moveBlocks()
+        self.x = screenSize.height * screenRatio
+        
+        self.moveObjects()
+        self.updateObjectArrays(direction: direction)
     }
     
     func move(direction: String) {

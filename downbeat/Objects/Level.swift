@@ -13,7 +13,7 @@ class Level {
     var stages = [[Stage?]]()
     
     var startStage: Stage?
-    
+
     init(stages: [[Stage?]]) {
         
         self.stages = stages
@@ -22,7 +22,11 @@ class Level {
             for j in 0 ..< self.stages[i].count {
                 
                 if self.stages[i][j]?.playerStartX != -1 && self.stages[i][j]?.playerStartY != -1 {
+                    
                     self.startStage = stages[i][j]
+                    
+                    currentStageXPos = j
+                    currentStageYPos = i
                 }
                 
             }
@@ -30,4 +34,24 @@ class Level {
         
     }
     
+    func isNextStage(direction: String) -> Stage? {
+        
+        var xOffset: Int = 0
+        var yOffset: Int = 0
+        
+        if direction == "up" {
+            yOffset = 1
+        } else if direction == "down" {
+            yOffset = -1
+        } else if direction == "right" {
+            xOffset = 1
+        }
+
+        if currentStageXPos + xOffset >= 0 && currentStageXPos + xOffset < self.stages[0].count && currentStageYPos + yOffset >= 0 && currentStageYPos + yOffset < self.stages.count {
+
+            return self.stages[currentStageYPos + yOffset][currentStageXPos + xOffset]
+        }
+        
+        return nil
+    }
 }

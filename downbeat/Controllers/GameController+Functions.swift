@@ -20,7 +20,14 @@ extension GameController {
             
             player.updateAnimation()
             
-            if player.isKnockedBack == false {
+            if isTransitioningRight == true {
+                
+                player.isMoving = true
+                player.isMovingRight = true
+                
+                player.isMovingLeft = false
+                
+            } else if player.isKnockedBack == false {
                 
                 if player.isClimbing == true {
                     player.direction = "right"
@@ -397,7 +404,7 @@ extension GameController {
                     
                     if currentStage!.x >= 0 {
                         
-                        currentStage!.reset()
+//                        currentStage!.reset()
                         
                         player.move(direction: "left")
                         
@@ -423,32 +430,83 @@ extension GameController {
                 
             } else if player.isMovingRight == true {
                 
-                if currentStage!.x <= (((CGFloat)(-currentStage!.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width {
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                if isTransitioningRight == true {
                     
-                    currentStage!.x = (((CGFloat)(-currentStage!.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width
+//                    for _ in 0 ..< 2 {
                     
-                    currentStage!.moveObjects()
-                    
-                    player.move(direction: "right")
-                    
-                    //                        currentStage!.updateObjectArrays(direction: "right")
-                    
-                } else if player.x < (gameView.frame.size.width / 2) {
-                    
-                    player.move(direction: "right")
-                    
+                        currentStage!.move(direction: "right")
+                        nextStage!.move(direction: "right")
+                        
+                        moveObjects(direction: "right")
+                        
+                        //                        currentStage!.updateObjectArrays(direction: "right")
+                        
+                        currentStage!.moveObjects()
+                        nextStage!.moveObjects()
+                        
+                        player.move(direction: "left")
+                        
+                        currentStage!.updateObjectArrays(direction: "right")
+                        nextStage!.updateObjectArrays(direction: "right")
+//                    }
+
                 } else {
                     
-                    currentStage!.move(direction: "right")
-                    
-                    moveObjects(direction: "right")
-                    
-                    //                        currentStage!.updateObjectArrays(direction: "right")
-                    
-                    currentStage!.moveObjects()
-
-                    currentStage!.updateObjectArrays(direction: "right")
+                    if currentStage!.x <= (((CGFloat)(-currentStage!.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width {
+                        
+                        currentStage!.x = (((CGFloat)(-currentStage!.numberOfHorizontalBlocks)) * Block.width) + gameView.frame.size.width
+                        
+                        currentStage!.moveObjects()
+                        
+                        player.move(direction: "right")
+                        
+                        //                        currentStage!.updateObjectArrays(direction: "right")
+                        
+                    } else if player.x < (gameView.frame.size.width / 2) {
+                        
+                        player.move(direction: "right")
+                        
+                    } else {
+                        
+                        currentStage!.move(direction: "right")
+                        
+                        moveObjects(direction: "right")
+                        
+                        //                        currentStage!.updateObjectArrays(direction: "right")
+                        
+                        currentStage!.moveObjects()
+                        
+                        currentStage!.updateObjectArrays(direction: "right")
+                    }
                 }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
             }
             
         }
