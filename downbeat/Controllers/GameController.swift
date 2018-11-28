@@ -15,7 +15,9 @@ class GameController: UIViewController {
     let mainButtonRadius: CGFloat = 35
     
     let mainButtonSpacing: CGFloat = 35
-        
+    
+    let joystickSpacing: CGFloat = 35
+
     // VARIABLES
     
     var moveTimer = Timer()
@@ -224,9 +226,23 @@ class GameController: UIViewController {
         isDownPressed = false
     }
     
+    var touchView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.borderWidth = 0
+        view.layer.borderColor = UIColor.clear.cgColor
+        view.isHidden = true
+        return view
+    }()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        joystick.setOuterXY(x: Joystick.outerRadius + joystickSpacing, y: screenSize.height - Joystick.outerRadius - joystickSpacing)
+        joystick.resetInnerXY()
+        joystick.showViews()
         
 //        loadStages()
 //        newLoadStages()
@@ -246,6 +262,7 @@ class GameController: UIViewController {
         view.addSubview(rightButton)
         view.addSubview(upButton)
         view.addSubview(downButton)
+        view.addSubview(touchView)
         
         setupGameView()
         setupLeftCoverView()
@@ -256,6 +273,7 @@ class GameController: UIViewController {
         setupRightButton()
         setupUpButton()
         setupDownButton()
+        setupTouchView()
     }
     
     func setupGameView() {
@@ -319,5 +337,12 @@ class GameController: UIViewController {
         downButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         downButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -mainButtonSpacing / 2).isActive = true
         downButton.centerXAnchor.constraint(equalTo: upButton.centerXAnchor).isActive = true
+    }
+    
+    func setupTouchView() {
+        touchView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        touchView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        touchView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        touchView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
 }

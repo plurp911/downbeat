@@ -73,6 +73,8 @@ var currentStage: Stage?
 
 var player = Player()
 
+var joystick = Joystick()
+
 // FUNCTIONS
 
 public func removeDuplicateInts(values: [Int]) -> [Int] {
@@ -174,4 +176,42 @@ public func removeObjects(type: String, toRemove: [Int]) {
         }
     }
     
+}
+
+public func distance(x1: CGFloat, y1: CGFloat, x2: CGFloat, y2: CGFloat) -> CGFloat {
+    let xDist = x1 - x2
+    let yDist = y1 - y2
+    return CGFloat(sqrt((xDist * xDist) + (yDist * yDist)))
+}
+
+public func moveDirection(direction: String) {
+    
+    if direction == "up" {
+        
+        isUpPressed = true
+        isDownPressed = false
+        isLeftPressed = false
+        isRightPressed = false
+        
+    } else if direction == "down" {
+        
+        isUpPressed = false
+        isDownPressed = true
+        isLeftPressed = false
+        isRightPressed = false
+        
+    } else if direction == "left" {
+        
+        isUpPressed = false
+        isDownPressed = false
+        isLeftPressed = true
+        isRightPressed = false
+        
+    } else if direction == "right" {
+        
+        isUpPressed = false
+        isDownPressed = false
+        isLeftPressed = false
+        isRightPressed = true
+    }
 }
