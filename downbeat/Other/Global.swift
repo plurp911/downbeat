@@ -182,6 +182,12 @@ public func removeObjects(type: String, toRemove: [Int]) {
 //            selectedEnemySpawners.remove(at: newToRemove[newI])
             
             selectedEnemySpawners = tryToRemove(array: selectedEnemySpawners, value: newToRemove[newI]) as! [EnemySpawner]
+            
+        } else if type == "selectedPowerups" {
+            
+            selectedPowerups[newToRemove[newI]].isUsed = true
+            
+            selectedPowerups = tryToRemove(array: selectedPowerups, value: newToRemove[newI]) as! [Powerup]
         }
     }
     

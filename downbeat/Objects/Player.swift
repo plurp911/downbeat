@@ -464,6 +464,7 @@ class Player {
                             nextStage = nil
                             
                             currentLevel!.updateCurrentStagePos()
+                            currentStage!.setupSelectedArrays()
                         }
                         
                         

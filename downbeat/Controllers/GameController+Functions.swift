@@ -461,8 +461,28 @@ extension GameController {
                         
                         player.move(direction: "left")
                         
-                        currentStage!.updateObjectArrays(direction: "right")
-                        nextStage!.updateObjectArrays(direction: "right")
+//                        currentStage!.updateObjectArrays(direction: "right")
+//                        nextStage!.updateObjectArrays(direction: "right")
+                        
+                        bullets.removeAll()
+                        explosions.removeAll()
+                        powerups.removeAll()
+                        enemyBullets.removeAll()
+                        deflectedBullets.removeAll()
+
+                        removeUnwantedEnemies()
+                        removeUnwantedEnemySpawners()
+                        removeUnwantedPowerups()
+
+                        currentStage!.updateBlocks(direction: "right")
+                        //                        currentStage!.updateEnemies(direction: "right")
+                        currentStage!.updatePowerups(direction: "right")
+                        //                        currentStage!.updateEnemySpawners(direction: "right")
+                        
+                        nextStage!.updateBlocks(direction: "right")
+//                        nextStage!.updateEnemies(direction: "right")
+                        nextStage!.updatePowerups(direction: "right")
+//                        nextStage!.updateEnemySpawners(direction: "right")
                     }
 
                 } else {
@@ -510,6 +530,51 @@ extension GameController {
             }
             
         }
+    }
+    
+    func removeUnwantedEnemies() {
+        
+        var selectedEnemiesToRemove = [Int]()
+
+        for i in 0 ..< selectedEnemies.count {
+            
+            if selectedEnemies[i].x < player.x {
+                
+                selectedEnemiesToRemove.append(i)
+            }
+        }
+        
+        removeObjects(type: "selectedEnemies", toRemove: selectedEnemiesToRemove)
+    }
+    
+    func removeUnwantedEnemySpawners() {
+        
+        var selectedEnemySpawnersToRemove = [Int]()
+        
+        for i in 0 ..< selectedEnemySpawners.count {
+            
+            if selectedEnemySpawners[i].x < player.x {
+                
+                selectedEnemySpawnersToRemove.append(i)
+            }
+        }
+        
+        removeObjects(type: "selectedEnemySpawners", toRemove: selectedEnemySpawnersToRemove)
+    }
+    
+    func removeUnwantedPowerups() {
+        
+        var selectedPowerupsToRemove = [Int]()
+        
+        for i in 0 ..< selectedPowerups.count {
+            
+            if selectedPowerups[i].x < player.x {
+                
+                selectedPowerupsToRemove.append(i)
+            }
+        }
+        
+        removeObjects(type: "selectedPowerups", toRemove: selectedPowerupsToRemove)
     }
     
     func moveBullets(direction: String) {
