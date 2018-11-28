@@ -18,7 +18,7 @@ class Joystick {
     static let innerColor: UIColor = UIColor.white.withAlphaComponent(0.5)
     static let outerColor: UIColor = UIColor.white.withAlphaComponent(0.2)
 
-    static let moveDist: CGFloat = Joystick.innerRadius * 0.3
+    static let moveDist: CGFloat = Joystick.innerRadius * 0.125
     
     // VARIABLES
     

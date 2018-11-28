@@ -513,13 +513,17 @@ class Player {
                         
                         self.beforeYSpeed = self.ySpeed
                     }
+                    
+                } else {
+                    
+                    setXY(x: self.x, y: (Player.width / 2) + Player.maxFallSpeed)
                 }
                 
                 
                 
                 
 //                setXY(x: self.x, y: (Player.width / 2) + self.ySpeed)
-                setXY(x: self.x, y: (Player.width / 2) + 10)
+//                setXY(x: self.x, y: (Player.width / 2) + 10)
 
                 
                 
@@ -612,13 +616,23 @@ class Player {
                         isTransitioningDown = true
                         
                         self.beforeYSpeed = self.ySpeed
+                        
+                    } else {
+                        
+                        print("GAME OVER")
+                        
+                        //            handleGameOver()
                     }
+                    
+                } else {
+                    
+                    setXY(x: self.x, y: screenSize.height - (Player.width / 2) - Player.maxFallSpeed)
                 }
                 
                 
                 
 //                setXY(x: self.x, y: screenSize.height - (Player.width / 2) + (self.ySpeed * 2))
-                setXY(x: self.x, y: screenSize.height - (Player.width / 2) - 10)
+//                setXY(x: self.x, y: screenSize.height - (Player.width / 2) - 10)
 
                 
                 
