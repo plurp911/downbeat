@@ -156,9 +156,10 @@ extension GameController {
                                 
                                 
                                 
-                            
+                            print()
                             print("LADDER COUNT")
                             print(player.numberOfLaddersTouching())
+                            print()
 
                                 if player.numberOfLaddersTouching() == 1 {
                                     
@@ -184,24 +185,49 @@ extension GameController {
                                         
                                         
                                         
-                                        
-                                        if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
+                                        if isUpPressed == true {
                                             
-                                            print("4")
-
-                                            player.setXY(x: player.x, y: topLadder.y - (Block.height / 2) - (Player.height / 2))
                                             
-                                            canMoveLeft = true
-                                            canMoveRight = true
+                                            if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
+                                                
+                                                print("4")
+                                                
+                                                player.setXY(x: player.x, y: topLadder.y - (Block.height / 2) - (Player.height / 2))
+                                                
+                                                canMoveLeft = true
+                                                canMoveRight = true
+                                                
+                                                player.move()
+                                                
+                                                player.isClimbing = false
+                                                
+                                                player.ySpeed = 0
+                                            }
                                             
-                                            player.move()
                                             
-                                            player.isClimbing = false
-         
-                                            player.ySpeed = 0
+                                        } else if isDownPressed == true {
+                                            
+                                            
+                                            
+                                            
+                                            print("5")
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            if player.isClimbing == true {
+                                                
+                                                player.setXY(x: player.x, y: topLadder.y + (Block.height / 2) - (Player.height / 2))
+                                                
+                                            }
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
                                         }
-                                        
-                                        
                                         
                                         
                                         

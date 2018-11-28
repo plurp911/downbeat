@@ -1291,25 +1291,6 @@ class Player {
     func numberOfLaddersTouching() -> Int {
         
         var count: Int = 0
-        
-        for block in selectedBlocks {
-            
-            for otherBlock in selectedBlocks {
-                
-                if block === otherBlock {
-                    
-                    count += 1
-                }
-                
-            }
-        }
-        
-        print()
-        print("TOTAL 1")
-        print(count)
-        print("TOTAL 2")
-        print(selectedBlocks.count)
-        print()
 
         for block in selectedBlocks {
             
