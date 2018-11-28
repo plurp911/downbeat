@@ -363,16 +363,16 @@ class GameController: UIViewController {
     }
     
     func setupJoystickView() {
-        joystickView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        joystickView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        joystickView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        joystickView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        joystickView.topAnchor.constraint(equalTo: touchView.topAnchor).isActive = true
+        joystickView.bottomAnchor.constraint(equalTo: touchView.bottomAnchor).isActive = true
+        joystickView.leftAnchor.constraint(equalTo: touchView.leftAnchor).isActive = true
+        joystickView.rightAnchor.constraint(equalTo: touchView.rightAnchor).isActive = true
     }
     
     func setupTouchView() {
         touchView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         touchView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         touchView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        touchView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        touchView.rightAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 }

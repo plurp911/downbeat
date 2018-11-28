@@ -12,13 +12,13 @@ class Joystick {
     
     // CONSTANTS
     
-    static let innerRadius: CGFloat = 25
-    static let outerRadius: CGFloat = 70
+    static let innerRadius: CGFloat = 30
+    static let outerRadius: CGFloat = 85
     
     static let innerColor: UIColor = UIColor.white.withAlphaComponent(0.5)
     static let outerColor: UIColor = UIColor.white.withAlphaComponent(0.2)
 
-    static let moveDist: CGFloat = Joystick.innerRadius
+    static let moveDist: CGFloat = Joystick.innerRadius * 0.3
     
     // VARIABLES
     

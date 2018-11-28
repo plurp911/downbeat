@@ -284,7 +284,7 @@ class Player {
             self.isAtPeak = false
         }
         
-        if isTransitioningUp == false && isTransitioningDown == false {
+        if isTransitioningRight == false && isTransitioningUp == false && isTransitioningDown == false {
             
             if self.isClimbing == true {
                 
@@ -350,7 +350,7 @@ class Player {
             }
         }
         
-        if isTransitioningUp == false && isTransitioningDown == false {
+        if isTransitioningRight == false && isTransitioningUp == false && isTransitioningDown == false {
             
             if self.isFalling == true || self.isClimbing == true {
                 
