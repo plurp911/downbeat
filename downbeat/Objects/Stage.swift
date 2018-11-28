@@ -33,12 +33,15 @@ class Stage {
     var enemySpawnerEndIndex: Int = 0
     
     var x: CGFloat = 0
-    
+    var y: CGFloat = 0
+
     var numberOfHorizontalBlocks: Int = 0
 
     var counter: Int = 0
     
     var textArray = [[String]]()
+    
+//    var isUsed: Bool = false
     
     init(fileName: String) {
         
@@ -194,7 +197,8 @@ class Stage {
         
         for i in 0 ..< blocks.count {
             
-            self.blocks[i].setX(x: self.x + (((CGFloat)(self.blocks[i].xPos)) * Block.width) + (Block.width / 2))
+//            self.blocks[i].setX(x: self.x + (((CGFloat)(self.blocks[i].xPos)) * Block.width) + (Block.width / 2))
+            self.blocks[i].setXY(x: self.x + (((CGFloat)(self.blocks[i].xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(self.blocks[i].yPos)) * Block.height) + (Block.height / 2))
         }
     }
     
@@ -228,7 +232,8 @@ class Stage {
             
             if isMatch == false {
                 
-                enemy.setXY(x: self.x + (((CGFloat)(enemy.xPos)) * Block.width) + (Block.width / 2), y: enemy.y)
+//                enemy.setXY(x: self.x + (((CGFloat)(enemy.xPos)) * Block.width) + (Block.width / 2), y: enemy.y)
+                enemy.setXY(x: self.x + (((CGFloat)(enemy.xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(enemy.yPos)) * Block.height) + Block.height - (enemy.height / 2))
             }
         }
 
@@ -240,7 +245,8 @@ class Stage {
             
 //            if self.powerups[i].isInBounds() == false {
             
-                self.powerups[i].setXY(x: self.x + (((CGFloat)(self.powerups[i].xPos)) * Block.width) + (Block.width / 2), y: self.powerups[i].y)
+//                self.powerups[i].setXY(x: self.x + (((CGFloat)(self.powerups[i].xPos)) * Block.width) + (Block.width / 2), y: self.powerups[i].y)
+            self.powerups[i].setXY(x: self.x + (((CGFloat)(self.powerups[i].xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(self.powerups[i].yPos)) * Block.height) + Block.height - (self.powerups[i].height / 2))
 //            }
         }
         
@@ -250,7 +256,8 @@ class Stage {
         
         for i in 0 ..< enemySpawners.count {
             
-            self.enemySpawners[i].setX(x: self.x + (((CGFloat)(self.enemySpawners[i].xPos)) * EnemySpawner.width) + (EnemySpawner.width / 2))
+//            self.enemySpawners[i].setX(x: self.x + (((CGFloat)(self.enemySpawners[i].xPos)) * EnemySpawner.width) + (EnemySpawner.width / 2))
+            self.enemySpawners[i].setXY(x: self.x + (((CGFloat)(self.enemySpawners[i].xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(self.enemySpawners[i].yPos)) * Block.height) + (Block.height / 2))
         }
     }
     
@@ -263,10 +270,35 @@ class Stage {
     
     func setupAsNextStage(direction: String) {
         
-        self.x = screenSize.height * screenRatio
-        
-        self.moveObjects()
-        self.updateObjectArrays(direction: direction)
+        if direction == "right" {
+            
+            self.x = screenSize.height * screenRatio
+            
+            self.moveObjects()
+            self.updateObjectArrays(direction: "right")
+            
+        } else if direction == "up" {
+            
+//            self.x = 0
+            self.y = -screenSize.height
+            
+            self.moveObjects()
+            //            self.updateObjectArrays(direction: direction)
+            
+            self.beginSelectedArrays()
+//            self.sortSelectedArrays()
+            
+        } else if direction == "down" {
+            
+//            self.x = 0
+            self.y = screenSize.height
+            
+            self.moveObjects()
+//            self.updateObjectArrays(direction: direction)
+            
+            self.beginSelectedArrays()
+//            self.sortSelectedArrays()
+        }
     }
     
     func move(direction: String) {
@@ -285,6 +317,51 @@ class Stage {
             
         } else if direction == "right" {
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            // make speed for movement a set constabnt if transitioning right...
+            // or set player.is knocked back to false when strating transitioning...
+            
+            // make it impossible to transition from being hit... <- BEST
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             if player.isKnockedBack == true {
                 self.x -= Player.knockBackMoveSpeed
             } else {
@@ -295,6 +372,13 @@ class Stage {
 //                self.x = 0
 //            }
             
+        } else if direction == "up" {
+            
+            self.y += Player.maxMoveSpeed
+            
+        } else if direction == "down" {
+            
+            self.y -= Player.maxMoveSpeed
         }
     }
     
@@ -314,12 +398,13 @@ class Stage {
         self.enemySpawners = self.enemySpawners.sorted(by: { $0.x < $1.x })
     }
     
-//    func sortSelectedArrays() {
-//
-//        selectedBlocks = selectedBlocks.sorted(by: { $0.x < $1.x })
-//        selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
-//        selectedPowerups = selectedPowerups.sorted(by: { $0.x < $1.x })
-//    }
+    func sortSelectedArrays() {
+
+        selectedBlocks = selectedBlocks.sorted(by: { $0.x < $1.x })
+        selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
+        selectedPowerups = selectedPowerups.sorted(by: { $0.x < $1.x })
+        selectedEnemySpawners = selectedEnemySpawners.sorted(by: { $0.x < $1.x })
+    }
     
     func setupSelectedArrays() {
         
@@ -341,10 +426,15 @@ class Stage {
         selectedPowerups.removeAll()
         selectedEnemySpawners.removeAll()
 
+        beginSelectedArrays()
+    }
+    
+    func beginSelectedArrays() {
+        
         for block in self.blocks {
             
             if block.isInBounds() == true {
-
+                
                 selectedBlocks.append(block)
                 
             } else {
@@ -378,7 +468,7 @@ class Stage {
                 break
             }
         }
-    
+        
         for enemySpawner in self.enemySpawners {
             
             if enemySpawner.isInBounds() == true {

@@ -66,11 +66,13 @@ class EnemySpawner {
         self.view.image = UIImage(named: "\(self.type)Spawner")
     }
     
-    func setX(x: CGFloat) {
+    func setXY(x: CGFloat, y: CGFloat) {
         
         self.x = x
+        self.y = y
         
         self.view.frame.origin.x = self.x - EnemySpawner.width / 2
+        self.view.frame.origin.y = self.y - EnemySpawner.height / 2
     }
     
     func isInBounds() -> Bool {

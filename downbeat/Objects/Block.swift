@@ -67,11 +67,13 @@ class Block {
         self.view.image = UIImage(named: self.type)
     }
     
-    func setX(x: CGFloat) {
+    func setXY(x: CGFloat, y: CGFloat) {
         
         self.x = x
-        
+        self.y = y
+
         self.view.frame.origin.x = self.x - Block.width / 2
+        self.view.frame.origin.y = self.y - Block.height / 2
     }
     
     func isInBounds() -> Bool {

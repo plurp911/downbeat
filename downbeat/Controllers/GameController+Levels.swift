@@ -12,7 +12,13 @@ extension GameController {
 
     func loadLevels() {
         
-        let stages = [[Stage(fileName: "1-3"), Stage(fileName: "1-2"), Stage(fileName: "1-2")]]
+//        let stages = [[Stage(fileName: "1-3"), Stage(fileName: "1-2"), Stage(fileName: "1-2")]]
+        
+        let stages = [[Stage(fileName: "1-3"), Stage(fileName: "1-2")],
+                      [Stage(fileName: "1-4"), nil]]
+        
+//        let stages = [[Stage(fileName: "1-3")],
+//                      [Stage(fileName: "1-4")]]
         
         levels.append(Level(stages: stages))
         
@@ -29,6 +35,8 @@ extension GameController {
         
         currentLevel = level
         currentStage = level.startStage
+        
+//        currentStage!.isUsed = true
         
         currentStage!.setupSelectedArrays()
 

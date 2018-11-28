@@ -20,12 +20,46 @@ extension GameController {
             
             player.updateAnimation()
             
+            player.isMovingUp = false
+            player.isMovingDown = false
+            
+            if player.ySpeed < 0 {
+                
+                player.isMovingUp = true
+                
+            } else if player.ySpeed > 0 {
+                
+                player.isMovingDown = true
+            }
+
             if isTransitioningRight == true {
                 
                 player.isMoving = true
                 player.isMovingRight = true
                 
                 player.isMovingLeft = false
+                
+            } else if isTransitioningUp == true {
+                
+//                player.isMoving = true
+                player.isMovingUp = true
+
+                player.isMovingDown = false
+                
+                player.isMoving = false
+                player.isMovingLeft = false
+                player.isMovingRight = false
+                
+            } else if isTransitioningDown == true {
+                
+                //                player.isMoving = true
+                player.isMovingDown = true
+
+                player.isMovingUp = false
+                
+                player.isMoving = false
+                player.isMovingLeft = false
+                player.isMovingRight = false
                 
             } else if player.isKnockedBack == false {
                 
@@ -193,12 +227,12 @@ extension GameController {
             
             player.move()
             
-            if player.isInBounds() == false {
-                
-                print("GAME OVER")
-                
-                //                handleGameOver()
-            }
+//            if player.isInBounds() == false {
+//
+//                print("GAME OVER")
+//
+//                //                handleGameOver()
+//            }
             
             var bulletsToRemove = [Int]()
             
@@ -447,43 +481,7 @@ extension GameController {
                 
                 if isTransitioningRight == true {
                     
-                    for _ in 0 ..< 5 {
-                    
-                        currentStage!.move(direction: "right")
-                        nextStage!.move(direction: "right")
-                        
-                        moveObjects(direction: "right")
-                        
-                        //                        currentStage!.updateObjectArrays(direction: "right")
-                        
-                        currentStage!.moveObjects()
-                        nextStage!.moveObjects()
-                        
-                        player.move(direction: "left")
-                        
-//                        currentStage!.updateObjectArrays(direction: "right")
-//                        nextStage!.updateObjectArrays(direction: "right")
-                        
-                        bullets.removeAll()
-                        explosions.removeAll()
-                        powerups.removeAll()
-                        enemyBullets.removeAll()
-                        deflectedBullets.removeAll()
-
-                        removeUnwantedEnemies()
-                        removeUnwantedEnemySpawners()
-                        removeUnwantedPowerups()
-
-                        currentStage!.updateBlocks(direction: "right")
-                        //                        currentStage!.updateEnemies(direction: "right")
-                        currentStage!.updatePowerups(direction: "right")
-                        //                        currentStage!.updateEnemySpawners(direction: "right")
-                        
-                        nextStage!.updateBlocks(direction: "right")
-//                        nextStage!.updateEnemies(direction: "right")
-                        nextStage!.updatePowerups(direction: "right")
-//                        nextStage!.updateEnemySpawners(direction: "right")
-                    }
+                    handleTransition(direction: "right")
 
                 } else {
                     
@@ -529,49 +527,231 @@ extension GameController {
                 
             }
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        if player.isMovingUp == true && isTransitioningUp == true {
+            
+            
+            
+            
+            
+            
+            handleTransition(direction: "up")
+            
+            
+            
+            
+            
+        } else if player.isMovingDown == true && isTransitioningDown == true {
+            
+            
+            
+            
+            
+            
+            handleTransition(direction: "down")
+
+            
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
-    func removeUnwantedEnemies() {
+    func handleTransition(direction: String) {
+        
+        for _ in 0 ..< 5 {
+//        for _ in 0 ..< 1 {
+
+            currentStage!.move(direction: direction)
+            nextStage!.move(direction: direction)
+            
+            moveObjects(direction: direction)
+            
+            //                        currentStage!.updateObjectArrays(direction: "right")
+            
+            currentStage!.moveObjects()
+            nextStage!.moveObjects()
+            
+            if direction == "right" {
+
+                player.move(direction: "left")
+
+            } else if direction == "up" {
+                
+                player.move(direction: "down")
+
+            } else if direction == "down" {
+
+                player.move(direction: "up")
+            }
+            
+            //                        currentStage!.updateObjectArrays(direction: "right")
+            //                        nextStage!.updateObjectArrays(direction: "right")
+            
+            bullets.removeAll()
+            explosions.removeAll()
+            powerups.removeAll()
+            enemyBullets.removeAll()
+            deflectedBullets.removeAll()
+            
+            removeUnwantedEnemies(direction: direction)
+            removeUnwantedEnemySpawners(direction: direction)
+            removeUnwantedPowerups(direction: direction)
+            
+            if direction == "right" {
+                
+                currentStage!.updateBlocks(direction: direction)
+                //                        currentStage!.updateEnemies(direction: "right")
+                currentStage!.updatePowerups(direction: direction)
+                //                        currentStage!.updateEnemySpawners(direction: "right")
+                
+                nextStage!.updateBlocks(direction: direction)
+                //                        nextStage!.updateEnemies(direction: "right")
+                nextStage!.updatePowerups(direction: direction)
+                //                        nextStage!.updateEnemySpawners(direction: "right")
+            } else {
+                
+//                currentStage!.setupSelectedArrays()
+//                nextStage!.setupSelectedArrays()
+            }
+        }
+        
+    }
+    
+    func removeUnwantedEnemies(direction: String) {
         
         var selectedEnemiesToRemove = [Int]()
 
         for i in 0 ..< selectedEnemies.count {
             
-            if selectedEnemies[i].x < player.x {
+            if direction == "right" {
                 
-                selectedEnemiesToRemove.append(i)
+                if selectedEnemies[i].x < player.x {
+                    
+                    selectedEnemiesToRemove.append(i)
+                }
+                
+            } else if direction == "up" {
+                
+                if selectedEnemies[i].y > player.y {
+                    
+                    selectedEnemiesToRemove.append(i)
+                }
+                
+            } else if direction == "down" {
+                
+                if selectedEnemies[i].y < player.y {
+                    
+                    selectedEnemiesToRemove.append(i)
+                }
             }
+            
         }
         
         removeObjects(type: "selectedEnemies", toRemove: selectedEnemiesToRemove)
     }
     
-    func removeUnwantedEnemySpawners() {
+    func removeUnwantedEnemySpawners(direction: String) {
         
         var selectedEnemySpawnersToRemove = [Int]()
         
         for i in 0 ..< selectedEnemySpawners.count {
             
-            if selectedEnemySpawners[i].x < player.x {
+            if direction == "right" {
                 
-                selectedEnemySpawnersToRemove.append(i)
+                if selectedEnemySpawners[i].x < player.x {
+                    
+                    selectedEnemySpawnersToRemove.append(i)
+                }
+                
+            } else if direction == "up" {
+                
+                if selectedEnemySpawners[i].y > player.y {
+                    
+                    selectedEnemySpawnersToRemove.append(i)
+                }
+                
+            } else if direction == "down" {
+                
+                if selectedEnemySpawners[i].y < player.y {
+                    
+                    selectedEnemySpawnersToRemove.append(i)
+                }
             }
+            
         }
         
         removeObjects(type: "selectedEnemySpawners", toRemove: selectedEnemySpawnersToRemove)
     }
     
-    func removeUnwantedPowerups() {
+    func removeUnwantedPowerups(direction: String) {
         
         var selectedPowerupsToRemove = [Int]()
         
         for i in 0 ..< selectedPowerups.count {
             
-            if selectedPowerups[i].x < player.x {
+            if direction == "right" {
                 
-                selectedPowerupsToRemove.append(i)
+                if selectedPowerups[i].x < player.x {
+                    
+                    selectedPowerupsToRemove.append(i)
+                }
+                
+            } else if direction == "up" {
+                
+                if selectedPowerups[i].y > player.y {
+                    
+                    selectedPowerupsToRemove.append(i)
+                }
+                
+            } else if direction == "down" {
+                
+                if selectedPowerups[i].y < player.y {
+                    
+                    selectedPowerupsToRemove.append(i)
+                }
             }
+            
         }
         
         removeObjects(type: "selectedPowerups", toRemove: selectedPowerupsToRemove)

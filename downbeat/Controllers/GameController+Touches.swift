@@ -34,8 +34,6 @@ extension GameController {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        print("1")
-        
         if isOnJoyStick == true {
             
             if let touch = touches.first {

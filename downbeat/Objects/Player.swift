@@ -91,6 +91,9 @@ class Player {
     var isMovingLeft: Bool = false
     var isMovingRight: Bool = false
     
+    var isMovingUp: Bool = false
+    var isMovingDown: Bool = false
+    
     var isAtPeak: Bool = false
 
     var isClimbing: Bool = false
@@ -101,6 +104,8 @@ class Player {
     var energy: Int = 0
 
     var direction: String = "right"
+    
+    var beforeYSpeed: CGFloat = 0
     
     var endShootTimer = Timer()
     var endShootAnimationTimer = Timer()
@@ -190,6 +195,9 @@ class Player {
         self.isMovingLeft = false
         self.isMovingRight = false
         
+        self.isMovingUp = false
+        self.isMovingDown = false
+        
         self.isAtPeak = false
         
         self.canMove = true
@@ -205,9 +213,9 @@ class Player {
     
     func move(direction: String) {
         
-        self.direction = direction
-        
-        if self.direction == "left" {
+        if direction == "left" {
+            
+            self.direction = direction
             
             if self.isKnockedBack == true {
                 self.xSpeed = -Player.knockBackMoveSpeed
@@ -217,7 +225,9 @@ class Player {
             
             setXY(x: self.x + self.xSpeed, y: self.y)
             
-        } else if self.direction == "right" {
+        } else if direction == "right" {
+            
+            self.direction = direction
             
             if self.isKnockedBack == true {
                 self.xSpeed = Player.knockBackMoveSpeed
@@ -226,7 +236,41 @@ class Player {
             }
             
             setXY(x: self.x + self.xSpeed, y: self.y)
+            
+        } else if direction == "up" {
+            
+//            isTransitioningUp = true
+//
+//            self.isMovingUp = true
+            
+            print("1")
+            
+            if self.isKnockedBack == true {
+                self.ySpeed = -Player.knockBackMoveSpeed
+            } else {
+                self.ySpeed = -Player.maxMoveSpeed
+            }
+            
+            setXY(x: self.x, y: self.y + self.ySpeed)
+            
+        } else if direction == "down" {
+            
+//            isTransitioningDown = true
+//
+//            self.isMovingDown = true
+            
+            print("2")
+
+            if self.isKnockedBack == true {
+                self.ySpeed = Player.knockBackMoveSpeed
+            } else {
+                self.ySpeed = Player.maxMoveSpeed
+            }
+
+            setXY(x: self.x, y: self.y + self.ySpeed)
         }
+        
+        print(self.ySpeed)
     }
     
     func move() {
@@ -236,37 +280,41 @@ class Player {
         if self.ySpeed != 0 {
             self.isAtPeak = false
         }
-
-        if self.isClimbing == true {
+        
+        if isTransitioningUp == false && isTransitioningDown == false {
             
-            self.isJumping = false
-            self.isFalling = false
-            self.isRising = false
-
-            self.setXY(x: self.x, y: self.y + ySpeed)
-            
-        } else if self.isJumping == true || self.isFalling == true {
-            
-            self.setXY(x: self.x, y: self.y + ySpeed)
-            
-            self.ySpeed += Player.ySpeedChange
-            
-            if self.ySpeed > 0 {
+            if self.isClimbing == true {
                 
-                self.isFalling = true
-
+                self.isJumping = false
+                self.isFalling = false
                 self.isRising = false
                 
-                if self.ySpeed > Player.maxFallSpeed {
-                    self.ySpeed = Player.maxFallSpeed
+                self.setXY(x: self.x, y: self.y + ySpeed)
+                
+            } else if self.isJumping == true || self.isFalling == true {
+                
+                self.setXY(x: self.x, y: self.y + ySpeed)
+                
+                self.ySpeed += Player.ySpeedChange
+                
+                if self.ySpeed > 0 {
+                    
+                    self.isFalling = true
+                    
+                    self.isRising = false
+                    
+                    if self.ySpeed > Player.maxFallSpeed {
+                        self.ySpeed = Player.maxFallSpeed
+                    }
+                    
+                } else if ySpeed < 0 {
+                    
+                    self.isRising = true
+                    
+                    self.isFalling = false
                 }
-                
-            } else if ySpeed < 0 {
-                
-                self.isRising = true
-
-                self.isFalling = false
             }
+            
         }
         
 //        if self.isMoving == true || self.isClimbing == true {
@@ -299,54 +347,58 @@ class Player {
             }
         }
         
-        if self.isFalling == true || self.isClimbing == true {
+        if isTransitioningUp == false && isTransitioningDown == false {
             
-            for block in selectedBlocks {
+            if self.isFalling == true || self.isClimbing == true {
                 
-                if block.isTopLadder == true {
+                for block in selectedBlocks {
                     
-                    if self.y + (Player.height / 2) + Player.maxFallSpeed <= block.y - (Block.height / 2) + Player.maxFallSpeed && self.y + (Player.height / 2) + Player.maxFallSpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                    if block.isTopLadder == true {
                         
-                        self.isJumping = false
-                        self.isFalling = false
-                        
-                        self.ySpeed = 0
-                        
-                        self.isAtPeak = false
-                        
-                        setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
-                        
-                        if self.isClimbing == true {
+                        if self.y + (Player.height / 2) + Player.maxFallSpeed <= block.y - (Block.height / 2) + Player.maxFallSpeed && self.y + (Player.height / 2) + Player.maxFallSpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                             
-                            self.isClimbing = false
+                            self.isJumping = false
+                            self.isFalling = false
+                            
+                            self.ySpeed = 0
+                            
+                            self.isAtPeak = false
+                            
+                            setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
+                            
+                            if self.isClimbing == true {
+                                
+                                self.isClimbing = false
+                            }
+                            
+                            //                    self.updateAnimation()
                         }
                         
-                        //                    self.updateAnimation()
-                    }
-                    
-                } else if block.isLadder == false {
-                    
-                    if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                    } else if block.isLadder == false {
                         
-                        self.isJumping = false
-                        self.isFalling = false
-                        
-                        self.ySpeed = 0
-                        
-                        self.isAtPeak = false
-                        
-                        setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
-                        
-                        if self.isClimbing == true {
+                        if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                             
-                            self.isClimbing = false
+                            self.isJumping = false
+                            self.isFalling = false
+                            
+                            self.ySpeed = 0
+                            
+                            self.isAtPeak = false
+                            
+                            setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
+                            
+                            if self.isClimbing == true {
+                                
+                                self.isClimbing = false
+                            }
+                            
+                            //                    self.updateAnimation()
                         }
-                        
-                        //                    self.updateAnimation()
                     }
+                    
                 }
-                
             }
+            
         }
         
         if self.isRising == true {
@@ -392,6 +444,265 @@ class Player {
             }
         }
         
+//        if self.ySpeed < 0 {
+//
+//            if self.y - (Player.height / 2) <= 0 {
+//
+//                if isTransitioningUp == false {
+//
+//                    if currentLevel?.isNextStage(direction: "up") != nil {
+//
+//                        nextStage = currentLevel?.isNextStage(direction: "up")
+//
+//                        nextStage!.setupAsNextStage(direction: "up")
+//
+//                        isTransitioningUp = true
+//
+//                        self.isMovingUp = true
+//                    }
+//                }
+//
+//            }
+//
+//        } else if self.ySpeed > 0 {
+//            
+//            if self.y + (Player.height / 2) >= screenSize.height {
+//
+//                if isTransitioningDown == false {
+//
+//                    if currentLevel?.isNextStage(direction: "down") != nil {
+//
+//                        nextStage = currentLevel?.isNextStage(direction: "down")
+//
+//                        nextStage!.setupAsNextStage(direction: "down")
+//
+//                        isTransitioningDown = true
+//
+//                        self.isMovingDown = true
+//                    }
+//                }
+//
+//            }
+//        }
+        
+        print()
+        print("HERE")
+        print()
+        print(self.isMovingUp)
+        print(self.isMovingDown)
+        print()
+        print(isTransitioningUp)
+        print(isTransitioningDown)
+        print()
+        print(self.ySpeed)
+        print()
+
+//        if self.ySpeed < 0 {
+        if self.isMovingUp == true {
+            
+            if self.y - (Player.height / 2) <= 0 {
+
+
+
+                
+                
+
+                
+                
+                
+                if isTransitioningUp == false {
+                    
+                    if currentLevel?.isNextStage(direction: "up") != nil {
+                        
+                        nextStage = currentLevel?.isNextStage(direction: "up")
+                        
+                        nextStage!.setupAsNextStage(direction: "up")
+                        
+                        isTransitioningUp = true
+                        
+                        self.beforeYSpeed = self.ySpeed
+                    }
+                }
+                
+                
+                
+                
+//                setXY(x: self.x, y: (Player.width / 2) + self.ySpeed)
+                setXY(x: self.x, y: (Player.width / 2) + 10)
+
+                
+                
+
+
+            } else {
+                
+                
+                
+                
+                
+                
+                
+                if isTransitioningUp == true {
+                    
+                    
+                    
+                    
+                    
+                    if self.y + (Player.height / 2) >= screenSize.height {
+                        
+                        //                        self.canMove = false
+                        
+//                        setXY(x: self.x, y: screenSize.height - (Player.width / 2) + (self.ySpeed * 2))
+                        setXY(x: self.x, y: screenSize.height - (Player.width / 2) - 10)
+                    }
+                    
+                    
+                    
+                    
+                    
+                    if currentStage!.y >= screenSize.height {
+                        
+                        isTransitioningUp = false
+                        
+                        currentStage = nextStage
+                        
+//                        currentStage!.isUsed = true
+
+                        nextStage = nil
+                        
+                        currentLevel!.updateCurrentStagePos()
+                        currentStage!.setupSelectedArrays()
+                        
+                        self.ySpeed = self.beforeYSpeed
+                    }
+                    
+                    
+                    
+                    
+                    
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            }
+            
+//        } else if self.ySpeed > 0 {
+        } else if self.isMovingDown == true {
+            
+            if self.y + (Player.height / 2) >= screenSize.height {
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                if isTransitioningDown == false {
+                    
+                    if currentLevel?.isNextStage(direction: "down") != nil {
+                        
+                        nextStage = currentLevel?.isNextStage(direction: "down")
+                        
+                        nextStage!.setupAsNextStage(direction: "down")
+                        
+                        isTransitioningDown = true
+                        
+                        self.beforeYSpeed = self.ySpeed
+                    }
+                }
+                
+                
+                
+//                setXY(x: self.x, y: screenSize.height - (Player.width / 2) + (self.ySpeed * 2))
+                setXY(x: self.x, y: screenSize.height - (Player.width / 2) - 10)
+
+                
+                
+                
+                
+                
+                
+                
+                
+            } else {
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                if isTransitioningDown == true {
+                    
+                    
+                    
+                    
+                    
+                    if self.y - (Player.height / 2) <= 0 {
+                        
+//                        self.canMove = false
+                        
+//                        setXY(x: self.x, y: (Player.width / 2) - self.ySpeed)
+                        setXY(x: self.x, y: (Player.width / 2) + 10)
+                    }
+                    
+                    
+                    
+                    
+                    
+//                    if currentStage!.x <= -((CGFloat)(currentStage!.numberOfHorizontalBlocks) * Block.width)  {
+                    if currentStage!.y <= -screenSize.height {
+
+                        isTransitioningDown = false
+//                        isMovingDown = false
+
+                        currentStage = nextStage
+                        
+//                        currentStage!.isUsed = true
+
+                        nextStage = nil
+                        
+                        currentLevel!.updateCurrentStagePos()
+//                        currentStage!.setupSelectedArrays()
+                        
+                        self.ySpeed = self.beforeYSpeed
+//                        self.isFalling = true
+                    }
+                    
+                    
+                    
+                    
+                    
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            }
+        }
+        
         if self.isMoving == true {
             
             self.canMove = true
@@ -399,13 +710,7 @@ class Player {
             if self.isMovingRight == true {
                 
                 if self.x + (Player.width / 2) >= screenSize.height * screenRatio {
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
                     if isTransitioningRight == false {
                         
                         if currentLevel?.isNextStage(direction: "right") != nil {
@@ -415,21 +720,22 @@ class Player {
                             nextStage!.setupAsNextStage(direction: "right")
                             
                             isTransitioningRight = true
+                            
+                            self.beforeYSpeed = self.ySpeed
+                            self.ySpeed = 0
                         }
-                        
                     }
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
                     self.canMove = false
                     
                     setXY(x: (screenSize.height * screenRatio) - (Player.width / 2) - self.xSpeed, y: self.y)
                     
                 } else {
+                    
+                    
+                    
+                    
+                    
                     
                     
                     
@@ -461,10 +767,15 @@ class Player {
                             isTransitioningRight = false
                             
                             currentStage = nextStage
+                            
+//                            currentStage!.isUsed = true
+
                             nextStage = nil
                             
                             currentLevel!.updateCurrentStagePos()
                             currentStage!.setupSelectedArrays()
+                            
+                            self.ySpeed = self.beforeYSpeed
                         }
                         
                         
@@ -472,6 +783,11 @@ class Player {
                         
                         
                     }
+                    
+                    
+                    
+                    
+                    
                     
                     
                     
@@ -489,7 +805,23 @@ class Player {
                     
                     setXY(x: (Player.width / 2) + self.xSpeed, y: self.y)
                 }
+                
             }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             for block in selectedBlocks {
                 
@@ -1130,14 +1462,14 @@ class Player {
 //        }
     }
     
-    func isInBounds() -> Bool {
-        
-        if self.y - (Player.height / 2) >= screenSize.height {
-            return false
-        }
-        
-        return true
-    }
+//    func isInBounds() -> Bool {
+//
+//        if self.y - (Player.height / 2) >= screenSize.height {
+//            return false
+//        }
+//
+//        return true
+//    }
     
 //    func freezeTime() {
 //
