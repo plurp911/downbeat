@@ -71,10 +71,33 @@ class Level {
 
         if currentStageXPos + xOffset >= 0 && currentStageXPos + xOffset < self.stages[0].count && currentStageYPos + yOffset >= 0 && currentStageYPos + yOffset < self.stages.count {
             
-//            if self.stages[currentStageYPos + yOffset][currentStageXPos + xOffset]?.isUsed == false {
+            var canGoOn: Bool = true
             
+            let stage = self.stages[currentStageYPos + yOffset][currentStageXPos + xOffset]
+            
+            if direction == "up" {
+
+                if stage?.canEnterFromBottom == false {
+                    canGoOn = false
+                }
+
+            } else if direction == "down" {
+
+                if stage?.canEnterFromTop == false {
+                    canGoOn = false
+                }
+                
+            } else if direction == "right" {
+
+                if stage?.canEnterFromLeft == false {
+                    canGoOn = false
+                }
+            }
+            
+            if canGoOn == true {
+                
                 return self.stages[currentStageYPos + yOffset][currentStageXPos + xOffset]
-//            }
+            }
         }
         
         return nil

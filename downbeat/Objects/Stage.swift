@@ -41,6 +41,10 @@ class Stage {
     
     var textArray = [[String]]()
     
+    var canEnterFromTop: Bool = false
+    var canEnterFromBottom: Bool = false
+    var canEnterFromLeft: Bool = false
+
 //    var isUsed: Bool = false
     
     init(fileName: String) {
@@ -157,6 +161,12 @@ class Stage {
                     powerups.append(Powerup(xPos: j, yPos: i, type: "largeEnergy"))
                 } else if text == ":" {
                     self.setPlayerStartXYPos(startXPos: j, startYPos: i)
+                } else if text == "T" {
+                    self.canEnterFromTop = true
+                } else if text == "B" {
+                    self.canEnterFromBottom = true
+                } else if text == "L" {
+                    self.canEnterFromLeft = true
                 }
                 
             }
