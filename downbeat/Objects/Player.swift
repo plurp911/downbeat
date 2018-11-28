@@ -107,6 +107,8 @@ class Player {
     
     var beforeYSpeed: CGFloat = 0
     
+    var power: String = "regular"
+    
     var endShootTimer = Timer()
     var endShootAnimationTimer = Timer()
 
@@ -206,6 +208,8 @@ class Player {
         self.energy = Player.maxEnergy
 
         self.direction = "right"
+        
+        self.power = "regular"
         
         self.healthBar.setEnergy(energy: self.health)
         self.energyBar.setEnergy(energy: self.energy)
@@ -915,13 +919,16 @@ class Player {
                 //            self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.175, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
                 self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
                 
-                if self.direction == "left" {
+                if self.power == "regular" {
                     
-                    bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction))
-                    
-                } else if self.direction == "right" {
-                    
-                    bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction))
+                    if self.direction == "left" {
+                        
+                        bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: power))
+                        
+                    } else if self.direction == "right" {
+                        
+                        bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: power))
+                    }
                 }
                 
             }

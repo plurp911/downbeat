@@ -12,45 +12,57 @@ class Bullet {
     
     // CONSTANTS
     
-    static let damage: Int = 1
-
-    static let radius: CGFloat = Block.width * (6 / 16) * (1 / 2)
-    //    static let radius: CGFloat = Block.width * (7 / 16) * (1 / 2)
-//    static let radius: CGFloat = Block.width * (8 / 16) * (1 / 2)
-
-    static let moveSpeed: CGFloat = 4.5
-    
     static let color: UIColor = UIColor.clear
-//    static let color: UIColor = UIColor.red
-
+    //    static let color: UIColor = UIColor.red
+    
     // VARIABLES
+    
+    var width: CGFloat = 0
+    var height: CGFloat = 0
+    
+    var moveSpeed: CGFloat = 0
+    
+    var damage: Int = 0
     
     var x: CGFloat = 0
     var y: CGFloat = 0
     
     var xSpeed: CGFloat = 0
+    var ySpeed: CGFloat = 0
     
-    var view: UIImageView = UIImageView()
+    var type: String = ""
 
-    init(x: CGFloat, y: CGFloat, direction: String) {
+    var view: UIImageView = UIImageView()
+    
+    init(x: CGFloat, y: CGFloat, direction: String, type: String) {
         
-        if direction == "left" {
-            xSpeed = -Bullet.moveSpeed
-        } else if direction == "right" {
-            xSpeed = Bullet.moveSpeed
+        self.type = type
+        
+        if self.type == "regular" {
+            
+            self.width = Block.width * (6 / 16)
+            self.height = self.width
+            
+            self.moveSpeed = 4.5
+            
+            self.damage = 1
+            
+            if direction == "left" {
+                
+                self.xSpeed = -self.moveSpeed
+                
+            } else if direction == "right" {
+                
+                self.xSpeed = self.moveSpeed
+            }
         }
 
         self.setXY(x: x, y: y)
-
-        self.view.frame.origin.x = self.x - Bullet.radius
-        self.view.frame.origin.y = self.y - Bullet.radius
         
-        self.view.frame.size.width = Bullet.radius * 2
-        self.view.frame.size.height = Bullet.radius * 2
+        self.view.frame.size.width = self.width
+        self.view.frame.size.height = self.height
         
         self.view.backgroundColor = Bullet.color
-        
-        self.view.layer.cornerRadius = Bullet.radius
         
         self.view.contentMode = .scaleAspectFill
         
@@ -58,11 +70,18 @@ class Bullet {
         
         self.view.image = UIImage(named: "bulletRight")
         
-        if direction == "left" {
-            self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-        } else if direction == "right" {
-            self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+        if self.type == "regular" {
+            
+            if direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
         }
+        
     }
     
     func setXY(x: CGFloat, y: CGFloat) {
@@ -70,30 +89,26 @@ class Bullet {
         self.x = x
         self.y = y
         
-        self.view.frame.origin.x = self.x - Bullet.radius
-        self.view.frame.origin.y = self.y - Bullet.radius
+        self.view.frame.origin.x = self.x - (self.width / 2)
+        self.view.frame.origin.y = self.y - (self.height / 2)
     }
-    
-    //    func didHitGoal() -> Bool {
-    //
-    ////        if distance(x1: goal.x, y1: goal.y, x2: player.x, y2: player.y) <= Player.radius + (Goal.width / 2) {
-    ////            return true
-    ////        }
-    //
-    //        return false
-    //    }
-    
+
     func isInBounds() -> Bool {
         
-        if self.x + Bullet.radius >= 0 && self.x - Bullet.radius <= screenSize.height * (screenRatio) {
+        if self.x + (self.width / 2) >= 0 && self.x - (self.width / 2) <= screenSize.height * (screenRatio) && self.y + (self.height / 2) >= 0 && self.y - (self.height / 2) <= screenSize.height {
             return true
         }
         
         return false
     }
-
+    
     func move() {
         
-        setXY(x: self.x + self.xSpeed, y: self.y)
+        if self.type == "regular" {
+
+            setXY(x: self.x + self.xSpeed, y: self.y)
+        }
     }
+    
 }
+

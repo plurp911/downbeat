@@ -344,7 +344,7 @@ class Enemy {
         
         for i in 0 ..< bullets.count {
             
-            if bullets[i].x + Bullet.radius >= self.x - (self.width / 2) && bullets[i].x - Bullet.radius <= self.x + (self.width / 2) && bullets[i].y + Bullet.radius >= self.y - (self.height / 2) && bullets[i].y - Bullet.radius <= self.y + (self.height / 2) {
+            if bullets[i].x + (bullets[i].width / 2) >= self.x - (self.width / 2) && bullets[i].x - (bullets[i].width / 2) <= self.x + (self.width / 2) && bullets[i].y + (bullets[i].height / 2) >= self.y - (self.height / 2) && bullets[i].y - (bullets[i].height / 2) <= self.y + (self.height / 2) {
                 
                 if self.type == "follower" {
                     
@@ -382,11 +382,11 @@ class Enemy {
         return -1
     }
     
-    func handleHit() {
+    func handleHit(bulletDamage: Int) {
         
         self.isHit = true
 
-        self.health -= Bullet.damage
+        self.health -= bulletDamage
         
         self.isHit = false
     }

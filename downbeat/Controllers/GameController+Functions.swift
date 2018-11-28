@@ -396,7 +396,7 @@ extension GameController {
                         
                         bulletsToRemove.append(bulletPos)
                         
-                        selectedEnemies[i].handleHit()
+                        selectedEnemies[i].handleHit(bulletDamage: bullets[bulletPos].damage)
                         
                         if selectedEnemies[i].isDead() == true {
                             

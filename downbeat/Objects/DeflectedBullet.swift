@@ -12,7 +12,7 @@ class DeflectedBullet {
     
     // CONSTANTS
     
-    static let radius: CGFloat = Bullet.radius
+    static let radius: CGFloat = Block.width * (6 / 16) * (1 / 2)
     static let moveSpeed: CGFloat = 8
     
     static let color: UIColor = UIColor.clear
