@@ -172,8 +172,11 @@ class Enemy {
             self.view.image = Enemy.hatLeft1Image
             
             if self.direction == "right" {
+                
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
             } else if self.direction == "left" {
+                
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
             

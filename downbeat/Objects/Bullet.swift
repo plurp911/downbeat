@@ -15,6 +15,10 @@ class Bullet {
     static let color: UIColor = UIColor.clear
     //    static let color: UIColor = UIColor.red
     
+    static let cutterImagesRight = [UIImage(named: "cutterBulletUp"), UIImage(named: "cutterBulletRight"), UIImage(named: "cutterBulletDown"), UIImage(named: "cutterBulletLeft")]
+
+    static let regularImage = UIImage(named: "regularBulletRight")
+
     // VARIABLES
     
     var width: CGFloat = 0
@@ -31,11 +35,20 @@ class Bullet {
     var ySpeed: CGFloat = 0
     
     var type: String = ""
+    
+    var direction: String = ""
+    
+//    var xDist: CGFloat = 0
+    var xGoal: CGFloat = 0
+    
+    var didReachGoal: Bool = false
 
     var view: UIImageView = UIImageView()
     
     init(x: CGFloat, y: CGFloat, direction: String, type: String) {
         
+        self.direction = direction
+
         self.type = type
         
         if self.type == "regular" {
@@ -47,14 +60,40 @@ class Bullet {
             
             self.damage = 1
             
-            if direction == "left" {
+            if self.direction == "left" {
                 
                 self.xSpeed = -self.moveSpeed
                 
-            } else if direction == "right" {
+            } else if self.direction == "right" {
                 
                 self.xSpeed = self.moveSpeed
             }
+            
+        } else if self.type == "cutter" {
+            
+            self.width = Block.width * (10 / 16)
+            self.height = self.width
+            
+            self.moveSpeed = 2.5
+            
+            self.damage = 3
+            
+//            self.xDist = Block.width * 4
+            
+            if self.direction == "left" {
+                
+                self.xGoal = x - (Block.width * 4)
+                
+                self.xSpeed = -self.moveSpeed
+                
+            } else if self.direction == "right" {
+                
+                self.xGoal = x + (Block.width * 4)
+
+                self.xSpeed = self.moveSpeed
+            }
+            
+            self.ySpeed = self.moveSpeed * 0.2
         }
 
         self.setXY(x: x, y: y)
@@ -68,15 +107,33 @@ class Bullet {
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
-        self.view.image = UIImage(named: "bulletRight")
-        
+        self.view.stopAnimating()
+
         if self.type == "regular" {
             
-            if direction == "left" {
+            self.view.image = Bullet.regularImage
+            
+            if self.direction == "left" {
                 
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
                 
-            } else if direction == "right" {
+            } else if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if self.type == "cutter" {
+            
+            self.view.animationImages = Bullet.cutterImagesRight as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * (4 / 6)
+            self.view.startAnimating()
+            
+            if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "right" {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
@@ -107,8 +164,72 @@ class Bullet {
         if self.type == "regular" {
 
             setXY(x: self.x + self.xSpeed, y: self.y)
+            
+        } else if self.type == "cutter" {
+            
+            if self.direction == "left" {
+                
+                if self.x <= self.xGoal {
+                    
+                    self.didReachGoal = true
+                }
+                
+            } else if self.direction == "right" {
+                
+                if self.x >= self.xGoal {
+                    
+                    self.didReachGoal = true
+                }
+            }
+            
+            if self.didReachGoal == false {
+                
+                if self.direction == "left" {
+                    
+                    if self.x <= self.xGoal / 2 {
+                        
+                        setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+
+                    } else {
+                        
+                        setXY(x: self.x + self.xSpeed, y: self.y - self.ySpeed)
+                    }
+                    
+                } else if self.direction == "right" {
+                    
+                    if self.x >= self.xGoal / 2 {
+                        
+                        setXY(x: self.x + self.xSpeed, y: self.y - self.ySpeed)
+                        
+                    } else {
+                        
+                        setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+                    }
+                }
+                
+            } else {
+                
+                if self.x < player.x {
+                    
+                    setXY(x: self.x + self.xSpeed, y: self.y)
+                    
+                } else if self.x > player.x {
+                    
+                    setXY(x: self.x - self.xSpeed, y: self.y)
+                    
+                }
+                
+                if self.y < player.y {
+                    
+                    setXY(x: self.x, y: self.y + self.ySpeed)
+                    
+                } else if self.y > player.y {
+                    
+                    setXY(x: self.x, y: self.y - self.ySpeed)
+                }
+            }
+            
         }
     }
     
 }
-

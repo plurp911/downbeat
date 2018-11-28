@@ -54,7 +54,7 @@ class DeflectedBullet {
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
-        self.view.image = UIImage(named: "bulletRight")
+        self.view.image = UIImage(named: "regularBulletRight")
         
         if direction == "left" {
             self.view.transform = CGAffineTransform(scaleX: -1, y: 1)

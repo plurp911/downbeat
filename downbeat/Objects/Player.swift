@@ -107,8 +107,9 @@ class Player {
     
     var beforeYSpeed: CGFloat = 0
     
-    var power: String = "regular"
-    
+//    var power: String = "regular"
+    var power: String = "cutter"
+
     var endShootTimer = Timer()
     var endShootAnimationTimer = Timer()
 
@@ -209,8 +210,9 @@ class Player {
 
         self.direction = "right"
         
-        self.power = "regular"
-        
+//        self.power = "regular"
+        self.power = "cutter"
+
         self.healthBar.setEnergy(energy: self.health)
         self.energyBar.setEnergy(energy: self.energy)
     }
@@ -733,11 +735,22 @@ class Player {
                     
                     if self.direction == "left" {
                         
-                        bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: power))
+                        bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
                         
                     } else if self.direction == "right" {
                         
-                        bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: power))
+                        bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                    }
+                    
+                } else if self.power == "cutter" {
+                    
+                    if self.direction == "left" {
+                        
+                        bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                        
+                    } else if self.direction == "right" {
+                        
+                        bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
                     }
                 }
                 
@@ -1149,6 +1162,49 @@ class Player {
         
         return -1
     }
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    func didHitOwnBullet() -> Int {
+        
+        for i in 0 ..< enemyBullets.count {
+            
+            if enemyBullets[i].x + (enemyBullets[i].width / 2) >= self.x - (Player.width / 2) && enemyBullets[i].x - (enemyBullets[i].width / 2) <= self.x + (Player.width / 2) && enemyBullets[i].y + (enemyBullets[i].height / 2) >= self.y - (Player.height / 2) && enemyBullets[i].y - (enemyBullets[i].height / 2) <= self.y + (Player.height / 2) {
+                return i
+            }
+        }
+        
+        return -1
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     func stopJump() {
         
