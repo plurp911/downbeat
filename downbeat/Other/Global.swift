@@ -213,5 +213,12 @@ public func moveDirection(direction: String) {
         isDownPressed = false
         isLeftPressed = false
         isRightPressed = true
+        
+    } else if direction == "none" {
+        
+        isUpPressed = false
+        isDownPressed = false
+        isLeftPressed = false
+        isRightPressed = false
     }
 }

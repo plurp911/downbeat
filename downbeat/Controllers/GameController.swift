@@ -12,15 +12,19 @@ class GameController: UIViewController {
     
     // CONSTANTS
     
-    let mainButtonRadius: CGFloat = 35
-    
-    let mainButtonSpacing: CGFloat = 35
-    
+//    let mainButtonRadius: CGFloat = 35
+    let mainButtonRadius: CGFloat = 37.5
+
+//    let mainButtonSpacing: CGFloat = 35
+    let mainButtonSpacing: CGFloat = 32.5
+
     let joystickSpacing: CGFloat = 35
 
     // VARIABLES
     
     var moveTimer = Timer()
+    
+    var isOnJoyStick: Bool = false
 
     var gameView: UIView = {
         let view = UIView()
@@ -132,6 +136,7 @@ class GameController: UIViewController {
         button.addTarget(self, action: #selector(handleLeftCancel), for: .touchUpOutside)
         button.addTarget(self, action: #selector(handleLeftCancel), for: .touchCancel)
         button.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
+        button.isHidden = true
         return button
     }()
     
@@ -160,6 +165,7 @@ class GameController: UIViewController {
         button.addTarget(self, action: #selector(handleRightCancel), for: .touchUpOutside)
         button.addTarget(self, action: #selector(handleRightCancel), for: .touchCancel)
         button.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        button.isHidden = true
         return button
     }()
     
@@ -187,6 +193,7 @@ class GameController: UIViewController {
         button.addTarget(self, action: #selector(handleUpCancel), for: .touchUpInside)
         button.addTarget(self, action: #selector(handleUpCancel), for: .touchUpOutside)
         button.addTarget(self, action: #selector(handleUpCancel), for: .touchCancel)
+        button.isHidden = true
         return button
     }()
     
@@ -215,6 +222,7 @@ class GameController: UIViewController {
         button.addTarget(self, action: #selector(handleDownCancel), for: .touchUpOutside)
         button.addTarget(self, action: #selector(handleDownCancel), for: .touchCancel)
         button.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+        button.isHidden = true
         return button
     }()
     
@@ -225,6 +233,15 @@ class GameController: UIViewController {
     @objc func handleDownCancel() {
         isDownPressed = false
     }
+    
+    var joystickView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.borderWidth = 0
+        view.layer.borderColor = UIColor.black.cgColor
+        return view
+    }()
     
     var touchView: UIView = {
         let view = UIView()
@@ -240,7 +257,7 @@ class GameController: UIViewController {
         
         super.viewDidLoad()
         
-        joystick.setOuterXY(x: Joystick.outerRadius + joystickSpacing, y: screenSize.height - Joystick.outerRadius - joystickSpacing)
+        joystick.setOuterXY(x: Joystick.outerRadius + (joystickSpacing * 2.5), y: screenSize.height - Joystick.outerRadius - (joystickSpacing * 0.5))
         joystick.resetInnerXY()
         joystick.showViews()
         
@@ -256,13 +273,18 @@ class GameController: UIViewController {
         view.addSubview(gameView)
         view.addSubview(leftCoverView)
         view.addSubview(rightCoverView)
-        view.addSubview(jumpButton)
-        view.addSubview(shootButton)
         view.addSubview(leftButton)
         view.addSubview(rightButton)
         view.addSubview(upButton)
         view.addSubview(downButton)
+        view.addSubview(joystickView)
+        
+        joystickView.addSubview(joystick.outerView)
+        joystickView.addSubview(joystick.innerView)
+        
         view.addSubview(touchView)
+        view.addSubview(jumpButton)
+        view.addSubview(shootButton)
         
         setupGameView()
         setupLeftCoverView()
@@ -273,6 +295,7 @@ class GameController: UIViewController {
         setupRightButton()
         setupUpButton()
         setupDownButton()
+        setupJoystickView()
         setupTouchView()
     }
     
@@ -301,7 +324,7 @@ class GameController: UIViewController {
         jumpButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -mainButtonSpacing).isActive = true
         jumpButton.widthAnchor.constraint(equalToConstant: mainButtonRadius * 2).isActive = true
         jumpButton.heightAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
-        jumpButton.centerYAnchor.constraint(equalTo: leftButton.centerYAnchor).isActive = true
+        jumpButton.centerYAnchor.constraint(equalTo: leftButton.centerYAnchor, constant: mainButtonSpacing).isActive = true
     }
     
     func setupShootButton() {
@@ -337,6 +360,13 @@ class GameController: UIViewController {
         downButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         downButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -mainButtonSpacing / 2).isActive = true
         downButton.centerXAnchor.constraint(equalTo: upButton.centerXAnchor).isActive = true
+    }
+    
+    func setupJoystickView() {
+        joystickView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        joystickView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        joystickView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        joystickView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
     
     func setupTouchView() {

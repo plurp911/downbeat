@@ -674,7 +674,6 @@ extension GameController {
         for view in gameView.subviews {
             
             view.removeFromSuperview()
-            
         }
     }
     
@@ -685,7 +684,6 @@ extension GameController {
             for line in lines {
                 
                 line.removeFromSuperlayer()
-                
             }
         }
         

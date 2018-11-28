@@ -12,13 +12,13 @@ class Joystick {
     
     // CONSTANTS
     
-    static let innerRadius: CGFloat = 30
-    static let outerRadius: CGFloat = 80
+    static let innerRadius: CGFloat = 25
+    static let outerRadius: CGFloat = 70
     
-    static let innerColor: UIColor = UIColor.white.withAlphaComponent(0.8)
-    static let outerColor: UIColor = UIColor.white.withAlphaComponent(0.4)
+    static let innerColor: UIColor = UIColor.white.withAlphaComponent(0.5)
+    static let outerColor: UIColor = UIColor.white.withAlphaComponent(0.2)
 
-    static let moveDist: CGFloat = Joystick.innerRadius / 2
+    static let moveDist: CGFloat = Joystick.innerRadius
     
     // VARIABLES
     
@@ -43,23 +43,44 @@ class Joystick {
         
         self.innerView.backgroundColor = Joystick.innerColor
         self.outerView.backgroundColor = Joystick.outerColor
+        
+        self.innerView.layer.cornerRadius = Joystick.innerRadius
+        self.outerView.layer.cornerRadius = Joystick.outerRadius
     }
     
     func setInnterXY(x: CGFloat, y: CGFloat) {
         
         if distance(x1: x, y1: y, x2: self.outerX, y2: self.outerY) > Joystick.outerRadius - (Joystick.innerRadius / 2) {
             
+            let xDist = x - self.outerX
+            let yDist = y - self.outerY
             
-            let ratio = x / y
+            let ratio = xDist / yDist
+            let newDist = Joystick.outerRadius - (Joystick.innerRadius / 2)
             
+            var newY = sqrt((newDist * newDist) / ((ratio * ratio) + 1))
+            var newX = ratio * newY
             
+            if yDist < 0 {
+                newY = -newY
+            }
+
+            if xDist < 0 {
+                newX = -newX
+            }
             
+            if (yDist > 0 && xDist < 0) || (yDist < 0 && xDist > 0) {
+                newX = -newX
+            }
             
+            self.innerX = self.outerX + newX
+            self.innerY = self.outerY + newY
             
+        } else {
+            
+            self.innerX = x
+            self.innerY = y
         }
-        
-        self.innerX = x
-        self.innerY = y
         
         self.handleDirection()
         
@@ -107,6 +128,10 @@ class Joystick {
                     
                     moveDirection(direction: "up")
                 }
+                
+            } else {
+                
+                moveDirection(direction: "none")
             }
             
         } else {
@@ -121,9 +146,21 @@ class Joystick {
                     
                     moveDirection(direction: "left")
                 }
+                
+            } else {
+                
+                moveDirection(direction: "none")
             }
-            
         }
+        
     }
     
+    func isInOuterRadius(x: CGFloat, y: CGFloat) -> Bool {
+        
+        if distance(x1: x, y1: y, x2: self.outerX, y2: self.outerY) <= Joystick.outerRadius {
+            return true
+        }
+        
+        return false
+    }
 }
