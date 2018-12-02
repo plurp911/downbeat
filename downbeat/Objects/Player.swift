@@ -1181,49 +1181,22 @@ class Player {
         return -1
     }
     
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     func didHitOwnBullet() -> Int {
         
         for i in 0 ..< bullets.count {
             
-            if bullets[i].x + (bullets[i].width / 2) >= self.x - (Player.width / 2) && bullets[i].x - (bullets[i].width / 2) <= self.x + (bullets[i].width / 2) && bullets[i].y + (bullets[i].height / 2) >= self.y - (Player.height / 2) && bullets[i].y - (bullets[i].height / 2) <= self.y + (Player.height / 2) {
-                return i
+            if bullets[i].type == "cutter" &&  bullets[i].didReachGoal == true {
+                
+                if bullets[i].x + (bullets[i].width / 2) >= self.x - (Player.width / 2) && bullets[i].x - (bullets[i].width / 2) <= self.x + (bullets[i].width / 2) && bullets[i].y + (bullets[i].height / 2) >= self.y - (Player.height / 2) && bullets[i].y - (bullets[i].height / 2) <= self.y + (Player.height / 2) {
+                    return i
+                }
+                
             }
         }
         
         return -1
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     func stopJump() {
         
         self.isAtPeak = true

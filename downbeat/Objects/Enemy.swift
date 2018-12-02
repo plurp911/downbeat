@@ -355,19 +355,26 @@ class Enemy {
                     
                 } else if self.type == "hat" {
                     
-                    if self.isShooting == true {
+                    if bullets[i].type == "regular" {
                         
-                        return i
-                        
-                    } else {
-                        
-                        if bullets[i].xSpeed >= 0 {
-                            deflectedBullets.append(DeflectedBullet(x: bullets[i].x, y: bullets[i].y, direction: "left"))
+                        if self.isShooting == true {
+                            
+                            return i
+                            
                         } else {
-                            deflectedBullets.append(DeflectedBullet(x: bullets[i].x, y: bullets[i].y, direction: "right"))
+                            
+                            if bullets[i].xSpeed >= 0 {
+                                deflectedBullets.append(DeflectedBullet(x: bullets[i].x, y: bullets[i].y, direction: "left"))
+                            } else {
+                                deflectedBullets.append(DeflectedBullet(x: bullets[i].x, y: bullets[i].y, direction: "right"))
+                            }
+                            
+                            bulletsToRemove.append(i)
                         }
                         
-                        bulletsToRemove.append(i)
+                    } else if bullets[i].type == "cutter" {
+                        
+                        return i
                     }
                     
                 } else if self.type == "penguin" {

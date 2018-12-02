@@ -14,8 +14,10 @@ extension GameController {
         
 //        let stages = [[Stage(fileName: "1-3"), Stage(fileName: "1-2"), Stage(fileName: "1-2")]]
         
-        let stages = [[Stage(fileName: "1-3"), Stage(fileName: "1-2")],
-                      [Stage(fileName: "1-4"), Stage(fileName: "1-5")]]
+//        let stages = [[Stage(fileName: "1-3"), Stage(fileName: "1-2")],
+//                      [Stage(fileName: "1-4"), Stage(fileName: "1-5")]]
+        
+        let stages = [[Stage(fileName: "1-1")]]
         
 //        let stages = [[Stage(fileName: "1-3")],
 //                      [Stage(fileName: "1-4")]]

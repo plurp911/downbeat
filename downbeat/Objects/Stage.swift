@@ -78,7 +78,7 @@ class Stage {
             for j in 0 ..< textArray[i].count {
                 
                 let text = textArray[i][j]
-                
+                                
                 if text == "#" {
                     
                     if isEqual(i: i - 1, j: j, block: "#") && isEqual(i: i + 1, j: j, block: "#") {

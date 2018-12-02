@@ -53,12 +53,38 @@ class Joystick {
         if distance(x1: x, y1: y, x2: self.outerX, y2: self.outerY) > Joystick.outerRadius - (Joystick.innerRadius / 2) {
             
             let xDist = x - self.outerX
-            let yDist = y - self.outerY
+            var yDist = y - self.outerY
+            
+//            var ratio: CGFloat
+//
+//            if yDist == 0 {
+//                ratio = 0
+//            } else {
+//                ratio = xDist / yDist
+//            }
+            
+            if yDist == 0 {
+                yDist = 0.0001
+            }
             
             let ratio = xDist / yDist
             let newDist = Joystick.outerRadius - (Joystick.innerRadius / 2)
             
-            var newY = sqrt((newDist * newDist) / ((ratio * ratio) + 1))
+//            var newY: CGFloat
+//
+//            if (ratio * ratio) + 1 == 0 {
+//                newY = 0
+//            } else {
+//                newY = sqrt((newDist * newDist) / ((ratio * ratio) + 1))
+//            }
+            
+            var holder = (ratio * ratio) + 1
+            
+            if holder == 0 {
+                holder = 0.0001
+            }
+            
+            var newY = sqrt((newDist * newDist) / holder)
             var newX = ratio * newY
             
             if yDist < 0 {

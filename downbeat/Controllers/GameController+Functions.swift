@@ -416,18 +416,7 @@ extension GameController {
             }
             
             removeObjects(type: "enemyBullets", toRemove: enemyBulletsToRemove)
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
             bulletsToRemove.removeAll()
             
             let bulletPos: Int = player.didHitOwnBullet()
@@ -439,16 +428,6 @@ extension GameController {
             
             removeObjects(type: "bullets", toRemove: bulletsToRemove)
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        
             var selectedEnemiesToRemove = [Int]()
             
             bulletsToRemove.removeAll()
