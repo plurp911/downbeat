@@ -38,17 +38,21 @@ class Player {
 
     static let runRightImages = [UIImage(named: "playerRunRight1"), UIImage(named: "playerRunRight2"), UIImage(named: "playerRunRight3"), UIImage(named: "playerRunRight2")]
     static let runShootRightImages = [UIImage(named: "playerRunShootRight1"), UIImage(named: "playerRunShootRight2"), UIImage(named: "playerRunShootRight3"), UIImage(named: "playerRunShootRight2")]
+    static let runThrowRightImages = [UIImage(named: "playerRunThrowRight1"), UIImage(named: "playerRunThrowRight2"), UIImage(named: "playerRunThrowRight3"), UIImage(named: "playerRunThrowRight2")]
 
     static let jumpRightImage = UIImage(named: "playerJumpRight")
     static let jumpShootRightImage = UIImage(named: "playerJumpShootRight")
+    static let jumpThrowRightImage = UIImage(named: "playerJumpThrowRight")
 
     static let standRightImage = UIImage(named: "playerStandRight")
     static let standShootRightImage = UIImage(named: "playerStandShootRight")
+    static let standThrowRightImage = UIImage(named: "playerStandThrowRight")
 
     static let climbImage = UIImage(named: "playerClimb1")
     static let climbImages = [UIImage(named: "playerClimb1"), UIImage(named: "playerClimb2")]
 
     static let climbShootRightImage = UIImage(named: "playerClimbShootRight")
+    static let climbThrowRightImage = UIImage(named: "playerClimbThrowRight")
 
     static let climbEndImage = UIImage(named: "playerClimbEnd")
 
@@ -101,7 +105,11 @@ class Player {
     var canMove: Bool = true
 
     var health: Int = 0
-    var energy: Int = 0
+    
+    var energyPos: Int = -1
+    
+    var energies: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
+    var energyCosts: [Int] = [5, 0, 0, 0, 0, 0, 0, 0]
 
     var direction: String = "right"
     
@@ -129,8 +137,11 @@ class Player {
     init() {
         
         self.health = Player.maxHealth
-        self.energy = Player.maxEnergy
 
+        for i in 0 ..< self.energies.count {
+            self.energies[i] = Player.maxEnergy
+        }
+        
         setXY(x: self.x, y: self.y)
     
         self.view.frame.size.width = Block.width * (30 / 16)
@@ -206,15 +217,23 @@ class Player {
         self.canMove = true
         
         self.health = Player.maxHealth
-        self.energy = Player.maxEnergy
+        
+        for i in 0 ..< self.energies.count {
+            self.energies[i] = Player.maxEnergy
+        }
 
         self.direction = "right"
         
 //        self.power = "regular"
         self.power = "cutter"
+        
+        self.energyPos = 0
 
         self.healthBar.setEnergy(energy: self.health)
-        self.energyBar.setEnergy(energy: self.energy)
+        
+        if self.energyPos >= 0 {
+            self.energyBar.setEnergy(energy: self.energies[self.energyPos])
+        }
     }
     
     func move(direction: String) {
@@ -720,7 +739,8 @@ class Player {
             
         } else if self.power == "cutter" {
             
-            if bullets.count < 1 {
+            if bullets.count < 1 && self.energies[self.energyPos] >= self.energyCosts[self.energyPos]  {
+                
                 canShootBullet = true
             }
         }
@@ -734,6 +754,10 @@ class Player {
                 
                 if self.isClimbing == false || (self.isClimbing == true && self.ySpeed == 0) {
                     
+                    self.energies[self.energyPos] -= self.energyCosts[self.energyPos]
+
+                    self.energyBar.setEnergy(energy: self.energies[self.energyPos])
+
                     self.isShooting = true
                     self.isShootingAnimation = true
                     
@@ -955,7 +979,11 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            self.view.image = Player.climbShootRightImage
+            if self.power == "regular" {
+                self.view.image = Player.climbShootRightImage
+            } else {
+                self.view.image = Player.climbThrowRightImage
+            }
             
             if direction == "left" {
                 
@@ -998,7 +1026,11 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            self.view.image = Player.jumpShootRightImage
+            if self.power == "regular" {
+                self.view.image = Player.jumpShootRightImage
+            } else {
+                self.view.image = Player.jumpThrowRightImage
+            }
 
         } else {
             
@@ -1011,8 +1043,12 @@ class Player {
         self.view.stopAnimating()
         
         if self.isShootingAnimation == true {
-
-            self.view.animationImages = Player.runShootRightImages as! [UIImage]
+            
+            if self.power == "regular" {
+                self.view.animationImages = Player.runShootRightImages as! [UIImage]
+            } else {
+                self.view.animationImages = Player.runThrowRightImages as! [UIImage]
+            }
             
             self.view.animationDuration = Player.animationCycleTime
             self.view.startAnimating()
@@ -1035,7 +1071,11 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            self.view.image = Player.standShootRightImage
+            if self.power == "regular" {
+                self.view.image = Player.standShootRightImage
+            } else {
+                self.view.image = Player.standThrowRightImage
+            }
 
         } else {
 
@@ -1063,23 +1103,27 @@ class Player {
             
         } else if type == "largeEnergy" {
             
-            self.energy += 3
+            if self.energyPos >= 0 {
+                self.energies[self.energyPos] += 3
+            }
             
         } else if type == "smallEnergy" {
             
-            self.energy += 1
+            if self.energyPos >= 0 {
+                self.energies[self.energyPos] += 1
+            }
         }
 
         if self.health > Player.maxHealth {
             self.health = Player.maxHealth
         }
         
-        if self.energy > Player.maxEnergy {
-            self.energy = Player.maxEnergy
+        if self.energies[self.energyPos] > Player.maxEnergy {
+            self.energies[self.energyPos] = Player.maxEnergy
         }
         
         self.healthBar.setEnergy(energy: self.health)
-        self.energyBar.setEnergy(energy: self.energy)
+        self.energyBar.setEnergy(energy: self.energies[self.energyPos])
     }
     
     func didHitPowerup() -> Int {
