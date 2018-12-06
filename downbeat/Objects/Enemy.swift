@@ -12,28 +12,28 @@ class Enemy {
     
     // CONSTANTS
     
-//    static let maxFallSpeed: CGFloat = 4
-//
-//    static let maxMoveSpeed: CGFloat = 1
-//
-//    static let ySpeedChange: CGFloat = 0.08
+    //    static let maxFallSpeed: CGFloat = 4
+    //
+    //    static let maxMoveSpeed: CGFloat = 1
+    //
+    //    static let ySpeedChange: CGFloat = 0.08
     
     static let color: UIColor = UIColor.clear
-//    static let color: UIColor = UIColor.green
+    //    static let color: UIColor = UIColor.green
     
     static let followerImages = [UIImage(named: "follower1"), UIImage(named: "follower2"), UIImage(named: "follower3"), UIImage(named: "follower4"), UIImage(named: "follower5"), UIImage(named: "follower6")]
     
     static let hatLeft1Image = UIImage(named: "hatEnemyLeft1")
     static let hatLeft2Image = UIImage(named: "hatEnemyLeft2")
-
+    
     static let penguinLeftImages = [UIImage(named: "penguinEnemyLeft1"), UIImage(named: "penguinEnemyLeft2")]
-
+    
     // VARIABLES
     
     var maxHealth: Int = 0
     
     var damage: Int = 0
-
+    
     var width: CGFloat = 0
     var height: CGFloat = 0
     
@@ -54,8 +54,8 @@ class Enemy {
     var isJumping: Bool = false
     
     var isShooting: Bool = false
-//    var isShootingAnimation: Bool = false
-
+    //    var isShootingAnimation: Bool = false
+    
     var isMoving: Bool = false
     
     var isHit: Bool = false
@@ -78,9 +78,9 @@ class Enemy {
     var shootTimeInterval: CGFloat = 0
     
     var totalShootTimeInterval: CGFloat = 0
-
+    
     var isUsed: Bool = false
-
+    
     var view: UIImageView = UIImageView()
     
     init(xPos: Int, yPos: Int, type: String) {
@@ -95,7 +95,7 @@ class Enemy {
         
         self.setup(x: x, y: y, type: type)
     }
-
+    
     func setup(x: CGFloat, y: CGFloat, type: String) {
         
         self.type = type
@@ -143,7 +143,7 @@ class Enemy {
         self.health = self.maxHealth
         
         self.setXY(x: x, y: y)
-
+        
         self.view.frame.size.width = self.width
         self.view.frame.size.height = self.height
         
@@ -154,7 +154,7 @@ class Enemy {
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
         self.view.stopAnimating()
-
+        
         if self.type == "follower" {
             
             self.view.animationImages = Enemy.followerImages as! [UIImage]
@@ -164,11 +164,11 @@ class Enemy {
             
         } else if self.type == "hat" {
             
-//            self.shootTimeInterval = 3.25
+            //            self.shootTimeInterval = 3.25
             self.shootTimeInterval = 2.25
             
             self.totalShootTimeInterval = 0.875
-
+            
             self.view.image = Enemy.hatLeft1Image
             
             if self.direction == "right" {
@@ -180,7 +180,7 @@ class Enemy {
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
             
-//            self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
+            //            self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
             
         } else if self.type == "penguin" {
             
@@ -202,39 +202,39 @@ class Enemy {
     
     func reset() {
         
-//        if self.type == "follower" {
-//
-//            self.direction = "left"
-//
-//        } else if self.type == "penguin" {
-//
-//            self.direction = "left"
-//        }
-//
-//        self.isFalling = false
-//
-//        self.xSpeed = 0
-//        self.ySpeed = 0
-//
-//        self.isRising = false
-//
-//        self.isJumping = false
-//
-//        self.isShooting = false
-////        self.isShootingAnimation = false
-//
-//        self.isMoving = false
-//
-//        self.isHit = false
-//
-//        self.isMovingLeft = false
-//        self.isMovingRight = false
-//
-//        self.canMove = true
-//
-//        self.health = self.maxHealth
-//
-//        self.setXY(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2))
+        //        if self.type == "follower" {
+        //
+        //            self.direction = "left"
+        //
+        //        } else if self.type == "penguin" {
+        //
+        //            self.direction = "left"
+        //        }
+        //
+        //        self.isFalling = false
+        //
+        //        self.xSpeed = 0
+        //        self.ySpeed = 0
+        //
+        //        self.isRising = false
+        //
+        //        self.isJumping = false
+        //
+        //        self.isShooting = false
+        ////        self.isShootingAnimation = false
+        //
+        //        self.isMoving = false
+        //
+        //        self.isHit = false
+        //
+        //        self.isMovingLeft = false
+        //        self.isMovingRight = false
+        //
+        //        self.canMove = true
+        //
+        //        self.health = self.maxHealth
+        //
+        //        self.setXY(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2))
         
         self.xSpeed = 0
         self.ySpeed = 0
@@ -257,7 +257,7 @@ class Enemy {
         self.canMove = true
         
         self.isUsed = false
-
+        
         self.setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: self.type)
     }
     
@@ -270,7 +270,7 @@ class Enemy {
             if self.isShooting == true {
                 
                 self.view.image = Enemy.hatLeft2Image
-
+                
             } else {
                 
                 self.view.image = Enemy.hatLeft1Image
@@ -290,13 +290,13 @@ class Enemy {
                 self.direction = "right"
                 
                 self.xSpeed = self.moveSpeed
-
+                
             } else if player.x < self.x {
                 
                 self.direction = "left"
                 
                 self.xSpeed = -self.moveSpeed
-
+                
             } else {
                 
                 self.xSpeed = 0
@@ -375,6 +375,10 @@ class Enemy {
                     } else if bullets[i].type == "cutter" {
                         
                         return i
+                        
+                    } else if bullets[i].type == "blade" {
+                        
+                        return i
                     }
                     
                 } else if self.type == "penguin" {
@@ -395,7 +399,7 @@ class Enemy {
     func handleHit(bulletDamage: Int) {
         
         self.isHit = true
-
+        
         self.health -= bulletDamage
         
         self.isHit = false
@@ -410,12 +414,12 @@ class Enemy {
         return false
     }
     
-//    func jump() {
-//
-//    }
-
+    //    func jump() {
+    //
+    //    }
+    
     @objc func shoot() {
-
+        
         if self.isShooting == false {
             
             self.isShooting = true
@@ -433,21 +437,21 @@ class Enemy {
             
             if self.direction == "left" {
                 
-//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: -0.75, type: "smallRegular"))
-//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0, type: "smallRegular"))
-//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0.75, type: "smallRegular"))
+                //                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: -0.75, type: "smallRegular"))
+                //                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0, type: "smallRegular"))
+                //                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0.75, type: "smallRegular"))
                 
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: -1.5, type: "smallRegular"))
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0, type: "smallRegular"))
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 1.5, type: "smallRegular"))
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
-
+                
             } else if self.direction == "right" {
                 
-//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: -0.75, type: "smallRegular"))
-//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0, type: "smallRegular"))
-//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0.75, type: "smallRegular"))
+                //                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: -0.75, type: "smallRegular"))
+                //                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0, type: "smallRegular"))
+                //                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0.75, type: "smallRegular"))
                 
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: -1.5, type: "smallRegular"))
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0, type: "smallRegular"))
@@ -461,23 +465,23 @@ class Enemy {
         }
     }
     
-//    func updateFreeze() {
-//
-//        if isPaused == true {
-//
-//            if self.view.isAnimating == true {
-//                self.view.stopAnimating()
-//            }
-//
-//        } else {
-//
-//            self.view.startAnimating()
-//        }
-//    }
+    //    func updateFreeze() {
+    //
+    //        if isPaused == true {
+    //
+    //            if self.view.isAnimating == true {
+    //                self.view.stopAnimating()
+    //            }
+    //
+    //        } else {
+    //
+    //            self.view.startAnimating()
+    //        }
+    //    }
     
     @objc func stopShoot() {
         
-//        self.canMove = true
+        //        self.canMove = true
         
         self.isShooting = false
     }
