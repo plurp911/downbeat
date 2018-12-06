@@ -16,6 +16,8 @@ class EnemyBullet {
 //    static let color: UIColor = UIColor.red
     
     static let smallRegularEnemyBulletImage = UIImage(named: "smallRegularEnemyBullet")
+    
+    static let mediumRegularEnemyBulletImage = UIImage(named: "mediumRegularEnemyBullet")
 
     // VARIABLES
     
@@ -48,6 +50,15 @@ class EnemyBullet {
             self.damage = 1
             
             self.view.image = EnemyBullet.smallRegularEnemyBulletImage
+            
+        } else if self.type == "mediumRegular" {
+            
+            self.width = Block.width * (8 / 16)
+            self.height = self.width
+            
+            self.damage = 1
+            
+            self.view.image = EnemyBullet.mediumRegularEnemyBulletImage
         }
         
         self.setXY(x: x, y: y)
