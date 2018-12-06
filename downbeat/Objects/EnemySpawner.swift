@@ -46,7 +46,7 @@ class EnemySpawner {
             self.width = Block.width * (14 / 16)
             self.height = Block.height * (15 / 16)
             
-            self.spawnTimeInterval = 2
+            self.spawnTimeInterval = 3
             
 //            self.spawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.spawnTimeInterval), target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
         }
@@ -93,6 +93,8 @@ class EnemySpawner {
         
         if self.spawnTimer.isValid == false {
             
+            self.createEnemy()
+            
             self.spawnTimer.invalidate()
             
             self.spawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.spawnTimeInterval), target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
@@ -104,6 +106,21 @@ class EnemySpawner {
     }
     
     @objc func createEnemy() {
-        selectedEnemies.append(Enemy(x: self.x, y: self.y, type: self.type))
+        
+//        var enemyCount: Int = 0
+//
+//        for enemy in selectedEnemies {
+//
+//            if enemy.type == self.type && enemy.isUsed == false {
+//                enemyCount += 1
+//            }
+//        }
+//
+//        print(enemyCount)
+//        
+//        if enemyCount < 3 {
+            selectedEnemies.append(Enemy(x: self.x, y: self.y, type: self.type))
+//        }
     }
+    
 }
