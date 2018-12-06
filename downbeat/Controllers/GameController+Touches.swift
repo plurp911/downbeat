@@ -54,9 +54,9 @@ extension GameController {
                 
 //                let position = touch.location(in: touchView)
                 
-                isOnJoyStick = false
-                
-                joystick.resetInnerXY()
+//                isOnJoyStick = false
+//                
+//                joystick.resetInnerXY()
             }
             
         }

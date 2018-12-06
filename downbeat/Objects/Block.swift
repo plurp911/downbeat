@@ -35,6 +35,8 @@ class Block {
     
     var isLadder: Bool = false
     var isTopLadder: Bool = false
+    
+    var isSpike: Bool = false
 
     var view: UIImageView = UIImageView()
     
@@ -52,6 +54,10 @@ class Block {
         } else if self.type == "topLadder" {
             
             self.isTopLadder = true
+            
+        } else if self.type == "spike" {
+            
+            self.isSpike = true
         }
         
         self.x = (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2)

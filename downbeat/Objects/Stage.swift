@@ -70,10 +70,11 @@ class Stage {
                 let newText = stageText[i].components(separatedBy: ".")
 
                 textArray[i] = newText
+                textArray[i].removeLast()
             }
             
         } catch let error { print(error) }
-        
+                
         self.numberOfHorizontalBlocks = textArray[0].count
         
         for i in 0 ..< textArray.count {
@@ -108,7 +109,7 @@ class Stage {
 //                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowTopBlock"))
 //                    }
                     
-                    if isEqual(i: i - 1, j: j, block: "#") == false {
+                    if isEqual(i: i - 1, j: j, block: "#") == false && i > 0 {
                         
                         blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: tileSet))
                         
@@ -129,6 +130,8 @@ class Stage {
                         blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: tileSet))
                     }
                     
+                } else if text == "^" {
+//                    blocks.append(Block(xPos: j, yPos: i, type: "spike", tileSet: tileSet))
                 } else if text == "H" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "hat", direction: "right"))
                 } else if text == "h" {

@@ -20,8 +20,9 @@ class Player {
     
     static let maxFallSpeed: CGFloat = 4
     
-    static let maxMoveSpeed: CGFloat = 1
-    
+//    static let maxMoveSpeed: CGFloat = 1
+    static let maxMoveSpeed: CGFloat = 1.125
+
     static let climbSpeed: CGFloat = 0.75
     
     //    static let knockBackMoveSpeed: CGFloat = 0.5
@@ -480,7 +481,7 @@ class Player {
                 
                 if isTransitioningUp == false {
                     
-                    if currentLevel?.isNextStage(direction: "up") != nil {
+                    if currentLevel?.isNextStage(direction: "up") != nil && (((CGFloat)((currentStage?.numberOfHorizontalBlocks)!) <= (CGFloat)(numberOfVerticalBricks) * screenRatio) || abs(player.x - ((screenSize.height * screenRatio) / 2)) > Player.maxMoveSpeed) {
                         
                         nextStage = currentLevel?.isNextStage(direction: "up")
                         
@@ -534,7 +535,7 @@ class Player {
                 
                 if isTransitioningDown == false {
                     
-                    if currentLevel?.isNextStage(direction: "down") != nil {
+                    if currentLevel?.isNextStage(direction: "down") != nil && (((CGFloat)((currentStage?.numberOfHorizontalBlocks)!) <= (CGFloat)(numberOfVerticalBricks) * screenRatio) || abs(player.x - ((screenSize.height * screenRatio) / 2)) > Player.maxMoveSpeed) {
                         
                         nextStage = currentLevel?.isNextStage(direction: "down")
                         
@@ -809,35 +810,39 @@ class Player {
                         
                         if self.direction == "left" {
                             
-                            if isUpPressed == true {
-                                
-                                bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upLeft", type: self.power))
-                                
-                            } else if isDownPressed == true {
-                                
-                                bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downLeft", type: self.power))
-                                
-                            } else {
-                                
-                                bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
-                            }
+//                            if isUpPressed == true {
+//
+//                                bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upLeft", type: self.power))
+//
+//                            } else if isDownPressed == true {
+//
+//                                bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downLeft", type: self.power))
+//
+//                            } else {
+//
+//                                bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+//                            }
+                            
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upLeft", type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downLeft", type: self.power))
                             
                         } else if self.direction == "right" {
                             
+//                            if isUpPressed == true {
+//
+//                                bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upRight", type: self.power))
+//
+//                            } else if isDownPressed == true {
+//
+//                                bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downRight", type: self.power))
+//
+//                            } else {
+//
+//                                bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+//                            }
                             
-                            if isUpPressed == true {
-                                
-                                bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upRight", type: self.power))
-                                
-                            } else if isDownPressed == true {
-                                
-                                bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downRight", type: self.power))
-                                
-                            } else {
-                                
-                                bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
-                            }
-                            
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upRight", type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downRight", type: self.power))
                         }
                     }
                     
