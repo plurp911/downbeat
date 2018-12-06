@@ -32,7 +32,13 @@ class Enemy {
 
     static let headImages = [UIImage(named: "headEnemy1"), UIImage(named: "headEnemy2")]
 
-    static let footImages = [UIImage(named: "footEnemy1"), UIImage(named: "footEnemy2")]
+    static let foot1Image = UIImage(named: "footEnemy1")
+    static let foot2Image = UIImage(named: "footEnemy2")
+    static let footImages = [foot1Image, foot2Image]
+
+    static let checkMargin: CGFloat = Block.width * (1 / 16)
+
+    static var bulletsToRemove = [Int]()
 
     // VARIABLES
     
@@ -81,11 +87,19 @@ class Enemy {
     var endShootTimer = Timer()
     //    var endShootAnimation = Timer()
     
+    var endStunTimer = Timer()
+    
     var shootTimeInterval: CGFloat = 0
     
     var totalShootTimeInterval: CGFloat = 0
     
+    var stunTimeInterval: CGFloat = 0
+
     var isUsed: Bool = false
+    
+    var isStunned: Bool = false
+    
+    var yRange: CGFloat = 0
     
     var view: UIImageView = UIImageView()
     
@@ -166,7 +180,7 @@ class Enemy {
             
             self.moveSpeed = 0.8125
             
-            self.direction = "left"
+//            self.direction = "left"
             
         } else if self.type == "foot" {
             
@@ -179,7 +193,9 @@ class Enemy {
             
             self.moveSpeed = 0.375
             
-//            self.direction = "left"
+            self.yRange = Block.height * (2 / 16)
+            
+            self.direction = "right"
             
         } else if self.type == "eye" {
             
@@ -219,6 +235,8 @@ class Enemy {
             
         } else if self.type == "hat" {
             
+            setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            
             //            self.shootTimeInterval = 3.25
             self.shootTimeInterval = 2.25
             
@@ -250,7 +268,14 @@ class Enemy {
             
         } else if self.type == "foot" {
             
-
+            setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            
+            self.stunTimeInterval = 1.75
+            
+            self.view.animationImages = Enemy.footImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.15
+            self.view.startAnimating()
             
         } else if self.type == "eye" {
             
@@ -326,6 +351,8 @@ class Enemy {
         
         self.isUsed = false
         
+        self.isStunned = false
+        
         self.setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: self.type)
     }
     
@@ -352,7 +379,18 @@ class Enemy {
             
         } else if type == "foot" {
             
-            
+            if self.isStunned == true {
+                
+                self.view.stopAnimating()
+                
+//                if (Int)(self.x) % 2 == 0 {
+//                    self.view.image = Enemy.foot1Image
+//                } else {
+//                    self.view.image = Enemy.foot2Image
+//                }
+                
+                self.view.image = Enemy.foot2Image
+            }
             
         } else if type == "eye" {
             
@@ -395,8 +433,6 @@ class Enemy {
                 self.ySpeed = 0
             }
             
-            setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
-            
         } else if self.type == "hat" {
             
         } else if self.type == "penguin" {
@@ -408,21 +444,99 @@ class Enemy {
             self.xSpeed = -self.moveSpeed
             self.ySpeed = 0
             
-            setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
-            
         } else if self.type == "head" {
             
             
             
         } else if self.type == "foot" {
             
+            self.ySpeed = 0
             
+            if self.isStunned == true {
+                
+                self.xSpeed = 0
+
+            } else {
+            
+                var isEmpty1: Bool = true
+                var isEmpty2: Bool = true
+                
+                for block in selectedBlocks {
+                    
+                    if self.y + (self.height / 2) + Enemy.checkMargin < block.y + (Block.height / 2) && self.y + (self.height / 2) + Enemy.checkMargin > block.y - (Block.height / 2) && (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2)) {
+                        
+                        isEmpty1 = false
+                    }
+                    
+                    if self.y + (self.height / 2) + Enemy.checkMargin < block.y + (Block.height / 2) && self.y + (self.height / 2) + Enemy.checkMargin > block.y - (Block.height / 2) && (self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) {
+                        
+                        isEmpty2 = false
+                    }
+                }
+                
+                if isEmpty1 == true || isEmpty2 == true {
+                    
+                    if self.direction == "left" {
+                        
+                        self.direction = "right"
+                        
+                    } else if self.direction == "right" {
+                        
+                        self.direction = "left"
+                    }
+                    
+                } else {
+                    
+                    let offset: CGFloat = Block.width * (1 / 16) * 0.1
+                    
+                    if direction == "right" {
+                        
+                        for block in selectedBlocks {
+                            
+                            if self.x + (self.width / 2) + (self.moveSpeed * 3) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 3) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (self.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                
+                                self.direction = "left"
+                                
+                                setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 3), y: self.y)
+                            }
+                        }
+                        
+                    } else if direction == "left" {
+                        
+                        for block in selectedBlocks {
+                            
+                            if self.x + (self.width / 2) + (self.moveSpeed * 3) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 3) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                
+                                self.direction = "right"
+                                
+                                setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 3), y: self.y)
+                            }
+                        }
+                        
+                    }
+                }
+
+                if abs((self.y + (self.height / 2)) - (player.y + (Player.height / 2))) <= self.yRange {
+                    
+                    self.xSpeed = moveSpeed * 3
+                    
+                } else {
+                    
+                    self.xSpeed = moveSpeed
+                }
+                
+                if self.direction == "left" {
+                    self.xSpeed = -self.xSpeed
+                }
+            }
             
         } else if self.type == "eye" {
             
             
             
         }
+        
+        setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
     }
     
     func isInBounds() -> Bool {
@@ -436,7 +550,7 @@ class Enemy {
     
     func didHitBullet() -> Int {
         
-        var bulletsToRemove = [Int]()
+        Enemy.bulletsToRemove.removeAll()
         
         for i in 0 ..< bullets.count {
             
@@ -478,7 +592,7 @@ class Enemy {
                     
                 } else if self.type == "foot" {
                     
-                    self.handleDeflectBullet(i: i)
+                    return i
                     
                 } else if self.type == "eye" {
                     
@@ -488,8 +602,8 @@ class Enemy {
             }
         }
         
-        if bulletsToRemove.count > 0 {
-            removeObjects(type: "bullets", toRemove: bulletsToRemove)
+        if Enemy.bulletsToRemove.count > 0 {
+            removeObjects(type: "bullets", toRemove: Enemy.bulletsToRemove)
         }
         
         return -1
@@ -503,14 +617,25 @@ class Enemy {
             deflectedBullets.append(DeflectedBullet(x: bullets[i].x, y: bullets[i].y, direction: "right"))
         }
         
-        bulletsToRemove.append(i)
+        Enemy.bulletsToRemove.append(i)
     }
     
     func handleHit(bulletDamage: Int) {
         
         self.isHit = true
-        
-        self.health -= bulletDamage
+
+        if self.type == "foot" {
+            
+            self.isStunned = true
+            
+            self.endStunTimer.invalidate()
+            
+            self.endStunTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.stunTimeInterval), target: self, selector: #selector(stopStun), userInfo: nil, repeats: false)
+
+        } else {
+            
+            self.health -= bulletDamage
+        }
         
         self.isHit = false
     }
@@ -608,6 +733,16 @@ class Enemy {
         self.isShooting = false
     }
     
+    @objc func stopStun() {
+        
+        self.isStunned = false
+        
+        self.view.animationImages = Enemy.footImages as! [UIImage]
+        
+        self.view.animationDuration = 0.85 * 0.15
+        self.view.startAnimating()
+    }
+    
     func startTimers() {
         
         if self.shootTimeInterval > 0 {
@@ -625,5 +760,6 @@ class Enemy {
     func endTimers() {
         self.shootTimer.invalidate()
         self.endShootTimer.invalidate()
+        self.endStunTimer.invalidate()
     }
 }

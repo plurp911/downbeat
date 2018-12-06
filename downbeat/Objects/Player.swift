@@ -1434,4 +1434,25 @@ class Player {
     //
     //        isPaused = false
     //    }
+    
+//    func setImages(images: [UIImage]) {
+//
+//    }
+//
+//    func startAnimation(images: [UIImage]) {
+//
+//    }
+//
+//    func stopAnimation(images: [UIImage]) {
+//
+//    }
+//
+//    func pauseAnimation(images: [UIImage]) {
+//
+//    }
+//
+//    func resumeAnimation(images: [UIImage]) {
+//
+//    }
+    
 }

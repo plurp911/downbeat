@@ -130,9 +130,13 @@ class Stage {
                     }
                     
                 } else if text == "H" {
-                    enemies.append(Enemy(xPos: j, yPos: i, type: "hat"))
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "hat", direction: "right"))
+                } else if text == "h" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "hat", direction: "left"))
                 } else if text == "F" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "follower"))
+                } else if text == "f" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "foot"))
                 } else if text == "P" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "penguin"))
                 } else if text == "S" {
