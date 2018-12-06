@@ -20,8 +20,8 @@ class Player {
     
     static let maxFallSpeed: CGFloat = 4
     
-//    static let maxMoveSpeed: CGFloat = 1
-    static let maxMoveSpeed: CGFloat = 1.125
+    static let maxMoveSpeed: CGFloat = 1
+//    static let maxMoveSpeed: CGFloat = 1.125
 
     static let climbSpeed: CGFloat = 0.75
     
@@ -110,7 +110,7 @@ class Player {
     var energyPos: Int = -1
     
     var energies: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
-    var energyCosts: [Int] = [5, 5, 0, 0, 0, 0, 0, 0]
+    var energyCosts: [Int] = [3, 4, 4, 0, 0, 0, 0, 0]
     
     var direction: String = "right"
     
@@ -228,12 +228,14 @@ class Player {
         
         //        self.power = "regular"
         //        self.power = "cutter"
-        self.power = "blade"
-        
+//        self.power = "blade"
+        self.power = "beam"
+
         //        self.energyPos = -1
         //        self.energyPos = 0
-        self.energyPos = 1
-        
+//        self.energyPos = 1
+        self.energyPos = 2
+
         self.healthBar.setEnergy(energy: self.health)
         
         if self.energyPos >= 0 {
@@ -374,6 +376,18 @@ class Player {
                 
             }
             
+            for bullet in bullets {
+                
+                if bullet.type == "beam" {
+                    
+                    if self.y + (Player.height / 2) + self.ySpeed < bullet.y + (bullet.height / 2) && self.y + (Player.height / 2) + self.ySpeed > bullet.y - (bullet.height / 2) && ((self.x + (Player.width / 2) <= bullet.x + (bullet.width / 2) && self.x + (Player.width / 2) > bullet.x - (bullet.width / 2)) || (self.x - (Player.width / 2) < bullet.x + (bullet.width / 2) && self.x - (Player.width / 2) >= bullet.x - (bullet.width / 2))) {
+                        
+                        isEmpty = false
+                    }
+                }
+                
+            }
+            
             if isEmpty == true {
                 
                 self.isFalling = true
@@ -427,8 +441,33 @@ class Player {
                     }
                     
                 }
+                
+                for bullet in bullets {
+                    
+                    if bullet.type == "beam" {
+                        
+                        if self.y + (Player.height / 2) + self.ySpeed < bullet.y + (bullet.height / 2) && self.y + (Player.height / 2) + self.ySpeed > bullet.y - (bullet.height / 2) && ((self.x + (Player.width / 2) <= bullet.x + (bullet.width / 2) && self.x + (Player.width / 2) > bullet.x - (bullet.width / 2)) || (self.x - (Player.width / 2) < bullet.x + (bullet.width / 2) && self.x - (Player.width / 2) >= bullet.x - (bullet.width / 2))) {
+
+                            self.isJumping = false
+                            self.isFalling = false
+                            
+                            self.ySpeed = 0
+                            
+                            self.isAtPeak = false
+                            
+                            setXY(x: self.x, y: bullet.y - (bullet.height / 2) - (Player.height / 2))
+                            
+                            if self.isClimbing == true {
+
+                                self.isClimbing = false
+                            }
+
+                        }
+                    }
+                    
+                }
+                
             }
-            
         }
         
         if self.isRising == true {
@@ -755,6 +794,13 @@ class Player {
                 
                 canShootBullet = true
             }
+            
+        } else if self.power == "beam" {
+            
+            if self.energies[self.energyPos] >= self.energyCosts[self.energyPos]  {
+                
+                canShootBullet = true
+            }
         }
         
         if canShootBullet == true {
@@ -843,6 +889,17 @@ class Player {
                             
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upRight", type: self.power))
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downRight", type: self.power))
+                        }
+                        
+                    } else if self.power == "beam" {
+                        
+                        if self.direction == "left" {
+                            
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            
+                        } else if self.direction == "right" {
+                            
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
                         }
                     }
                     
@@ -1030,7 +1087,7 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            if self.power == "regular" {
+            if self.power == "regular" || self.power == "beam" {
                 self.view.image = Player.climbShootRightImage
             } else {
                 self.view.image = Player.climbThrowRightImage
@@ -1077,7 +1134,7 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            if self.power == "regular" {
+            if self.power == "regular" || self.power == "beam" {
                 self.view.image = Player.jumpShootRightImage
             } else {
                 self.view.image = Player.jumpThrowRightImage
@@ -1095,7 +1152,7 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            if self.power == "regular" {
+            if self.power == "regular" || self.power == "beam" {
                 self.view.animationImages = Player.runShootRightImages as! [UIImage]
             } else {
                 self.view.animationImages = Player.runThrowRightImages as! [UIImage]
@@ -1122,7 +1179,7 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            if self.power == "regular" {
+            if self.power == "regular" || self.power == "beam" {
                 self.view.image = Player.standShootRightImage
             } else {
                 self.view.image = Player.standThrowRightImage

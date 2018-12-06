@@ -428,6 +428,18 @@ extension GameController {
             
             removeObjects(type: "bullets", toRemove: bulletsToRemove)
             
+            bulletsToRemove.removeAll()
+
+            for i in 0 ..< bullets.count {
+                
+                if bullets[i].type == "beam" && bullets[i].shouldRemove == true {
+                    
+                    bulletsToRemove.append(i)
+                }
+            }
+            
+            removeObjects(type: "bullets", toRemove: bulletsToRemove)
+            
             var selectedEnemiesToRemove = [Int]()
             
             bulletsToRemove.removeAll()

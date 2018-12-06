@@ -562,49 +562,52 @@ class Enemy {
         
         for i in 0 ..< bullets.count {
             
-            if bullets[i].x + (bullets[i].width / 2) >= self.x - (self.width / 2) && bullets[i].x - (bullets[i].width / 2) <= self.x + (self.width / 2) && bullets[i].y + (bullets[i].height / 2) >= self.y - (self.height / 2) && bullets[i].y - (bullets[i].height / 2) <= self.y + (self.height / 2) {
+            if bullets[i].type != "beam" {
                 
-                if self.type == "follower" {
+                if bullets[i].x + (bullets[i].width / 2) >= self.x - (self.width / 2) && bullets[i].x - (bullets[i].width / 2) <= self.x + (self.width / 2) && bullets[i].y + (bullets[i].height / 2) >= self.y - (self.height / 2) && bullets[i].y - (bullets[i].height / 2) <= self.y + (self.height / 2) {
                     
-                    return i
-                    
-                } else if self.type == "hat" {
-                    
-                    if bullets[i].type == "regular" {
+                    if self.type == "follower" {
                         
-                        if self.isShooting == true {
+                        return i
+                        
+                    } else if self.type == "hat" {
+                        
+                        if bullets[i].type == "regular" {
+                            
+                            if self.isShooting == true {
+                                
+                                return i
+                                
+                            } else {
+                                
+                                self.handleDeflectBullet(i: i)
+                            }
+                            
+                        } else if bullets[i].type == "cutter" {
                             
                             return i
                             
-                        } else {
+                        } else if bullets[i].type == "blade" {
                             
-                            self.handleDeflectBullet(i: i)
+                            return i
                         }
                         
-                    } else if bullets[i].type == "cutter" {
+                    } else if self.type == "penguin" {
                         
                         return i
                         
-                    } else if bullets[i].type == "blade" {
+                    } else if self.type == "head" {
+                        
+                        return i
+                        
+                    } else if self.type == "foot" {
+                        
+                        return i
+                        
+                    } else if self.type == "eye" {
                         
                         return i
                     }
-                    
-                } else if self.type == "penguin" {
-                    
-                    return i
-                    
-                } else if self.type == "head" {
-                    
-                    return i
-                    
-                } else if self.type == "foot" {
-                    
-                    return i
-                    
-                } else if self.type == "eye" {
-                    
-                    return i
                 }
                 
             }

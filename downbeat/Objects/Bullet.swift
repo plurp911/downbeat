@@ -17,10 +17,12 @@ class Bullet {
     
     static let regularImage = UIImage(named: "regularBulletRight")
     
-    static let cutterImagesRight = [UIImage(named: "cutterBulletUp"), UIImage(named: "cutterBulletRight"), UIImage(named: "cutterBulletDown"), UIImage(named: "cutterBulletLeft")]
+    static let cutterRightImages = [UIImage(named: "cutterBulletUp"), UIImage(named: "cutterBulletRight"), UIImage(named: "cutterBulletDown"), UIImage(named: "cutterBulletLeft")]
     
     static let bladeImages = [UIImage(named: "bladeBullet1"), UIImage(named: "bladeBullet2")]
     
+    static let beamRightImages = [UIImage(named: "beamBulletRight1"), UIImage(named: "beamBulletRight2")]
+
     // VARIABLES
     
     var width: CGFloat = 0
@@ -45,6 +47,12 @@ class Bullet {
     
     var didReachGoal: Bool = false
     
+    var shouldRemove: Bool = false
+    
+    var removeTimer = Timer()
+    
+    var removeTimeInterval: CGFloat = 2
+
     var view: UIImageView = UIImageView()
     
     init(x: CGFloat, y: CGFloat, direction: String, type: String) {
@@ -137,6 +145,11 @@ class Bullet {
                 self.xSpeed = self.moveSpeed
                 self.ySpeed = self.moveSpeed
             }
+            
+        } else if self.type == "beam" {
+            
+            self.width = Block.width
+            self.height = Block.height * (6 / 16)
         }
         
         self.setXY(x: x, y: y)
@@ -167,7 +180,7 @@ class Bullet {
             
         } else if self.type == "cutter" {
             
-            self.view.animationImages = Bullet.cutterImagesRight as! [UIImage]
+            self.view.animationImages = Bullet.cutterRightImages as! [UIImage]
             
             //            self.view.animationDuration = 0.85 * (4 / 6)
             self.view.animationDuration = 0.85 * 0.6875
@@ -191,7 +204,31 @@ class Bullet {
             self.view.animationDuration = 0.85 * 0.215
             
             self.view.startAnimating()
+            
+        } else if self.type == "beam" {
+            
+            self.view.animationImages = Bullet.beamRightImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.215
+            
+            self.view.startAnimating()
+
+            if self.direction == "left" {
+                
+                self.setXY(x: self.x - (self.width / 2), y: self.y)
+
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "right" {
+                
+                self.setXY(x: self.x + (self.width / 2), y: self.y)
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+            self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
         }
+        
     }
     
     func setXY(x: CGFloat, y: CGFloat) {
@@ -213,15 +250,6 @@ class Bullet {
     }
     
     func move() {
-        
-        //        print()
-        //        print("X")
-        //        print(self.x)
-        //        print("X GOAL")
-        //        print(self.xGoal)
-        //        print("DID REACH GOAL")
-        //        print(self.didReachGoal)
-        //        print()
         
         if self.type == "regular" {
             
@@ -309,7 +337,13 @@ class Bullet {
         } else if self.type == "blade" {
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+            
+        } else if self.type == "beam" {
+            
         }
     }
     
+    @objc func makeRemovable() {
+        self.shouldRemove = true
+    }
 }
