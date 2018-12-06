@@ -38,6 +38,56 @@ class EnemyBullet {
     
     init(x: CGFloat, y: CGFloat, xSpeed: CGFloat, ySpeed: CGFloat, type: String) {
         
+        setup(x: x, y: y, xSpeed: xSpeed, ySpeed: ySpeed, type: type)
+    }
+    
+    init(x: CGFloat, y: CGFloat, target: String, speed: CGFloat, type: String) {
+        
+        var newXSpeed: CGFloat = 0
+        var newYSpeed: CGFloat = 0
+        
+        if target == "player" {
+            
+            let xDist = x - player.x
+            var yDist = y - player.y
+            
+            if yDist == 0 {
+                yDist = 0.0001
+            }
+            
+            let ratio = xDist / yDist
+            let newDist = speed
+
+            var holder = (ratio * ratio) + 1
+            
+            if holder == 0 {
+                holder = 0.0001
+            }
+            
+            var newY = sqrt((newDist * newDist) / holder)
+            var newX = ratio * newY
+            
+            if yDist < 0 {
+                newY = -newY
+            }
+            
+            if xDist < 0 {
+                newX = -newX
+            }
+            
+            if (yDist > 0 && xDist < 0) || (yDist < 0 && xDist > 0) {
+                newX = -newX
+            }
+            
+            newXSpeed = -newX
+            newYSpeed = -newY
+        }
+        
+        setup(x: x, y: y, xSpeed: newXSpeed, ySpeed: newYSpeed, type: type)
+    }
+    
+    func setup(x: CGFloat, y: CGFloat, xSpeed: CGFloat, ySpeed: CGFloat, type: String) {
+        
         self.type = type
         
         self.view.stopAnimating()

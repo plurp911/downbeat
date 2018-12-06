@@ -132,6 +132,10 @@ class Stage {
                     
                 } else if text == "^" {
 //                    blocks.append(Block(xPos: j, yPos: i, type: "spike", tileSet: tileSet))
+                } else if text == "N" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "right"))
+                } else if text == "n" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "left"))
                 } else if text == "H" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "hat", direction: "right"))
                 } else if text == "h" {

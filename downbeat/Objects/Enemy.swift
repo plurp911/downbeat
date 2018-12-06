@@ -36,6 +36,10 @@ class Enemy {
     static let foot2Image = UIImage(named: "footEnemy2")
     static let footImages = [foot1Image, foot2Image]
 
+    static let snakeLeft1Image = UIImage(named: "snakeEnemyLeft1")
+    static let snakeLeft2Image = UIImage(named: "snakeEnemyLeft2")
+    static let snakeLeftShootImage = UIImage(named: "snakeEnemyLeftShoot")
+
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
     static var bulletsToRemove = [Int]()
@@ -68,6 +72,8 @@ class Enemy {
     var isShooting: Bool = false
     //    var isShootingAnimation: Bool = false
     
+    var isSignalling: Bool = false
+
     var isMoving: Bool = false
     
     var isHit: Bool = false
@@ -87,11 +93,14 @@ class Enemy {
     var shootTimer = Timer()
     var endShootTimer = Timer()
     //    var endShootAnimation = Timer()
-    
+
+    var signalTimer = Timer()
+
     var endStunTimer = Timer()
     
     var shootTimeInterval: CGFloat = 0
-    
+    var signalTimeInterval: CGFloat = 0
+
     var totalShootTimeInterval: CGFloat = 0
     
     var stunTimeInterval: CGFloat = 0
@@ -210,6 +219,19 @@ class Enemy {
             self.moveSpeed = 0.375
             
             //            self.direction = "left"
+            
+        } else if self.type == "snake" {
+            
+            self.maxHealth = 3
+            
+            self.damage = 3
+            
+            self.width = Block.width * (26 / 16)
+            self.height = Block.height * (23 / 16)
+            
+            self.moveSpeed = 0
+            
+            //            self.direction = "left"
         }
         
         self.health = self.maxHealth
@@ -282,6 +304,33 @@ class Enemy {
             
 
             
+        } else if self.type == "snake" {
+            
+            setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            
+            //            self.shootTimeInterval = 3.25
+            self.shootTimeInterval = 1.75
+            self.signalTimeInterval = 0.3
+
+            self.totalShootTimeInterval = 0.3
+            
+            self.view.image = Enemy.snakeLeft1Image
+            
+            if self.direction == "right" {
+                
+                setXY(x: self.x + (Block.width * (5 / 16)), y: self.y)
+
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                setXY(x: self.x - (Block.width * (5 / 16)), y: self.y)
+
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+            //            self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
+            
         }
         
         self.startDirection = self.direction
@@ -307,6 +356,8 @@ class Enemy {
         self.isJumping = false
         
         self.isShooting = false
+        
+        self.isSignalling = false
         
         self.isMoving = false
         
@@ -368,7 +419,31 @@ class Enemy {
             
             
             
+        } else if type == "snake" {
+            
+            if self.isShooting == true {
+                
+                self.view.image = Enemy.snakeLeftShootImage
+                
+            } else if self.isSignalling == true {
+                
+                self.view.image = Enemy.snakeLeft2Image
+                
+            } else {
+                
+                self.view.image = Enemy.snakeLeft1Image
+            }
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
         }
+        
     }
     
     func move() {
@@ -514,6 +589,27 @@ class Enemy {
             
             
             
+        } else if self.type == "snake" {
+            
+            if player.x > self.x {
+                
+                if self.direction == "left" {
+                 
+                    setXY(x: self.x + ((Block.width * (5 / 16) * 2)), y: self.y)
+                    
+                    self.direction = "right"
+                }
+                
+            } else if player.x < self.x {
+                
+                if self.direction == "right" {
+                    
+                    setXY(x: self.x - ((Block.width * (5 / 16) * 2)), y: self.y)
+                    
+                    self.direction = "left"
+                }
+            }
+            
         }
         
         setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
@@ -579,6 +675,10 @@ class Enemy {
                     } else if self.type == "eye" {
                         
                         return i
+                        
+                    } else if self.type == "snake" {
+                        
+                        return i
                     }
                 }
                 
@@ -641,9 +741,21 @@ class Enemy {
         if self.isShooting == false {
             
             self.isShooting = true
+            
+            self.isSignalling = false
+            
             //            self.isShootingAnimation = true
             
             self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(realShoot), userInfo: nil, repeats: false)
+        }
+    }
+    
+    @objc func signal() {
+        
+        if self.isSignalling == false {
+            
+            self.isSignalling = true
+            //            self.isShootingAnimation = true
         }
     }
     
@@ -692,7 +804,23 @@ class Enemy {
             
             
             
+        } else if self.type == "snake" {
+            
+            if self.direction == "left" {
+                
+//                enemyBullets.append(EnemyBullet(x: self.x - (Block.width * (4 / 16)), y: self.y + (Block.height * (2 / 16)), target: "player", type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x - (Block.width * (9 / 16)), y: self.y + (Block.height * (4 / 16)), target: "player", speed: 2, type: "mediumRegular"))
+
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+                
+            } else if self.direction == "right" {
+
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, target: "player", speed: 2, type: "mediumRegular"))
+
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            }
         }
+        
     }
     
     //    func updateFreeze() {
@@ -714,6 +842,9 @@ class Enemy {
         //        self.canMove = true
         
         self.isShooting = false
+        
+        self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
     }
     
     @objc func stopStun() {
@@ -734,7 +865,10 @@ class Enemy {
                 
                 self.shootTimer.invalidate()
                 
-                self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
+                //                self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
+                self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             }
         }
         
@@ -743,6 +877,7 @@ class Enemy {
     func endTimers() {
         self.shootTimer.invalidate()
         self.endShootTimer.invalidate()
+        self.signalTimer.invalidate()
         self.endStunTimer.invalidate()
     }
 }
