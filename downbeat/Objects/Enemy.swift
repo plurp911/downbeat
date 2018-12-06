@@ -493,11 +493,15 @@ class Enemy {
                         
                         for block in selectedBlocks {
                             
-                            if self.x + (self.width / 2) + (self.moveSpeed * 3) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 3) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (self.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                            if block.type != "ladder" && block.type != "topLadder" {
                                 
-                                self.direction = "left"
+                                if self.x + (self.width / 2) + (self.moveSpeed * 3) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 3) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (self.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                    
+                                    self.direction = "left"
+                                    
+                                    setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 3), y: self.y)
+                                }
                                 
-                                setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 3), y: self.y)
                             }
                         }
                         
@@ -505,11 +509,15 @@ class Enemy {
                         
                         for block in selectedBlocks {
                             
-                            if self.x + (self.width / 2) + (self.moveSpeed * 3) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 3) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                            if block.type != "ladder" && block.type != "topLadder" {
                                 
-                                self.direction = "right"
+                                if self.x + (self.width / 2) + (self.moveSpeed * 3) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 3) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                    
+                                    self.direction = "right"
+                                    
+                                    setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 3), y: self.y)
+                                }
                                 
-                                setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 3), y: self.y)
                             }
                         }
                         
