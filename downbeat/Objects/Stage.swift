@@ -461,8 +461,9 @@ class Stage {
             
             if enemy.isInBounds() == true {
                 
-                enemy.isUsed = false
+//                enemy.isUsed = false
                 
+                enemy.reset()
                 enemy.startTimers()
                 
                 selectedEnemies.append(enemy)
@@ -789,6 +790,7 @@ class Stage {
                             
                             if isMatch(object: self.enemies[self.enemyStartIndex], objectArray: selectedEnemies) == false {
                                 
+                                self.enemies[self.enemyEndIndex].reset()
                                 self.enemies[self.enemyStartIndex].startTimers()
                                 
                                 selectedEnemies.insert(self.enemies[self.enemyStartIndex], at: 0)
@@ -853,6 +855,7 @@ class Stage {
                             
                             if isMatch(object: self.enemies[self.enemyEndIndex], objectArray: selectedEnemies) == false {
                                 
+                                self.enemies[self.enemyEndIndex].reset()
                                 self.enemies[self.enemyEndIndex].startTimers()
 
                                 selectedEnemies.append(self.enemies[self.enemyEndIndex])

@@ -80,7 +80,8 @@ class Enemy {
     var health: Int = 0
     
     var direction: String = ""
-    
+    var startDirection: String = ""
+
     var type: String = ""
     
     var shootTimer = Timer()
@@ -109,7 +110,7 @@ class Enemy {
         self.yPos = yPos
         
         self.direction = direction
-        
+
         self.setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: type)
     }
     
@@ -142,7 +143,7 @@ class Enemy {
             self.moveSpeed = 0.375
             
             self.direction = "left"
-            
+
         } else if self.type == "hat" {
             
             self.maxHealth = 1
@@ -282,6 +283,8 @@ class Enemy {
 
             
         }
+        
+        self.startDirection = self.direction
     }
     
     func setXY(x: CGFloat, y: CGFloat) {
@@ -294,41 +297,7 @@ class Enemy {
     }
     
     func reset() {
-        
-        //        if self.type == "follower" {
-        //
-        //            self.direction = "left"
-        //
-        //        } else if self.type == "penguin" {
-        //
-        //            self.direction = "left"
-        //        }
-        //
-        //        self.isFalling = false
-        //
-        //        self.xSpeed = 0
-        //        self.ySpeed = 0
-        //
-        //        self.isRising = false
-        //
-        //        self.isJumping = false
-        //
-        //        self.isShooting = false
-        ////        self.isShootingAnimation = false
-        //
-        //        self.isMoving = false
-        //
-        //        self.isHit = false
-        //
-        //        self.isMovingLeft = false
-        //        self.isMovingRight = false
-        //
-        //        self.canMove = true
-        //
-        //        self.health = self.maxHealth
-        //
-        //        self.setXY(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2))
-        
+
         self.xSpeed = 0
         self.ySpeed = 0
         
@@ -338,7 +307,6 @@ class Enemy {
         self.isJumping = false
         
         self.isShooting = false
-        //    self.isShootingAnimation = false
         
         self.isMoving = false
         
@@ -353,6 +321,10 @@ class Enemy {
         
         self.isStunned = false
         
+        self.direction = self.startDirection
+
+        self.endTimers()
+       
         self.setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: self.type)
     }
     
