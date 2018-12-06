@@ -160,7 +160,7 @@ class Bullet {
             
             self.moveSpeed = 3
             
-            self.damage = 2
+            self.damage = 1
             
             if self.direction == "left" {
                 

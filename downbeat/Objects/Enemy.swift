@@ -42,6 +42,8 @@ class Enemy {
 
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
+    static let hitTimeInterval: CGFloat = 0.05
+    
     static var bulletsToRemove = [Int]()
 
     // VARIABLES
@@ -98,6 +100,8 @@ class Enemy {
 
     var endStunTimer = Timer()
     
+    var endHitTimer = Timer()
+
     var shootTimeInterval: CGFloat = 0
     var signalTimeInterval: CGFloat = 0
 
@@ -362,6 +366,8 @@ class Enemy {
         self.isMoving = false
         
         self.isHit = false
+        
+        self.view.isHidden = false
         
         self.isMovingLeft = false
         self.isMovingRight = false
@@ -711,6 +717,8 @@ class Enemy {
         
         self.isHit = true
 
+        self.view.isHidden = true
+
         if self.type == "foot" {
             
             self.isStunned = true
@@ -724,7 +732,18 @@ class Enemy {
             self.health -= bulletDamage
         }
         
+        self.endHitTimer.invalidate()
+        
+        self.endHitTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Enemy.hitTimeInterval), target: self, selector: #selector(stopHit), userInfo: nil, repeats: false)
+
+//        self.isHit = false
+    }
+    
+    @objc func stopHit() {
+        
         self.isHit = false
+        
+        self.view.isHidden = false
     }
     
     func isDead() -> Bool {
@@ -883,5 +902,6 @@ class Enemy {
         self.endShootTimer.invalidate()
         self.signalTimer.invalidate()
         self.endStunTimer.invalidate()
+        self.endHitTimer.invalidate()
     }
 }
