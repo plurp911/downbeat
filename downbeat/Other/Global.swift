@@ -31,7 +31,8 @@ let mainButtonColor = UIColor.gray.withAlphaComponent(0.35)
 let mainButtonOtherColor = UIColor.lightGray.withAlphaComponent(0.7)
 let mainButtonTextColor = UIColor.white
 
-let gameViewColor = UIColor(red: 32 / 255, green: 56 / 255, blue: 236 / 255, alpha: 1)
+//let gameViewColor = UIColor(red: 32 / 255, green: 56 / 255, blue: 236 / 255, alpha: 1)
+let gameViewColor = UIColor(red: 101 / 255, green: 208 / 255, blue: 223 / 255, alpha: 1)
 
 // VARIABLES
 
@@ -216,5 +217,18 @@ public func moveDirection(direction: String) {
         isDownPressed = false
         isLeftPressed = false
         isRightPressed = false
+    }
+}
+
+// PUBLIC EXTENSIONS
+
+extension String {
+    
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).uppercased() + self.lowercased().dropFirst()
+    }
+    
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
     }
 }

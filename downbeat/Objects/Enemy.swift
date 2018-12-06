@@ -28,6 +28,12 @@ class Enemy {
     
     static let penguinLeftImages = [UIImage(named: "penguinEnemyLeft1"), UIImage(named: "penguinEnemyLeft2")]
     
+    static let eyeImages = [UIImage(named: "eyeEnemy1"), UIImage(named: "eyeEnemy2"), UIImage(named: "eyeEnemy3")]
+
+    static let headImages = [UIImage(named: "headEnemy1"), UIImage(named: "headEnemy2")]
+
+    static let footImages = [UIImage(named: "footEnemy1"), UIImage(named: "footEnemy2")]
+
     // VARIABLES
     
     var maxHealth: Int = 0
@@ -83,6 +89,16 @@ class Enemy {
     
     var view: UIImageView = UIImageView()
     
+    init(xPos: Int, yPos: Int, type: String, direction: String) {
+        
+        self.xPos = xPos
+        self.yPos = yPos
+        
+        self.direction = direction
+        
+        self.setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: type)
+    }
+    
     init(xPos: Int, yPos: Int, type: String) {
         
         self.xPos = xPos
@@ -124,7 +140,7 @@ class Enemy {
             
             self.moveSpeed = 0
             
-            self.direction = "left"
+//            self.direction = "left"
             
         } else if self.type == "penguin" {
             
@@ -133,11 +149,50 @@ class Enemy {
             self.damage = 3
             
             self.width = Block.width * (24 / 16)
-            self.height = Block.width * (15 / 16)
+            self.height = Block.height * (15 / 16)
             
             self.moveSpeed = 1.25
             
             self.direction = "left"
+            
+        } else if self.type == "head" {
+            
+            self.maxHealth = 1
+            
+            self.damage = 3
+            
+            self.width = Block.width
+            self.height = Block.height * (20 / 16)
+            
+            self.moveSpeed = 0.8125
+            
+            self.direction = "left"
+            
+        } else if self.type == "foot" {
+            
+            self.maxHealth = 1
+            
+            self.damage = 3
+            
+            self.width = Block.width
+            self.height = Block.height * (8 / 16)
+            
+            self.moveSpeed = 0.375
+            
+//            self.direction = "left"
+            
+        } else if self.type == "eye" {
+            
+            self.maxHealth = 5
+            
+            self.damage = 8
+            
+            self.width = Block.width
+            self.height = self.width
+            
+            self.moveSpeed = 0.375
+            
+            //            self.direction = "left"
         }
         
         self.health = self.maxHealth
@@ -188,6 +243,19 @@ class Enemy {
             
             self.view.animationDuration = 0.85 * (1 / 3)
             self.view.startAnimating()
+            
+        } else if self.type == "head" {
+            
+
+            
+        } else if self.type == "foot" {
+            
+
+            
+        } else if self.type == "eye" {
+            
+
+            
         }
     }
     
@@ -278,6 +346,18 @@ class Enemy {
             
         } else if type == "penguin" {
             
+        } else if type == "head" {
+            
+            
+            
+        } else if type == "foot" {
+            
+            
+            
+        } else if type == "eye" {
+            
+            
+            
         }
     }
     
@@ -329,6 +409,19 @@ class Enemy {
             self.ySpeed = 0
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+            
+        } else if self.type == "head" {
+            
+            
+            
+        } else if self.type == "foot" {
+            
+            
+            
+        } else if self.type == "eye" {
+            
+            
+            
         }
     }
     
@@ -363,13 +456,7 @@ class Enemy {
                             
                         } else {
                             
-                            if bullets[i].xSpeed >= 0 {
-                                deflectedBullets.append(DeflectedBullet(x: bullets[i].x, y: bullets[i].y, direction: "left"))
-                            } else {
-                                deflectedBullets.append(DeflectedBullet(x: bullets[i].x, y: bullets[i].y, direction: "right"))
-                            }
-                            
-                            bulletsToRemove.append(i)
+                            self.handleDeflectBullet(i: i)
                         }
                         
                     } else if bullets[i].type == "cutter" {
@@ -384,6 +471,18 @@ class Enemy {
                 } else if self.type == "penguin" {
                     
                     return i
+                    
+                } else if self.type == "head" {
+                    
+                    return i
+                    
+                } else if self.type == "foot" {
+                    
+                    self.handleDeflectBullet(i: i)
+                    
+                } else if self.type == "eye" {
+                    
+                    return i
                 }
                 
             }
@@ -394,6 +493,17 @@ class Enemy {
         }
         
         return -1
+    }
+    
+    func handleDeflectBullet(i: Int) {
+        
+        if bullets[i].xSpeed >= 0 {
+            deflectedBullets.append(DeflectedBullet(x: bullets[i].x, y: bullets[i].y, direction: "left"))
+        } else {
+            deflectedBullets.append(DeflectedBullet(x: bullets[i].x, y: bullets[i].y, direction: "right"))
+        }
+        
+        bulletsToRemove.append(i)
     }
     
     func handleHit(bulletDamage: Int) {
@@ -461,6 +571,18 @@ class Enemy {
             }
             
         } else if self.type == "penguin" {
+            
+        } else if self.type == "head" {
+            
+            
+            
+        } else if self.type == "foot" {
+            
+            
+            
+        } else if self.type == "eye" {
+            
+            
             
         }
     }

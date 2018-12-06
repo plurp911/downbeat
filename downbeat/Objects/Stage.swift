@@ -45,6 +45,8 @@ class Stage {
     var canEnterFromBottom: Bool = false
     var canEnterFromLeft: Bool = false
     
+    var tileSet: String = "cut"
+    
     init(fileName: String) {
         
         let path = Bundle.main.path(forResource: fileName, ofType: "txt")
@@ -81,40 +83,50 @@ class Stage {
                                 
                 if text == "#" {
                     
-                    if isEqual(i: i - 1, j: j, block: "#") && isEqual(i: i + 1, j: j, block: "#") {
+//                    if isEqual(i: i - 1, j: j, block: "#") && isEqual(i: i + 1, j: j, block: "#") {
+//
+//                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowMiddleBlock"))
+//
+//                    } else if isEqual(i: i, j: j - 1, block: "#") && isEqual(i: i, j: j + 1, block: "#") {
+//
+//                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowMiddleBlock"))
+//
+//                    } else if isEqual(i: i, j: j - 1, block: "#") {
+//
+//                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowRightBlock"))
+//
+//                    } else if isEqual(i: i, j: j + 1, block: "#") {
+//
+//                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowLeftBlock"))
+//
+//                    } else if isEqual(i: i - 1, j: j, block: "#") {
+//
+//                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowBottomBlock"))
+//
+//                    } else if isEqual(i: i + 1, j: j, block: "#") {
+//
+//                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowTopBlock"))
+//                    }
+                    
+                    if isEqual(i: i - 1, j: j, block: "#") == false {
                         
-                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowMiddleBlock"))
+                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: tileSet))
                         
-                    } else if isEqual(i: i, j: j - 1, block: "#") && isEqual(i: i, j: j + 1, block: "#") {
+                    } else {
                         
-                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowMiddleBlock"))
-                        
-                    } else if isEqual(i: i, j: j - 1, block: "#") {
-                        
-                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowRightBlock"))
-                        
-                    } else if isEqual(i: i, j: j + 1, block: "#") {
-                        
-                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowLeftBlock"))
-                        
-                    } else if isEqual(i: i - 1, j: j, block: "#") {
-                        
-                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowBottomBlock"))
-                        
-                    } else if isEqual(i: i + 1, j: j, block: "#") {
-                        
-                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowTopBlock"))
+                        if j % 2 == 0 {
+                            blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
+                        } else {
+                            blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
+                        }
                     }
 
                 } else if text == "=" {
                     
                     if isEqual(i: i - 1, j: j, block: "=") {
-                        
-                        blocks.append(Block(xPos: j, yPos: i, type: "ladder"))
-                        
+                        blocks.append(Block(xPos: j, yPos: i, type: "ladder", tileSet: tileSet))
                     } else {
-                        
-                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder"))
+                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: tileSet))
                     }
                     
                 } else if text == "H" {

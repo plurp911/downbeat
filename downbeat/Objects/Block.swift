@@ -17,6 +17,11 @@ class Block {
     
 //    static let color: UIColor = UIColor.gray
     static let color: UIColor = UIColor.clear
+    
+//    static let cutLadderImage = UIImage(named: "cutTileLadder")
+//    static let cut1Image = UIImage(named: "cutTile1")
+//    static let cut2Image = UIImage(named: "cutTile2")
+//    static let cutTopImage = UIImage(named: "cutTileTop")
 
     // VARIABLES
     
@@ -33,7 +38,7 @@ class Block {
 
     var view: UIImageView = UIImageView()
     
-    init(xPos: Int, yPos: Int, type: String) {
+    init(xPos: Int, yPos: Int, type: String, tileSet: String) {
         
         self.xPos = xPos
         self.yPos = yPos
@@ -64,7 +69,14 @@ class Block {
 
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
-        self.view.image = UIImage(named: self.type)
+        if self.type == "topLadder" {
+            
+            self.view.image = UIImage(named: "\(tileSet)TileLadder")
+
+        } else {
+            
+            self.view.image = UIImage(named: "\(tileSet)Tile\(self.type.capitalizingFirstLetter())")
+        }
     }
     
     func setXY(x: CGFloat, y: CGFloat) {

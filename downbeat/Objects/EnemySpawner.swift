@@ -12,8 +12,8 @@ class EnemySpawner {
     
     // CONSTANTS
     
-    static let height: CGFloat = Block.height
-    static let width: CGFloat = Block.width
+    var height: CGFloat = 0
+    var width: CGFloat = 0
     
     //    static let color: UIColor = UIColor.gray
     static let color: UIColor = UIColor.clear
@@ -43,19 +43,24 @@ class EnemySpawner {
         
         if self.type == "follower" {
             
+            self.width = Block.width * (14 / 16)
+            self.height = Block.height * (15 / 16)
+            
             self.spawnTimeInterval = 2
             
 //            self.spawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.spawnTimeInterval), target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
         }
         
-        self.x = (((CGFloat)(self.xPos)) * EnemySpawner.width) + (EnemySpawner.width / 2)
-        self.y = (((CGFloat)(self.yPos)) * EnemySpawner.height) + (EnemySpawner.height / 2)
+        self.setXY(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2))
         
-        self.view.frame.origin.x = self.x - EnemySpawner.width / 2
-        self.view.frame.origin.y = self.y - EnemySpawner.height / 2
+//        self.x = (((CGFloat)(self.xPos)) * self.width) + (self.width / 2)
+//        self.y = (((CGFloat)(self.yPos)) * self.height) + (self.height / 2)
+//
+//        self.view.frame.origin.x = self.x - self.width / 2
+//        self.view.frame.origin.y = self.y - self.height / 2
         
-        self.view.frame.size.width = EnemySpawner.width
-        self.view.frame.size.height = EnemySpawner.height
+        self.view.frame.size.width = self.width
+        self.view.frame.size.height = self.height
         
         self.view.backgroundColor = EnemySpawner.color
         
@@ -71,13 +76,13 @@ class EnemySpawner {
         self.x = x
         self.y = y
         
-        self.view.frame.origin.x = self.x - EnemySpawner.width / 2
-        self.view.frame.origin.y = self.y - EnemySpawner.height / 2
+        self.view.frame.origin.x = self.x - self.width / 2
+        self.view.frame.origin.y = self.y - self.height / 2
     }
     
     func isInBounds() -> Bool {
         
-        if self.x + (EnemySpawner.width / 2) >= 0 && self.x - (EnemySpawner.width / 2) <= screenSize.height * (screenRatio) {
+        if self.x + (self.width / 2) >= 0 && self.x - (self.width / 2) <= screenSize.height * (screenRatio) {
             return true
         }
         
