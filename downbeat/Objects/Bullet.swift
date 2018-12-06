@@ -23,6 +23,8 @@ class Bullet {
     
     static let beamRightImages = [UIImage(named: "beamBulletRight1"), UIImage(named: "beamBulletRight2")]
 
+    static let magnetLeftImage = UIImage(named: "magnetBulletLeft")
+
     // VARIABLES
     
     var width: CGFloat = 0
@@ -150,6 +152,24 @@ class Bullet {
             
             self.width = Block.width
             self.height = Block.height * (6 / 16)
+            
+        } else if self.type == "magnet" {
+            
+            self.width = Block.width
+            self.height = Block.height * (12 / 16)
+            
+            self.moveSpeed = 3
+            
+            self.damage = 2
+            
+            if self.direction == "left" {
+                
+                self.xSpeed = -self.moveSpeed
+                
+            } else if self.direction == "right" {
+                
+                self.xSpeed = self.moveSpeed
+            }
         }
         
         self.setXY(x: x, y: y)
@@ -227,6 +247,19 @@ class Bullet {
             }
             
             self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
+            
+        } else if self.type == "magnet" {
+            
+            self.view.image = Bullet.magnetLeftImage
+            
+            if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
         }
         
     }
@@ -340,6 +373,53 @@ class Bullet {
             
         } else if self.type == "beam" {
             
+        } else if self.type == "magnet" {
+            
+            if self.didReachGoal == false {
+                
+                for enemy in selectedEnemies {
+                    
+                    if abs(enemy.x - self.x) <= abs(self.xSpeed) + abs(enemy.xSpeed) {
+                        
+                        self.didReachGoal = true
+                        
+                        self.xSpeed = 0
+                        
+                        if enemy.y < self.y {
+                            
+                            self.ySpeed = -self.moveSpeed
+                            
+                        } else {
+                            
+                            self.ySpeed = self.moveSpeed
+                        }
+                    }
+                    
+                }
+            }
+            
+            if self.ySpeed < 0 {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2))
+
+            } else if self.ySpeed > 0 {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.view.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi/2))
+
+            } else if self.xSpeed < 0 {
+                
+                self.view.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+
+            } else if self.xSpeed > 0 {
+                
+                self.view.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
+            
+            setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
         }
     }
     

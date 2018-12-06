@@ -463,6 +463,9 @@ extension GameController {
                         
                     } else if bullets[bulletPos].type == "blade" {
                         
+                    } else if bullets[bulletPos].type == "magnet" {
+                        
+                        bulletsToRemove.append(bulletPos)
                     }
                     
                     selectedEnemies[i].handleHit(bulletDamage: bullets[bulletPos].damage)

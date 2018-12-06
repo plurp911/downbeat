@@ -658,6 +658,10 @@ class Enemy {
                         } else if bullets[i].type == "blade" {
                             
                             return i
+                            
+                        } else if bullets[i].type == "magnet" {
+                            
+                            return i
                         }
                         
                     } else if self.type == "penguin" {
