@@ -822,19 +822,22 @@ class Enemy {
             
         } else if self.type == "hat" {
             
+            let xOffset: CGFloat = Block.width * (12 / 16)
+            let yOffset: CGFloat = Block.width * (3 / 16)
+
             if self.direction == "left" {
 
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: -1.5, type: "mediumRegular"))
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0, type: "mediumRegular"))
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 1.5, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -1.5, ySpeed: -1.5, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -1.5, ySpeed: 0, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -1.5, ySpeed: 1.5, type: "mediumRegular"))
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
                 
             } else if self.direction == "right" {
 
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: -1.5, type: "mediumRegular"))
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0, type: "mediumRegular"))
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 1.5, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: 1.5, ySpeed: -1.5, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: 1.5, ySpeed: 0, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: 1.5, ySpeed: 1.5, type: "mediumRegular"))
 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
@@ -855,16 +858,19 @@ class Enemy {
             
         } else if self.type == "snake" {
             
+            let xOffset: CGFloat = Block.width * (14 / 16)
+            let yOffset: CGFloat = Block.width * (4 / 16)
+            
             if self.direction == "left" {
                 
 //                enemyBullets.append(EnemyBullet(x: self.x - (Block.width * (4 / 16)), y: self.y + (Block.height * (2 / 16)), target: "player", type: "mediumRegular"))
-                enemyBullets.append(EnemyBullet(x: self.x - (Block.width * (14 / 16)), y: self.y + (Block.height * (4 / 16)), target: "player", speed: 2.5, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, target: "player", speed: 2.5, type: "mediumRegular"))
 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
                 
             } else if self.direction == "right" {
 
-                enemyBullets.append(EnemyBullet(x: self.x + (Block.width * (14 / 16)), y: self.y + (Block.height * (4 / 16)), target: "player", speed: 2.5, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, target: "player", speed: 2.5, type: "mediumRegular"))
 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
