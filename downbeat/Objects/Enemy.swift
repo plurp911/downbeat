@@ -858,13 +858,13 @@ class Enemy {
             if self.direction == "left" {
                 
 //                enemyBullets.append(EnemyBullet(x: self.x - (Block.width * (4 / 16)), y: self.y + (Block.height * (2 / 16)), target: "player", type: "mediumRegular"))
-                enemyBullets.append(EnemyBullet(x: self.x - (Block.width * (9 / 16)), y: self.y + (Block.height * (4 / 16)), target: "player", speed: 2, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x - (Block.width * (14 / 16)), y: self.y + (Block.height * (4 / 16)), target: "player", speed: 2.5, type: "mediumRegular"))
 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
                 
             } else if self.direction == "right" {
 
-                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, target: "player", speed: 2, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x + (Block.width * (14 / 16)), y: self.y + (Block.height * (4 / 16)), target: "player", speed: 2.5, type: "mediumRegular"))
 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
