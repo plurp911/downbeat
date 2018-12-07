@@ -151,6 +151,8 @@ public func removeObjects(type: String, toRemove: [Int]) {
 
         } else if type == "selectedEnemies" {
             
+            selectedEnemies[newToRemove[newI]].isUsed = true
+
             selectedEnemies[newToRemove[newI]].endTimers()
             
             selectedEnemies = tryToRemove(array: selectedEnemies, value: newToRemove[newI]) as! [Enemy]

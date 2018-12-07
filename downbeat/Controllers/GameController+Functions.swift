@@ -319,16 +319,27 @@ extension GameController {
                 
                 if player.isHit == false {
                     
-                    if enemyBullets[enemyBulletPos].xSpeed >= 0 {
+                    if enemyBullets[enemyBulletPos].xSpeed > 0 {
                         
                         player.handleHit(damage: enemyBullets[enemyBulletPos].damage, enemyDirection: "right")
                         
-                    } else {
+                    } else if enemyBullets[enemyBulletPos].xSpeed < 0 {
                         
                         player.handleHit(damage: enemyBullets[enemyBulletPos].damage, enemyDirection: "left")
+                        
+                    } else {
+                        
+                        if enemyBullets[enemyBulletPos].x >= player.x {
+                            
+                            player.handleHit(damage: enemyBullets[enemyBulletPos].damage, enemyDirection: "left")
+
+                        } else {
+                            
+                            player.handleHit(damage: enemyBullets[enemyBulletPos].damage, enemyDirection: "right")
+                        }
                     }
+                    
                 }
-                
             }
             
             removeObjects(type: "enemyBullets", toRemove: enemyBulletsToRemove)

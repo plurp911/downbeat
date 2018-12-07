@@ -15,9 +15,11 @@ class EnemyBullet {
     static let color: UIColor = UIColor.clear
 //    static let color: UIColor = UIColor.red
     
-    static let smallRegularEnemyBulletImage = UIImage(named: "smallRegularEnemyBullet")
+    static let smallRegularImage = UIImage(named: "smallRegularEnemyBullet")
     
-    static let mediumRegularEnemyBulletImage = UIImage(named: "mediumRegularEnemyBullet")
+    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet")
+    
+    static let dropHeadImage = UIImage(named: "dropHeadEnemyBullet")
 
     // VARIABLES
     
@@ -99,7 +101,7 @@ class EnemyBullet {
             
             self.damage = 1
             
-            self.view.image = EnemyBullet.smallRegularEnemyBulletImage
+            self.view.image = EnemyBullet.smallRegularImage
             
         } else if self.type == "mediumRegular" {
             
@@ -108,7 +110,16 @@ class EnemyBullet {
             
             self.damage = 1
             
-            self.view.image = EnemyBullet.mediumRegularEnemyBulletImage
+            self.view.image = EnemyBullet.mediumRegularImage
+            
+        } else if self.type == "dropHead" {
+            
+            self.width = Block.width * (14 / 16)
+            self.height = Block.height
+            
+            self.damage = 3
+            
+            self.view.image = EnemyBullet.dropHeadImage
         }
         
         self.setXY(x: x, y: y)

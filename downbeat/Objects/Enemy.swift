@@ -21,7 +21,7 @@ class Enemy {
     static let color: UIColor = UIColor.clear
     //    static let color: UIColor = UIColor.green
     
-    static let followerImages = [UIImage(named: "follower1"), UIImage(named: "follower2"), UIImage(named: "follower3"), UIImage(named: "follower4"), UIImage(named: "follower5"), UIImage(named: "follower6")]
+    static let followerImages = [UIImage(named: "followerEnemy1"), UIImage(named: "followerEnemy2"), UIImage(named: "followerEnemy3"), UIImage(named: "followerEnemy4"), UIImage(named: "followerEnemy5"), UIImage(named: "followerEnemy6")]
     
     static let hatLeft1Image = UIImage(named: "hatEnemyLeft1")
     static let hatLeft2Image = UIImage(named: "hatEnemyLeft2")
@@ -41,6 +41,11 @@ class Enemy {
     static let snakeLeft1Image = UIImage(named: "snakeEnemyLeft1")
     static let snakeLeft2Image = UIImage(named: "snakeEnemyLeft2")
     static let snakeLeftShootImage = UIImage(named: "snakeEnemyLeftShoot")
+    
+    static let dropImages = [UIImage(named: "dropEnemy1"), UIImage(named: "dropEnemy2")]
+    static let dropEmptyImages = [UIImage(named: "dropEnemyEmpty1"), UIImage(named: "dropEnemyEmpty2")]
+    static let dropDropImage = UIImage(named: "dropEnemyDrop")
+    static let dropHeadImage = UIImage(named: "dropEnemyHead")
 
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
@@ -200,7 +205,7 @@ class Enemy {
             self.xGoal = Block.width * 4
             
             self.width = Block.width
-            self.height = Block.height * (25 / 16)
+            self.height = Block.height * (20 / 16)
             
             self.moveSpeed = 1
             
@@ -240,6 +245,19 @@ class Enemy {
             self.height = Block.height * (23 / 16)
             
             self.moveSpeed = 0
+            
+        } else if self.type == "drop" {
+            
+            self.maxHealth = 1
+            
+            self.damage = 3
+            
+            self.xGoal = Block.width * (6 / 16)
+
+            self.width = Block.width
+            self.height = Block.height * (25 / 16)
+            
+            self.moveSpeed = 1.25
         }
         
         self.health = self.maxHealth
@@ -347,6 +365,13 @@ class Enemy {
 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
+            
+        } else if self.type == "drop" {
+            
+            self.view.animationImages = Enemy.dropImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * (1 / 3)
+            self.view.startAnimating()
         }
         
         self.startDirection = self.direction
@@ -409,6 +434,13 @@ class Enemy {
         self.isStunned = false
         
         self.direction = self.startDirection
+        
+        self.yRange = 0
+        
+        self.xGoal = 0
+        
+        self.didReachGoal1 = false
+        self.didReachGoal2 = false
 
         self.endTimers()
        
@@ -487,6 +519,15 @@ class Enemy {
             } else if self.direction == "left" {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if type == "drop" {
+            
+            if self.didReachGoal1 == true && self.didReachGoal2 == false {
+                
+                self.view.stopAnimating()
+                
+                self.view.image = Enemy.dropDropImage
             }
         }
         
@@ -780,6 +821,67 @@ class Enemy {
                 }
             }
             
+        } else if self.type == "drop" {
+            
+            if self.direction == "left" {
+                
+                self.xSpeed = -self.moveSpeed
+                
+                if self.didReachGoal1 == false {
+                 
+                    if self.x < player.x + self.xGoal {
+                        self.didReachGoal1 = true
+                    }
+                    
+                } else {
+                    
+                    if self.didReachGoal2 == false {
+                        
+                        if self.x < player.x {
+                            
+                            self.didReachGoal2 = true
+                            
+                            self.view.animationImages = Enemy.dropEmptyImages as! [UIImage]
+                            
+                            self.view.animationDuration = 0.85 * (1 / 3)
+                            self.view.startAnimating()
+                            
+                            self.realShoot()
+                        }
+                    }
+                    
+                }
+                
+            } else if self.direction == "right" {
+                
+                self.xSpeed = self.moveSpeed
+                
+                if self.didReachGoal1 == false {
+                    
+                    if self.x > player.x - self.xGoal {
+                        self.didReachGoal1 = true
+                    }
+                    
+                } else {
+                    
+                    if self.didReachGoal2 == false {
+                        
+                        if self.x > player.x {
+                            
+                            self.didReachGoal2 = true
+                            
+                            self.view.animationImages = Enemy.dropEmptyImages as! [UIImage]
+                            
+                            self.view.animationDuration = 0.85 * (1 / 3)
+                            self.view.startAnimating()
+                            
+                            self.realShoot()
+                        }
+                    }
+                    
+                }
+                
+            }
         }
         
         setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
@@ -893,6 +995,10 @@ class Enemy {
                         return i
                         
                     } else if self.type == "snake" {
+                        
+                        return i
+                        
+                    } else if self.type == "drop" {
                         
                         return i
                     }
@@ -1041,8 +1147,13 @@ class Enemy {
 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
+            
+        } else if self.type == "drop" {
+         
+            let yOffset: CGFloat = Block.width * (0 / 16)
+            
+            enemyBullets.append(EnemyBullet(x: self.x, y: self.y + yOffset, xSpeed: 0, ySpeed: 2, type: "dropHead"))
         }
-        
     }
     
     //    func updateFreeze() {
