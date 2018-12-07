@@ -47,17 +47,9 @@ class EnemySpawner {
             self.height = Block.height * (15 / 16)
             
             self.spawnTimeInterval = 3
-            
-//            self.spawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.spawnTimeInterval), target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
         }
         
         self.setXY(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2))
-        
-//        self.x = (((CGFloat)(self.xPos)) * self.width) + (self.width / 2)
-//        self.y = (((CGFloat)(self.yPos)) * self.height) + (self.height / 2)
-//
-//        self.view.frame.origin.x = self.x - self.width / 2
-//        self.view.frame.origin.y = self.y - self.height / 2
         
         self.view.frame.size.width = self.width
         self.view.frame.size.height = self.height

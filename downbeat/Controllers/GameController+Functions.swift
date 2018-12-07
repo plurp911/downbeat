@@ -9,11 +9,7 @@
 import UIKit
 
 extension GameController {
-    
-    //    func setupStage() {
-    //
-    //    }
-    
+
     @objc func move() {
         
         if isPaused == false {
@@ -41,7 +37,6 @@ extension GameController {
                 
             } else if isTransitioningUp == true {
                 
-                //                player.isMoving = true
                 player.isMovingUp = true
                 
                 player.isMovingDown = false
@@ -52,7 +47,6 @@ extension GameController {
                 
             } else if isTransitioningDown == true {
                 
-                //                player.isMoving = true
                 player.isMovingDown = true
                 
                 player.isMovingUp = false
@@ -84,8 +78,6 @@ extension GameController {
                         
                         player.direction = "left"
                     }
-                    
-                    //                player.updateAnimation()
                 }
                 
                 if isLeftPressed == false {
@@ -105,8 +97,6 @@ extension GameController {
                         
                         player.direction = "right"
                     }
-                    
-                    //                player.updateAnimation()
                 }
                 
                 if player.isClimbing == true {
@@ -114,23 +104,13 @@ extension GameController {
                     if isUpPressed == false && isDownPressed == false {
                         player.ySpeed = 0
                     }
-                    
-                } else if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
-                    
-                    //                    player.ySpeed = 0
-                    //
-                    //                    canClimb = true
                 }
-                
-                //                if player.isShooting == false {
                 
                 if isLeftPressed == false && isRightPressed == false {
                     
                     if (isUpPressed == true && isDownPressed == false) || (isUpPressed == false && isDownPressed == true) {
                         
                         if let ladder = player.didHitLadder() {
-                            
-                            //                            if ladder.isTopLadder == true {
                             
                             if player.numberOfLaddersTouching() == 1 {
                                 
@@ -163,24 +143,12 @@ extension GameController {
                                     
                                 }
                             }
-                            
-                            //                            } else {
-                            
-                            //                            player.direction = "right"
-                            
+
                             var shouldClimb: Bool = true
-                            
-                            if isDownPressed == true {
-                                print()
-                                print(ladder.y + (Block.height / 2))
-                                print(player.y + (Player.height / 2))
-                            }
                             
                             if player.isClimbing == false {
                                 
                                 if (isUpPressed == true && ladder.y - (Block.height / 2) == player.y + (Player.height / 2)) || (isDownPressed == true && ladder.y + (Block.height / 2) == player.y + (Player.height / 2)) {
-                                    
-                                    //                                print("SHOULD CLIMB")
                                     
                                     shouldClimb = false
                                 }
@@ -213,8 +181,6 @@ extension GameController {
                                         } while (ladder.x < player.x)
                                     }
                                     
-                                    //                                    player.setXY(x: ladder.x, y: player.y)
-                                    
                                     player.isMoving = false
                                     player.isMovingLeft = false
                                     player.isMovingRight = false
@@ -231,8 +197,6 @@ extension GameController {
                                 player.setXY(x: ladder.x, y: player.y)
                             }
                             
-                            //                            }
-                            
                         } else {
                             
                             if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
@@ -243,34 +207,17 @@ extension GameController {
                                 player.move()
                                 
                                 player.isClimbing = false
-                                
-                                //                            if player.isFalling == false && player.isJumping == false && player.isRising == false && player.isAtPeak == false {
-                                //
+
                                 player.ySpeed = 0
                             }
-                            //
-                            //                                player.isFalling = true
-                            //                                player.isLanding = true
-                            //
-                            //                                //                    canClimb = true
-                            //                            }
                         }
                         
                     }
                 }
                 
-                //            }
-                
             }
             
             player.move()
-            
-            //            if player.isInBounds() == false {
-            //
-            //                print("GAME OVER")
-            //
-            //                //                handleGameOver()
-            //            }
             
             var bulletsToRemove = [Int]()
             
@@ -321,20 +268,7 @@ extension GameController {
             }
             
             removeObjects(type: "powerups", toRemove: powerupsToRemove)
-            
-            //            powerupsToRemove.removeAll()
-            //
-            //            for i in 0 ..< currentStage!.powerups.count {
-            //
-            //                currentStage!.powerups[i].move()
-            //
-            //                if currentStage!.powerups[i].view.isAnimating == false || currentStage!.powerups[i].isInBounds() == false {
-            //                    powerupsToRemove.append(i)
-            //                }
-            //            }
-            //
-            //            removeObjects(type: "stagePowerups", toRemove: powerupsToRemove)
-            
+
             var enemyBulletsToRemove = [Int]()
             
             for i in 0 ..< enemyBullets.count {
@@ -357,15 +291,6 @@ extension GameController {
                 powerups.remove(at: powerupPos)
             }
             
-            //            let stagePowerupPos: Int = player.didHitStagePowerup()
-            //
-            //            if stagePowerupPos >= 0 {
-            //
-            //                player.handlePowerup(type: currentStage!.powerups[stagePowerupPos].type)
-            //
-            //                currentStage!.powerups.remove(at: stagePowerupPos)
-            //            }
-            
             let selectedPowerupPos: Int = player.didHitSelectedPowerup()
             
             if selectedPowerupPos >= 0 {
@@ -376,15 +301,6 @@ extension GameController {
                 
                 selectedPowerups.remove(at: selectedPowerupPos)
             }
-            
-            //            let enemyPos: Int = player.didHitEnemy()
-            //
-            //            if enemyPos >= 0 {
-            //
-            //                if player.isHit == false {
-            //                    player.handleHit(damage: currentStage!.enemies[enemyPos].damage, enemyDirection: currentStage!.enemies[enemyPos].direction)
-            //                }
-            //            }
             
             let selectedEnemyPos: Int = player.didHitSelectedEnemy()
             
@@ -446,8 +362,6 @@ extension GameController {
             
             for i in 0 ..< selectedEnemies.count {
                 
-                //                if selectedEnemies[i].isInBounds() == true {
-                
                 selectedEnemies[i].move()
                 selectedEnemies[i].updateAnimation()
                 
@@ -483,14 +397,9 @@ extension GameController {
                         selectedEnemiesToRemove.append(i)
                     }
                 }
-                
-                //                } else {
-                //
-                //                    selectedEnemiesToRemove.append(i)
-                //                }
+
             }
             
-            //            removeObjects(type: "selectedEnemies", toRemove: selectedEnemiesToRemove)
             removeObjects(type: "bullets", toRemove: bulletsToRemove)
             removeObjects(type: "selectedEnemies", toRemove: selectedEnemiesToRemove)
             
@@ -510,11 +419,7 @@ extension GameController {
                     
                     if currentStage!.x >= 0 {
                         
-                        //                        currentStage!.reset()
-                        
                         player.move(direction: "left")
-                        
-                        //                            currentStage!.updateObjectArrays(direction: "left")
                         
                     } else if player.x > (gameView.frame.size.width / 2) {
                         
@@ -525,8 +430,6 @@ extension GameController {
                         currentStage!.move(direction: "left")
                         
                         moveObjects(direction: "left")
-                        
-                        //                            currentStage!.updateObjectArrays(direction: "left")
                         
                         currentStage!.moveObjects()
                         
@@ -550,8 +453,6 @@ extension GameController {
                         
                         player.move(direction: "right")
                         
-                        //                        currentStage!.updateObjectArrays(direction: "right")
-                        
                     } else if player.x < (gameView.frame.size.width / 2) {
                         
                         player.move(direction: "right")
@@ -561,8 +462,6 @@ extension GameController {
                         currentStage!.move(direction: "right")
                         
                         moveObjects(direction: "right")
-                        
-                        //                        currentStage!.updateObjectArrays(direction: "right")
                         
                         currentStage!.moveObjects()
                         
@@ -586,14 +485,11 @@ extension GameController {
     func handleTransition(direction: String) {
         
         for _ in 0 ..< 5 {
-            //        for _ in 0 ..< 1 {
             
             currentStage!.move(direction: direction)
             nextStage!.move(direction: direction)
             
             moveObjects(direction: direction)
-            
-            //                        currentStage!.updateObjectArrays(direction: "right")
             
             currentStage!.moveObjects()
             nextStage!.moveObjects()
@@ -611,9 +507,6 @@ extension GameController {
                 player.move(direction: "up")
             }
             
-            //                        currentStage!.updateObjectArrays(direction: "right")
-            //                        nextStage!.updateObjectArrays(direction: "right")
-            
             bullets.removeAll()
             explosions.removeAll()
             powerups.removeAll()
@@ -627,18 +520,11 @@ extension GameController {
             if direction == "right" {
                 
                 currentStage!.updateBlocks(direction: direction)
-                //                        currentStage!.updateEnemies(direction: "right")
                 currentStage!.updatePowerups(direction: direction)
-                //                        currentStage!.updateEnemySpawners(direction: "right")
                 
                 nextStage!.updateBlocks(direction: direction)
-                //                        nextStage!.updateEnemies(direction: "right")
                 nextStage!.updatePowerups(direction: direction)
-                //                        nextStage!.updateEnemySpawners(direction: "right")
-            } else {
-                
-                //                currentStage!.setupSelectedArrays()
-                //                nextStage!.setupSelectedArrays()
+
             }
         }
         
@@ -843,8 +729,6 @@ extension GameController {
         
         for i in 0 ..< selectedEnemies.count {
             
-            //            if selectedEnemies[i].isInBounds() == true {
-            
             if direction == "left" {
                 
                 if player.isKnockedBack == true {
@@ -862,10 +746,7 @@ extension GameController {
                 }
             }
             
-            //            }
-            
         }
-        
     }
     
     func moveEnemyBullets(direction: String) {

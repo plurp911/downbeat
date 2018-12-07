@@ -122,8 +122,6 @@ class EnemyBullet {
         
         self.view.backgroundColor = EnemyBullet.color
         
-//        self.view.layer.cornerRadius = self.width / 2
-        
         self.view.contentMode = .scaleAspectFill
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest

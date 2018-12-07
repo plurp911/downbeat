@@ -44,7 +44,6 @@ class Bullet {
     
     var direction: String = ""
     
-    //    var xDist: CGFloat = 0
     var xGoal: CGFloat = 0
     
     var didReachGoal: Bool = false
@@ -86,24 +85,17 @@ class Bullet {
             self.width = Block.width * (10 / 16)
             self.height = self.width
             
-            //            self.moveSpeed = 2.5
             self.moveSpeed = 2
             
             self.damage = 3
-            
-            //            self.xDist = Block.width * 4
             
             if self.direction == "left" {
                 
                 self.xGoal = x - (Block.width * 4)
                 
-                //                self.xSpeed = -self.moveSpeed
-                
             } else if self.direction == "right" {
                 
                 self.xGoal = x + (Block.width * 4)
-                
-                //                self.xSpeed = self.moveSpeed
             }
             
             self.xSpeed = self.moveSpeed
@@ -114,7 +106,6 @@ class Bullet {
             self.width = Block.width * (16 / 16)
             self.height = self.width
             
-            //            self.moveSpeed = 2.5
             self.moveSpeed = 2
             
             self.damage = 3
@@ -202,7 +193,6 @@ class Bullet {
             
             self.view.animationImages = Bullet.cutterRightImages as! [UIImage]
             
-            //            self.view.animationDuration = 0.85 * (4 / 6)
             self.view.animationDuration = 0.85 * 0.6875
             
             self.view.startAnimating()
@@ -220,7 +210,6 @@ class Bullet {
             
             self.view.animationImages = Bullet.bladeImages as! [UIImage]
             
-//            self.view.animationDuration = 0.85 * (1 / 3)
             self.view.animationDuration = 0.85 * 0.215
             
             self.view.startAnimating()

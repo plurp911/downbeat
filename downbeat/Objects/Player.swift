@@ -60,7 +60,6 @@ class Player {
     static let xShift: CGFloat = Block.width * (16 / 30)
     static let yShift: CGFloat = Block.height * 0
     
-    //    static let xShiftBullet: CGFloat = Block.width * (12 / 16)
     static let xShiftBullet: CGFloat = Block.width * (8 / 16)
     static let yShiftBullet: CGFloat = Block.height * (1 / 16)
     
@@ -282,32 +281,22 @@ class Player {
             
         } else if direction == "up" {
             
-            //            isTransitioningUp = true
-            //
-            //            self.isMovingUp = true
-            
             if self.isKnockedBack == true {
                 self.ySpeed = -Player.knockBackMoveSpeed
             } else {
                 self.ySpeed = -Player.maxMoveSpeed
             }
             
-            //            setXY(x: self.x, y: self.y + self.ySpeed)
             setXY(x: self.x, y: self.y + (self.ySpeed * ((screenSize.height - Player.height) / screenSize.height)))
             
         } else if direction == "down" {
-            
-            //            isTransitioningDown = true
-            //
-            //            self.isMovingDown = true
-            
+
             if self.isKnockedBack == true {
                 self.ySpeed = Player.knockBackMoveSpeed
             } else {
                 self.ySpeed = Player.maxMoveSpeed
             }
             
-            //            setXY(x: self.x, y: self.y + self.ySpeed)
             setXY(x: self.x, y: self.y + (self.ySpeed * ((screenSize.height - Player.height) / screenSize.height)))
         }
     }
@@ -356,7 +345,6 @@ class Player {
             
         }
         
-        //        if self.isMoving == true || self.isClimbing == true {
         if self.isMoving == true && self.isRising == false {
             
             var isEmpty: Bool = true
@@ -479,8 +467,7 @@ class Player {
             for block in selectedBlocks {
                 
                 if block.isLadder == false && block.isTopLadder == false {
-                    
-                    //                if self.y - (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+
                     if self.y - (Player.height / 2) + self.ySpeed <= block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                         
                         self.isFalling = true
@@ -504,8 +491,7 @@ class Player {
             for block in selectedBlocks {
                 
                 if block.isLadder == false && block.isTopLadder == false {
-                    
-                    //                if self.y - (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+
                     if self.y - (Player.height / 2) + self.ySpeed <= block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                         
                         self.ySpeed = 0
@@ -517,7 +503,6 @@ class Player {
             }
         }
         
-        //        if self.ySpeed < 0 {
         if self.isMovingUp == true {
             
             if self.y - (Player.height / 2) <= 0 {
@@ -545,10 +530,7 @@ class Player {
                 if isTransitioningUp == true {
                     
                     if self.y + (Player.height / 2) >= screenSize.height {
-                        
-                        //                        self.canMove = false
-                        
-                        //                        setXY(x: self.x, y: screenSize.height - (Player.width / 2) + (self.ySpeed * 2))
+
                         setXY(x: self.x, y: screenSize.height - (Player.width / 2) - 10)
                     }
                     
@@ -557,8 +539,6 @@ class Player {
                         isTransitioningUp = false
                         
                         currentStage = nextStage
-                        
-                        //                        currentStage!.isUsed = true
                         
                         nextStage = nil
                         
@@ -571,7 +551,6 @@ class Player {
                 
             }
             
-            //        } else if self.ySpeed > 0 {
         } else if self.isMovingDown == true {
             
             if self.y + (Player.height / 2) >= screenSize.height {
@@ -605,22 +584,15 @@ class Player {
                 if isTransitioningDown == true {
                     
                     if self.y - (Player.height / 2) <= 0 {
-                        
-                        //                        self.canMove = false
-                        
-                        //                        setXY(x: self.x, y: (Player.width / 2) - self.ySpeed)
+
                         setXY(x: self.x, y: (Player.width / 2) + 10)
                     }
                     
-                    //                    if currentStage!.x <= -((CGFloat)(currentStage!.numberOfHorizontalBlocks) * Block.width)  {
                     if currentStage!.y <= -screenSize.height {
                         
                         isTransitioningDown = false
-                        //                        isMovingDown = false
                         
                         currentStage = nextStage
-                        
-                        //                        currentStage!.isUsed = true
                         
                         nextStage = nil
                         
@@ -628,7 +600,6 @@ class Player {
                         currentStage!.setupSelectedArrays()
                         
                         self.ySpeed = self.beforeYSpeed
-                        //                        self.isFalling = true
                     }
                 }
                 
@@ -678,8 +649,6 @@ class Player {
                             isTransitioningRight = false
                             
                             currentStage = nextStage
-                            
-                            //                            currentStage!.isUsed = true
                             
                             nextStage = nil
                             
@@ -832,13 +801,9 @@ class Player {
                     
                     self.endShootTimer.invalidate()
                     self.endShootAnimationTimer.invalidate()
-                    
-                    //            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
-                    //            self.endShootTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
-                    
+
                     self.isShooting = false
                     
-                    //            self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.175, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
                     self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
                     
                     if self.power == "regular" {
@@ -866,37 +831,11 @@ class Player {
                     } else if self.power == "blade" {
                         
                         if self.direction == "left" {
-                            
-//                            if isUpPressed == true {
-//
-//                                bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upLeft", type: self.power))
-//
-//                            } else if isDownPressed == true {
-//
-//                                bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downLeft", type: self.power))
-//
-//                            } else {
-//
-//                                bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
-//                            }
-                            
+
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upLeft", type: self.power))
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downLeft", type: self.power))
                             
                         } else if self.direction == "right" {
-                            
-//                            if isUpPressed == true {
-//
-//                                bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upRight", type: self.power))
-//
-//                            } else if isDownPressed == true {
-//
-//                                bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downRight", type: self.power))
-//
-//                            } else {
-//
-//                                bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
-//                            }
                             
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upRight", type: self.power))
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downRight", type: self.power))
@@ -932,10 +871,6 @@ class Player {
     }
     
     @objc func stopShoot() {
-        
-        //        canMoveLeft = true
-        //        canMoveRight = true
-        
         self.isShooting = false
     }
     
@@ -1384,9 +1319,6 @@ class Player {
     
     func handleHit(damage: Int, enemyDirection: String) {
         
-        //        canMoveLeft = true
-        //        canMoveRight = true
-        
         if self.isClimbing == true {
             
             self.ySpeed = 0
@@ -1420,9 +1352,6 @@ class Player {
     }
     
     func handleKnockBack(enemyDirection: String) {
-        
-        //        canMoveLeft = true
-        //        canMoveRight = true
         
         self.isJumping = true
         self.isRising = true
@@ -1485,17 +1414,11 @@ class Player {
         
         self.view.isHidden = false
         
-        //        canMoveLeft = true
-        //        canMoveRight = true
-        
         self.isHit = false
     }
     
     @objc func handleHitAnimation() {
-        
-        //        if self.isKnockedBack == false {
         self.view.isHidden = !self.view.isHidden
-        //        }
     }
     
     //    func isInBounds() -> Bool {

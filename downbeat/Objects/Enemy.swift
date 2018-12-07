@@ -43,7 +43,6 @@ class Enemy {
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
 //    static let hitTimeInterval: CGFloat = 0.05
-//    static let hitTimeInterval: CGFloat = 0.075
     static let hitTimeInterval: CGFloat = 0.0625
 
     static var bulletsToRemove = [Int]()
@@ -172,8 +171,6 @@ class Enemy {
             
             self.moveSpeed = 0
             
-//            self.direction = "left"
-            
         } else if self.type == "penguin" {
             
             self.maxHealth = 1
@@ -197,8 +194,6 @@ class Enemy {
             self.height = Block.height * (20 / 16)
             
             self.moveSpeed = 0.8125
-            
-//            self.direction = "left"
             
         } else if self.type == "foot" {
             
@@ -226,8 +221,6 @@ class Enemy {
             
             self.moveSpeed = 0.375
             
-            //            self.direction = "left"
-            
         } else if self.type == "snake" {
             
             self.maxHealth = 3
@@ -238,8 +231,6 @@ class Enemy {
             self.height = Block.height * (23 / 16)
             
             self.moveSpeed = 0
-            
-            //            self.direction = "left"
         }
         
         self.health = self.maxHealth
@@ -272,7 +263,6 @@ class Enemy {
                 setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
             }
             
-            //            self.shootTimeInterval = 3.25
             self.shootTimeInterval = 2.25
             
             self.totalShootTimeInterval = 0.875
@@ -287,8 +277,6 @@ class Enemy {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
-            
-            //            self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
             
         } else if self.type == "penguin" {
             
@@ -324,7 +312,6 @@ class Enemy {
                 setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
             }
             
-            //            self.shootTimeInterval = 3.25
             self.shootTimeInterval = 1.75
             self.signalTimeInterval = 0.3
 
@@ -344,9 +331,6 @@ class Enemy {
 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
-            
-            //            self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
-            
         }
         
         self.startDirection = self.direction
@@ -546,7 +530,6 @@ class Enemy {
                 var isEmpty1: Bool = true
                 var isEmpty2: Bool = true
                 
-//                for block in selectedBlocks {
                 for block in currentStage!.blocks {
 
                     if block.isInLargeBounds() == true {
@@ -581,7 +564,6 @@ class Enemy {
                     
                     if direction == "right" {
                         
-//                        for block in selectedBlocks {
                         for block in currentStage!.blocks {
 
                             if block.type != "ladder" && block.type != "topLadder" {
@@ -601,19 +583,11 @@ class Enemy {
                         
                     } else if direction == "left" {
                         
-//                        for block in selectedBlocks {
                         for block in currentStage!.blocks {
 
                             if block.type != "ladder" && block.type != "topLadder" {
                                 
                                 if block.isInLargeBounds() == true {
-                                    
-//                                    if self.x + (self.width / 2) + (self.moveSpeed * 5) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 5) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
-//
-//                                        self.direction = "right"
-//
-//                                        setXY(x: block.x + (Block.width / 2) + (self.width / 2) + (self.moveSpeed * 5), y: self.y)
-//                                    }
                                     
                                     if self.x - (self.width / 2) - (self.moveSpeed * 5) < block.x + (Block.width / 2) && self.x - (self.width / 2) - (self.moveSpeed * 5) > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                                         
@@ -798,8 +772,6 @@ class Enemy {
         self.endHitTimer.invalidate()
         
         self.endHitTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Enemy.hitTimeInterval), target: self, selector: #selector(stopHit), userInfo: nil, repeats: false)
-
-//        self.isHit = false
     }
     
     @objc func stopHit() {
@@ -841,7 +813,6 @@ class Enemy {
         if self.isSignalling == false {
             
             self.isSignalling = true
-            //            self.isShootingAnimation = true
         }
     }
     
@@ -852,11 +823,7 @@ class Enemy {
         } else if self.type == "hat" {
             
             if self.direction == "left" {
-                
-//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: -1.5, type: "smallRegular"))
-//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0, type: "smallRegular"))
-//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 1.5, type: "smallRegular"))
-                
+
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: -1.5, type: "mediumRegular"))
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 0, type: "mediumRegular"))
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: -1.5, ySpeed: 1.5, type: "mediumRegular"))
@@ -864,10 +831,6 @@ class Enemy {
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
                 
             } else if self.direction == "right" {
-
-//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: -1.5, type: "smallRegular"))
-//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0, type: "smallRegular"))
-//                enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 1.5, type: "smallRegular"))
 
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: -1.5, type: "mediumRegular"))
                 enemyBullets.append(EnemyBullet(x: self.x, y: self.y, xSpeed: 1.5, ySpeed: 0, type: "mediumRegular"))
@@ -951,7 +914,6 @@ class Enemy {
                 
                 self.shootTimer.invalidate()
                 
-                //                self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
                 self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
 
                 self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)

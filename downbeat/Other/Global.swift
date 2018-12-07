@@ -131,10 +131,6 @@ public func removeObjects(type: String, toRemove: [Int]) {
             
             powerups = tryToRemove(array: powerups, value: newToRemove[newI]) as! [Powerup]
 
-        } else if type == "stagePowerups" {
-            
-            currentStage!.powerups = tryToRemove(array: currentStage!.powerups, value: newToRemove[newI]) as! [Powerup]
-
         } else if type == "explosions" {
             
             explosions = tryToRemove(array: explosions, value: newToRemove[newI]) as! [Explosion]

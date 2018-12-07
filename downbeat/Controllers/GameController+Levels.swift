@@ -28,11 +28,7 @@ extension GameController {
         currentLevel = level
         currentStage = level.startStage
         
-//        currentStage!.isUsed = true
-        
         currentStage!.setupSelectedArrays()
-
-//        setupStage()
         
         player.reset()
         

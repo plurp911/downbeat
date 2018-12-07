@@ -426,19 +426,6 @@ class Stage {
     
     func setupSelectedArrays() {
         
-
-        
-        
-        
-        
-        
-        // reset all enemy and enemy spawners to have their timers all stopped...
-        
-        
-        
-        
-        
-        
         selectedBlocks.removeAll()
         selectedEnemies.removeAll()
         selectedPowerups.removeAll()
@@ -465,8 +452,6 @@ class Stage {
             
             if enemy.isInBounds() == true {
                 
-//                enemy.isUsed = false
-                
                 enemy.reset()
                 enemy.startTimers()
                 
@@ -482,8 +467,6 @@ class Stage {
             
             if powerup.isInBounds() == true {
                 
-//                powerup.isUsed = false
-
                 selectedPowerups.append(powerup)
                 
             } else {
@@ -831,8 +814,6 @@ class Stage {
                     
                     if matchPos >= 0 {
                         
-//                        selectedEnemies[matchPos].isUsed = false
-                        
                         selectedToRemove.append(matchPos)
                         
                     } else {
@@ -894,8 +875,6 @@ class Stage {
                     
                     if matchPos >= 0 {
                         
-//                        selectedEnemies[matchPos].isUsed = false
-
                         selectedToRemove.append(matchPos)
                         
                     } else {
