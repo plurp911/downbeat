@@ -118,6 +118,10 @@ class Enemy {
     
     var isResetting: Bool = false
     
+    var xGoal: CGFloat = 0
+    
+    var didReachGoal: Bool = false
+    
     var view: UIImageView = UIImageView()
     
     init(xPos: Int, yPos: Int, type: String, direction: String) {
@@ -190,10 +194,12 @@ class Enemy {
             
             self.damage = 3
             
-            self.width = Block.width
-            self.height = Block.height * (20 / 16)
+            self.xGoal = Block.width * 4
             
-            self.moveSpeed = 0.8125
+            self.width = Block.width
+            self.height = Block.height * (25 / 16)
+            
+            self.moveSpeed = 1
             
         } else if self.type == "foot" {
             
@@ -287,7 +293,10 @@ class Enemy {
             
         } else if self.type == "head" {
             
-
+            self.view.animationImages = Enemy.headImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * (1 / 3)
+            self.view.startAnimating()
             
         } else if self.type == "foot" {
             
@@ -420,8 +429,6 @@ class Enemy {
             
         } else if type == "head" {
             
-            
-            
         } else if type == "foot" {
             
             if self.isStunned == true {
@@ -515,7 +522,37 @@ class Enemy {
             
         } else if self.type == "head" {
             
-            
+            if self.direction == "left" {
+                
+                if self.didReachGoal == false {
+                    
+                    if self.x <= player.x + self.xGoal {
+                        
+                        self.didReachGoal = true
+                        
+                    } else {
+                        
+                        self.xSpeed = -self.moveSpeed
+                        self.ySpeed = 0
+                    }
+                }
+
+            } else if self.direction == "right" {
+                
+                if self.didReachGoal == false {
+                    
+                    if self.x >= player.x - self.xGoal {
+                        
+                        self.didReachGoal = true
+                        
+                    } else {
+                        
+                        self.xSpeed = self.moveSpeed
+                        self.ySpeed = 0
+                    }
+                }
+                
+            }
             
         } else if self.type == "foot" {
             
@@ -845,8 +882,6 @@ class Enemy {
         } else if self.type == "penguin" {
             
         } else if self.type == "head" {
-            
-            
             
         } else if self.type == "foot" {
             
