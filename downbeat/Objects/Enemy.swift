@@ -28,7 +28,9 @@ class Enemy {
     
     static let penguinLeftImages = [UIImage(named: "penguinEnemyLeft1"), UIImage(named: "penguinEnemyLeft2")]
     
-    static let eyeImages = [UIImage(named: "eyeEnemy1"), UIImage(named: "eyeEnemy2"), UIImage(named: "eyeEnemy3")]
+    static let eyeClosedImage = UIImage(named: "eyeEnemy1")
+    static let eyeOpenImage = UIImage(named: "eyeEnemy3")
+    static let eyeImages = [UIImage(named: "eyeEnemy2")]
 
     static let headImages = [UIImage(named: "headEnemy1"), UIImage(named: "headEnemy2")]
 
@@ -42,8 +44,8 @@ class Enemy {
 
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
-//    static let hitTimeInterval: CGFloat = 0.05
-    static let hitTimeInterval: CGFloat = 0.0625
+    static let hitTimeInterval: CGFloat = 0.05
+//    static let hitTimeInterval: CGFloat = 0.0625
 
     static var bulletsToRemove = [Int]()
 
@@ -120,8 +122,9 @@ class Enemy {
     
     var xGoal: CGFloat = 0
     
-    var didReachGoal: Bool = false
-    
+    var didReachGoal1: Bool = false
+    var didReachGoal2: Bool = false
+
     var view: UIImageView = UIImageView()
     
     init(xPos: Int, yPos: Int, type: String, direction: String) {
@@ -225,7 +228,7 @@ class Enemy {
             self.width = Block.width
             self.height = self.width
             
-            self.moveSpeed = 0.375
+            self.moveSpeed = 1
             
         } else if self.type == "snake" {
             
@@ -313,8 +316,12 @@ class Enemy {
             
         } else if self.type == "eye" {
             
-
+            self.isStunned = true
             
+            self.stunTimeInterval = 2
+
+            self.view.image = Enemy.eyeClosedImage
+        
         } else if self.type == "snake" {
             
             if self.isResetting == false {
@@ -446,7 +453,17 @@ class Enemy {
             
         } else if type == "eye" {
             
-            
+            if self.view.isAnimating == false {
+                
+                if self.isStunned == true {
+                    
+                    self.view.image = Enemy.eyeClosedImage
+                    
+                } else {
+                 
+                    self.view.image = Enemy.eyeOpenImage
+                }
+            }
             
         } else if type == "snake" {
             
@@ -522,37 +539,46 @@ class Enemy {
             
         } else if self.type == "head" {
             
-            if self.direction == "left" {
-                
-                if self.didReachGoal == false {
-                    
-                    if self.x <= player.x + self.xGoal {
-                        
-                        self.didReachGoal = true
-                        
-                    } else {
-                        
-                        self.xSpeed = -self.moveSpeed
-                        self.ySpeed = 0
-                    }
-                }
-
-            } else if self.direction == "right" {
-                
-                if self.didReachGoal == false {
-                    
-                    if self.x >= player.x - self.xGoal {
-                        
-                        self.didReachGoal = true
-                        
-                    } else {
-                        
-                        self.xSpeed = self.moveSpeed
-                        self.ySpeed = 0
-                    }
-                }
-                
-            }
+//            if self.direction == "left" {
+//
+//                if self.didReachGoal1 == false {
+//
+//                    if self.x <= player.x + self.xGoal {
+//
+//                        self.didReachGoal1 = true
+//
+//                    } else {
+//
+//                        self.xSpeed = -self.moveSpeed
+//                        self.ySpeed = 0
+//                    }
+//
+//                } else {
+//
+//                    self.xSpeed = -self.moveSpeed * 3
+//
+//                }
+//
+//            } else if self.direction == "right" {
+//
+//                if self.didReachGoal1 == false {
+//
+//                    if self.x >= player.x - self.xGoal {
+//
+//                        self.didReachGoal1 = true
+//
+//                    } else {
+//
+//                        self.xSpeed = self.moveSpeed
+//                        self.ySpeed = 0
+//                    }
+//
+//                } else {
+//
+//
+//
+//                }
+//            }
             
         } else if self.type == "foot" {
             
@@ -630,7 +656,7 @@ class Enemy {
                                         
                                         self.direction = "right"
 
-                                        setXY(x: block.x + (Block.width / 2) + (Player.width / 2) + (self.moveSpeed * 5), y: self.y)
+                                        setXY(x: block.x + (Block.width / 2) + (self.width / 2) + (self.moveSpeed * 5), y: self.y)
                                     }
                                 }
                                 
@@ -656,7 +682,80 @@ class Enemy {
             
         } else if self.type == "eye" {
             
+            self.xSpeed = 0
+            self.ySpeed = 0
             
+            if self.isStunned == false {
+
+                let offset: CGFloat = Block.width * (1 / 16) * 0.1
+                let offset2: CGFloat = Block.width * (1 / 16) * 0.5
+
+                for block in currentStage!.blocks {
+                    
+                    if block.type != "ladder" && block.type != "topLadder" {
+                        
+                        if block.isInLargeBounds() == true {
+                            
+                            if direction == "right" {
+                                
+                                if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (self.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                    
+                                    self.handleEyeHitBlock()
+                                    
+                                    setXY(x: block.x - (Block.width / 2) - (self.width / 2) + offset2, y: self.y)
+                                }
+                                
+                            } else if direction == "left" {
+                                
+                                if self.x - (self.width / 2) - self.moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                    
+                                    self.handleEyeHitBlock()
+                                    
+                                    setXY(x: block.x + (Block.width / 2) + (self.width / 2) - offset2, y: self.y)
+                                }
+                                
+                            } else if direction == "up" {
+                                
+                                if self.y - (self.height / 2) - self.moveSpeed < block.y + (Block.height / 2) && self.y - (self.height / 2) - self.moveSpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                    
+                                    self.handleEyeHitBlock()
+                                    
+                                    setXY(x: self.x, y: block.y + (Block.height / 2) + (self.height / 2) - offset2)
+                                }
+                                
+                            } else if direction == "down" {
+                                
+                                if self.y + (self.height / 2) + self.moveSpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.moveSpeed + offset > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (self.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                    
+                                    self.handleEyeHitBlock()
+                                    
+                                    setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2) + offset2)
+                                }
+                                
+                            }
+
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                        }
+                        
+                    }
+                }
+                
+                if self.direction == "left" {
+                    self.xSpeed = -self.moveSpeed
+                } else if self.direction == "right" {
+                    self.xSpeed = self.moveSpeed
+                } else if self.direction == "up" {
+                    self.ySpeed = -self.moveSpeed
+                } else if self.direction == "down" {
+                    self.ySpeed = self.moveSpeed
+                }
+            }
             
         } else if self.type == "snake" {
             
@@ -684,6 +783,39 @@ class Enemy {
         }
         
         setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+    }
+    
+    func handleEyeHitBlock() {
+        
+        self.view.animationImages = Enemy.eyeImages as! [UIImage]
+        
+        self.view.animationRepeatCount = 1
+        
+        self.view.animationDuration = 0.1
+        self.view.startAnimating()
+        
+        self.isStunned = true
+        
+        if self.direction == "left" {
+            
+            self.direction = "right"
+            
+        } else if self.direction == "right" {
+            
+            self.direction = "left"
+            
+        } else if self.direction == "up" {
+            
+            self.direction = "down"
+            
+        } else if self.direction == "down" {
+            
+            self.direction = "up"
+        }
+        
+        self.endStunTimer.invalidate()
+        
+        self.endStunTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.stunTimeInterval), target: self, selector: #selector(stopStun), userInfo: nil, repeats: false)
     }
     
     func isInBounds() -> Bool {
@@ -941,10 +1073,22 @@ class Enemy {
         
         self.isStunned = false
         
-        self.view.animationImages = Enemy.footImages as! [UIImage]
-        
-        self.view.animationDuration = 0.85 * 0.15
-        self.view.startAnimating()
+        if self.type == "foot" {
+         
+            self.view.animationImages = Enemy.footImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.15
+            self.view.startAnimating()
+            
+        } else if self.type == "eye" {
+            
+            self.view.animationImages = Enemy.eyeImages as! [UIImage]
+            
+            self.view.animationRepeatCount = 1
+            
+            self.view.animationDuration = 0.1
+            self.view.startAnimating()
+        }
     }
     
     func startTimers() {
@@ -958,6 +1102,16 @@ class Enemy {
                 self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
 
                 self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            }
+        }
+        
+        if self.type == "eye" {
+            
+            if self.endStunTimer.isValid == false {
+                
+                self.endStunTimer.invalidate()
+                
+                self.endStunTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.stunTimeInterval), target: self, selector: #selector(stopStun), userInfo: nil, repeats: false)
             }
         }
         

@@ -132,6 +132,22 @@ class Stage {
                     
                 } else if text == "^" {
 //                    blocks.append(Block(xPos: j, yPos: i, type: "spike", tileSet: tileSet))
+                } else if text == "I" {
+                    
+                    if isEqual(i: i - 1, j: j, block: "#") {
+                        enemies.append(Enemy(xPos: j, yPos: i, type: "eye", direction: "down"))
+                    } else {
+                        enemies.append(Enemy(xPos: j, yPos: i, type: "eye", direction: "up"))
+                    }
+                    
+                } else if text == "i" {
+                    
+                    if isEqual(i: i, j: j - 1, block: "#") {
+                        enemies.append(Enemy(xPos: j, yPos: i, type: "eye", direction: "right"))
+                    } else {
+                        enemies.append(Enemy(xPos: j, yPos: i, type: "eye", direction: "left"))
+                    }
+                    
                 } else if text == "N" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "right"))
                 } else if text == "n" {
