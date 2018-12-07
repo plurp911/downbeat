@@ -1109,7 +1109,7 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            if self.power == "regular" || self.power == "beam" {
+            if self.power == "regular" || self.power == "beam" || self.power == "magnet" {
                 self.view.image = Player.climbShootRightImage
             } else {
                 self.view.image = Player.climbThrowRightImage
@@ -1156,7 +1156,7 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            if self.power == "regular" || self.power == "beam" {
+            if self.power == "regular" || self.power == "beam" || self.power == "magnet" {
                 self.view.image = Player.jumpShootRightImage
             } else {
                 self.view.image = Player.jumpThrowRightImage
@@ -1174,7 +1174,7 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            if self.power == "regular" || self.power == "beam" {
+            if self.power == "regular" || self.power == "beam" || self.power == "magnet" {
                 self.view.animationImages = Player.runShootRightImages as! [UIImage]
             } else {
                 self.view.animationImages = Player.runThrowRightImages as! [UIImage]
@@ -1201,7 +1201,7 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            if self.power == "regular" || self.power == "beam" {
+            if self.power == "regular" || self.power == "beam" || self.power == "magnet" {
                 self.view.image = Player.standShootRightImage
             } else {
                 self.view.image = Player.standThrowRightImage

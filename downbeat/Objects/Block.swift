@@ -102,4 +102,13 @@ class Block {
         
         return false
     }
+    
+    func isInLargeBounds() -> Bool {
+        
+        if self.x + (Block.width / 2) >= -(screenSize.height * (screenRatio)) && self.x - (Block.width / 2) <= (screenSize.height * (screenRatio)) + (screenSize.height * (screenRatio)) {
+            return true
+        }
+        
+        return false
+    }
 }

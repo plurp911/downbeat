@@ -42,8 +42,10 @@ class Enemy {
 
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
-    static let hitTimeInterval: CGFloat = 0.05
-    
+//    static let hitTimeInterval: CGFloat = 0.05
+//    static let hitTimeInterval: CGFloat = 0.075
+    static let hitTimeInterval: CGFloat = 0.0625
+
     static var bulletsToRemove = [Int]()
 
     // VARIABLES
@@ -114,6 +116,8 @@ class Enemy {
     var isStunned: Bool = false
     
     var yRange: CGFloat = 0
+    
+    var isResetting: Bool = false
     
     var view: UIImageView = UIImageView()
     
@@ -240,7 +244,9 @@ class Enemy {
         
         self.health = self.maxHealth
         
-        self.setXY(x: x, y: y)
+        if self.isResetting == false {
+            self.setXY(x: x, y: y)
+        }
         
         self.view.frame.size.width = self.width
         self.view.frame.size.height = self.height
@@ -262,7 +268,9 @@ class Enemy {
             
         } else if self.type == "hat" {
             
-            setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
             
             //            self.shootTimeInterval = 3.25
             self.shootTimeInterval = 2.25
@@ -295,7 +303,9 @@ class Enemy {
             
         } else if self.type == "foot" {
             
-            setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
             
             self.stunTimeInterval = 1.75
             
@@ -310,7 +320,9 @@ class Enemy {
             
         } else if self.type == "snake" {
             
-            setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
             
             //            self.shootTimeInterval = 3.25
             self.shootTimeInterval = 1.75
@@ -322,13 +334,13 @@ class Enemy {
             
             if self.direction == "right" {
                 
-                setXY(x: self.x + (Block.width * (5 / 16)), y: self.y)
+//                setXY(x: self.x + (Block.width * (5 / 16)), y: self.y)
 
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
                 
             } else if self.direction == "left" {
                 
-                setXY(x: self.x - (Block.width * (5 / 16)), y: self.y)
+//                setXY(x: self.x - (Block.width * (5 / 16)), y: self.y)
 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
@@ -345,11 +357,29 @@ class Enemy {
         self.x = x
         self.y = y
         
-        self.view.frame.origin.x = self.x - self.width / 2
-        self.view.frame.origin.y = self.y - self.height / 2
+        if self.type == "snake" {
+            
+            if self.direction == "right" {
+                
+                self.view.frame.origin.x = self.x - self.width / 2 + (Block.width * (5 / 16))
+                self.view.frame.origin.y = self.y - self.height / 2
+                
+            } else if self.direction == "left" {
+                
+                self.view.frame.origin.x = self.x - self.width / 2 - (Block.width * (5 / 16))
+                self.view.frame.origin.y = self.y - self.height / 2
+            }
+            
+        } else {
+            
+            self.view.frame.origin.x = self.x - self.width / 2
+            self.view.frame.origin.y = self.y - self.height / 2
+        }
     }
     
     func reset() {
+        
+        self.isResetting = true
 
         self.xSpeed = 0
         self.ySpeed = 0
@@ -383,6 +413,8 @@ class Enemy {
         self.endTimers()
        
         self.setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: self.type)
+        
+        self.isResetting = false
     }
     
     func updateAnimation() {
@@ -514,17 +546,22 @@ class Enemy {
                 var isEmpty1: Bool = true
                 var isEmpty2: Bool = true
                 
-                for block in selectedBlocks {
-                    
-                    if self.y + (self.height / 2) + Enemy.checkMargin < block.y + (Block.height / 2) && self.y + (self.height / 2) + Enemy.checkMargin > block.y - (Block.height / 2) && (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2)) {
+//                for block in selectedBlocks {
+                for block in currentStage!.blocks {
+
+                    if block.isInLargeBounds() == true {
                         
-                        isEmpty1 = false
+                        if self.y + (self.height / 2) + Enemy.checkMargin < block.y + (Block.height / 2) && self.y + (self.height / 2) + Enemy.checkMargin > block.y - (Block.height / 2) && (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2)) {
+                            
+                            isEmpty1 = false
+                        }
+                        
+                        if self.y + (self.height / 2) + Enemy.checkMargin < block.y + (Block.height / 2) && self.y + (self.height / 2) + Enemy.checkMargin > block.y - (Block.height / 2) && (self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) {
+                            
+                            isEmpty2 = false
+                        }
                     }
                     
-                    if self.y + (self.height / 2) + Enemy.checkMargin < block.y + (Block.height / 2) && self.y + (self.height / 2) + Enemy.checkMargin > block.y - (Block.height / 2) && (self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) {
-                        
-                        isEmpty2 = false
-                    }
                 }
                 
                 if isEmpty1 == true || isEmpty2 == true {
@@ -544,15 +581,19 @@ class Enemy {
                     
                     if direction == "right" {
                         
-                        for block in selectedBlocks {
-                            
+//                        for block in selectedBlocks {
+                        for block in currentStage!.blocks {
+
                             if block.type != "ladder" && block.type != "topLadder" {
                                 
-                                if self.x + (self.width / 2) + (self.moveSpeed * 3) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 3) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (self.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                if block.isInLargeBounds() == true {
                                     
-                                    self.direction = "left"
-                                    
-                                    setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 3), y: self.y)
+                                    if self.x + (self.width / 2) + (self.moveSpeed * 5) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 5) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (self.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                        
+                                        self.direction = "left"
+                                        
+                                        setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 5), y: self.y)
+                                    }
                                 }
                                 
                             }
@@ -560,15 +601,26 @@ class Enemy {
                         
                     } else if direction == "left" {
                         
-                        for block in selectedBlocks {
-                            
+//                        for block in selectedBlocks {
+                        for block in currentStage!.blocks {
+
                             if block.type != "ladder" && block.type != "topLadder" {
                                 
-                                if self.x + (self.width / 2) + (self.moveSpeed * 3) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 3) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                if block.isInLargeBounds() == true {
                                     
-                                    self.direction = "right"
+//                                    if self.x + (self.width / 2) + (self.moveSpeed * 5) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 5) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+//
+//                                        self.direction = "right"
+//
+//                                        setXY(x: block.x + (Block.width / 2) + (self.width / 2) + (self.moveSpeed * 5), y: self.y)
+//                                    }
                                     
-                                    setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 3), y: self.y)
+                                    if self.x - (self.width / 2) - (self.moveSpeed * 5) < block.x + (Block.width / 2) && self.x - (self.width / 2) - (self.moveSpeed * 5) > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                        
+                                        self.direction = "right"
+
+                                        setXY(x: block.x + (Block.width / 2) + (Player.width / 2) + (self.moveSpeed * 5), y: self.y)
+                                    }
                                 }
                                 
                             }
@@ -579,7 +631,7 @@ class Enemy {
 
                 if abs((self.y + (self.height / 2)) - (player.y + (Player.height / 2))) <= self.yRange {
                     
-                    self.xSpeed = moveSpeed * 3
+                    self.xSpeed = moveSpeed * 5
                     
                 } else {
                     
@@ -601,8 +653,9 @@ class Enemy {
                 
                 if self.direction == "left" {
                  
-                    setXY(x: self.x + ((Block.width * (5 / 16) * 2)), y: self.y)
-                    
+//                    setXY(x: self.x + ((Block.width * (5 / 16) * 2)), y: self.y)
+                    setXY(x: self.x, y: self.y)
+
                     self.direction = "right"
                 }
                 
@@ -610,8 +663,9 @@ class Enemy {
                 
                 if self.direction == "right" {
                     
-                    setXY(x: self.x - ((Block.width * (5 / 16) * 2)), y: self.y)
-                    
+//                    setXY(x: self.x - ((Block.width * (5 / 16) * 2)), y: self.y)
+                    setXY(x: self.x, y: self.y)
+
                     self.direction = "left"
                 }
             }
@@ -623,8 +677,17 @@ class Enemy {
     
     func isInBounds() -> Bool {
         
-        if self.x + (self.width / 2) >= 0 && self.x - (self.width / 2) <= screenSize.height * (screenRatio) {
-            return true
+        if self.type == "foot" {
+            
+            if self.x + (self.width / 2) >= -(screenSize.height * (screenRatio)) && self.x - (self.width / 2) <= (screenSize.height * (screenRatio)) + (screenSize.height * (screenRatio)) {
+                return true
+            }
+            
+        } else {
+         
+            if self.x + (self.width / 2) >= 0 && self.x - (self.width / 2) <= screenSize.height * (screenRatio) {
+                return true
+            }
         }
         
         return false
