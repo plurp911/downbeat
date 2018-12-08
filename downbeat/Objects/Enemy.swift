@@ -47,6 +47,9 @@ class Enemy {
     static let dropDropImage = UIImage(named: "dropEnemyDrop")
     static let dropHeadImage = UIImage(named: "dropEnemyHead")
 
+    static let sprinklerImages = [UIImage(named: "sprinklerEnemy1"), UIImage(named: "sprinklerEnemy2"), UIImage(named: "sprinklerEnemy3")]
+    static let sprinklerDownImage = UIImage(named: "sprinklerEnemyDown")
+    
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
     static let hitTimeInterval: CGFloat = 0.05
@@ -258,6 +261,19 @@ class Enemy {
             self.height = Block.height * (25 / 16)
             
             self.moveSpeed = 1.25
+            
+        } else if self.type == "sprinkler" {
+            
+            self.maxHealth = 5
+            
+            self.damage = 3
+            
+            self.xGoal = Block.width * 5
+            
+            self.width = Block.width
+            self.height = self.width
+            
+            self.moveSpeed = 0
         }
         
         self.health = self.maxHealth
@@ -372,6 +388,20 @@ class Enemy {
             
             self.view.animationDuration = 0.85 * (1 / 3)
             self.view.startAnimating()
+            
+        } else if self.type == "sprinkler" {
+            
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
+            
+            self.shootTimeInterval = 2.25
+            
+            self.totalShootTimeInterval = 0.875
+            
+            self.view.image = Enemy.sprinklerDownImage
+        
+            self.direction = "left"
         }
         
         self.startDirection = self.direction
@@ -528,6 +558,15 @@ class Enemy {
                 self.view.stopAnimating()
                 
                 self.view.image = Enemy.dropDropImage
+            }
+            
+        } else if type == "sprinkler" {
+            
+            if self.isShooting == false {
+                
+                self.view.stopAnimating()
+                
+                self.view.image = Enemy.sprinklerDownImage
             }
         }
         
@@ -772,16 +811,8 @@ class Enemy {
                                     
                                     setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2) + offset2)
                                 }
-                                
                             }
 
-                            
-                            
-                            
-                            
-                            
-                            
-                            
                         }
                         
                     }
@@ -880,11 +911,43 @@ class Enemy {
                     }
                     
                 }
+            }
+            
+        } else if self.type == "sprinkler" {
+            
+            if player.x > self.x {
                 
+                self.direction = "right"
+                
+            } else if player.x < self.x {
+                
+                self.direction = "left"
+            }
+            
+            if self.isSprinklerInRange() == true {
+                
+                self.startTimers()
             }
         }
         
         setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+    }
+    
+    func isSprinklerInRange() -> Bool {
+        
+        if self.type == "sprinkler" {
+            
+            if player.x <= self.x + self.xGoal && player.x >= self.x - self.xGoal {
+                
+                return true
+            }
+            
+        } else {
+            
+            return true
+        }
+
+        return false
     }
     
     func handleEyeHitBlock() {
@@ -1001,6 +1064,10 @@ class Enemy {
                     } else if self.type == "drop" {
                         
                         return i
+                        
+                    } else if self.type == "sprinkler" {
+                        
+                        return i
                     }
                 }
                 
@@ -1077,6 +1144,14 @@ class Enemy {
             
             self.isSignalling = false
             
+            if self.type == "sprinkler" {
+                
+                self.view.animationImages = Enemy.sprinklerImages as! [UIImage]
+                
+                self.view.animationDuration = 0.85 * (1 / 3)
+                self.view.startAnimating()
+            }
+            
             //            self.isShootingAnimation = true
             
             self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(realShoot), userInfo: nil, repeats: false)
@@ -1123,11 +1198,7 @@ class Enemy {
             
         } else if self.type == "foot" {
             
-            
-            
         } else if self.type == "eye" {
-            
-            
             
         } else if self.type == "snake" {
             
@@ -1153,6 +1224,21 @@ class Enemy {
             let yOffset: CGFloat = Block.width * (0 / 16)
             
             enemyBullets.append(EnemyBullet(x: self.x, y: self.y + yOffset, xSpeed: 0, ySpeed: 2, type: "dropHead"))
+            
+        } else if self.type == "sprinkler" {
+            
+            let bulletSpeedMax: CGFloat = 3.25
+            let bulletSpeedMin: CGFloat = bulletSpeedMax / (sqrt(2))
+
+            let yOffset: CGFloat = Block.width * (4 / 16)
+            
+            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallRegular"))
+            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMax, ySpeed: 0, type: "smallRegular"))
+            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeedMax, type: "smallRegular"))
+            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallRegular"))
+            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: bulletSpeedMax, ySpeed: 0, type: "smallRegular"))
+            
+            self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
         }
     }
     
@@ -1204,16 +1290,20 @@ class Enemy {
     
     func startTimers() {
         
-        if self.shootTimeInterval > 0 {
+        if self.isSprinklerInRange() == true {
             
-            if self.shootTimer.isValid == false {
+            if self.shootTimeInterval > 0 {
                 
-                self.shootTimer.invalidate()
-                
-                self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
-
-                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                if self.shootTimer.isValid == false && self.endShootTimer.isValid == false && self.signalTimer.isValid == false {
+                    
+                    self.shootTimer.invalidate()
+                    
+                    self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+                    
+                    self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                }
             }
+            
         }
         
         if self.type == "eye" {

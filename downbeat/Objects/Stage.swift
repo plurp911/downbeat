@@ -156,6 +156,8 @@ class Stage {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "drop", direction: "right"))
                 } else if text == "d" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "drop", direction: "left"))
+                } else if text == "k" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "sprinkler"))
                 } else if text == "H" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "hat", direction: "right"))
                 } else if text == "h" {
