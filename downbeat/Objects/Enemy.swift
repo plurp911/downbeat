@@ -50,6 +50,11 @@ class Enemy {
     static let sprinklerImages = [UIImage(named: "sprinklerEnemy1"), UIImage(named: "sprinklerEnemy2"), UIImage(named: "sprinklerEnemy3")]
     static let sprinklerDownImage = UIImage(named: "sprinklerEnemyDown")
     
+    static let turretLeftOpenImages = [UIImage(named: "turretEnemyLeft1"), UIImage(named: "turretEnemyLeft2")]
+    static let turretLeftCloseImages = [UIImage(named: "turretEnemyLeft2"), UIImage(named: "turretEnemyLeft1")]
+    static let turretLeftClosedImage = UIImage(named: "turretEnemyClosedLeft")
+    static let turretLeftOpenImage = UIImage(named: "turretEnemyOpenLeft")
+    
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
     static let hitTimeInterval: CGFloat = 0.05
@@ -119,6 +124,8 @@ class Enemy {
     var totalShootTimeInterval: CGFloat = 0
     
     var stunTimeInterval: CGFloat = 0
+    
+    var betweenShotsTimeInterval: CGFloat = 0
 
     var isUsed: Bool = false
     
@@ -129,6 +136,8 @@ class Enemy {
     var isResetting: Bool = false
     
     var xGoal: CGFloat = 0
+    
+    var shootCount: Int = 0
     
     var didReachGoal1: Bool = false
     var didReachGoal2: Bool = false
@@ -274,6 +283,17 @@ class Enemy {
             self.height = self.width
             
             self.moveSpeed = 0
+            
+        } else if self.type == "turret" {
+            
+            self.maxHealth = 1
+            
+            self.damage = 3
+            
+            self.width = Block.width
+            self.height = self.width
+            
+            self.moveSpeed = 0
         }
         
         self.health = self.maxHealth
@@ -391,10 +411,6 @@ class Enemy {
             
         } else if self.type == "sprinkler" {
             
-            if self.isResetting == false {
-                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
-            }
-            
             self.shootTimeInterval = 2.25
             
             self.totalShootTimeInterval = 0.875
@@ -402,6 +418,25 @@ class Enemy {
             self.view.image = Enemy.sprinklerDownImage
         
             self.direction = "left"
+            
+        } else if self.type == "turret" {
+            
+            self.shootTimeInterval = 2.25
+
+            self.totalShootTimeInterval = 0.875
+            
+            self.betweenShotsTimeInterval = 0.75
+            
+            self.view.image = Enemy.turretLeftClosedImage
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
         }
         
         self.startDirection = self.direction
@@ -471,6 +506,8 @@ class Enemy {
         
         self.didReachGoal1 = false
         self.didReachGoal2 = false
+        
+        self.shootCount = 0
 
         self.endTimers()
        
@@ -568,8 +605,26 @@ class Enemy {
                 
                 self.view.image = Enemy.sprinklerDownImage
             }
+            
+        } else if type == "turret" {
+            
+            if self.view.isAnimating == false {
+                
+                if self.isShooting == true {
+                    
+                    self.view.stopAnimating()
+                    
+                    self.view.image = Enemy.turretLeftOpenImage
+                    
+                } else {
+                    
+                    self.view.stopAnimating()
+                    
+                    self.view.image = Enemy.turretLeftClosedImage
+                }
+            }
+            
         }
-        
     }
     
     func move() {
@@ -928,6 +983,17 @@ class Enemy {
                 
                 self.startTimers()
             }
+            
+        } else if self.type == "turret" {
+            
+            if player.x > self.x {
+                
+                self.direction = "right"
+                
+            } else if player.x < self.x {
+                
+                self.direction = "left"
+            }
         }
         
         setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
@@ -1068,6 +1134,10 @@ class Enemy {
                     } else if self.type == "sprinkler" {
                         
                         return i
+                        
+                    } else if self.type == "turret" {
+                        
+                        return i
                     }
                 }
                 
@@ -1150,6 +1220,15 @@ class Enemy {
                 
                 self.view.animationDuration = 0.85 * (1 / 3)
                 self.view.startAnimating()
+                
+            } else if self.type == "turret" {
+                
+                self.view.animationImages = Enemy.turretLeftOpenImages as! [UIImage]
+                
+                self.view.animationRepeatCount = 1
+                
+                self.view.animationDuration = 0.15
+                self.view.startAnimating()
             }
             
             //            self.isShootingAnimation = true
@@ -1172,22 +1251,24 @@ class Enemy {
             
         } else if self.type == "hat" {
             
+            let bulletSpeed: CGFloat = 1.5
+
             let xOffset: CGFloat = Block.width * (12 / 16)
             let yOffset: CGFloat = Block.width * (3 / 16)
 
             if self.direction == "left" {
 
-                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -1.5, ySpeed: -1.5, type: "mediumRegular"))
-                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -1.5, ySpeed: 0, type: "mediumRegular"))
-                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -1.5, ySpeed: 1.5, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -bulletSpeed, ySpeed: -bulletSpeed, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -bulletSpeed, ySpeed: bulletSpeed, type: "mediumRegular"))
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
                 
             } else if self.direction == "right" {
 
-                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: 1.5, ySpeed: -1.5, type: "mediumRegular"))
-                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: 1.5, ySpeed: 0, type: "mediumRegular"))
-                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: 1.5, ySpeed: 1.5, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: bulletSpeed, ySpeed: -bulletSpeed, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: bulletSpeed, ySpeed: bulletSpeed, type: "mediumRegular"))
 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
@@ -1202,28 +1283,32 @@ class Enemy {
             
         } else if self.type == "snake" {
             
+            let bulletSpeed: CGFloat = 2.5
+
             let xOffset: CGFloat = Block.width * (14 / 16)
             let yOffset: CGFloat = Block.width * (4 / 16)
             
             if self.direction == "left" {
                 
 //                enemyBullets.append(EnemyBullet(x: self.x - (Block.width * (4 / 16)), y: self.y + (Block.height * (2 / 16)), target: "player", type: "mediumRegular"))
-                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, target: "player", speed: 2.5, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, target: "player", speed: bulletSpeed, type: "mediumRegular"))
 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
                 
             } else if self.direction == "right" {
 
-                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, target: "player", speed: 2.5, type: "mediumRegular"))
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, target: "player", speed: bulletSpeed, type: "mediumRegular"))
 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
             
         } else if self.type == "drop" {
          
+            let bulletSpeed: CGFloat = 2
+
             let yOffset: CGFloat = Block.width * (0 / 16)
             
-            enemyBullets.append(EnemyBullet(x: self.x, y: self.y + yOffset, xSpeed: 0, ySpeed: 2, type: "dropHead"))
+            enemyBullets.append(EnemyBullet(x: self.x, y: self.y + yOffset, xSpeed: 0, ySpeed: bulletSpeed, type: "dropHead"))
             
         } else if self.type == "sprinkler" {
             
@@ -1232,14 +1317,68 @@ class Enemy {
 
             let yOffset: CGFloat = Block.width * (4 / 16)
             
-            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallRegular"))
-            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMax, ySpeed: 0, type: "smallRegular"))
-            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeedMax, type: "smallRegular"))
-            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallRegular"))
-            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: bulletSpeedMax, ySpeed: 0, type: "smallRegular"))
+            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallOrange"))
+            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMax, ySpeed: 0, type: "smallOrange"))
+            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeedMax, type: "smallOrange"))
+            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallOrange"))
+            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: bulletSpeedMax, ySpeed: 0, type: "smallOrange"))
             
             self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            
+        } else if self.type == "turret" {
+            
+            let bulletSpeed: CGFloat = 3.25
+            
+            let yOffset: CGFloat = Block.width * (0 / 16)
+
+            var xOffset: CGFloat = Block.width * (8 / 16)
+            
+            var goalX: CGFloat = 0
+            var goalY: CGFloat = 0
+            
+            if self.shootCount == 1 {
+                
+                goalX = 0
+                goalY = 0
+                
+            } else if self.shootCount == 2 {
+                
+                goalX = 0
+                goalY = 0
+                
+            } else if self.shootCount == 3 {
+                
+                goalX = 0
+                goalY = 0
+                
+            } else {
+                
+                goalX = 0
+                goalY = 0
+            }
+            
+            if self.direction == "left" {
+                
+                goalX = -goalX
+                xOffset = -xOffset
+            }
+
+            enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, targetX: goalX, targetY: goalY, speed: bulletSpeed, type: "smallBlue"))
+            
+            if self.shootCount >= 3 {
+                
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+                
+                self.shootCount = 0
+                
+            } else {
+                
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.betweenShotsTimeInterval), target: self, selector: #selector(realShoot), userInfo: nil, repeats: false)
+                
+                self.shootCount += 1
+            }
         }
+        
     }
     
     //    func updateFreeze() {
@@ -1261,6 +1400,18 @@ class Enemy {
         //        self.canMove = true
         
         self.isShooting = false
+        
+        self.shootCount = 0
+        
+        if self.type == "turret" {
+            
+            self.view.animationImages = Enemy.turretLeftCloseImages as! [UIImage]
+            
+            self.view.animationRepeatCount = 1
+            
+            self.view.animationDuration = 0.15
+            self.view.startAnimating()
+        }
         
         self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
         self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)

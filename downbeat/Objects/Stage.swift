@@ -148,6 +148,14 @@ class Stage {
                         enemies.append(Enemy(xPos: j, yPos: i, type: "eye", direction: "left"))
                     }
                     
+                } else if text == "t" {
+                    
+                    if isEqual(i: i, j: j - 1, block: "#") {
+                        enemies.append(Enemy(xPos: j, yPos: i, type: "turret", direction: "right"))
+                    } else {
+                        enemies.append(Enemy(xPos: j, yPos: i, type: "turret", direction: "left"))
+                    }
+                    
                 } else if text == "N" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "right"))
                 } else if text == "n" {

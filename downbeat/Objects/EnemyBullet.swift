@@ -21,6 +21,9 @@ class EnemyBullet {
     
     static let dropHeadImage = UIImage(named: "dropHeadEnemyBullet")
 
+    static let smallOrangeImage = UIImage(named: "smallOrangeEnemyBullet")
+    static let smallBlueImage = UIImage(named: "smallBlueEnemyBullet")
+
     // VARIABLES
     
     var x: CGFloat = 0
@@ -37,6 +40,16 @@ class EnemyBullet {
     var damage: Int = 0
 
     var view: UIImageView = UIImageView()
+    
+    init(x: CGFloat, y: CGFloat, targetX: CGFloat, targetY: CGFloat, speed: CGFloat, type: String) {
+        
+        var newXSpeed: CGFloat = 0
+        var newYSpeed: CGFloat = 0
+        
+        newXSpeed = 5
+        
+        setup(x: x, y: y, xSpeed: newXSpeed, ySpeed: newYSpeed, type: type)
+    }
     
     init(x: CGFloat, y: CGFloat, xSpeed: CGFloat, ySpeed: CGFloat, type: String) {
         
@@ -120,6 +133,24 @@ class EnemyBullet {
             self.damage = 3
             
             self.view.image = EnemyBullet.dropHeadImage
+            
+        } else if self.type == "smallOrange" {
+            
+            self.width = Block.width * (6 / 16)
+            self.height = self.width
+            
+            self.damage = 1
+            
+            self.view.image = EnemyBullet.smallOrangeImage
+            
+        } else if self.type == "smallBlue" {
+            
+            self.width = Block.width * (6 / 16)
+            self.height = self.width
+            
+            self.damage = 1
+            
+            self.view.image = EnemyBullet.smallBlueImage
         }
         
         self.setXY(x: x, y: y)
@@ -137,28 +168,28 @@ class EnemyBullet {
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
-        if self.xSpeed <= 0 {
-            
-            if self.ySpeed <= 0 {
-                
-                self.view.transform = CGAffineTransform(scaleX: -1, y: -1)
-                
-            } else {
-                
-                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-            }
-            
-        } else {
-
-            if self.ySpeed <= 0 {
-                
-                self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
-                
-            } else {
-                
-                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }
-        }
+//        if self.xSpeed <= 0 {
+//
+//            if self.ySpeed <= 0 {
+//
+//                self.view.transform = CGAffineTransform(scaleX: -1, y: -1)
+//
+//            } else {
+//
+//                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+//            }
+//
+//        } else {
+//
+//            if self.ySpeed <= 0 {
+//
+//                self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
+//
+//            } else {
+//
+//                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+//            }
+//        }
         
     }
     
