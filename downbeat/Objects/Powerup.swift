@@ -25,6 +25,8 @@ class Powerup {
     static let largeEnergyImages = [UIImage(named: "largeEnergyPowerup1"), UIImage(named: "largeEnergyPowerup2")]
     static let smallEnergyImages = [UIImage(named: "smallEnergyPowerup1"), UIImage(named: "smallEnergyPowerup2")]
     
+    static let extraLifeImage = UIImage(named: "extraLifePowerup")
+
     // VARIABLES
     
     var xPos: Int = 0
@@ -91,6 +93,11 @@ class Powerup {
             
             self.width = Block.width * 0.5
             self.height = self.width
+            
+        } else if self.type == "extraLife" {
+            
+            self.width = Block.width
+            self.height = self.width
         }
         
         if shouldFade == false {
@@ -125,6 +132,7 @@ class Powerup {
         } else if self.type == "smallEnergy" {
             
             self.view.animationImages = Powerup.smallEnergyImages as! [UIImage]
+            
         }
         
         if shouldFade == true {
@@ -134,6 +142,13 @@ class Powerup {
         
         self.view.animationDuration = 0.3
         self.view.startAnimating()
+        
+        if self.type == "extraLife" {
+            
+            self.view.stopAnimating()
+            
+            self.view.image = Powerup.extraLifeImage
+        }
         
         if shouldFade == true {
             self.jump()

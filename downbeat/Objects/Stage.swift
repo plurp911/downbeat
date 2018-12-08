@@ -188,6 +188,8 @@ class Stage {
                     powerups.append(Powerup(xPos: j, yPos: i, type: "smallEnergy"))
                 } else if text == "9" {
                     powerups.append(Powerup(xPos: j, yPos: i, type: "largeEnergy"))
+                } else if text == "5" {
+                    powerups.append(Powerup(xPos: j, yPos: i, type: "extraLife"))
                 } else if text == ":" {
                     self.setPlayerStartXYPos(startXPos: j, startYPos: i)
                 } else if text == "T" {

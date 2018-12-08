@@ -1183,6 +1183,10 @@ class Player {
             if self.energyPos >= 0 {
                 self.energies[self.energyPos] += 1
             }
+            
+        }  else if type == "extraLife" {
+
+            lives += 1
         }
         
         if self.health > Player.maxHealth {

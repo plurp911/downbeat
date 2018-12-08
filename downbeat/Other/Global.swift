@@ -73,6 +73,8 @@ var isTransitioningRight: Bool = false
 var isTransitioningUp: Bool = false
 var isTransitioningDown: Bool = false
 
+var lives: Int = 3
+
 // OBJECTS
 
 var currentLevel: Level?
