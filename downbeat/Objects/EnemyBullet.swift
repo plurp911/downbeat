@@ -46,7 +46,39 @@ class EnemyBullet {
         var newXSpeed: CGFloat = 0
         var newYSpeed: CGFloat = 0
         
-        newXSpeed = 5
+        let xDist = targetX
+        var yDist = targetY
+        
+        if yDist == 0 {
+            yDist = 0.0001
+        }
+        
+        let ratio = xDist / yDist
+        let newDist = speed
+        
+        var holder = (ratio * ratio) + 1
+        
+        if holder == 0 {
+            holder = 0.0001
+        }
+        
+        var newY = sqrt((newDist * newDist) / holder)
+        var newX = ratio * newY
+        
+        if yDist < 0 {
+            newY = -newY
+        }
+        
+        if xDist < 0 {
+            newX = -newX
+        }
+        
+        if (yDist > 0 && xDist < 0) || (yDist < 0 && xDist > 0) {
+            newX = -newX
+        }
+        
+        newXSpeed = newX
+        newYSpeed = newY
         
         setup(x: x, y: y, xSpeed: newXSpeed, ySpeed: newYSpeed, type: type)
     }

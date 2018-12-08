@@ -115,11 +115,11 @@ class Player {
     
     var beforeYSpeed: CGFloat = 0
     
-//        var power: String = "regular"
+        var power: String = "regular"
     //    var power: String = "cutter"
 //    var power: String = "blade"
 //    var power: String = "beam"
-    var power: String = "magnet"
+//    var power: String = "magnet"
 
     var endShootTimer = Timer()
     var endShootAnimationTimer = Timer()
@@ -227,17 +227,17 @@ class Player {
         
         self.direction = "right"
         
-//                self.power = "regular"
+                self.power = "regular"
         //        self.power = "cutter"
 //        self.power = "blade"
 //        self.power = "beam"
-        self.power = "magnet"
+//        self.power = "magnet"
 
-//                self.energyPos = -1
+                self.energyPos = -1
         //        self.energyPos = 0
 //        self.energyPos = 1
 //        self.energyPos = 2
-        self.energyPos = 3
+//        self.energyPos = 3
         
         self.healthBar.setEnergy(energy: self.health)
         

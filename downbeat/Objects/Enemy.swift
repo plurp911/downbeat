@@ -286,7 +286,7 @@ class Enemy {
             
         } else if self.type == "turret" {
             
-            self.maxHealth = 1
+            self.maxHealth = 3
             
             self.damage = 3
             
@@ -1336,25 +1336,25 @@ class Enemy {
             var goalX: CGFloat = 0
             var goalY: CGFloat = 0
             
-            if self.shootCount == 1 {
+            if self.shootCount == 0 {
                 
-                goalX = 0
-                goalY = 0
+                goalX = 3
+                goalY = -2.5
+                
+            } else if self.shootCount == 1 {
+                
+                goalX = 5
+                goalY = -1
                 
             } else if self.shootCount == 2 {
                 
-                goalX = 0
-                goalY = 0
-                
-            } else if self.shootCount == 3 {
-                
-                goalX = 0
-                goalY = 0
+                goalX = 5
+                goalY = 1
                 
             } else {
                 
-                goalX = 0
-                goalY = 0
+                goalX = 3
+                goalY = 2.5
             }
             
             if self.direction == "left" {
