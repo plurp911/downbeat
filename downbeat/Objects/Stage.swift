@@ -175,7 +175,9 @@ class Stage {
                 } else if text == "f" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "foot"))
                 } else if text == "P" {
-                    enemies.append(Enemy(xPos: j, yPos: i, type: "penguin"))
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "penguin", direction: "right"))
+                } else if text == "p" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "penguin", direction: "left"))
                 } else if text == "S" {
                     enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "follower"))
                 } else if text == "1" {

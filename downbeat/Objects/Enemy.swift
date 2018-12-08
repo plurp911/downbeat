@@ -142,6 +142,10 @@ class Enemy {
     var didReachGoal1: Bool = false
     var didReachGoal2: Bool = false
 
+    var startY: CGFloat = 0
+
+    var moveCount: CGFloat = 0
+
     var view: UIImageView = UIImageView()
     
     init(xPos: Int, yPos: Int, type: String, direction: String) {
@@ -204,9 +208,7 @@ class Enemy {
             self.width = Block.width * (24 / 16)
             self.height = Block.height * (15 / 16)
             
-            self.moveSpeed = 1.25
-            
-            self.direction = "left"
+            self.moveSpeed = 0.5
             
         } else if self.type == "head" {
             
@@ -342,6 +344,8 @@ class Enemy {
             }
             
         } else if self.type == "penguin" {
+            
+            self.startY = self.y
             
             self.view.animationImages = Enemy.penguinLeftImages as! [UIImage]
             
@@ -509,6 +513,10 @@ class Enemy {
         
         self.shootCount = 0
 
+        self.startY = 0
+        
+        self.moveCount = 0
+        
         self.endTimers()
        
         self.setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: self.type)
@@ -667,10 +675,18 @@ class Enemy {
             
             // distance from player spawn ?
             
-            self.direction = "left"
+            self.y = self.startY + (sin(self.moveCount / (Block.width * 1.5)) * (Block.height * 2))
+        
+            if self.direction == "left" {
+                
+                self.xSpeed = -self.moveSpeed
+
+            } else if self.direction == "right" {
+                
+                self.xSpeed = self.moveSpeed
+            }
             
-            self.xSpeed = -self.moveSpeed
-            self.ySpeed = 0
+            self.moveCount += 1
             
         } else if self.type == "head" {
             
