@@ -156,6 +156,13 @@ class Stage {
                         enemies.append(Enemy(xPos: j, yPos: i, type: "turret", direction: "left"))
                     }
                     
+                } else if text == "%" {
+
+                    let offsetTime: CGFloat = CGFloat((textArray[i - 1][j] as NSString).floatValue)
+                    let totalTime: CGFloat = CGFloat((textArray[i + 1][j] as NSString).floatValue)
+
+                    blocks.append(Block(xPos: j, yPos: i, hideOffsetTime: offsetTime, hideTotalTime: totalTime, tileSet: tileSet))
+
                 } else if text == "N" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "right"))
                 } else if text == "n" {
@@ -180,16 +187,6 @@ class Stage {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "penguin", direction: "left"))
                 } else if text == "S" {
                     enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "follower"))
-                } else if text == "1" {
-                    powerups.append(Powerup(xPos: j, yPos: i, type: "smallHealth"))
-                } else if text == "2" {
-                    powerups.append(Powerup(xPos: j, yPos: i, type: "largeHealth"))
-                } else if text == "8" {
-                    powerups.append(Powerup(xPos: j, yPos: i, type: "smallEnergy"))
-                } else if text == "9" {
-                    powerups.append(Powerup(xPos: j, yPos: i, type: "largeEnergy"))
-                } else if text == "5" {
-                    powerups.append(Powerup(xPos: j, yPos: i, type: "extraLife"))
                 } else if text == ":" {
                     self.setPlayerStartXYPos(startXPos: j, startYPos: i)
                 } else if text == "T" {
@@ -198,6 +195,19 @@ class Stage {
                     self.canEnterFromBottom = true
                 } else if text == "L" {
                     self.canEnterFromLeft = true
+                } else if isEqual(i: i + 1, j: j, block: "%") == false && isEqual(i: i - 1, j: j, block: "%") == false {
+                    
+                    if text == "1" {
+                        powerups.append(Powerup(xPos: j, yPos: i, type: "smallHealth"))
+                    } else if text == "2" {
+                        powerups.append(Powerup(xPos: j, yPos: i, type: "largeHealth"))
+                    } else if text == "8" {
+                        powerups.append(Powerup(xPos: j, yPos: i, type: "smallEnergy"))
+                    } else if text == "9" {
+                        powerups.append(Powerup(xPos: j, yPos: i, type: "largeEnergy"))
+                    } else if text == "5" {
+                        powerups.append(Powerup(xPos: j, yPos: i, type: "extraLife"))
+                    }
                 }
                 
             }
@@ -474,6 +484,11 @@ class Stage {
             
             if block.isInBounds() == true {
                 
+                if block.isDisappearing == true {
+                    block.reset()
+                    block.startTimers()
+                }
+                
                 selectedBlocks.append(block)
                 
             } else {
@@ -579,6 +594,11 @@ class Stage {
                         
                         if isMatch(object: self.blocks[self.blockStartIndex], objectArray: selectedBlocks) == false {
                             
+                            if self.blocks[self.blockStartIndex].isDisappearing == true {
+                                self.blocks[self.blockStartIndex].reset()
+                                self.blocks[self.blockStartIndex].startTimers()
+                            }
+                            
                             selectedBlocks.insert(self.blocks[self.blockStartIndex], at: 0)
                         }
                         
@@ -631,6 +651,11 @@ class Stage {
                         
                         if isMatch(object: self.blocks[self.blockEndIndex], objectArray: selectedBlocks) == false {
 
+                            if self.blocks[self.blockEndIndex].isDisappearing == true {
+                                self.blocks[self.blockEndIndex].reset()
+                                self.blocks[self.blockEndIndex].startTimers()
+                            }
+                            
                             selectedBlocks.append(self.blocks[self.blockEndIndex])
                         }
                         

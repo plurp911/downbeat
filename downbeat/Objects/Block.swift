@@ -18,6 +18,8 @@ class Block {
 //    static let color: UIColor = UIColor.gray
     static let color: UIColor = UIColor.clear
 
+    static let hideTimeInterval: CGFloat = 1.5
+
     // VARIABLES
     
     var xPos: Int = 0
@@ -32,10 +34,40 @@ class Block {
     var isTopLadder: Bool = false
     
     var isSpike: Bool = false
+    
+    var isDisappearing: Bool = false
+    
+    var isHidden: Bool = false
+    
+    var hideOffsetTimeInterval: CGFloat = 0
+    var hideTotalTimeInterval: CGFloat = 0
+
+    var hideOffsetTimer = Timer()
+    var hideTimer = Timer()
+    var hideWaitTimer = Timer()
 
     var view: UIImageView = UIImageView()
     
+    init(xPos: Int, yPos: Int, hideOffsetTime: CGFloat, hideTotalTime: CGFloat, tileSet: String) {
+        
+        self.isDisappearing = true
+        
+        self.isHidden = true
+        
+        self.view.isHidden = self.isHidden
+        
+        self.hideOffsetTimeInterval = hideOffsetTime
+        self.hideTotalTimeInterval = hideTotalTime
+
+        setup(xPos: xPos, yPos: yPos, type: "disappearing", tileSet: tileSet)
+    }
+    
     init(xPos: Int, yPos: Int, type: String, tileSet: String) {
+        
+        setup(xPos: xPos, yPos: yPos, type: type, tileSet: tileSet)
+    }
+    
+    func setup(xPos: Int, yPos: Int, type: String, tileSet: String) {
         
         self.xPos = xPos
         self.yPos = yPos
@@ -53,6 +85,7 @@ class Block {
         } else if self.type == "spike" {
             
             self.isSpike = true
+            
         }
         
         self.x = (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2)
@@ -77,6 +110,59 @@ class Block {
         } else {
             
             self.view.image = UIImage(named: "\(tileSet)Tile\(self.type.capitalizingFirstLetter())")
+        }
+    }
+    
+    func reset() {
+        
+        self.isHidden = true
+        
+        self.view.isHidden = self.isHidden
+    }
+    
+    func startTimers() {
+        
+        if self.hideOffsetTimer.isValid == false && self.hideTimer.isValid == false && self.hideWaitTimer.isValid == false {
+            
+            self.hideOffsetTimer.invalidate()
+            self.hideTimer.invalidate()
+            self.hideWaitTimer.invalidate()
+            
+            self.hideOffsetTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.hideOffsetTimeInterval), target: self, selector: #selector(handleStartHide), userInfo: nil, repeats: false)
+        }
+    }
+    
+    @objc func handleStartHide() {
+        
+        self.isHidden = false
+        
+        self.view.isHidden = self.isHidden
+
+        self.hideOffsetTimer.invalidate()
+        self.hideWaitTimer.invalidate()
+
+        if self.hideTimer.isValid == false {
+            
+            self.hideTimer.invalidate()
+            
+            self.hideTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Block.hideTimeInterval), target: self, selector: #selector(handleHide), userInfo: nil, repeats: false)
+        }
+    }
+    
+    @objc func handleHide() {
+        
+        self.isHidden = true
+        
+        self.view.isHidden = self.isHidden
+        
+        self.hideOffsetTimer.invalidate()
+        self.hideTimer.invalidate()
+        
+        if self.hideWaitTimer.isValid == false {
+            
+            self.hideWaitTimer.invalidate()
+            
+            self.hideWaitTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.hideTotalTimeInterval), target: self, selector: #selector(handleStartHide), userInfo: nil, repeats: false)
         }
     }
     

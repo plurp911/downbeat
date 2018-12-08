@@ -181,33 +181,99 @@ class Powerup {
             }
         }
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        if self.isRising == false {
+            
+            var isEmpty: Bool = true
+            
+            for block in selectedBlocks {
+                
+                if block.isHidden == false {
+                    
+                    if block.isTopLadder == true {
+                        
+                        if self.y + (self.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                            
+                            isEmpty = false
+                        }
+                        
+                    } else if block.isLadder == false {
+                        
+                        if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                            
+                            isEmpty = false
+                        }
+                    }
+                    
+                }
+            }
+            
+            for bullet in bullets {
+                
+                if bullet.type == "beam" {
+                    
+                    if self.y + (self.height / 2) + self.ySpeed < bullet.y + (bullet.height / 2) && self.y + (self.height / 2) + self.ySpeed > bullet.y - (bullet.height / 2) && ((self.x + (self.width / 2) <= bullet.x + (bullet.width / 2) && self.x + (self.width / 2) > bullet.x - (bullet.width / 2)) || (self.x - (self.width / 2) < bullet.x + (bullet.width / 2) && self.x - (self.width / 2) >= bullet.x - (bullet.width / 2))) {
+                        
+                        isEmpty = false
+                    }
+                }
+                
+            }
+            
+            if isEmpty == true {
+                
+                self.isFalling = true
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         if self.isFalling == true {
             
             for block in selectedBlocks {
                 
-                if block.isTopLadder == true {
+                if block.isHidden == false {
                     
-                    if self.y + (self.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                    if block.isTopLadder == true {
                         
-                        self.isJumping = false
-                        self.isFalling = false
+                        if self.y + (self.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                            
+                            self.isJumping = false
+                            self.isFalling = false
+                            
+                            self.ySpeed = 0
+                            
+                            setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                        }
                         
-                        self.ySpeed = 0
+                    } else if block.isLadder == false {
                         
-                        setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                        if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                            
+                            self.isJumping = false
+                            self.isFalling = false
+                            
+                            self.ySpeed = 0
+                            
+                            setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                        }
                     }
                     
-                } else if block.isLadder == false {
-                    
-                    if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
-                        
-                        self.isJumping = false
-                        self.isFalling = false
-                        
-                        self.ySpeed = 0
-                        
-                        setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
-                    }
                 }
                 
             }

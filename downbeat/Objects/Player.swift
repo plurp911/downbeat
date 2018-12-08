@@ -351,21 +351,24 @@ class Player {
             
             for block in selectedBlocks {
                 
-                if block.isTopLadder == true {
+                if block.isHidden == false {
                     
-                    if self.y + (Player.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (Player.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                    if block.isTopLadder == true {
                         
-                        isEmpty = false
+                        if self.y + (Player.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (Player.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                            
+                            isEmpty = false
+                        }
+                        
+                    } else if block.isLadder == false {
+                        
+                        if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                            
+                            isEmpty = false
+                        }
                     }
                     
-                } else if block.isLadder == false {
-                    
-                    if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
-                        
-                        isEmpty = false
-                    }
                 }
-                
             }
             
             for bullet in bullets {
@@ -392,46 +395,49 @@ class Player {
                 
                 for block in selectedBlocks {
                     
-                    if block.isTopLadder == true {
+                    if block.isHidden == false {
                         
-                        if self.y + (Player.height / 2) + Player.maxFallSpeed <= block.y - (Block.height / 2) + Player.maxFallSpeed && self.y + (Player.height / 2) + Player.maxFallSpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                        if block.isTopLadder == true {
                             
-                            self.isJumping = false
-                            self.isFalling = false
-                            
-                            self.ySpeed = 0
-                            
-                            self.isAtPeak = false
-                            
-                            setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
-                            
-                            if self.isClimbing == true {
+                            if self.y + (Player.height / 2) + Player.maxFallSpeed <= block.y - (Block.height / 2) + Player.maxFallSpeed && self.y + (Player.height / 2) + Player.maxFallSpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                                 
-                                self.isClimbing = false
+                                self.isJumping = false
+                                self.isFalling = false
+                                
+                                self.ySpeed = 0
+                                
+                                self.isAtPeak = false
+                                
+                                setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
+                                
+                                if self.isClimbing == true {
+                                    
+                                    self.isClimbing = false
+                                }
+                            }
+                            
+                        } else if block.isLadder == false {
+                            
+                            if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                self.isJumping = false
+                                self.isFalling = false
+                                
+                                self.ySpeed = 0
+                                
+                                self.isAtPeak = false
+                                
+                                setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
+                                
+                                if self.isClimbing == true {
+                                    
+                                    self.isClimbing = false
+                                }
+                                
                             }
                         }
                         
-                    } else if block.isLadder == false {
-                        
-                        if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
-                            
-                            self.isJumping = false
-                            self.isFalling = false
-                            
-                            self.ySpeed = 0
-                            
-                            self.isAtPeak = false
-                            
-                            setXY(x: self.x, y: block.y - (Block.height / 2) - (Player.height / 2))
-                            
-                            if self.isClimbing == true {
-                                
-                                self.isClimbing = false
-                            }
-                            
-                        }
                     }
-                    
                 }
                 
                 for bullet in bullets {
@@ -466,21 +472,25 @@ class Player {
             
             for block in selectedBlocks {
                 
-                if block.isLadder == false && block.isTopLadder == false {
-
-                    if self.y - (Player.height / 2) + self.ySpeed <= block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                if block.isHidden == false {
+                    
+                    if block.isLadder == false && block.isTopLadder == false {
                         
-                        self.isFalling = true
-                        
-                        self.isJumping = false
-                        self.isRising = false
-                        
-                        self.ySpeed = 0
-                        
-                        self.isAtPeak = true
-                        
-                        setXY(x: self.x, y: block.y + (Block.height / 2) + (Player.height / 2))
+                        if self.y - (Player.height / 2) + self.ySpeed <= block.y + (Block.height / 2) && self.y - (Player.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                            
+                            self.isFalling = true
+                            
+                            self.isJumping = false
+                            self.isRising = false
+                            
+                            self.ySpeed = 0
+                            
+                            self.isAtPeak = true
+                            
+                            setXY(x: self.x, y: block.y + (Block.height / 2) + (Player.height / 2))
+                        }
                     }
+                    
                 }
                 
             }
@@ -676,50 +686,53 @@ class Player {
             
             for block in selectedBlocks {
                 
-                if block.isLadder == false && block.isTopLadder == false {
+                if block.isHidden == false {
                     
-                    if self.isMovingRight == true {
+                    if block.isLadder == false && block.isTopLadder == false {
                         
-                        if self.isKnockedBack == true {
+                        if self.isMovingRight == true {
                             
-                            if self.x + (Player.width / 2) + Player.knockBackMoveSpeed < block.x + (Block.width / 2) && self.x + (Player.width / 2) + Player.knockBackMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                            if self.isKnockedBack == true {
                                 
-                                self.canMove = false
+                                if self.x + (Player.width / 2) + Player.knockBackMoveSpeed < block.x + (Block.width / 2) && self.x + (Player.width / 2) + Player.knockBackMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                                    
+                                    self.canMove = false
+                                    
+                                    setXY(x: block.x - (Block.width / 2) - (Player.width / 2) - Player.knockBackMoveSpeed, y: self.y)
+                                }
                                 
-                                setXY(x: block.x - (Block.width / 2) - (Player.width / 2) - Player.knockBackMoveSpeed, y: self.y)
+                            } else {
+                                
+                                if self.x + (Player.width / 2) + Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x + (Player.width / 2) + Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                                    
+                                    self.canMove = false
+                                    
+                                    setXY(x: block.x - (Block.width / 2) - (Player.width / 2) - Player.maxMoveSpeed, y: self.y)
+                                }
                             }
                             
-                        } else {
+                        } else if self.isMovingLeft == true {
                             
-                            if self.x + (Player.width / 2) + Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x + (Player.width / 2) + Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                            if self.isKnockedBack == true {
                                 
-                                self.canMove = false
+                                if self.x - (Player.width / 2) - Player.knockBackMoveSpeed < block.x + (Block.width / 2) && self.x - (Player.width / 2) - Player.knockBackMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                                    
+                                    self.canMove = false
+                                    
+                                    setXY(x: block.x + (Block.width / 2) + (Player.width / 2), y: self.y)
+                                }
                                 
-                                setXY(x: block.x - (Block.width / 2) - (Player.width / 2) - Player.maxMoveSpeed, y: self.y)
+                            } else {
+                                
+                                if self.x - (Player.width / 2) - Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x - (Player.width / 2) - Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
+                                    
+                                    self.canMove = false
+                                    
+                                    setXY(x: block.x + (Block.width / 2) + (Player.width / 2), y: self.y)
+                                }
                             }
+                            
                         }
-                        
-                    } else if self.isMovingLeft == true {
-                        
-                        if self.isKnockedBack == true {
-                            
-                            if self.x - (Player.width / 2) - Player.knockBackMoveSpeed < block.x + (Block.width / 2) && self.x - (Player.width / 2) - Player.knockBackMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
-                                
-                                self.canMove = false
-                                
-                                setXY(x: block.x + (Block.width / 2) + (Player.width / 2), y: self.y)
-                            }
-                            
-                        } else {
-                            
-                            if self.x - (Player.width / 2) - Player.maxMoveSpeed < block.x + (Block.width / 2) && self.x - (Player.width / 2) - Player.maxMoveSpeed > block.x - (Block.width / 2) && ((self.y + (Player.height / 2) <= block.y + (Block.height / 2) && self.y + (Player.height / 2) > block.y - (Block.height / 2)) || (self.y - (Player.height / 2) < block.y + (Block.height / 2) && self.y - (Player.height / 2) >= block.y - (Block.height / 2))) {
-                                
-                                self.canMove = false
-                                
-                                setXY(x: block.x + (Block.width / 2) + (Player.width / 2), y: self.y)
-                            }
-                        }
-                        
                     }
                     
                 }
