@@ -27,6 +27,8 @@ class Bullet {
 
     static let shieldImages = [UIImage(named: "shieldBullet1"), UIImage(named: "shieldBullet2"), UIImage(named: "shieldBullet3")]
 
+    static let tornadoRightImages = [UIImage(named: "tornadoBulletRight1"), UIImage(named: "tornadoBulletRight2"), UIImage(named: "tornadoBulletRight3")]
+
     // VARIABLES
     
     var width: CGFloat = 0
@@ -54,6 +56,8 @@ class Bullet {
     
     var useEnergyTimeInterval: CGFloat = 0
     
+    var ySpeedChange: CGFloat = 0
+    
     var removeTimer = Timer()
     
     var useEnergyTimer = Timer()
@@ -62,7 +66,19 @@ class Bullet {
 
     var view: UIImageView = UIImageView()
     
+    init(x: CGFloat, y: CGFloat, moveSpeed: CGFloat, direction: String, type: String) {
+        
+        self.moveSpeed = moveSpeed
+        
+        setup(x: x, y: y, direction: direction, type: type)
+    }
+    
     init(x: CGFloat, y: CGFloat, direction: String, type: String) {
+
+        setup(x: x, y: y, direction: direction, type: type)
+    }
+    
+    func setup(x: CGFloat, y: CGFloat, direction: String, type: String) {
         
         self.direction = direction
         
@@ -180,6 +196,24 @@ class Bullet {
             self.useEnergyTimeInterval = 0.75
             
             self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.useEnergyTimeInterval), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
+        
+        } else if self.type == "tornado" {
+            
+            self.width = Block.width * (15 / 16)
+            self.height = Block.height
+            
+            self.damage = 1
+            
+            self.ySpeedChange = 0.03
+            
+            if self.direction == "left" {
+                
+                self.xSpeed = -self.moveSpeed
+                
+            } else if self.direction == "right" {
+                
+                self.xSpeed = self.moveSpeed
+            }
         }
         
         self.setXY(x: x, y: y)
@@ -276,6 +310,23 @@ class Bullet {
             self.view.animationDuration = 0.85 * 0.6875
             
             self.view.startAnimating()
+            
+        } else if self.type == "tornado" {
+            
+            self.view.animationImages = Bullet.tornadoRightImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.6875
+            
+            self.view.startAnimating()
+            
+            if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
         }
         
     }
@@ -464,8 +515,13 @@ class Bullet {
                 
                 setXY(x: player.x, y: player.y)
             }
+            
+        } else if self.type == "tornado" {
+            
+            self.ySpeed -= self.ySpeedChange
+            
+            setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
         }
-        
     }
     
     @objc func useEnergy() {

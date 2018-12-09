@@ -426,6 +426,9 @@ extension GameController {
                     } else if bullets[bulletPos].type == "shield" {
                         
                         bulletsToRemove.append(bulletPos)
+                        
+                    } else if bullets[bulletPos].type == "tornado" {
+                        
                     }
                     
                     selectedEnemies[i].handleHit(bulletDamage: bullets[bulletPos].damage)

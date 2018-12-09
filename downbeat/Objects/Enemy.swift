@@ -23,8 +23,8 @@ class Enemy {
     
     static let hitBoxColor: UIColor = UIColor.red.withAlphaComponent(0.5)
 
-//    static let followerImages = [UIImage(named: "followerEnemy1"), UIImage(named: "followerEnemy2"), UIImage(named: "followerEnemy3"), UIImage(named: "followerEnemy4"), UIImage(named: "followerEnemy5"), UIImage(named: "followerEnemy6")]
-    static let followerImages = [UIImage(named: "1"), UIImage(named: "2"), UIImage(named: "3"), UIImage(named: "4"), UIImage(named: "5"), UIImage(named: "6")]
+    static let followerImages = [UIImage(named: "followerEnemy1"), UIImage(named: "followerEnemy2"), UIImage(named: "followerEnemy3"), UIImage(named: "followerEnemy4"), UIImage(named: "followerEnemy5"), UIImage(named: "followerEnemy6")]
+//    static let followerImages = [UIImage(named: "1"), UIImage(named: "2"), UIImage(named: "3"), UIImage(named: "4"), UIImage(named: "5"), UIImage(named: "6")]
 
     static let hatLeft1Image = UIImage(named: "hatEnemyLeft1")
     static let hatLeft2Image = UIImage(named: "hatEnemyLeft2")
@@ -2244,6 +2244,10 @@ class Enemy {
                         } else if bullets[i].type == "shield" {
                             
                             return i
+                            
+                        } else if bullets[i].type == "tornado" {
+                            
+                            return i
                         }
                         
                     } else if self.type == "penguin" {
@@ -2317,6 +2321,10 @@ class Enemy {
                         } else if bullets[i].type == "shield" {
                             
                             return i
+                            
+                        } else if bullets[i].type == "tornado" {
+                            
+                            return i
                         }
                         
                     } else if self.type == "electricity" {
@@ -2362,6 +2370,10 @@ class Enemy {
                             return i
                             
                         } else if bullets[i].type == "shield" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "tornado" {
                             
                             return i
                         }
