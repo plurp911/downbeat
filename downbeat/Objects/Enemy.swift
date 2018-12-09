@@ -67,6 +67,11 @@ class Enemy {
     
     static let electricityImages = [UIImage(named: "electricityEnemyRight1"), UIImage(named: "electricityEnemyRight2")]
 
+    static let topMakerShootRightImage = UIImage(named: "topMakerEnemyShootRight")
+    static let topMakerRightImages = [UIImage(named: "topMakerEnemyRight1"), UIImage(named: "topMakerEnemyRight2")]
+    
+    static let topImages = [UIImage(named: "topEnemy1"), UIImage(named: "topEnemy2"), UIImage(named: "topEnemy3")]
+
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
     static let hitTimeInterval: CGFloat = 0.05
@@ -193,6 +198,13 @@ class Enemy {
     
     init(x: CGFloat, y: CGFloat, type: String) {
         
+        self.setup(x: x, y: y, type: type)
+    }
+    
+    init(x: CGFloat, y: CGFloat, type: String, direction: String) {
+        
+        self.direction = direction
+
         self.setup(x: x, y: y, type: type)
     }
     
@@ -357,6 +369,29 @@ class Enemy {
             self.height = Block.height
             
             self.moveSpeed = 0
+            
+        } else if self.type == "topMaker" {
+            
+            self.maxHealth = 3
+            
+            self.damage = 5
+            
+            self.width = Block.width * (32 / 16)
+            self.height = self.width
+            
+            self.moveSpeed = 0
+            
+        } else if self.type == "top" {
+            
+            self.maxHealth = 1
+            
+            self.damage = 3
+            
+            self.width = Block.width * (15 / 16)
+            self.height = Block.height
+            
+//            self.moveSpeed = 0.375
+            self.moveSpeed = 0.5
         }
         
         self.hitBox.backgroundColor = Enemy.hitBoxColor
@@ -623,6 +658,41 @@ class Enemy {
                 
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
             }
+            
+        } else if self.type == "topMaker" {
+            
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
+            
+            self.shootTimeInterval = 2.25
+            
+            self.totalShootTimeInterval = 0.875
+            
+            self.view.animationImages = Enemy.topMakerRightImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.225
+            self.view.startAnimating()
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
+            
+        } else if self.type == "top" {
+            
+//            if self.isResetting == false {
+//                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+//            }
+            
+            self.view.animationImages = Enemy.topImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * (1 / 3)
+            self.view.startAnimating()
         }
         
         self.startDirection = self.direction
@@ -891,6 +961,27 @@ class Enemy {
             
             self.isHidden = !self.isShooting
             self.view.isHidden = self.isHidden
+            
+        } else if type == "topMaker" {
+            
+            if self.isShooting == true {
+                
+                self.view.stopAnimating()
+                
+                self.view.image = Enemy.topMakerShootRightImage
+            }
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
+            
+        } else if type == "top" {
+
         }
     }
     
@@ -1697,6 +1788,160 @@ class Enemy {
             
         } else if self.type == "electricity" {
 
+        } else if self.type == "topMaker" {
+            
+        } else if self.type == "top" {
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            self.ySpeed = 0
+            
+            if self.isStunned == true {
+                
+                self.xSpeed = 0
+                
+            } else {
+                
+                var isEmpty1: Bool = true
+                var isEmpty2: Bool = true
+                
+                for block in currentStage!.blocks {
+                    
+                    if block.isInLargeBounds() == true {
+                        
+                        if self.y + (self.height / 2) + Enemy.checkMargin < block.y + (Block.height / 2) && self.y + (self.height / 2) + Enemy.checkMargin > block.y - (Block.height / 2) && (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2)) {
+                            
+                            isEmpty1 = false
+                        }
+                        
+                        if self.y + (self.height / 2) + Enemy.checkMargin < block.y + (Block.height / 2) && self.y + (self.height / 2) + Enemy.checkMargin > block.y - (Block.height / 2) && (self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) {
+                            
+                            isEmpty2 = false
+                        }
+                    }
+                    
+                }
+                
+                if isEmpty1 == true || isEmpty2 == true {
+                    
+                    if self.direction == "left" {
+                        
+                        self.direction = "right"
+                        
+                    } else if self.direction == "right" {
+                        
+                        self.direction = "left"
+                    }
+                    
+                } else {
+                    
+                    let offset: CGFloat = Block.width * (1 / 16) * 0.1
+                    
+                    if direction == "right" {
+                        
+                        for block in currentStage!.blocks {
+                            
+                            if block.type != "ladder" && block.type != "topLadder" {
+                                
+                                if block.isInLargeBounds() == true {
+                                    
+                                    if self.x + (self.width / 2) + (self.moveSpeed * 5) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 5) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (self.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                        
+                                        self.direction = "left"
+                                        
+                                        setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 5), y: self.y)
+                                    }
+                                }
+                                
+                            }
+                        }
+                        
+                    } else if direction == "left" {
+                        
+                        for block in currentStage!.blocks {
+                            
+                            if block.type != "ladder" && block.type != "topLadder" {
+                                
+                                if block.isInLargeBounds() == true {
+                                    
+                                    if self.x - (self.width / 2) - (self.moveSpeed * 5) < block.x + (Block.width / 2) && self.x - (self.width / 2) - (self.moveSpeed * 5) > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                        
+                                        self.direction = "right"
+                                        
+                                        setXY(x: block.x + (Block.width / 2) + (self.width / 2) + (self.moveSpeed * 5), y: self.y)
+                                    }
+                                }
+                                
+                            }
+                        }
+                        
+                    }
+                }
+                
+                if abs((self.y + (self.height / 2)) - (player.y + (Player.height / 2))) <= self.yRange {
+                    
+                    self.xSpeed = moveSpeed * 5
+                    
+                } else {
+                    
+                    self.xSpeed = moveSpeed
+                }
+                
+                if self.direction == "left" {
+                    self.xSpeed = -self.xSpeed
+                }
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         }
         
         setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
@@ -1881,6 +2126,13 @@ class Enemy {
                         
                     } else if self.type == "electricity" {
                         
+                    }  else if self.type == "topMaker" {
+                        
+                        return i
+                        
+                    }  else if self.type == "top" {
+                        
+                        return i
                     }
                 }
                 
@@ -2171,6 +2423,15 @@ class Enemy {
         } else if self.type == "electricity" {
          
             self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            
+        } else if self.type == "topMaker" {
+            
+            selectedEnemies.append(Enemy(x: self.x, y: self.y, type: "top", direction: self.direction))
+            
+            self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            
+        } else if self.type == "top" {
+            
         }
     }
     
@@ -2204,6 +2465,22 @@ class Enemy {
             
             self.view.animationDuration = 0.15
             self.view.startAnimating()
+            
+        } else if self.type == "topMaker" {
+            
+            self.view.animationImages = Enemy.topMakerRightImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * (1 / 3)
+            self.view.startAnimating()
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
         }
         
         self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
