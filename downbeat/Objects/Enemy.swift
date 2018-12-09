@@ -61,6 +61,10 @@ class Enemy {
     static let jumperEnemyLeft2Image = UIImage(named: "jumperEnemyLeft2")
     static let jumperEnemyLeftJumpImage = UIImage(named: "jumperEnemyLeftJump")
 
+    static let minerEnemyThrowLeftImage = UIImage(named: "minerEnemyThrowLeft")
+    static let minerEnemySignalLeftImage = UIImage(named: "minerEnemySignalLeft")
+    static let minerEnemyShieldLeftImage = UIImage(named: "minerEnemyShieldLeft")
+    
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
     static let hitTimeInterval: CGFloat = 0.05
@@ -327,6 +331,17 @@ class Enemy {
             self.height = Block.height * (12 / 16)
             
             self.moveSpeed = 1
+            
+        } else if self.type == "miner" {
+            
+            self.maxHealth = 3
+            
+            self.damage = 5
+            
+            self.width = Block.width * (34 / 16)
+            self.height = Block.height * (24 / 16)
+            
+            self.moveSpeed = 0
         }
         
         self.hitBox.backgroundColor = Enemy.hitBoxColor
@@ -341,6 +356,14 @@ class Enemy {
 
             self.view.frame.size.width = Block.width * (26 / 16)
             self.view.frame.size.height = Block.height * (26 / 16)
+            
+        } else if self.type == "miner" {
+            
+//            self.xShift = Block.width * (6 / 16)
+//            self.yShift = Block.height * (0 / 16)
+            
+            self.view.frame.size.width = Block.width * (24 / 16)
+            self.view.frame.size.height = self.height
             
         } else {
             
@@ -435,21 +458,21 @@ class Enemy {
             
             self.shootTimeInterval = 1.75
             self.signalTimeInterval = 0.3
-
+            
             self.totalShootTimeInterval = 0.3
             
             self.view.image = Enemy.snakeLeft1Image
             
             if self.direction == "right" {
                 
-//                setXY(x: self.x + (Block.width * (5 / 16)), y: self.y)
-
+                //                setXY(x: self.x + (Block.width * (5 / 16)), y: self.y)
+                
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
                 
             } else if self.direction == "left" {
                 
-//                setXY(x: self.x - (Block.width * (5 / 16)), y: self.y)
-
+                //                setXY(x: self.x - (Block.width * (5 / 16)), y: self.y)
+                
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
             
@@ -502,6 +525,31 @@ class Enemy {
             self.view.image = Enemy.jumperEnemyLeft1Image
             
             self.direction = "left"
+            
+        } else if self.type == "miner" {
+            
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
+            
+            self.shootTimeInterval = 2.25
+            
+//            self.signalTimeInterval = 0.2
+            self.signalTimeInterval = 0.25
+
+//            self.totalShootTimeInterval = 0.2
+            self.totalShootTimeInterval = 0.25
+
+            self.view.image = Enemy.minerEnemyShieldLeftImage
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
         }
         
         self.startDirection = self.direction
@@ -525,14 +573,27 @@ class Enemy {
                 self.view.frame.origin.y = self.y - self.height / 2
             }
             
+        } else if self.type == "miner" {
+            
+            if self.direction == "right" {
+                
+                self.view.frame.origin.x = self.x - self.width / 2 + (Block.width * (5 / 16))
+                self.view.frame.origin.y = self.y - self.height / 2
+                
+            } else if self.direction == "left" {
+                
+                self.view.frame.origin.x = self.x - self.width / 2 + (Block.width * (5 / 16))
+                self.view.frame.origin.y = self.y - self.height / 2
+            }
+            
         } else {
             
             self.view.frame.origin.x = self.x - self.width / 2 + self.xShift
             self.view.frame.origin.y = self.y - self.height / 2 + self.yShift
-            
-            self.hitBox.frame.origin.x = self.x - self.width / 2
-            self.hitBox.frame.origin.y = self.y - self.height / 2
         }
+        
+        self.hitBox.frame.origin.x = self.x - self.width / 2
+        self.hitBox.frame.origin.y = self.y - self.height / 2
     }
     
     func reset() {
@@ -716,6 +777,30 @@ class Enemy {
             } else {
                 
                 self.view.image = Enemy.jumperEnemyLeft1Image
+            }
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if type == "miner" {
+            
+            if self.isShooting == true {
+                
+                self.view.image = Enemy.minerEnemyThrowLeftImage
+                
+            } else if self.isSignalling == true {
+                
+                self.view.image = Enemy.minerEnemySignalLeftImage
+                
+            } else {
+                
+                self.view.image = Enemy.minerEnemyShieldLeftImage
             }
             
             if self.direction == "right" {
@@ -1000,10 +1085,10 @@ class Enemy {
             if player.x > self.x {
                 
                 if self.direction == "left" {
-                 
-//                    setXY(x: self.x + ((Block.width * (5 / 16) * 2)), y: self.y)
+                    
+                    //                    setXY(x: self.x + ((Block.width * (5 / 16) * 2)), y: self.y)
                     setXY(x: self.x, y: self.y)
-
+                    
                     self.direction = "right"
                 }
                 
@@ -1011,9 +1096,9 @@ class Enemy {
                 
                 if self.direction == "right" {
                     
-//                    setXY(x: self.x - ((Block.width * (5 / 16) * 2)), y: self.y)
+                    //                    setXY(x: self.x - ((Block.width * (5 / 16) * 2)), y: self.y)
                     setXY(x: self.x, y: self.y)
-
+                    
                     self.direction = "left"
                 }
             }
@@ -1507,6 +1592,30 @@ class Enemy {
                 }
                 
             }
+            
+        } else if self.type == "miner" {
+            
+//            if player.x > self.x {
+//
+//                if self.direction == "left" {
+//
+//                    //                    setXY(x: self.x + ((Block.width * (5 / 16) * 2)), y: self.y)
+//                    setXY(x: self.x, y: self.y)
+//
+//                    self.direction = "right"
+//                }
+//
+//            } else if player.x < self.x {
+//
+//                if self.direction == "right" {
+//
+//                    //                    setXY(x: self.x - ((Block.width * (5 / 16) * 2)), y: self.y)
+//                    setXY(x: self.x, y: self.y)
+//
+//                    self.direction = "left"
+//                }
+//            }
+            
         }
         
         setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
@@ -1655,7 +1764,41 @@ class Enemy {
                     } else if self.type == "jumper" {
                         
                         return i
+                        
+                    } else if self.type == "miner" {
+                        
+                        if bullets[i].type == "regular" {
+                            
+                            if self.isShooting == true || self.isSignalling == true {
+                                
+                                return i
+                                
+                            } else {
+                                
+                                if (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
+                                    
+                                    return i
+
+                                } else {
+                                    
+                                    self.handleDeflectBullet(i: i)
+                                }
+                            }
+                            
+                        } else if bullets[i].type == "cutter" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "blade" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "magnet" {
+                            
+                            return i
+                        }
                     }
+                    
                 }
                 
             }
@@ -1827,21 +1970,21 @@ class Enemy {
         } else if self.type == "snake" {
             
             let bulletSpeed: CGFloat = 2.5
-
+            
             let xOffset: CGFloat = Block.width * (14 / 16)
             let yOffset: CGFloat = Block.width * (4 / 16)
             
             if self.direction == "left" {
                 
-//                enemyBullets.append(EnemyBullet(x: self.x - (Block.width * (4 / 16)), y: self.y + (Block.height * (2 / 16)), target: "player", type: "mediumRegular"))
+                //                enemyBullets.append(EnemyBullet(x: self.x - (Block.width * (4 / 16)), y: self.y + (Block.height * (2 / 16)), target: "player", type: "mediumRegular"))
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, target: "player", speed: bulletSpeed, type: "mediumRegular"))
-
+                
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
                 
             } else if self.direction == "right" {
-
+                
                 enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, target: "player", speed: bulletSpeed, type: "mediumRegular"))
-
+                
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
             
@@ -1919,6 +2062,27 @@ class Enemy {
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.betweenShotsTimeInterval), target: self, selector: #selector(realShoot), userInfo: nil, repeats: false)
                 
                 self.shootCount += 1
+            }
+            
+        } else if self.type == "miner" {
+            
+            let bulletXSpeed: CGFloat = 1
+            let bulletYSpeed: CGFloat = -4
+
+            let xOffset: CGFloat = -Block.width * (4 / 16)
+            let yOffset: CGFloat = -Block.width * (12 / 16)
+            
+            if self.direction == "left" {
+                
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -bulletXSpeed, ySpeed: bulletYSpeed, type: "axe"))
+                
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+                
+            } else if self.direction == "right" {
+                
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: bulletXSpeed, ySpeed: bulletYSpeed, type: "axe"))
+
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
         }
         
@@ -2019,8 +2183,6 @@ class Enemy {
 //
 //                self.jumpTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(jump), userInfo: nil, repeats: false)
 //            }
-
-            print("1")
             
             if self.signalTimer.isValid == false {
                 

@@ -23,6 +23,8 @@ class EnemyBullet {
 
     static let smallOrangeImage = UIImage(named: "smallOrangeEnemyBullet")
     static let smallBlueImage = UIImage(named: "smallBlueEnemyBullet")
+    
+    static let axeLeftImages = [UIImage(named: "axeEnemyBulletUp"), UIImage(named: "axeEnemyBulletLeft"), UIImage(named: "axeEnemyBulletDown"), UIImage(named: "axeEnemyBulletRight")]
 
     // VARIABLES
     
@@ -38,6 +40,12 @@ class EnemyBullet {
     var height: CGFloat = 0
 
     var damage: Int = 0
+    
+    var xSpeedChange: CGFloat = 0
+    var ySpeedChange: CGFloat = 0
+    
+    var maxFallSpeed: CGFloat = 0
+    var minMoveSpeed: CGFloat = 0
 
     var view: UIImageView = UIImageView()
     
@@ -183,6 +191,39 @@ class EnemyBullet {
             self.damage = 1
             
             self.view.image = EnemyBullet.smallBlueImage
+            
+        } else if self.type == "axe" {
+            
+            self.width = Block.width * (12 / 16)
+            self.height = self.width
+            
+            self.damage = 3
+            
+            self.xSpeedChange = 0.0075
+
+            if self.xSpeed >= 0 {
+                self.xSpeedChange = -self.xSpeedChange
+            }
+
+            self.ySpeedChange = -0.085
+
+            self.maxFallSpeed = 3
+            self.minMoveSpeed = 0
+
+            self.view.animationImages = EnemyBullet.axeLeftImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.5
+//            self.view.animationDuration = 0.85 * 0.375
+            self.view.startAnimating()
+            
+            if self.xSpeed >= 0 {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
         }
         
         self.setXY(x: x, y: y)
@@ -200,28 +241,28 @@ class EnemyBullet {
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
-//        if self.xSpeed <= 0 {
-//
-//            if self.ySpeed <= 0 {
-//
-//                self.view.transform = CGAffineTransform(scaleX: -1, y: -1)
-//
-//            } else {
-//
-//                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-//            }
-//
-//        } else {
-//
-//            if self.ySpeed <= 0 {
-//
-//                self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
-//
-//            } else {
-//
-//                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-//            }
-//        }
+        if self.xSpeed <= 0 {
+
+            if self.ySpeed <= 0 {
+
+                self.view.transform = CGAffineTransform(scaleX: -1, y: -1)
+
+            } else {
+
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
+
+        } else {
+
+            if self.ySpeed <= 0 {
+
+                self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
+
+            } else {
+
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+        }
         
     }
     
@@ -250,6 +291,28 @@ class EnemyBullet {
     }
     
     func move() {
+        
+        if self.type == "axe" {
+            
+//            setXYSpeed(xSpeed: self.xSpeed - self.xSpeedChange, ySpeed: self.ySpeed - self.ySpeedChange)
+            setXYSpeed(xSpeed: self.xSpeed, ySpeed: self.ySpeed - self.ySpeedChange)
+
+//            if self.ySpeed >= self.maxFallSpeed {
+//
+//                setXYSpeed(xSpeed: self.xSpeed, ySpeed: self.maxFallSpeed)
+//            }
+//
+//            if abs(self.xSpeed) <= abs(self.minMoveSpeed) {
+//
+//                var newSpeed = self.minMoveSpeed
+//
+//                if xSpeed < 0 {
+//                    newSpeed = -newSpeed
+//                }
+//
+//                setXYSpeed(xSpeed: newSpeed, ySpeed: self.ySpeed)
+//            }
+        }
         
         setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
     }

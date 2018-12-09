@@ -167,6 +167,10 @@ class Stage {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "right"))
                 } else if text == "n" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "left"))
+                } else if text == "M" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "miner", direction: "right"))
+                } else if text == "m" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "miner", direction: "left"))
                 } else if text == "D" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "drop", direction: "right"))
                 } else if text == "d" {
