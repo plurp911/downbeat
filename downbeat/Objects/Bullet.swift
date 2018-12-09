@@ -52,6 +52,8 @@ class Bullet {
     
     var shouldRemove: Bool = false
     
+    var useEnergyTimeInterval: CGFloat = 0
+    
     var removeTimer = Timer()
     
     var useEnergyTimer = Timer()
@@ -171,11 +173,13 @@ class Bullet {
             self.width = Block.width * (48 / 16)
             self.height = self.width
             
-            self.moveSpeed = 0
+            self.moveSpeed = 3
             
             self.damage = 1
             
-            self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
+            self.useEnergyTimeInterval = 0.75
+            
+            self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.useEnergyTimeInterval), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
         }
         
         self.setXY(x: x, y: y)
@@ -272,15 +276,6 @@ class Bullet {
             self.view.animationDuration = 0.85 * 0.6875
             
             self.view.startAnimating()
-            
-            if self.direction == "left" {
-                
-                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-                
-            } else if self.direction == "right" {
-                
-                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }
         }
         
     }
@@ -443,9 +438,34 @@ class Bullet {
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
             
         } else if self.type == "shield" {
+            
+            self.ySpeed = 0
+            
+            if self.didReachGoal == true {
+                                
+                self.xSpeed = self.moveSpeed
+                
+                if self.direction == "left" {
+                    
+                    self.xSpeed = -self.xSpeed
+                    
+                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                    
+                } else if self.direction == "right" {
+                    
+                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
+                
+                setXY(x: self.x + self.xSpeed, y: self.y)
 
-            setXY(x: player.x, y: player.y)
+            } else {
+                
+                self.xSpeed = 0
+                
+                setXY(x: player.x, y: player.y)
+            }
         }
+        
     }
     
     @objc func useEnergy() {

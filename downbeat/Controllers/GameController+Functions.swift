@@ -77,6 +77,17 @@ extension GameController {
                         player.isMovingRight = false
                         
                         player.direction = "left"
+                        
+                        for bullet in bullets {
+                            
+                            if bullet.type == "shield" {
+                                
+                                bullet.direction = player.direction
+                                
+                                bullet.didReachGoal = true
+                            }
+                        }
+                        
                     }
                 }
                 
@@ -96,6 +107,17 @@ extension GameController {
                         player.isMovingLeft = false
                         
                         player.direction = "right"
+                        
+                        for bullet in bullets {
+                            
+                            if bullet.type == "shield" {
+                                
+                                bullet.direction = player.direction
+
+                                bullet.didReachGoal = true
+                            }
+                        }
+                        
                     }
                 }
                 
@@ -402,8 +424,6 @@ extension GameController {
                         bulletsToRemove.append(bulletPos)
                         
                     } else if bullets[bulletPos].type == "shield" {
-                        
-                        bullets[bulletPos].useEnergyTimer.invalidate()
                         
                         bulletsToRemove.append(bulletPos)
                     }

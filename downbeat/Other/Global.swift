@@ -123,6 +123,8 @@ public func removeObjects(type: String, toRemove: [Int]) {
 
         if type == "bullets" {
             
+            bullets[newToRemove[newI]].useEnergyTimer.invalidate()
+            
             bullets = tryToRemove(array: bullets, value: newToRemove[newI]) as! [Bullet]
             
         } else if type == "deflectedBullets" {
