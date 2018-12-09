@@ -26,6 +26,8 @@ class EnemyBullet {
     
     static let axeLeftImages = [UIImage(named: "axeEnemyBulletUp"), UIImage(named: "axeEnemyBulletLeft"), UIImage(named: "axeEnemyBulletDown"), UIImage(named: "axeEnemyBulletRight")]
 
+    static let regularRightImage = UIImage(named: "regularEnemyBulletRight")
+
     // VARIABLES
     
     var x: CGFloat = 0
@@ -224,6 +226,15 @@ class EnemyBullet {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
+            
+        } else if self.type == "regular" {
+            
+            self.width = Block.width * (8 / 16)
+            self.height = Block.height * (6 / 16)
+            
+            self.damage = 1
+            
+            self.view.image = EnemyBullet.regularRightImage
         }
         
         self.setXY(x: x, y: y)

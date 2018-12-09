@@ -64,8 +64,8 @@ class Bullet {
         
         if self.type == "regular" {
             
-            self.width = Block.width * (6 / 16)
-            self.height = self.width
+            self.width = Block.width * (8 / 16)
+            self.height = Block.height * (6 / 16)
             
             self.moveSpeed = 4.5
             

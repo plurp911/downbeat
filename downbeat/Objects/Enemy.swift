@@ -61,9 +61,9 @@ class Enemy {
     static let jumperEnemyLeft2Image = UIImage(named: "jumperEnemyLeft2")
     static let jumperEnemyLeftJumpImage = UIImage(named: "jumperEnemyLeftJump")
 
-    static let minerEnemyThrowLeftImage = UIImage(named: "minerEnemyThrowLeft")
-    static let minerEnemySignalLeftImage = UIImage(named: "minerEnemySignalLeft")
-    static let minerEnemyShieldLeftImage = UIImage(named: "minerEnemyShieldLeft")
+    static let minerThrowLeftImage = UIImage(named: "minerEnemyThrowLeft")
+    static let minerSignalLeftImage = UIImage(named: "minerEnemySignalLeft")
+    static let minerShieldLeftImage = UIImage(named: "minerEnemyShieldLeft")
     
     static let electricityImages = [UIImage(named: "electricityEnemyRight1"), UIImage(named: "electricityEnemyRight2")]
 
@@ -72,6 +72,9 @@ class Enemy {
     
     static let topImages = [UIImage(named: "topEnemy1"), UIImage(named: "topEnemy2"), UIImage(named: "topEnemy3")]
 
+    static let shooterShootRight = UIImage(named: "shooterEnemyShootRight")
+    static let shooterShieldRight = UIImage(named: "shooterEnemyShieldRight")
+    
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
     static let hitTimeInterval: CGFloat = 0.05
@@ -372,7 +375,7 @@ class Enemy {
             
         } else if self.type == "topMaker" {
             
-            self.maxHealth = 3
+            self.maxHealth = 5
             
             self.damage = 5
             
@@ -397,6 +400,17 @@ class Enemy {
             
 //            self.moveSpeed = 0.5
             self.moveSpeed = 0.875
+            
+        } else if self.type == "shooter" {
+            
+            self.maxHealth = 3
+            
+            self.damage = 3
+            
+            self.width = Block.width * (24 / 16)
+            self.height = self.width
+            
+            self.moveSpeed = 0
         }
         
         self.hitBox.backgroundColor = Enemy.hitBoxColor
@@ -595,7 +609,7 @@ class Enemy {
 //            self.totalShootTimeInterval = 0.2
             self.totalShootTimeInterval = 0.25
 
-            self.view.image = Enemy.minerEnemyShieldLeftImage
+            self.view.image = Enemy.minerShieldLeftImage
             
             if self.direction == "right" {
                 
@@ -699,6 +713,30 @@ class Enemy {
             
             self.view.animationDuration = 0.85 * (1 / 3)
             self.view.startAnimating()
+            
+        } else if self.type == "shooter" {
+            
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
+            
+            self.shootTimeInterval = 1.75
+            
+//            self.totalShootTimeInterval = 0.875
+            self.totalShootTimeInterval = 0.5
+            
+            self.betweenShotsTimeInterval = 0.1
+
+            self.view.image = Enemy.shooterShieldRight
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
         }
         
         self.startDirection = self.direction
@@ -943,15 +981,15 @@ class Enemy {
             
             if self.isShooting == true {
                 
-                self.view.image = Enemy.minerEnemyThrowLeftImage
+                self.view.image = Enemy.minerThrowLeftImage
                 
             } else if self.isSignalling == true {
                 
-                self.view.image = Enemy.minerEnemySignalLeftImage
+                self.view.image = Enemy.minerSignalLeftImage
                 
             } else {
                 
-                self.view.image = Enemy.minerEnemyShieldLeftImage
+                self.view.image = Enemy.minerShieldLeftImage
             }
             
             if self.direction == "right" {
@@ -988,7 +1026,27 @@ class Enemy {
             
         } else if type == "top" {
 
+        } else if type == "shooter" {
+            
+            if self.isShooting == true {
+                
+                self.view.image = Enemy.shooterShootRight
+                
+            } else {
+                
+                self.view.image = Enemy.shooterShieldRight
+            }
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
         }
+        
     }
     
     func move() {
@@ -2051,6 +2109,16 @@ class Enemy {
             
             
             
+        } else if self.type == "shooter" {
+            
+//            if player.x > self.x {
+//
+//                self.direction = "right"
+//
+//            } else if player.x < self.x {
+//
+//                self.direction = "left"
+//            }
         }
         
         setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
@@ -2148,7 +2216,16 @@ class Enemy {
                                 
                             } else {
                                 
-                                self.handleDeflectBullet(i: i)
+                                if (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
+                                    
+                                    return i
+                                    
+                                } else {
+                                    
+                                    self.handleDeflectBullet(i: i)
+                                }
+                                
+//                                self.handleDeflectBullet(i: i)
                             }
                             
                         } else if bullets[i].type == "cutter" {
@@ -2242,7 +2319,41 @@ class Enemy {
                     }  else if self.type == "top" {
                         
                         return i
+                        
+                    } else if self.type == "shooter" {
+                        
+                        if bullets[i].type == "regular" {
+                            
+                            if self.isShooting == true {
+                                
+                                return i
+                                
+                            } else {
+                                
+                                if (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
+                                    
+                                    return i
+                                    
+                                } else {
+                                    
+                                    self.handleDeflectBullet(i: i)
+                                }
+                            }
+                            
+                        } else if bullets[i].type == "cutter" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "blade" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "magnet" {
+                            
+                            return i
+                        }
                     }
+                    
                 }
                 
             }
@@ -2551,7 +2662,36 @@ class Enemy {
             
         } else if self.type == "top" {
             
+        } else if self.type == "shooter" {
+            
+            let bulletSpeed: CGFloat = 3
+
+            let xOffset: CGFloat = Block.width * (15 / 16)
+            let yOffset: CGFloat = Block.width * (1.5 / 16)
+            
+            if self.direction == "left" {
+
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "regular"))
+                
+            } else if self.direction == "right" {
+                
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "regular"))
+            }
+            
+            if self.shootCount >= 2 {
+                
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+                
+                self.shootCount = 0
+                
+            } else {
+                
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.betweenShotsTimeInterval), target: self, selector: #selector(realShoot), userInfo: nil, repeats: false)
+                
+                self.shootCount += 1
+            }
         }
+        
     }
     
     //    func updateFreeze() {

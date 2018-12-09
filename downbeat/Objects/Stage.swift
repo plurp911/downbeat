@@ -182,6 +182,10 @@ class Stage {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "right"))
                 } else if text == "n" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "left"))
+                } else if text == "R" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "shooter", direction: "right"))
+                } else if text == "r" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "shooter", direction: "left"))
                 } else if text == "O" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "topMaker", direction: "right"))
                 } else if text == "o" {
