@@ -109,17 +109,21 @@ class Player {
     var energyPos: Int = -1
     
     var energies: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
-    var energyCosts: [Int] = [3, 4, 4, 3, 0, 0, 0, 0]
+    var energyCosts: [Int] = [3, 4, 4, 3, 3, 0, 0, 0]
     
     var direction: String = "right"
     
     var beforeYSpeed: CGFloat = 0
     
-        var power: String = "regular"
+//        var power: String = "regular"
     //    var power: String = "cutter"
 //    var power: String = "blade"
 //    var power: String = "beam"
 //    var power: String = "magnet"
+    var power: String = "shield"
+//    var power: String = "bubble"
+//    var power: String = "tornado"
+//    var power: String = "bomb"
 
     var endShootTimer = Timer()
     var endShootAnimationTimer = Timer()
@@ -227,18 +231,26 @@ class Player {
         
         self.direction = "right"
         
-                self.power = "regular"
+//                self.power = "regular"
         //        self.power = "cutter"
 //        self.power = "blade"
 //        self.power = "beam"
 //        self.power = "magnet"
+        self.power = "shield"
+//        self.power = "bubble"
+//        self.power = "tornado"
+//        self.power = "bomb"
 
-                self.energyPos = -1
+//                self.energyPos = -1
         //        self.energyPos = 0
 //        self.energyPos = 1
 //        self.energyPos = 2
 //        self.energyPos = 3
-        
+        self.energyPos = 4
+//        self.energyPos = 5
+//        self.energyPos = 6
+//        self.energyPos = 7
+
         self.healthBar.setEnergy(energy: self.health)
         
         if self.energyPos >= 0 {
@@ -797,6 +809,13 @@ class Player {
                 
                 canShootBullet = true
             }
+            
+        } else if self.power == "shield" {
+            
+            if self.energies[self.energyPos] >= self.energyCosts[self.energyPos]  {
+                
+                canShootBullet = true
+            }
         }
         
         if canShootBullet == true {
@@ -880,6 +899,22 @@ class Player {
                         } else if self.direction == "right" {
                             
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                        }
+                        
+                    } else if self.power == "shield" {
+                        
+                        if bullets.count <= 0 {
+                            
+                            bullets.append(Bullet(x: self.x, y: self.y, direction: self.direction, type: self.power))
+                            
+                        } else {
+                            
+                            for bullet in bullets {
+                                
+                                bullet.useEnergyTimer.invalidate()
+                            }
+                            
+                            bullets.removeAll()
                         }
                     }
                     

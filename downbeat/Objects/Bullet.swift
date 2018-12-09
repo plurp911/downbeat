@@ -25,6 +25,8 @@ class Bullet {
 
     static let magnetLeftImage = UIImage(named: "magnetBulletLeft")
 
+    static let shieldImages = [UIImage(named: "shieldBullet1"), UIImage(named: "shieldBullet2"), UIImage(named: "shieldBullet3")]
+
     // VARIABLES
     
     var width: CGFloat = 0
@@ -51,6 +53,8 @@ class Bullet {
     var shouldRemove: Bool = false
     
     var removeTimer = Timer()
+    
+    var useEnergyTimer = Timer()
     
     var removeTimeInterval: CGFloat = 2
 
@@ -161,6 +165,17 @@ class Bullet {
                 
                 self.xSpeed = self.moveSpeed
             }
+            
+        } else if self.type == "shield" {
+            
+            self.width = Block.width * (48 / 16)
+            self.height = self.width
+            
+            self.moveSpeed = 0
+            
+            self.damage = 1
+            
+            self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
         }
         
         self.setXY(x: x, y: y)
@@ -240,6 +255,23 @@ class Bullet {
         } else if self.type == "magnet" {
             
             self.view.image = Bullet.magnetLeftImage
+            
+            if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if self.type == "shield" {
+            
+            self.view.animationImages = Bullet.shieldImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.6875
+            
+            self.view.startAnimating()
             
             if self.direction == "left" {
                 
@@ -409,7 +441,31 @@ class Bullet {
             }
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+            
+        } else if self.type == "shield" {
+
+            setXY(x: player.x, y: player.y)
         }
+    }
+    
+    @objc func useEnergy() {
+        
+        if player.energyPos >= 0 {
+            
+            if player.energies[player.energyPos] >= player.energyCosts[player.energyPos] {
+                
+                player.energies[player.energyPos] -= player.energyCosts[player.energyPos]
+                
+                player.energyBar.setEnergy(energy: player.energies[player.energyPos])
+                
+            } else {
+                
+                bullets.removeAll()
+                
+                self.useEnergyTimer.invalidate()
+            }
+        }
+        
     }
     
     @objc func makeRemovable() {
