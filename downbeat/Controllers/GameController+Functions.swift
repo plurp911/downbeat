@@ -393,6 +393,12 @@ extension GameController {
                 if bullets[i].type == "beam" && bullets[i].shouldRemove == true {
                     
                     bulletsToRemove.append(i)
+                    
+                } else if bullets[i].type == "bubble" && bullets[i].shouldRemove == true {
+                    
+                    explosions.append(Explosion(x: bullets[i].x, y: bullets[i].y))
+                    
+                    bulletsToRemove.append(i)
                 }
             }
             
@@ -425,9 +431,15 @@ extension GameController {
                         
                     } else if bullets[bulletPos].type == "shield" {
                         
-                        bulletsToRemove.append(bulletPos)
+//                        bulletsToRemove.append(bulletPos)
                         
                     } else if bullets[bulletPos].type == "tornado" {
+                        
+                    } else if bullets[bulletPos].type == "bubble" {
+
+                        bulletsToRemove.append(bulletPos)
+
+                    } else if bullets[bulletPos].type == "bomb" {
                         
                     }
                     

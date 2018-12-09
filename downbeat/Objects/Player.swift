@@ -109,7 +109,7 @@ class Player {
     var energyPos: Int = -1
     
     var energies: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
-    var energyCosts: [Int] = [3, 4, 4, 3, 3, 0, 4, 0]
+    var energyCosts: [Int] = [3, 4, 4, 3, 3, 3, 4, 0]
     
     var direction: String = "right"
     
@@ -121,8 +121,8 @@ class Player {
 //    var power: String = "beam"
 //    var power: String = "magnet"
 //    var power: String = "shield"
-//    var power: String = "bubble"
-    var power: String = "tornado"
+    var power: String = "bubble"
+//    var power: String = "tornado"
 //    var power: String = "bomb"
 
     var endShootTimer = Timer()
@@ -237,8 +237,8 @@ class Player {
 //        self.power = "beam"
 //        self.power = "magnet"
 //        self.power = "shield"
-//        self.power = "bubble"
-        self.power = "tornado"
+        self.power = "bubble"
+//        self.power = "tornado"
 //        self.power = "bomb"
 
 //                self.energyPos = -1
@@ -247,8 +247,8 @@ class Player {
 //        self.energyPos = 2
 //        self.energyPos = 3
 //        self.energyPos = 4
-//        self.energyPos = 5
-        self.energyPos = 6
+        self.energyPos = 5
+//        self.energyPos = 6
 //        self.energyPos = 7
 
         self.healthBar.setEnergy(energy: self.health)
