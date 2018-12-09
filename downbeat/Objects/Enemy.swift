@@ -65,6 +65,8 @@ class Enemy {
     static let minerEnemySignalLeftImage = UIImage(named: "minerEnemySignalLeft")
     static let minerEnemyShieldLeftImage = UIImage(named: "minerEnemyShieldLeft")
     
+    static let electricityImages = [UIImage(named: "electricityEnemyRight1"), UIImage(named: "electricityEnemyRight2")]
+
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
     static let hitTimeInterval: CGFloat = 0.05
@@ -166,6 +168,8 @@ class Enemy {
     var ySpeedChange: CGFloat = 0
     var maxFallSpeed: CGFloat = 0
     
+    var isHidden: Bool = false
+    
     var view: UIImageView = UIImageView()
     var hitBox: UIView = UIView()
 
@@ -175,7 +179,7 @@ class Enemy {
         self.yPos = yPos
         
         self.direction = direction
-
+        
         self.setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: type)
     }
     
@@ -340,6 +344,17 @@ class Enemy {
             
             self.width = Block.width * (34 / 16)
             self.height = Block.height * (24 / 16)
+            
+            self.moveSpeed = 0
+            
+        } else if self.type == "electricity" {
+            
+            self.maxHealth = 1
+            
+            self.damage = 5
+            
+            self.width = Block.width * (64 / 16)
+            self.height = Block.height
             
             self.moveSpeed = 0
         }
@@ -550,6 +565,64 @@ class Enemy {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
+            
+        } else if self.type == "electricity" {
+            
+//            if self.isResetting == true && self.isInBounds() == true {
+//
+//                print("2")
+//
+//                print(self.x)
+//                print(self.y)
+//
+//                if self.direction == "right" {
+//
+//                    setXY(x: self.x - (Block.width / 2) + (self.width / 2), y: self.y)
+//
+//                } else if self.direction == "left" {
+//
+//                    setXY(x: self.x + (Block.width / 2) - (self.width / 2), y: self.y)
+//                }
+//
+//                print(self.x)
+//                print(self.y)
+//            }
+            
+            if self.isResetting == false {
+                
+                print("1")
+                
+                if self.direction == "right" {
+                    
+                    setXY(x: self.x - (Block.width / 2) + (self.width / 2), y: self.y)
+                    
+                } else if self.direction == "left" {
+                    
+                    setXY(x: self.x + (Block.width / 2) - (self.width / 2), y: self.y)
+                }
+            }
+
+            self.shootTimeInterval = 3
+            
+            self.totalShootTimeInterval = 1.5
+            
+            self.isHidden = true
+            
+            self.view.isHidden = true
+            
+            self.view.animationImages = Enemy.electricityImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.15
+            self.view.startAnimating()
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
         }
         
         self.startDirection = self.direction
@@ -647,6 +720,8 @@ class Enemy {
         
         self.ySpeedChange = 0
         self.maxFallSpeed = 0
+        
+        self.isHidden = false
 
         self.endTimers()
        
@@ -811,8 +886,12 @@ class Enemy {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
+            
+        } else if type == "electricity" {
+            
+            self.isHidden = !self.isShooting
+            self.view.isHidden = self.isHidden
         }
-        
     }
     
     func move() {
@@ -1616,6 +1695,8 @@ class Enemy {
 //                }
 //            }
             
+        } else if self.type == "electricity" {
+
         }
         
         setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
@@ -1797,8 +1878,10 @@ class Enemy {
                             
                             return i
                         }
+                        
+                    } else if self.type == "electricity" {
+                        
                     }
-                    
                 }
                 
             }
@@ -2084,8 +2167,11 @@ class Enemy {
 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
+            
+        } else if self.type == "electricity" {
+         
+            self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
         }
-        
     }
     
     //    func updateFreeze() {
@@ -2173,9 +2259,7 @@ class Enemy {
                 self.endStunTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.stunTimeInterval), target: self, selector: #selector(stopStun), userInfo: nil, repeats: false)
             }
             
-        }
-        
-        if self.type == "jumper" {
+        } else if self.type == "jumper" {
             
 //            if self.jumpTimer.isValid == false {
 //

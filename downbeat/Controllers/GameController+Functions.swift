@@ -311,6 +311,15 @@ extension GameController {
                 }
             }
             
+            let enemyPos: Int = player.didHitEnemy()
+            
+            if enemyPos >= 0 {
+                
+                if player.isHit == false {
+                    player.handleHit(damage: currentStage!.specialEnemies[enemyPos].damage, enemyDirection: currentStage!.specialEnemies[enemyPos].direction)
+                }
+            }
+            
             enemyBulletsToRemove.removeAll()
             
             let enemyBulletPos: Int = player.didHitEnemyBullet()
@@ -409,6 +418,12 @@ extension GameController {
                     }
                 }
 
+            }
+ 
+            for i in 0 ..< currentStage!.specialEnemies.count {
+                
+                currentStage!.specialEnemies[i].move()
+                currentStage!.specialEnemies[i].updateAnimation()
             }
             
             removeObjects(type: "bullets", toRemove: bulletsToRemove)
@@ -758,6 +773,27 @@ extension GameController {
             }
             
         }
+        
+        for i in 0 ..< currentStage!.specialEnemies.count {
+            
+            if direction == "left" {
+                
+                if player.isKnockedBack == true {
+                    currentStage!.specialEnemies[i].setXY(x: currentStage!.specialEnemies[i].x + Player.knockBackMoveSpeed, y: currentStage!.specialEnemies[i].y)
+                } else {
+                    currentStage!.specialEnemies[i].setXY(x: currentStage!.specialEnemies[i].x + Player.maxMoveSpeed, y: currentStage!.specialEnemies[i].y)
+                }
+                
+            } else if direction == "right" {
+                
+                if player.isKnockedBack == true {
+                    currentStage!.specialEnemies[i].setXY(x: currentStage!.specialEnemies[i].x - Player.knockBackMoveSpeed, y: currentStage!.specialEnemies[i].y)
+                } else {
+                    currentStage!.specialEnemies[i].setXY(x: currentStage!.specialEnemies[i].x - Player.maxMoveSpeed, y: currentStage!.specialEnemies[i].y)
+                }
+            }
+                
+        }
     }
     
     func moveEnemyBullets(direction: String) {
@@ -833,7 +869,12 @@ extension GameController {
         
         for e in selectedEnemies {
             gameView.addSubview(e.view)
-            gameView.addSubview(e.hitBox)
+//            gameView.addSubview(e.hitBox)
+        }
+        
+        for e in currentStage!.specialEnemies {
+            gameView.addSubview(e.view)
+            //            gameView.addSubview(e.hitBox)
         }
         
         gameView.addSubview(player.view)

@@ -1300,9 +1300,29 @@ class Player {
         
         for i in 0 ..< selectedEnemies.count {
             
-            if selectedEnemies[i].x + (selectedEnemies[i].width / 2) >= self.x - (Player.width / 2) && selectedEnemies[i].x - (selectedEnemies[i].width / 2) <= self.x + (Player.width / 2) && selectedEnemies[i].y + (selectedEnemies[i].height / 2) >= self.y - (Player.height / 2) && selectedEnemies[i].y - (selectedEnemies[i].height / 2) <= self.y + (Player.height / 2) {
-                return i
+            if selectedEnemies[i].isHidden == false {
+                
+                if selectedEnemies[i].x + (selectedEnemies[i].width / 2) >= self.x - (Player.width / 2) && selectedEnemies[i].x - (selectedEnemies[i].width / 2) <= self.x + (Player.width / 2) && selectedEnemies[i].y + (selectedEnemies[i].height / 2) >= self.y - (Player.height / 2) && selectedEnemies[i].y - (selectedEnemies[i].height / 2) <= self.y + (Player.height / 2) {
+                    return i
+                }
             }
+            
+        }
+        
+        return -1
+    }
+    
+    func didHitEnemy() -> Int {
+
+        for i in 0 ..< currentStage!.specialEnemies.count {
+            
+            if currentStage!.specialEnemies[i].isHidden == false {
+
+                if currentStage!.specialEnemies[i].x + (currentStage!.specialEnemies[i].width / 2) >= self.x - (Player.width / 2) && currentStage!.specialEnemies[i].x - (currentStage!.specialEnemies[i].width / 2) <= self.x + (Player.width / 2) && currentStage!.specialEnemies[i].y + (currentStage!.specialEnemies[i].height / 2) >= self.y - (Player.height / 2) && currentStage!.specialEnemies[i].y - (currentStage!.specialEnemies[i].height / 2) <= self.y + (Player.height / 2) {
+                    return i
+                }
+            }
+            
         }
         
         return -1

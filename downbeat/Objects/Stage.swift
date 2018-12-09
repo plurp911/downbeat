@@ -14,6 +14,7 @@ class Stage {
     
     var blocks = [Block]()
     var enemies = [Enemy]()
+    var specialEnemies = [Enemy]()
     var powerups = [Powerup]()
     var enemySpawners = [EnemySpawner]()
 
@@ -129,6 +130,20 @@ class Stage {
                     } else {
                         blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: tileSet))
                     }
+                    
+                } else if text == "<" {
+                    
+                    blocks.append(Block(xPos: j, yPos: i, type: "electric", tileSet: tileSet))
+
+//                    enemies.append(Enemy(xPos: j - 1, yPos: i, type: "electricity", direction: "left"))
+                    specialEnemies.append(Enemy(xPos: j - 1, yPos: i, type: "electricity", direction: "left"))
+                    
+                } else if text == ">" {
+                    
+                    blocks.append(Block(xPos: j, yPos: i, type: "electric", tileSet: tileSet))
+                    
+//                    enemies.append(Enemy(xPos: j + 1, yPos: i, type: "electricity", direction: "right"))
+                    specialEnemies.append(Enemy(xPos: j + 1, yPos: i, type: "electricity", direction: "right"))
                     
                 } else if text == "^" {
 //                    blocks.append(Block(xPos: j, yPos: i, type: "spike", tileSet: tileSet))
@@ -278,9 +293,39 @@ class Stage {
             if isMatch == false {
                 
                 enemy.setXY(x: self.x + (((CGFloat)(enemy.xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(enemy.yPos)) * Block.height) + Block.height - (enemy.height / 2))
+                
+//                if enemy.type == "electricity" {
+//
+//                    if enemy.direction == "right" {
+//
+//                        enemy.setXY(x: enemy.x - (Block.width / 2) + (enemy.width / 2), y: enemy.y)
+//
+//                    } else if enemy.direction == "left" {
+//
+//                        enemy.setXY(x: enemy.x + (Block.width / 2) - (enemy.width / 2), y: enemy.y)
+//                    }
+//                }
+                
             }
         }
-
+        
+        for enemy in self.specialEnemies {
+            
+            enemy.setXY(x: self.x + (((CGFloat)(enemy.xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(enemy.yPos)) * Block.height) + Block.height - (enemy.height / 2))
+            
+            if enemy.type == "electricity" {
+                
+                if enemy.direction == "right" {
+                    
+                    enemy.setXY(x: enemy.x - (Block.width / 2) + (enemy.width / 2), y: enemy.y)
+                    
+                } else if enemy.direction == "left" {
+                    
+                    enemy.setXY(x: enemy.x + (Block.width / 2) - (enemy.width / 2), y: enemy.y)
+                }
+            }
+            
+        }
     }
     
     func movePowerups() {
@@ -516,6 +561,12 @@ class Stage {
                 
                 break
             }
+        }
+        
+        for enemy in self.specialEnemies {
+            
+            enemy.reset()
+            enemy.startTimers()
         }
         
         for powerup in self.powerups {
