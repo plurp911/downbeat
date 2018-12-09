@@ -833,11 +833,12 @@ extension GameController {
         
         for e in selectedEnemies {
             gameView.addSubview(e.view)
+//            gameView.addSubview(e.hitBox)
         }
         
-        //        gameView.addSubview(player.hitBox)
         gameView.addSubview(player.view)
-        
+//        gameView.addSubview(player.hitBox)
+
         gameView.addSubview(player.healthBar.view)
         gameView.addSubview(player.energyBar.view)
         

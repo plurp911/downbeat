@@ -216,17 +216,17 @@ class Powerup {
                 }
             }
             
-            for bullet in bullets {
-                
-                if bullet.type == "beam" {
-                    
-                    if self.y + (self.height / 2) + self.ySpeed < bullet.y + (bullet.height / 2) && self.y + (self.height / 2) + self.ySpeed > bullet.y - (bullet.height / 2) && ((self.x + (self.width / 2) <= bullet.x + (bullet.width / 2) && self.x + (self.width / 2) > bullet.x - (bullet.width / 2)) || (self.x - (self.width / 2) < bullet.x + (bullet.width / 2) && self.x - (self.width / 2) >= bullet.x - (bullet.width / 2))) {
-                        
-                        isEmpty = false
-                    }
-                }
-                
-            }
+//            for bullet in bullets {
+//
+//                if bullet.type == "beam" {
+//
+//                    if self.y + (self.height / 2) + self.ySpeed < bullet.y + (bullet.height / 2) && self.y + (self.height / 2) + self.ySpeed > bullet.y - (bullet.height / 2) && ((self.x + (self.width / 2) <= bullet.x + (bullet.width / 2) && self.x + (self.width / 2) > bullet.x - (bullet.width / 2)) || (self.x - (self.width / 2) < bullet.x + (bullet.width / 2) && self.x - (self.width / 2) >= bullet.x - (bullet.width / 2))) {
+//
+//                        isEmpty = false
+//                    }
+//                }
+//
+//            }
             
             if isEmpty == true {
                 
