@@ -957,11 +957,11 @@ class Player {
                         
                         if self.direction == "left" {
                             
-                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet - (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
-                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet + (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
                         }
                         
                     } else if self.power == "bomb" {

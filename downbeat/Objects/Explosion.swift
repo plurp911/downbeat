@@ -18,7 +18,9 @@ class Explosion {
         static let color: UIColor = UIColor.clear
 //    static let color: UIColor = UIColor.red
     
-    static let images = [UIImage(named: "explosion1"), UIImage(named: "explosion2"), UIImage(named: "explosion3"), UIImage(named: "explosion4")]
+    static let explosionImages = [UIImage(named: "explosion1"), UIImage(named: "explosion2"), UIImage(named: "explosion3"), UIImage(named: "explosion4")]
+    
+    static let popImages = [UIImage(named: "pop1"), UIImage(named: "pop2"), UIImage(named: "pop3"), UIImage(named: "pop4")]
 
     // VARIABLES
     
@@ -27,7 +29,7 @@ class Explosion {
     
     var view: UIImageView = UIImageView()
     
-    init(x: CGFloat, y: CGFloat) {
+    init(x: CGFloat, y: CGFloat, type: String) {
         
         self.x = x
         self.y = y
@@ -46,7 +48,14 @@ class Explosion {
         
         self.view.stopAnimating()
         
-        self.view.animationImages = Explosion.images as! [UIImage]
+        if type == "explosion" {
+            
+            self.view.animationImages = Explosion.explosionImages as! [UIImage]
+
+        } else if type == "pop" {
+            
+            self.view.animationImages = Explosion.popImages as! [UIImage]
+        }
         
         self.view.animationRepeatCount = 1
 

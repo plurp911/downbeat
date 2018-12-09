@@ -396,7 +396,7 @@ extension GameController {
                     
                 } else if bullets[i].type == "bubble" && bullets[i].shouldRemove == true {
                     
-                    explosions.append(Explosion(x: bullets[i].x, y: bullets[i].y))
+                    explosions.append(Explosion(x: bullets[i].x, y: bullets[i].y, type: "pop"))
                     
                     bulletsToRemove.append(i)
                 }
@@ -451,7 +451,7 @@ extension GameController {
                         
                         selectedEnemies[i].endTimers()
                         
-                        explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y))
+                        explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "explosion"))
                         
                         handleMakePowerup(x: selectedEnemies[i].x, y: selectedEnemies[i].y)
                         
