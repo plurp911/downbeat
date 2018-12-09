@@ -29,6 +29,10 @@ class Bullet {
 
     static let tornadoRightImages = [UIImage(named: "tornadoBulletRight1"), UIImage(named: "tornadoBulletRight2"), UIImage(named: "tornadoBulletRight3")]
 
+    static let bubbleImages = [UIImage(named: "bubbleBullet1"), UIImage(named: "bubbleBullet2")]
+
+    static let bombImage = UIImage(named: "bombBullet")
+
     // VARIABLES
     
     var width: CGFloat = 0
@@ -214,6 +218,42 @@ class Bullet {
                 
                 self.xSpeed = self.moveSpeed
             }
+            
+        } else if self.type == "bubble" {
+            
+            self.width = Block.width
+            self.height = self.width
+            
+            self.damage = 1
+            
+            self.ySpeedChange = 0.03
+            
+            if self.direction == "left" {
+                
+                self.xSpeed = -self.moveSpeed
+                
+            } else if self.direction == "right" {
+                
+                self.xSpeed = self.moveSpeed
+            }
+            
+        } else if self.type == "bomb" {
+            
+            self.width = Block.width * (14 / 16)
+            self.height = self.width
+            
+            self.damage = 3
+            
+            self.ySpeedChange = 0.03
+            
+            if self.direction == "left" {
+                
+                self.xSpeed = -self.moveSpeed
+                
+            } else if self.direction == "right" {
+                
+                self.xSpeed = self.moveSpeed
+            }
         }
         
         self.setXY(x: x, y: y)
@@ -327,8 +367,19 @@ class Bullet {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
+            
+        } else if self.type == "bubble" {
+            
+            self.view.animationImages = Bullet.bubbleImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.6875
+            
+            self.view.startAnimating()
+            
+        } else if self.type == "bomb" {
+            
+            self.view.image = Bullet.bombImage
         }
-        
     }
     
     func setXY(x: CGFloat, y: CGFloat) {
@@ -521,6 +572,103 @@ class Bullet {
             self.ySpeed -= self.ySpeedChange
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+            
+        } else if self.type == "bubble" {
+            
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        } else if self.type == "bomb" {
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         }
     }
     

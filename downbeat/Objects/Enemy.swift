@@ -2248,6 +2248,14 @@ class Enemy {
                         } else if bullets[i].type == "tornado" {
                             
                             return i
+                            
+                        } else if bullets[i].type == "bubble" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "bomb" {
+                            
+                            return i
                         }
                         
                     } else if self.type == "penguin" {
@@ -2325,6 +2333,14 @@ class Enemy {
                         } else if bullets[i].type == "tornado" {
                             
                             return i
+                            
+                        } else if bullets[i].type == "bubble" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "bomb" {
+                            
+                            return i
                         }
                         
                     } else if self.type == "electricity" {
@@ -2374,6 +2390,14 @@ class Enemy {
                             return i
                             
                         } else if bullets[i].type == "tornado" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "bubble" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "bomb" {
                             
                             return i
                         }

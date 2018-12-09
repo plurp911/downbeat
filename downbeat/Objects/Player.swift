@@ -823,6 +823,20 @@ class Player {
                 
                 canShootBullet = true
             }
+            
+        } else if self.power == "bubble" {
+            
+            if bullets.count < 3 && self.energies[self.energyPos] >= self.energyCosts[self.energyPos]  {
+                
+                canShootBullet = true
+            }
+            
+        } else if self.power == "bomb" {
+            
+            if bullets.count < 1 && self.energies[self.energyPos] >= self.energyCosts[self.energyPos]  {
+                
+                canShootBullet = true
+            }
         }
         
         if canShootBullet == true {
@@ -937,6 +951,28 @@ class Player {
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, moveSpeed: 0.6, direction: self.direction, type: self.power))
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, moveSpeed: 1, direction: self.direction, type: self.power))
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, moveSpeed: 1.3, direction: self.direction, type: self.power))
+                        }
+                        
+                    } else if self.power == "bubble" {
+                        
+                        if self.direction == "left" {
+                            
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            
+                        } else if self.direction == "right" {
+                            
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                        }
+                        
+                    } else if self.power == "bomb" {
+                        
+                        if self.direction == "left" {
+                            
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            
+                        } else if self.direction == "right" {
+                            
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
                         }
                     }
                     
