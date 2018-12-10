@@ -73,9 +73,11 @@ class Enemy {
     
     static let topImages = [UIImage(named: "topEnemy1"), UIImage(named: "topEnemy2"), UIImage(named: "topEnemy3")]
 
-    static let shooterShootRight = UIImage(named: "shooterEnemyShootRight")
-    static let shooterShieldRight = UIImage(named: "shooterEnemyShieldRight")
+    static let shooterShootRightImage = UIImage(named: "shooterEnemyShootRight")
+    static let shooterShieldRightImage = UIImage(named: "shooterEnemyShieldRight")
     
+    static let scooperLeftImages = [UIImage(named: "scooperEnemyLeft1"), UIImage(named: "scooperEnemyLeft2")]
+
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
     static let hitTimeInterval: CGFloat = 0.05
@@ -412,6 +414,30 @@ class Enemy {
             self.height = self.width
             
             self.moveSpeed = 0
+            
+        } else if self.type == "scooper" {
+            
+            self.maxHealth = 5
+            
+            self.damage = 3
+            
+//            self.ySpeedChange = 0.15
+            self.ySpeedChange = 0.3
+
+            self.maxFallSpeed = 4
+            
+            self.width = Block.width * (40 / 16)
+            self.height = Block.height * (64 / 16)
+            
+//            self.moveSpeed = 0.375
+//            self.moveSpeed = 0.3
+//            self.moveSpeed = 0.275
+//            self.moveSpeed = 0.1875
+            self.moveSpeed = 0.2
+
+            self.xGoal = Block.width * 4
+//            self.xGoal = Block.width * 3
+//            self.xGoal = Block.width * 3.5
         }
         
         self.hitBox.backgroundColor = Enemy.hitBoxColor
@@ -728,7 +754,7 @@ class Enemy {
             
             self.betweenShotsTimeInterval = 0.1
 
-            self.view.image = Enemy.shooterShieldRight
+            self.view.image = Enemy.shooterShieldRightImage
             
             if self.direction == "right" {
                 
@@ -737,6 +763,28 @@ class Enemy {
             } else if self.direction == "left" {
                 
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
+            
+        } else if self.type == "scooper" {
+            
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
+            
+            self.view.animationImages = Enemy.scooperLeftImages as! [UIImage]
+            
+//            self.view.animationDuration = 0.85 * 0.225
+            self.view.animationDuration = 0.85 * 0.45
+            
+            self.view.startAnimating()
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
         }
         
@@ -1031,11 +1079,11 @@ class Enemy {
             
             if self.isShooting == true {
                 
-                self.view.image = Enemy.shooterShootRight
+                self.view.image = Enemy.shooterShootRightImage
                 
             } else {
                 
-                self.view.image = Enemy.shooterShieldRight
+                self.view.image = Enemy.shooterShieldRightImage
             }
             
             if self.direction == "right" {
@@ -1045,6 +1093,17 @@ class Enemy {
             } else if self.direction == "left" {
                 
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
+            
+        } else if self.type == "scooper" {
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
         }
         
@@ -1199,7 +1258,7 @@ class Enemy {
                                 
                                 if block.isInLargeBounds() == true {
                                     
-                                    if self.x + (self.width / 2) + (self.moveSpeed * 5) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 5) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (self.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                    if self.x + (self.width / 2) + (self.moveSpeed * 5) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 5) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                                         
                                         self.direction = "left"
                                         
@@ -1264,7 +1323,7 @@ class Enemy {
                             
                             if direction == "right" {
                                 
-                                if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (self.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                                     
                                     self.handleEyeHitBlock()
                                     
@@ -1959,7 +2018,7 @@ class Enemy {
                             
                             if block.type != "ladder" && block.type != "topLadder" {
                                 
-                                    if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (self.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                    if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                                         
                                         self.direction = "left"
                                         
@@ -2120,6 +2179,255 @@ class Enemy {
 
                 self.direction = "left"
             }
+            
+        } else if self.type == "scooper" {
+            
+            
+            
+            
+            
+            print(self.didReachGoal1)
+            
+            
+            
+            
+            if player.x > self.x {
+                
+                self.direction = "right"
+                
+            } else if player.x < self.x {
+                
+                self.direction = "left"
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            if self.isFalling == true {
+                
+                self.ySpeed += self.ySpeedChange
+                
+                if self.ySpeed > 0 {
+                    
+                    self.isFalling = true
+                    
+                    if self.ySpeed > self.maxFallSpeed {
+                        self.ySpeed = self.maxFallSpeed
+                    }
+                    
+                } else if ySpeed < 0 {
+                    
+                    self.isFalling = false
+                }
+            }
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            
+        
+            
+            let offset: CGFloat = Block.width * (1 / 16) * 0.1
+
+            if direction == "right" {
+                
+                for block in selectedBlocks {
+                    
+                    if block.type != "ladder" && block.type != "topLadder" {
+                        
+                        if self.x + (self.width / 2) + (self.moveSpeed * 2.5) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 2.5) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 2.5), y: self.y)
+                        }
+                        
+                    }
+                }
+                
+            } else if direction == "left" {
+                
+                for block in selectedBlocks {
+                    
+                    if block.type != "ladder" && block.type != "topLadder" {
+                        
+                        if self.x - (self.width / 2) - (self.moveSpeed * 2.5) < block.x + (Block.width / 2) && self.x - (self.width / 2) - (self.moveSpeed * 2.5) > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            setXY(x: block.x + (Block.width / 2) + (self.width / 2) + (self.moveSpeed * 2.5), y: self.y)
+                        }
+                        
+                    }
+                }
+                
+            }
+ 
+            if abs(abs(player.x) - abs(self.x)) <= self.xGoal {
+                
+                if self.didReachGoal1 == false {
+                    
+                    self.didReachGoal1 = true
+                    
+                    self.view.animationImages = Enemy.scooperLeftImages as! [UIImage]
+                    
+                    self.view.animationDuration = 0.85 * 0.225
+                    
+                    self.view.startAnimating()
+                }
+                
+                self.xSpeed = self.moveSpeed * 2.5
+                
+            } else {
+                
+                if self.didReachGoal1 == true {
+                    
+                    self.didReachGoal1 = false
+                    
+                    self.view.animationImages = Enemy.scooperLeftImages as! [UIImage]
+                    
+                    self.view.animationDuration = 0.85 * 0.45
+                    
+                    self.view.startAnimating()
+                }
+                
+                self.xSpeed = self.moveSpeed
+            }
+            
+            if self.direction == "left" {
+                self.xSpeed = -self.xSpeed
+            }
+ 
+            
+            
+            
+            
+            
+            var isEmpty: Bool = true
+            
+            for block in selectedBlocks {
+                
+                if block.isHidden == false {
+                    
+                    if block.isTopLadder == true {
+                        
+                        if self.y + (self.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                            
+                            isEmpty = false
+                        }
+                        
+                    } else if block.isLadder == false {
+                        
+                        if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                            
+                            isEmpty = false
+                        }
+                    }
+                    
+                }
+            }
+            
+            
+            if isEmpty == true {
+                
+                self.isFalling = true
+            }
+            
+            
+            
+            
+            
+            if self.isFalling == true {
+                
+                for block in selectedBlocks {
+                    
+                    if block.isHidden == false {
+                        
+                        if block.isTopLadder == true {
+                            
+                            if self.y + (self.height / 2) + self.maxFallSpeed <= block.y - (Block.height / 2) + self.maxFallSpeed && self.y + (self.height / 2) + self.maxFallSpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                self.isFalling = false
+                                
+                                self.ySpeed = 0
+                                
+                                setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                            }
+                            
+                        } else if block.isLadder == false {
+                            
+                            if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                self.isFalling = false
+                                
+                                self.ySpeed = 0
+                                
+                                setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                            }
+                        }
+                        
+                    }
+                }
+
+                
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         }
         
         setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
@@ -2371,6 +2679,61 @@ class Enemy {
                                     
                                     self.handleDeflectBullet(i: i)
                                 }
+                            }
+                            
+                        } else if bullets[i].type == "cutter" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "blade" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "magnet" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "shield" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "tornado" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "bubble" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "bomb" {
+                            
+                            return i
+                        }
+                        
+                    } else if self.type == "scooper" {
+                        
+                        if bullets[i].type == "regular" {
+                            
+                            if self.isShooting == true {
+                                
+                                return i
+                                
+                            } else {
+                                
+                                let headHeight: CGFloat = Block.height * (24 / 16)
+                                let headBottomY: CGFloat = self.y - self.height / 2 + headHeight
+
+//                                if bullets[i].y <= headBottomY || (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
+                                if bullets[i].y <= headBottomY {
+
+                                    return i
+                                    
+                                } else {
+                                    
+                                    self.handleDeflectBullet(i: i)
+                                }
+                                
+                                //                                self.handleDeflectBullet(i: i)
                             }
                             
                         } else if bullets[i].type == "cutter" {
@@ -2739,8 +3102,10 @@ class Enemy {
                 
                 self.shootCount += 1
             }
+            
+        } else if self.type == "scooper" {
+            
         }
-        
     }
     
     //    func updateFreeze() {

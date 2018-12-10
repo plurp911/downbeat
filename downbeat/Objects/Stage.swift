@@ -194,6 +194,10 @@ class Stage {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "miner", direction: "right"))
                 } else if text == "m" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "miner", direction: "left"))
+                } else if text == "C" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "scooper", direction: "right"))
+                } else if text == "c" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "scooper", direction: "left"))
                 } else if text == "D" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "drop", direction: "right"))
                 } else if text == "d" {
