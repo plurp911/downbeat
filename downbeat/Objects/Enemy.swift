@@ -39,6 +39,11 @@ class Enemy {
     static let snakeLeft2Image = UIImage(named: "snakeEnemyLeft2")
     static let snakeLeftShootImage = UIImage(named: "snakeEnemyLeftShoot")
     
+    static let shellShootRightImage = UIImage(named: "shellEnemyRightShoot")
+    static let shellSignalRightImage = UIImage(named: "shellEnemyRightSignal")
+    static let shellClosedRightImage = UIImage(named: "shellEnemyRightClosed")
+    static let shellSignalRightImages = [shellSignalRightImage]
+
     static let dropImages = [UIImage(named: "dropEnemy1"), UIImage(named: "dropEnemy2")]
     static let dropEmptyImages = [UIImage(named: "dropEnemyEmpty1"), UIImage(named: "dropEnemyEmpty2")]
     static let dropDropImage = UIImage(named: "dropEnemyDrop")
@@ -297,6 +302,17 @@ class Enemy {
             
             self.moveSpeed = 0
             
+        } else if self.type == "shell" {
+            
+            self.maxHealth = 1
+            
+            self.damage = 3
+            
+            self.width = Block.width * (24 / 16)
+            self.height = Block.height * (20 / 16)
+            
+            self.moveSpeed = 0
+            
         } else if self.type == "drop" {
             
             self.maxHealth = 1
@@ -451,7 +467,6 @@ class Enemy {
             self.moveSpeed = 0.2
 
             self.xGoal = Block.width * 4
-            
         }
         
         self.hitBox.backgroundColor = Enemy.hitBoxColor
@@ -577,6 +592,28 @@ class Enemy {
             } else if self.direction == "left" {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if self.type == "shell" {
+            
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
+            
+            self.shootTimeInterval = 1.75
+            self.signalTimeInterval = 0.3
+            
+            self.totalShootTimeInterval = 0.3
+            
+            self.view.image = Enemy.shellClosedRightImage
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
             }
             
         } else if self.type == "drop" {
@@ -979,6 +1016,35 @@ class Enemy {
             } else if self.direction == "left" {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if type == "shell" {
+            
+            if self.view.isAnimating == false {
+                
+                self.view.stopAnimating()
+                
+                if self.isShooting == true {
+                    
+                    self.view.image = Enemy.shellShootRightImage
+                    
+                } else if self.isSignalling == true {
+                    
+                    self.view.image = Enemy.shellSignalRightImage
+                    
+                } else {
+                    
+                    self.view.image = Enemy.shellClosedRightImage
+                }
+            }
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
             }
             
         } else if type == "drop" {
@@ -1438,6 +1504,8 @@ class Enemy {
                     self.direction = "left"
                 }
             }
+            
+        } else if self.type == "shell" {
             
         } else if self.type == "drop" {
             
@@ -2264,19 +2332,19 @@ class Enemy {
                             if self.isShooting == true {
                                 
                                 return i
-                                
+
+//                                if (bullets[i].xSpeed <= 0 && self.direction == "right") || (bullets[i].xSpeed >= 0 && self.direction == "left") {
+//
+//                                    return i
+//
+//                                } else {
+//
+//                                    self.handleDeflectBullet(i: i)
+//                                }
+
                             } else {
                                 
-                                if (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
-                                    
-                                    return i
-                                    
-                                } else {
-                                    
-                                    self.handleDeflectBullet(i: i)
-                                }
-                                
-//                                self.handleDeflectBullet(i: i)
+                                self.handleDeflectBullet(i: i)
                             }
                             
                         } else if bullets[i].type == "cutter" {
@@ -2327,6 +2395,57 @@ class Enemy {
                     } else if self.type == "snake" {
                         
                         return i
+                        
+                    } else if self.type == "shell" {
+                        
+                        if bullets[i].type == "regular" {
+                            
+                            if self.isShooting == true || self.isSignalling == true || self.view.isAnimating == true {
+                                
+                                return i
+
+//                                if (bullets[i].xSpeed <= 0 && self.direction == "right") || (bullets[i].xSpeed >= 0 && self.direction == "left") {
+//
+//                                    return i
+//
+//                                } else {
+//
+//                                    self.handleDeflectBullet(i: i)
+//                                }
+                                
+                            } else {
+                                
+                                self.handleDeflectBullet(i: i)
+                            }
+                            
+                        } else if bullets[i].type == "cutter" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "blade" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "magnet" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "shield" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "tornado" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "bubble" {
+                            
+                            return i
+                            
+                        } else if bullets[i].type == "bomb" {
+                            
+                            return i
+                        }
                         
                     } else if self.type == "drop" {
                         
@@ -2421,14 +2540,16 @@ class Enemy {
                                 
                             } else {
                                 
-                                if (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
-                                    
-                                    return i
-                                    
-                                } else {
-                                    
-                                    self.handleDeflectBullet(i: i)
-                                }
+//                                if (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
+//
+//                                    return i
+//
+//                                } else {
+//
+//                                    self.handleDeflectBullet(i: i)
+//                                }
+                                
+                                self.handleDeflectBullet(i: i)
                             }
                             
                         } else if bullets[i].type == "cutter" {
@@ -2702,6 +2823,26 @@ class Enemy {
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
             
+        } else if self.type == "shell" {
+            
+            let bulletSpeed: CGFloat = 1.75
+
+            let xOffset: CGFloat = Block.width * (14 / 16)
+            let yOffset: CGFloat = Block.width * (1 / 16)
+            
+            if self.direction == "left" {
+                
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "mediumRegular"))
+                
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+                
+            } else if self.direction == "right" {
+                
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "mediumRegular"))
+                
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            }
+            
         } else if self.type == "drop" {
          
             let bulletSpeed: CGFloat = 2
@@ -2932,6 +3073,24 @@ class Enemy {
             } else if self.direction == "left" {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if self.type == "shell" {
+            
+            self.view.animationImages = Enemy.shellSignalRightImages as! [UIImage]
+            
+            self.view.animationRepeatCount = 1
+            
+            self.view.animationDuration = TimeInterval(self.signalTimeInterval)
+            self.view.startAnimating()
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
             }
         }
         

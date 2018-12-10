@@ -198,6 +198,10 @@ class Stage {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "shooter", direction: "right"))
                 } else if text == "r" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "shooter", direction: "left"))
+                } else if text == "A" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "shell", direction: "right"))
+                } else if text == "a" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "shell", direction: "left"))
                 } else if text == "O" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "topMaker", direction: "right"))
                 } else if text == "o" {
