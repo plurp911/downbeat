@@ -65,7 +65,12 @@ class Enemy {
     static let topMakerShootRightImage = UIImage(named: "topMakerEnemyShootRight")
     static let topMakerRightImages = [UIImage(named: "topMakerEnemyRight1"), UIImage(named: "topMakerEnemyRight2")]
     
+    static let eggMakerShootLeftImage = UIImage(named: "eggMakerEnemyShootLeft")
+    static let eggMakerLeftImages = [UIImage(named: "eggMakerEnemyLeft1"), UIImage(named: "eggMakerEnemyLeft2")]
+    
     static let topImages = [UIImage(named: "topEnemy1"), UIImage(named: "topEnemy2"), UIImage(named: "topEnemy3")]
+
+    static let eggLeftImages = [UIImage(named: "eggEnemyLeft1"), UIImage(named: "eggEnemyLeft2"), UIImage(named: "eggEnemyLeft3"), UIImage(named: "eggEnemyLeft2")]
 
     static let shooterShootRightImage = UIImage(named: "shooterEnemyShootRight")
     static let shooterShieldRightImage = UIImage(named: "shooterEnemyShieldRight")
@@ -376,6 +381,17 @@ class Enemy {
             
             self.moveSpeed = 0
             
+        } else if self.type == "eggMaker" {
+            
+            self.maxHealth = 5
+            
+            self.damage = 5
+            
+            self.width = Block.width * (32 / 16)
+            self.height = Block.height * (40 / 16)
+            
+            self.moveSpeed = 0
+            
         } else if self.type == "top" {
             
             self.maxHealth = 1
@@ -391,6 +407,22 @@ class Enemy {
             self.height = Block.height
             
             self.moveSpeed = 0.875
+            
+        } else if self.type == "egg" {
+            
+            self.maxHealth = 1
+            
+            self.damage = 1
+            
+            self.ySpeedChange = 0.5
+            self.maxFallSpeed = 5
+            
+            self.isFalling = true
+            
+            self.width = Block.width
+            self.height = Block.height * (14 / 16)
+            
+            self.moveSpeed = 0.375
             
         } else if self.type == "shooter" {
             
@@ -419,6 +451,7 @@ class Enemy {
             self.moveSpeed = 0.2
 
             self.xGoal = Block.width * 4
+            
         }
         
         self.hitBox.backgroundColor = Enemy.hitBoxColor
@@ -681,12 +714,52 @@ class Enemy {
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
             }
             
+        } else if self.type == "eggMaker" {
+            
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
+            
+            self.shootTimeInterval = 1.5
+            
+            self.totalShootTimeInterval = 0.25
+            
+            self.view.animationImages = Enemy.eggMakerLeftImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.225
+            self.view.startAnimating()
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
         } else if self.type == "top" {
             
             self.view.animationImages = Enemy.topImages as! [UIImage]
             
             self.view.animationDuration = 0.85 * (1 / 3)
             self.view.startAnimating()
+            
+        } else if self.type == "egg" {
+            
+            self.view.animationImages = Enemy.eggLeftImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.5
+            self.view.startAnimating()
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
             
         } else if self.type == "shooter" {
             
@@ -1015,8 +1088,37 @@ class Enemy {
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
             }
             
+        } else if type == "eggMaker" {
+            
+            if self.isShooting == true {
+                
+                self.view.stopAnimating()
+                
+                self.view.image = Enemy.eggMakerShootLeftImage
+            }
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
         } else if type == "top" {
 
+        } else if type == "egg" {
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
         } else if type == "shooter" {
             
             if self.isShooting == true {
@@ -1647,6 +1749,8 @@ class Enemy {
 
         } else if self.type == "topMaker" {
             
+        } else if self.type == "eggMaker" {
+            
         } else if self.type == "top" {
 
             if self.isFalling == true {
@@ -1752,6 +1856,131 @@ class Enemy {
                                 
                                 self.ySpeed = 0
 
+                                setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                            }
+                            
+                        } else if block.isLadder == false {
+                            
+                            if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                self.isFalling = false
+                                
+                                self.ySpeed = 0
+                                
+                                setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                            }
+                        }
+                        
+                    }
+                }
+                
+            }
+            
+        } else if self.type == "egg" {
+            
+            if self.isFalling == true {
+                
+                self.ySpeed += self.ySpeedChange
+                
+                if self.ySpeed > 0 {
+                    
+                    self.isFalling = true
+                    
+                    if self.ySpeed > self.maxFallSpeed {
+                        self.ySpeed = self.maxFallSpeed
+                    }
+                    
+                } else if ySpeed < 0 {
+                    
+                    self.isFalling = false
+                }
+            }
+            
+            let offset: CGFloat = Block.width * (1 / 16) * 0.1
+            
+            if direction == "right" {
+                
+                for block in selectedBlocks {
+                    
+                    if block.type != "ladder" && block.type != "topLadder" {
+                        
+                        if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            self.direction = "left"
+                            
+                            setXY(x: block.x - (Block.width / 2) - (self.width / 2) - self.moveSpeed, y: self.y)
+                        }
+                        
+                    }
+                }
+                
+            } else if direction == "left" {
+                
+                for block in selectedBlocks {
+                    
+                    if block.type != "ladder" && block.type != "topLadder" {
+                        
+                        if self.x - (self.width / 2) - self.moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            self.direction = "right"
+                            
+                            setXY(x: block.x + (Block.width / 2) + (self.width / 2) + self.moveSpeed, y: self.y)
+                        }
+                        
+                    }
+                }
+                
+            }
+            
+            self.xSpeed = moveSpeed
+            
+            if self.direction == "left" {
+                self.xSpeed = -self.xSpeed
+            }
+            
+            var isEmpty: Bool = true
+            
+            for block in selectedBlocks {
+                
+                if block.isHidden == false {
+                    
+                    if block.isTopLadder == true {
+                        
+                        if self.y + (self.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                            
+                            isEmpty = false
+                        }
+                        
+                    } else if block.isLadder == false {
+                        
+                        if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                            
+                            isEmpty = false
+                        }
+                    }
+                    
+                }
+            }
+            
+            if isEmpty == true {
+                
+                self.isFalling = true
+            }
+            
+            if self.isFalling == true {
+                
+                for block in selectedBlocks {
+                    
+                    if block.isHidden == false {
+                        
+                        if block.isTopLadder == true {
+                            
+                            if self.y + (self.height / 2) + self.maxFallSpeed <= block.y - (Block.height / 2) + self.maxFallSpeed && self.y + (self.height / 2) + self.maxFallSpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                self.isFalling = false
+                                
+                                self.ySpeed = 0
+                                
                                 setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
                             }
                             
@@ -2166,11 +2395,19 @@ class Enemy {
                         
                     } else if self.type == "electricity" {
                         
-                    }  else if self.type == "topMaker" {
+                    } else if self.type == "topMaker" {
                         
                         return i
                         
-                    }  else if self.type == "top" {
+                    } else if self.type == "eggMaker" {
+                        
+                        return i
+                        
+                    } else if self.type == "top" {
+                        
+                        return i
+                        
+                    }  else if self.type == "egg" {
                         
                         return i
                         
@@ -2582,7 +2819,25 @@ class Enemy {
             
             self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             
+        } else if self.type == "eggMaker" {
+            
+            let xOffset: CGFloat = Block.width * (14 / 16)
+            let yOffset: CGFloat = (self.height / 2) - (Block.height * (7 / 16))
+            
+            if self.direction == "left" {
+                
+                selectedEnemies.append(Enemy(x: self.x - xOffset, y: self.y + yOffset, type: "egg", direction: self.direction))
+                
+            } else if self.direction == "right" {
+                
+                selectedEnemies.append(Enemy(x: self.x + xOffset, y: self.y + yOffset, type: "egg", direction: self.direction))
+            }
+            
+            self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            
         } else if self.type == "top" {
+            
+        } else if self.type == "egg" {
             
         } else if self.type == "shooter" {
             
@@ -2661,6 +2916,22 @@ class Enemy {
             } else if self.direction == "left" {
                 
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
+            
+        } else if self.type == "eggMaker" {
+            
+            self.view.animationImages = Enemy.eggMakerLeftImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * (1 / 3)
+            self.view.startAnimating()
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
         }
         

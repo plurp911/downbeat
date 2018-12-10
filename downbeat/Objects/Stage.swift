@@ -202,6 +202,18 @@ class Stage {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "topMaker", direction: "right"))
                 } else if text == "o" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "topMaker", direction: "left"))
+                } else if text == "W" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "eggMaker", direction: "right"))
+                } else if text == "w" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "eggMaker", direction: "left"))
+                } else if text == "E" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "egg", direction: "right"))
+                } else if text == "e" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "egg", direction: "left"))
+                } else if text == "V" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "top", direction: "right"))
+                } else if text == "v" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "top", direction: "left"))
                 } else if text == "M" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "miner", direction: "right"))
                 } else if text == "m" {
