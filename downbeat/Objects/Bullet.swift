@@ -264,8 +264,6 @@ class Bullet {
 
             self.damage = 3
             
-//            self.ySpeedChange = 0.03
-            
             self.ySpeedChange = 0.135
             self.maxFallSpeed = 4
             
@@ -604,38 +602,7 @@ class Bullet {
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
             
         } else if self.type == "bubble" {
-            
 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             if self.isFalling == true {
                 
                 self.ySpeed += self.ySpeedChange
@@ -653,64 +620,6 @@ class Bullet {
                     self.isFalling = false
                 }
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            //                var isEmpty1: Bool = true
-            //                var isEmpty2: Bool = true
-            //
-            //                for block in currentStage!.blocks {
-            //
-            //                    if block.isInLargeBounds() == true {
-            //
-            //                        if self.y + (self.height / 2) + Enemy.checkMargin < block.y + (Block.height / 2) && self.y + (self.height / 2) + Enemy.checkMargin > block.y - (Block.height / 2) && (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2)) {
-            //
-            //                            isEmpty1 = false
-            //                        }
-            //
-            //                        if self.y + (self.height / 2) + Enemy.checkMargin < block.y + (Block.height / 2) && self.y + (self.height / 2) + Enemy.checkMargin > block.y - (Block.height / 2) && (self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) {
-            //
-            //                            isEmpty2 = false
-            //                        }
-            //                    }
-            //
-            //                }
-            //
-            //                if isEmpty1 == true || isEmpty2 == true {
-            //
-            //                    if self.direction == "left" {
-            //
-            //                        self.direction = "right"
-            //
-            //                    } else if self.direction == "right" {
-            //
-            //                        self.direction = "left"
-            //                    }
-            //
-            //                } else {
             
             let offset: CGFloat = Block.width * (1 / 16) * 0.1
             
@@ -747,21 +656,13 @@ class Bullet {
                 }
                 
             }
-            //                }
             
             self.xSpeed = moveSpeed
             
             if self.direction == "left" {
                 self.xSpeed = -self.xSpeed
             }
-            
-            
-            
-            
-            
-            
-            
-            
+
             var isEmpty: Bool = true
             
             for block in selectedBlocks {
@@ -786,27 +687,11 @@ class Bullet {
                 }
             }
             
-            //                for bullet in bullets {
-            //
-            //                    if bullet.type == "beam" {
-            //
-            //                        if self.y + (self.height / 2) + self.ySpeed < bullet.y + (bullet.height / 2) && self.y + (self.height / 2) + self.ySpeed > bullet.y - (bullet.height / 2) && ((self.x + (self.width / 2) <= bullet.x + (bullet.width / 2) && self.x + (self.width / 2) > bullet.x - (bullet.width / 2)) || (self.x - (self.width / 2) < bullet.x + (bullet.width / 2) && self.x - (self.width / 2) >= bullet.x - (bullet.width / 2))) {
-            //
-            //                            isEmpty = false
-            //                        }
-            //                    }
-            //
-            //                }
-            
             if isEmpty == true {
                 
                 self.isFalling = true
             }
-            
-            
-            
-            
-            
+
             if self.isFalling == true {
                 
                 for block in selectedBlocks {
@@ -839,132 +724,12 @@ class Bullet {
                     }
                 }
                 
-                //                for bullet in bullets {
-                //
-                //                    if bullet.type == "beam" {
-                //
-                //                        if self.y + (self.height / 2) + self.ySpeed < bullet.y + (bullet.height / 2) && self.y + (self.height / 2) + self.ySpeed > bullet.y - (bullet.height / 2) && ((self.x + (self.width / 2) <= bullet.x + (bullet.width / 2) && self.x + (self.width / 2) > bullet.x - (bullet.width / 2)) || (self.x - (self.width / 2) < bullet.x + (bullet.width / 2) && self.x - (self.width / 2) >= bullet.x - (bullet.width / 2))) {
-                //
-                //                            self.isJumping = false
-                //                            self.isFalling = false
-                //
-                //                            self.ySpeed = 0
-                //
-                //                            setXY(x: self.x, y: bullet.y - (bullet.height / 2) - (self.height / 2))
-                //                        }
-                //                    }
-                //
-                //                }
-                
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
 
-            
-            
-            
         } else if self.type == "bomb" {
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-//            print()
-//            print(self.isFalling)
-//            print(self.isRising)
-//            print(self.isJumping)
-//            print(self.ySpeed)
 
-            
-            
-            
-            
-            
-            
-//            if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
-//
-//                //                self.width = Block.width * (19 / 16)
-//                //                self.height = Block.height * (10 / 16)
-//                //
-//                ////                self.xShift = 0
-//                //                self.xShift = -Block.width * (1 / 16)
-//                //
-//                //                self.yShift = 0
-//
-//                self.width = Block.width * (24 / 16)
-//                //                self.height = Block.height * (26 / 16)
-//                self.height = Block.height * (12 / 16)
-//
-//                //                self.xShift = 0
-//                self.xShift = -Block.width * (1 / 16)
-//                self.yShift = 0
-//
-//            } else {
-//
-//                self.width = Block.width * (24 / 16)
-//                self.height = Block.height * (12 / 16)
-//
-//                self.xShift = -Block.width * (1 / 16)
-//                self.yShift = -Block.height * (14 / 16)
-//            }
-            
-            
-            
             if self.isJumping == true || self.isFalling == true {
                 
                 self.ySpeed += self.ySpeedChange
@@ -987,20 +752,6 @@ class Bullet {
                 }
             }
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             //            if self.xSpeed != 0 {
             
             for block in selectedBlocks {
@@ -1013,8 +764,6 @@ class Bullet {
                         
                         if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                             
-                            //                                    self.canMove = false
-                            
                             setXY(x: block.x - (Block.width / 2) - (self.width / 2) - self.moveSpeed, y: self.y)
                         }
                         
@@ -1022,34 +771,18 @@ class Bullet {
                         
                         if self.x - (self.width / 2) - self.moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                             
-                            //                                    self.canMove = false
-                            
                             setXY(x: block.x + (Block.width / 2) + (self.width / 2), y: self.y)
                         }
                         
                         //                        }
+                        
                     }
-                    
                 }
+                
             }
             
             //            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
             if self.isRising == false {
                 
                 var isEmpty: Bool = true
@@ -1076,18 +809,6 @@ class Bullet {
                     }
                 }
                 
-                //                for bullet in bullets {
-                //
-                //                    if bullet.type == "beam" {
-                //
-                //                        if self.y + (self.height / 2) + self.ySpeed < bullet.y + (bullet.height / 2) && self.y + (self.height / 2) + self.ySpeed > bullet.y - (bullet.height / 2) && ((self.x + (self.width / 2) <= bullet.x + (bullet.width / 2) && self.x + (self.width / 2) > bullet.x - (bullet.width / 2)) || (self.x - (self.width / 2) < bullet.x + (bullet.width / 2) && self.x - (self.width / 2) >= bullet.x - (bullet.width / 2))) {
-                //
-                //                            isEmpty = false
-                //                        }
-                //                    }
-                //
-                //                }
-                
                 if isEmpty == true {
                     
                     self.isFalling = true
@@ -1110,13 +831,6 @@ class Bullet {
                                 self.xSpeed = 0
                                 self.ySpeed = 0
                                 
-//                                if self.signalTimer.isValid == false {
-//
-//                                    self.signalTimer.invalidate()
-//
-//                                    self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
-//                                }
-                                
                                 self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
                                 
                                 setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
@@ -1132,13 +846,6 @@ class Bullet {
                                 self.xSpeed = 0
                                 self.ySpeed = 0
                                 
-//                                if self.signalTimer.isValid == false {
-//
-//                                    self.signalTimer.invalidate()
-//
-//                                    self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
-//                                }
-                                
                                 self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
                                 
                                 setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
@@ -1148,100 +855,8 @@ class Bullet {
                     }
                 }
                 
-                //                for bullet in bullets {
-                //
-                //                    if bullet.type == "beam" {
-                //
-                //                        if self.y + (self.height / 2) + self.ySpeed < bullet.y + (bullet.height / 2) && self.y + (self.height / 2) + self.ySpeed > bullet.y - (bullet.height / 2) && ((self.x + (self.width / 2) <= bullet.x + (bullet.width / 2) && self.x + (self.width / 2) > bullet.x - (bullet.width / 2)) || (self.x - (self.width / 2) < bullet.x + (bullet.width / 2) && self.x - (self.width / 2) >= bullet.x - (bullet.width / 2))) {
-                //
-                //                            self.isJumping = false
-                //                            self.isFalling = false
-                //
-                //                            self.ySpeed = 0
-                //
-                //                            setXY(x: self.x, y: bullet.y - (bullet.height / 2) - (self.height / 2))
-                //                        }
-                //                    }
-                //
-                //                }
-                
             }
-            
-            
-            
-            
-            
-            //            if self.isRising == true {
-            //
-            //                for block in selectedBlocks {
-            //
-            //                    if block.isHidden == false {
-            //
-            //                        if block.isLadder == false && block.isTopLadder == false {
-            //
-            //                            if self.y - (self.height / 2) + self.ySpeed <= block.y + (Block.height / 2) && self.y - (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
-            //
-            //                                self.isFalling = true
-            //
-            //                                self.isJumping = false
-            //                                self.isRising = false
-            //
-            //                                self.xSpeed = 0
-            //                                self.ySpeed = 0
-            //
-            //                                setXY(x: self.x, y: block.y + (Block.height / 2) + (self.height / 2))
-            //                            }
-            //                        }
-            //
-            //                    }
-            //
-            //                }
-            //            }
-            
-            
-            
-            
-            
-            ////            if self.xSpeed != 0 {
-            //
-            //                for block in selectedBlocks {
-            //
-            //                    if block.isHidden == false {
-            //
-            //                        if block.isLadder == false && block.isTopLadder == false {
-            //
-            //                            if self.direction == "right" {
-            //
-            //                                if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
-            //
-            ////                                    self.canMove = false
-            //
-            //                                    setXY(x: block.x - (Block.width / 2) - (self.width / 2) - self.moveSpeed, y: self.y)
-            //                                }
-            //
-            //                            } else if self.direction == "left" {
-            //
-            //                                if self.x - (self.width / 2) - self.moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
-            //
-            ////                                    self.canMove = false
-            //
-            //                                    setXY(x: block.x + (Block.width / 2) + (self.width / 2), y: self.y)
-            //                                }
-            //
-            //                            }
-            //                        }
-            //
-            //                    }
-            //                }
-            //
-            ////            }
-            
-            
-            
-            
-            
-            
-            
+
             if self.isRising == true {
                 
                 for block in selectedBlocks {
@@ -1268,92 +883,8 @@ class Bullet {
                     
                 }
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-//            if self.isJumping == false {
-//
-//                //                self.xSpeed = 0
-//                //                self.ySpeed = 0
-//
-//                if player.x >= self.x {
-//
-//                    self.direction = "right"
-//
-//                } else {
-//
-//                    self.direction = "left"
-//                }
-//
-//            }
-            
-            
-            
-            
-            
-            
-            setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
         }
     }
     
