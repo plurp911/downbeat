@@ -1758,7 +1758,7 @@ class Enemy {
                                 self.isJumping = false
                                 self.isRising = false
                                 
-                                self.xSpeed = 0
+//                                self.xSpeed = 0
                                 self.ySpeed = 0
                                 
                                 setXY(x: self.x, y: block.y + (Block.height / 2) + (self.height / 2))
