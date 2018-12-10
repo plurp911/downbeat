@@ -269,8 +269,9 @@ class Bullet {
             self.ySpeedChange = 0.135
             self.maxFallSpeed = 4
             
-            self.removeTimeInterval = 1
-            
+//            self.removeTimeInterval = 1
+            self.removeTimeInterval = 0
+
             if self.direction == "left" {
                 
                 self.xSpeed = -self.moveSpeed
