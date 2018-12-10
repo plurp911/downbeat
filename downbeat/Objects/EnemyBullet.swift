@@ -28,6 +28,8 @@ class EnemyBullet {
 
     static let regularRightImage = UIImage(named: "regularEnemyBulletRight")
 
+    static let specialImages = [UIImage(named: "specialEnemyBullet1"), UIImage(named: "specialEnemyBullet2"), UIImage(named: "specialEnemyBullet3"), UIImage(named: "specialEnemyBullet4")]
+
     // VARIABLES
     
     var x: CGFloat = 0
@@ -216,6 +218,7 @@ class EnemyBullet {
             
             self.view.animationDuration = 0.85 * 0.5
 //            self.view.animationDuration = 0.85 * 0.375
+            
             self.view.startAnimating()
             
             if self.xSpeed >= 0 {
@@ -235,6 +238,19 @@ class EnemyBullet {
             self.damage = 1
             
             self.view.image = EnemyBullet.regularRightImage
+            
+        } else if self.type == "special" {
+            
+            self.width = Block.width
+            self.height = self.width
+            
+            self.damage = 3
+
+            self.view.animationImages = EnemyBullet.specialImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.5
+
+            self.view.startAnimating()
         }
         
         self.setXY(x: x, y: y)

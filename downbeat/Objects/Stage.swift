@@ -145,6 +145,18 @@ class Stage {
 //                    enemies.append(Enemy(xPos: j + 1, yPos: i, type: "electricity", direction: "right"))
                     specialEnemies.append(Enemy(xPos: j + 1, yPos: i, type: "electricity", direction: "right"))
                     
+                } else if text == "G" {
+                    
+//                    blocks.append(Block(xPos: j, yPos: i, type: "shooter", tileSet: tileSet))
+                    
+                    enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "special", direction: "up"))
+
+                } else if text == "g" {
+                    
+//                    blocks.append(Block(xPos: j, yPos: i, type: "shooter", tileSet: tileSet))
+                    
+                    enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "special", direction: "down"))
+                    
                 } else if text == "^" {
 //                    blocks.append(Block(xPos: j, yPos: i, type: "spike", tileSet: tileSet))
                 } else if text == "I" {

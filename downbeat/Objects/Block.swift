@@ -85,7 +85,6 @@ class Block {
         } else if self.type == "spike" {
             
             self.isSpike = true
-            
         }
         
         self.x = (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2)

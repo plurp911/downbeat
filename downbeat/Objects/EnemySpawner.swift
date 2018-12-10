@@ -32,9 +32,23 @@ class EnemySpawner {
     
     var spawnTimeInterval: CGFloat = 0
     
+    var direction: String = ""
+
     var view: UIImageView = UIImageView()
     
     init(xPos: Int, yPos: Int, type: String) {
+
+        self.setup(xPos: xPos, yPos: yPos, type: type)
+    }
+    
+    init(xPos: Int, yPos: Int, type: String, direction: String) {
+
+        self.direction = direction
+        
+        self.setup(xPos: xPos, yPos: yPos, type: type)
+    }
+    
+    func setup(xPos: Int, yPos: Int, type: String) {
         
         self.xPos = xPos
         self.yPos = yPos
@@ -47,6 +61,14 @@ class EnemySpawner {
             self.height = Block.height * (15 / 16)
             
             self.spawnTimeInterval = 3
+            
+        } else if self.type == "special" {
+            
+            self.width = Block.width
+            self.height = self.width
+            
+//            self.spawnTimeInterval = 3
+            self.spawnTimeInterval = 1.25
         }
         
         self.setXY(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2))
@@ -60,7 +82,14 @@ class EnemySpawner {
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
-        self.view.image = UIImage(named: "\(self.type)Spawner")
+        if self.type == "follower" {
+            
+            self.view.image = UIImage(named: "\(self.type)Spawner")
+            
+        } else if self.type == "special" {
+            
+            self.view.isHidden = true
+        }
     }
     
     func setXY(x: CGFloat, y: CGFloat) {
@@ -85,11 +114,11 @@ class EnemySpawner {
         
         if self.spawnTimer.isValid == false {
             
-            self.createEnemy()
+            self.spawn()
             
             self.spawnTimer.invalidate()
             
-            self.spawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.spawnTimeInterval), target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
+            self.spawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.spawnTimeInterval), target: self, selector: #selector(spawn), userInfo: nil, repeats: true)
         }
     }
     
@@ -97,22 +126,44 @@ class EnemySpawner {
         self.spawnTimer.invalidate()
     }
     
-    @objc func createEnemy() {
+    @objc func spawn() {
         
-//        var enemyCount: Int = 0
-//
-//        for enemy in selectedEnemies {
-//
-//            if enemy.type == self.type && enemy.isUsed == false {
-//                enemyCount += 1
-//            }
-//        }
-//
-//        print(enemyCount)
-//        
-//        if enemyCount < 3 {
+        if self.type == "follower" {
+            
+            //        var enemyCount: Int = 0
+            //
+            //        for enemy in selectedEnemies {
+            //
+            //            if enemy.type == self.type && enemy.isUsed == false {
+            //                enemyCount += 1
+            //            }
+            //        }
+            //
+            //        print(enemyCount)
+            //
+            //        if enemyCount < 3 {
             selectedEnemies.append(Enemy(x: self.x, y: self.y, type: self.type))
-//        }
+            //        }
+            
+        } else if self.type == "special" {
+            
+            let bulletSpeed: CGFloat = 1.5
+            
+            let xOffset: CGFloat = Block.width * (0 / 16)
+            let yOffset: CGFloat = Block.height * (16 / 16)
+            
+            if self.direction == "up" {
+                
+//                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeed, type: "special"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: 0, ySpeed: -bulletSpeed, type: "special"))
+
+            } else if self.direction == "down" {
+                
+//                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: 0, ySpeed: bulletSpeed, type: "special"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: 0, ySpeed: bulletSpeed, type: "special"))
+            }
+        }
+        
     }
     
 }
