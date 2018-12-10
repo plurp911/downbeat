@@ -19,7 +19,8 @@ class EnemyBullet {
     
     static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet")
     
-    static let dropHeadImage = UIImage(named: "dropHeadEnemyBullet")
+//    static let dropHeadImage = UIImage(named: "dropHeadEnemyBullet")
+    static let dropHeadImage = UIImage(named: "dropHeadEnemyBulletOther")
 
     static let smallOrangeImage = UIImage(named: "smallOrangeEnemyBullet")
     static let smallBlueImage = UIImage(named: "smallBlueEnemyBullet")
@@ -171,8 +172,10 @@ class EnemyBullet {
             
         } else if self.type == "dropHead" {
             
-            self.width = Block.width * (14 / 16)
-            self.height = Block.height
+//            self.width = Block.width * (14 / 16)
+//            self.height = Block.height
+            self.width = Block.width
+            self.height = self.width
             
             self.damage = 3
             

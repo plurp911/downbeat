@@ -44,11 +44,13 @@ class Enemy {
     static let shellClosedRightImage = UIImage(named: "shellEnemyRightClosed")
     static let shellSignalRightImages = [shellSignalRightImage]
 
-    static let dropImages = [UIImage(named: "dropEnemy1"), UIImage(named: "dropEnemy2")]
-    static let dropEmptyImages = [UIImage(named: "dropEnemyEmpty1"), UIImage(named: "dropEnemyEmpty2")]
-    static let dropDropImage = UIImage(named: "dropEnemyDrop")
-    static let dropHeadImage = UIImage(named: "dropEnemyHead")
-
+//    static let dropImages = [UIImage(named: "dropEnemy1"), UIImage(named: "dropEnemy2")]
+//    static let dropEmptyImages = [UIImage(named: "dropEnemyEmpty1"), UIImage(named: "dropEnemyEmpty2")]
+//    static let dropDropImage = UIImage(named: "dropEnemyDrop")
+    static let dropImages = [UIImage(named: "dropEnemy1Other"), UIImage(named: "dropEnemy2Other")]
+    static let dropEmptyImages = [UIImage(named: "dropEnemyEmpty1Other"), UIImage(named: "dropEnemyEmpty2Other")]
+    static let dropDropImage = UIImage(named: "dropEnemyDropOther")
+    
     static let sprinklerImages = [UIImage(named: "sprinklerEnemy1"), UIImage(named: "sprinklerEnemy2"), UIImage(named: "sprinklerEnemy3")]
     static let sprinklerDownImage = UIImage(named: "sprinklerEnemyDown")
     
