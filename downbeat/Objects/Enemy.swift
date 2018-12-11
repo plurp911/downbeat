@@ -2264,12 +2264,12 @@ class Enemy {
     
     func handleEyeHitBlock() {
         
-        self.view.animationImages = Enemy.eyeImages as! [UIImage]
-        
-        self.view.animationRepeatCount = 1
-        
-        self.view.animationDuration = 0.1
-        self.view.startAnimating()
+//        self.view.animationImages = Enemy.eyeImages as! [UIImage]
+//
+//        self.view.animationRepeatCount = 1
+//
+//        self.view.animationDuration = 0.1
+//        self.view.startAnimating()
         
         self.isStunned = true
         
@@ -3115,12 +3115,12 @@ class Enemy {
             
         } else if self.type == "eye" {
             
-            self.view.animationImages = Enemy.eyeImages as! [UIImage]
-            
-            self.view.animationRepeatCount = 1
-            
-            self.view.animationDuration = 0.1
-            self.view.startAnimating()
+//            self.view.animationImages = Enemy.eyeImages as! [UIImage]
+//
+//            self.view.animationRepeatCount = 1
+//
+//            self.view.animationDuration = 0.1
+//            self.view.startAnimating()
         }
     }
     
