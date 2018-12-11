@@ -115,7 +115,7 @@ class Bullet {
             
         } else if self.type == "cutter" {
             
-            self.width = Block.width * (10 / 16)
+            self.width = Block.width * (9 / 16)
             self.height = self.width
             
             self.moveSpeed = 2
@@ -299,14 +299,14 @@ class Bullet {
             
             self.view.image = Bullet.regularImage
             
-            if self.direction == "left" {
-                
-                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-                
-            } else if self.direction == "right" {
-                
-                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }
+//            if self.direction == "left" {
+//
+//                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+//
+//            } else if self.direction == "right" {
+//
+//                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+//            }
             
         } else if self.type == "cutter" {
             

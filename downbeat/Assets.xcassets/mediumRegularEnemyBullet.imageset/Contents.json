@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "8x8enemyBullet.png",
+      "filename" : "mediumRegularEnemyBullet.png",
       "scale" : "1x"
     },
     {
