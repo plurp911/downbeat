@@ -17,6 +17,8 @@
 		846DE66921B8A1EE00127572 /* 1-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE65F21B8A1EE00127572 /* 1-8.txt */; };
 		846DE66A21B8A1EE00127572 /* 1-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE66021B8A1EE00127572 /* 1-9.txt */; };
 		846DE66B21B8A1EE00127572 /* 1-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE66121B8A1EE00127572 /* 1-10.txt */; };
+		846DE66D21BF39C900127572 /* 2-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE66C21BF39C900127572 /* 2-2.txt */; };
+		846DE67021BF623300127572 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DE66F21BF623300127572 /* Background.swift */; };
 		84C848F521B3B53900CF276A /* 2-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84C848F421B3B53900CF276A /* 2-1.txt */; };
 		92086A4221A23B5000AB51F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A4121A23B5000AB51F8 /* AppDelegate.swift */; };
 		92086A4421A23B5000AB51F8 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A4321A23B5000AB51F8 /* GameController.swift */; };
@@ -73,6 +75,8 @@
 		846DE65F21B8A1EE00127572 /* 1-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-8.txt"; sourceTree = "<group>"; };
 		846DE66021B8A1EE00127572 /* 1-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-9.txt"; sourceTree = "<group>"; };
 		846DE66121B8A1EE00127572 /* 1-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-10.txt"; sourceTree = "<group>"; };
+		846DE66C21BF39C900127572 /* 2-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-2.txt"; sourceTree = "<group>"; };
+		846DE66F21BF623300127572 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		84C848F421B3B53900CF276A /* 2-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-1.txt"; sourceTree = "<group>"; };
 		92086A3E21A23B5000AB51F8 /* downbeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = downbeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92086A4121A23B5000AB51F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,7 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				92086A4121A23B5000AB51F8 /* AppDelegate.swift */,
-				84C848F421B3B53900CF276A /* 2-1.txt */,
 				846DE65821B8A1EE00127572 /* 1-1.txt */,
 				846DE65B21B8A1EE00127572 /* 1-2.txt */,
 				846DE65E21B8A1EE00127572 /* 1-3.txt */,
@@ -167,6 +170,8 @@
 				846DE65F21B8A1EE00127572 /* 1-8.txt */,
 				846DE66021B8A1EE00127572 /* 1-9.txt */,
 				846DE66121B8A1EE00127572 /* 1-10.txt */,
+				84C848F421B3B53900CF276A /* 2-1.txt */,
+				846DE66C21BF39C900127572 /* 2-2.txt */,
 				92086A7421A2441F00AB51F8 /* Controllers */,
 				92086A7321A2441300AB51F8 /* Objects */,
 				92086A7521A2443A00AB51F8 /* Other */,
@@ -203,6 +208,7 @@
 				92086A7621A279E200AB51F8 /* Block.swift */,
 				92086A8621A5571B00AB51F8 /* EnemyBullet.swift */,
 				92086A8A21AB698F00AB51F8 /* EnemySpawner.swift */,
+				846DE66F21BF623300127572 /* Background.swift */,
 				92086A7E21A2B11800AB51F8 /* Bullet.swift */,
 				92086A8021A2D3C600AB51F8 /* Enemy.swift */,
 				92086A8821A77A9D00AB51F8 /* DeflectedBullet.swift */,
@@ -352,6 +358,7 @@
 				846DE66621B8A1EE00127572 /* 1-7.txt in Resources */,
 				92086A4921A23B5200AB51F8 /* Assets.xcassets in Resources */,
 				846DE66721B8A1EE00127572 /* 1-5.txt in Resources */,
+				846DE66D21BF39C900127572 /* 2-2.txt in Resources */,
 				92086A4721A23B5000AB51F8 /* Main.storyboard in Resources */,
 				846DE66B21B8A1EE00127572 /* 1-10.txt in Resources */,
 			);
@@ -386,6 +393,7 @@
 				925BECFB21AE1D7C0092C3E0 /* Joystick.swift in Sources */,
 				92086A8521A41B0500AB51F8 /* Powerup.swift in Sources */,
 				92086A8D21ABC2C700AB51F8 /* EnergyBar.swift in Sources */,
+				846DE67021BF623300127572 /* Background.swift in Sources */,
 				92086A7D21A283E600AB51F8 /* Stage.swift in Sources */,
 				92086A7921A2829800AB51F8 /* GameController+Levels.swift in Sources */,
 				92086A8B21AB699000AB51F8 /* EnemySpawner.swift in Sources */,

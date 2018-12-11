@@ -13,6 +13,7 @@ class Stage {
     // VARIABLES
     
     var blocks = [Block]()
+    var backgrounds = [Background]()
     var enemies = [Enemy]()
     var specialEnemies = [Enemy]()
     var powerups = [Powerup]()
@@ -23,6 +24,9 @@ class Stage {
     
     var blockStartIndex: Int = 0
     var blockEndIndex: Int = 0
+    
+    var backgroundStartIndex: Int = 0
+    var backgroundEndIndex: Int = 0
     
     var enemyStartIndex: Int = 0
     var enemyEndIndex: Int = 0
@@ -47,7 +51,8 @@ class Stage {
     var canEnterFromLeft: Bool = false
     
     var tileSet: String = "cut"
-    
+//    var tileSet: String = "totem"
+
     init(fileName: String) {
         
         let path = Bundle.main.path(forResource: fileName, ofType: "txt")
@@ -85,41 +90,76 @@ class Stage {
                                 
                 if text == "#" {
                     
-//                    if isEqual(i: i - 1, j: j, block: "#") && isEqual(i: i + 1, j: j, block: "#") {
+//                    if isEqual(i: i - 1, j: j, block: "#") && isEqual(i: i, j: j + 1, block: "#") && isEqual(i: i, j: j - 1, block: "#") == false && isEqual(i: i + 1, j: j, block: "#") == false {
 //
-//                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowMiddleBlock"))
+//                        blocks.append(Block(xPos: j, yPos: i, type: "curveUpRight", tileSet: "totem"))
+//
+//                    } else if isEqual(i: i - 1, j: j, block: "#") && isEqual(i: i, j: j - 1, block: "#") && isEqual(i: i, j: j + 1, block: "#") == false && isEqual(i: i + 1, j: j, block: "#") == false {
+//
+//                        blocks.append(Block(xPos: j, yPos: i, type: "curveUpLeft", tileSet: "totem"))
+//
+//                    } else if isEqual(i: i + 1, j: j, block: "#") && isEqual(i: i, j: j + 1, block: "#") && isEqual(i: i, j: j - 1, block: "#") == false && isEqual(i: i - 1, j: j, block: "#") == false {
+//
+//                        blocks.append(Block(xPos: j, yPos: i, type: "curveDownRight", tileSet: "totem"))
+//
+//                    } else if isEqual(i: i + 1, j: j, block: "#") && isEqual(i: i, j: j - 1, block: "#") && isEqual(i: i, j: j + 1, block: "#") == false && isEqual(i: i - 1, j: j, block: "#") == false {
+//
+//                        blocks.append(Block(xPos: j, yPos: i, type: "curveDownLeft", tileSet: "totem"))
+//
+//                    } else if isEqual(i: i - 1, j: j, block: "#") && isEqual(i: i + 1, j: j, block: "#") {
+//
+////                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowMiddleBlock"))
+//                        blocks.append(Block(xPos: j, yPos: i, type: "upDown", tileSet: "totem"))
 //
 //                    } else if isEqual(i: i, j: j - 1, block: "#") && isEqual(i: i, j: j + 1, block: "#") {
 //
-//                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowMiddleBlock"))
+////                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowMiddleBlock"))
+//                        blocks.append(Block(xPos: j, yPos: i, type: "leftRight", tileSet: "totem"))
 //
 //                    } else if isEqual(i: i, j: j - 1, block: "#") {
 //
-//                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowRightBlock"))
+////                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowRightBlock"))
+//                        blocks.append(Block(xPos: j, yPos: i, type: "endRight", tileSet: "totem"))
 //
 //                    } else if isEqual(i: i, j: j + 1, block: "#") {
 //
-//                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowLeftBlock"))
+////                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowLeftBlock"))
+//                        blocks.append(Block(xPos: j, yPos: i, type: "endLeft", tileSet: "totem"))
 //
 //                    } else if isEqual(i: i - 1, j: j, block: "#") {
 //
-//                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowBottomBlock"))
+////                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowBottomBlock"))
+//                        blocks.append(Block(xPos: j, yPos: i, type: "endDown", tileSet: "totem"))
 //
 //                    } else if isEqual(i: i + 1, j: j, block: "#") {
 //
-//                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowTopBlock"))
+////                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowTopBlock"))
+//                        blocks.append(Block(xPos: j, yPos: i, type: "endUp", tileSet: "totem"))
+//                    }
+                    
+//                    if isEqual(i: i - 1, j: j, block: "#") == false && i > 0 {
+//
+//                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: tileSet))
+//
+//                    } else {
+//
+//                        if j % 2 == 0 {
+//                            blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
+//                        } else {
+//                            blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
+//                        }
 //                    }
                     
                     if isEqual(i: i - 1, j: j, block: "#") == false && i > 0 {
                         
-                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: tileSet))
+                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: "brick"))
                         
                     } else {
                         
                         if j % 2 == 0 {
-                            blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
+                            blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: "brick"))
                         } else {
-                            blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
+                            blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: "brick"))
                         }
                     }
 
@@ -130,6 +170,30 @@ class Stage {
                     } else {
                         blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: tileSet))
                     }
+                    
+                } else if text == "!" {
+                    
+                    backgrounds.append(Background(xPos: j, yPos: i, type: "cageTop", tileSet: tileSet))
+                    
+                } else if text == "$" {
+                    
+                    backgrounds.append(Background(xPos: j, yPos: i, type: "cageBottom", tileSet: tileSet))
+                    
+                } else if text == "@" {
+                    
+                    backgrounds.append(Background(xPos: j, yPos: i, type: "cageMiddle", tileSet: tileSet))
+                    
+                } else if text == "(" {
+                    
+                    backgrounds.append(Background(xPos: j, yPos: i, type: "1", tileSet: tileSet))
+                    
+                } else if text == ")" {
+                    
+                    backgrounds.append(Background(xPos: j, yPos: i, type: "2", tileSet: tileSet))
+                    
+                } else if text == "!" {
+                    
+                    backgrounds.append(Background(xPos: j, yPos: i, type: "cageTop", tileSet: tileSet))
                     
                 } else if text == "<" {
                     
@@ -314,6 +378,14 @@ class Stage {
         }
     }
     
+    func moveBackgrounds() {
+        
+        for i in 0 ..< backgrounds.count {
+            
+            self.backgrounds[i].setXY(x: self.x + (((CGFloat)(self.backgrounds[i].xPos)) * Background.width) + (Background.width / 2), y: self.y + (((CGFloat)(self.backgrounds[i].yPos)) * Background.height) + (Background.height / 2))
+        }
+    }
+    
     func moveEnemies() {
         
         for enemy in self.enemies {
@@ -414,6 +486,18 @@ class Stage {
             
 //            self.beginSelectedArrays()
             
+            for background in self.backgrounds {
+                
+                if background.isInBounds() == true {
+                    
+                    selectedBackgrounds.append(background)
+                    
+                } else {
+                    
+                    break
+                }
+            }
+            
             for block in self.blocks {
                 
                 if block.isInBounds() == true {
@@ -437,6 +521,18 @@ class Stage {
 //            self.updateObjectArrays(direction: direction)
             
 //            self.beginSelectedArrays()
+            
+            for background in self.backgrounds {
+                
+                if background.isInBounds() == true {
+                    
+                    selectedBackgrounds.append(background)
+                    
+                } else {
+                    
+                    break
+                }
+            }
             
             for block in self.blocks {
                 
@@ -538,6 +634,7 @@ class Stage {
     func moveObjects() {
         
         self.moveBlocks()
+        self.moveBackgrounds()
         self.movePowerups()
         self.moveEnemies()
         self.moveEnemySpawners()
@@ -546,6 +643,7 @@ class Stage {
     func sortObjectArrays() {
         
         self.blocks = self.blocks.sorted(by: { $0.x < $1.x })
+        self.backgrounds = self.backgrounds.sorted(by: { $0.x < $1.x })
         self.enemies = self.enemies.sorted(by: { $0.x < $1.x })
         self.powerups = self.powerups.sorted(by: { $0.x < $1.x })
         self.enemySpawners = self.enemySpawners.sorted(by: { $0.x < $1.x })
@@ -554,6 +652,7 @@ class Stage {
     func sortSelectedArrays() {
 
         selectedBlocks = selectedBlocks.sorted(by: { $0.x < $1.x })
+        selectedBackgrounds = selectedBackgrounds.sorted(by: { $0.x < $1.x })
         selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
         selectedPowerups = selectedPowerups.sorted(by: { $0.x < $1.x })
         selectedEnemySpawners = selectedEnemySpawners.sorted(by: { $0.x < $1.x })
@@ -562,6 +661,7 @@ class Stage {
     func setupSelectedArrays() {
         
         selectedBlocks.removeAll()
+        selectedBackgrounds.removeAll()
         selectedEnemies.removeAll()
         selectedPowerups.removeAll()
         selectedEnemySpawners.removeAll()
@@ -570,6 +670,18 @@ class Stage {
     }
     
     func beginSelectedArrays() {
+        
+        for background in self.backgrounds {
+            
+            if background.isInBounds() == true {
+                
+                selectedBackgrounds.append(background)
+                
+            } else {
+                
+                break
+            }
+        }
         
         for block in self.blocks {
             
@@ -640,6 +752,7 @@ class Stage {
     func updateObjectArrays(direction: String) {
         
         self.updateBlocks(direction: direction)
+        self.updateBackgrounds(direction: direction)
         self.updateEnemies(direction: direction)
         self.updatePowerups(direction: direction)
         self.updateEnemySpawners(direction: direction)
@@ -791,6 +904,118 @@ class Stage {
         }
 
         removeObjects(type: "selectedBlocks", toRemove: selectedToRemove)
+    }
+    
+    func updateBackgrounds(direction: String) {
+        
+        var isInBounds: Bool = false
+        
+        var selectedToRemove = [Int]()
+        
+        if direction == "left" {
+            
+            repeat {
+                
+                isInBounds = false
+                
+                if self.backgroundStartIndex >= 0 && self.backgroundStartIndex < self.backgrounds.count {
+                    
+                    if self.backgrounds[self.backgroundStartIndex].isInBounds() == true {
+                        
+                        isInBounds = true
+                        
+                        if isMatch(object: self.backgrounds[self.backgroundStartIndex], objectArray: selectedBackgrounds) == false {
+                            
+                            selectedBackgrounds.insert(self.backgrounds[self.backgroundStartIndex], at: 0)
+                        }
+                        
+                        if self.backgroundStartIndex > 0 {
+                            
+                            self.backgroundStartIndex -= 1
+                            
+                        } else {
+                            
+                            break
+                        }
+                        
+                    }
+                }
+                
+            } while (isInBounds == true)
+            
+            for i in 0 ..< self.backgrounds.count {
+                
+                let newI: Int = self.backgrounds.count - i - 1
+                
+                if self.backgrounds[newI].isInBounds() == true {
+                    
+                    self.backgroundEndIndex = newI
+                    
+                    break
+                    
+                } else {
+                    
+                    let matchPos: Int = getMatchPos(object: self.backgrounds[newI], objectArray: selectedBackgrounds)
+                    
+                    if matchPos >= 0 {
+                        selectedToRemove.append(matchPos)
+                    }
+                }
+                
+            }
+            
+        } else if direction == "right" {
+            
+            repeat {
+                
+                isInBounds = false
+                
+                if self.backgroundEndIndex < self.backgrounds.count && self.backgroundEndIndex >= 0 {
+                    
+                    if self.backgrounds[self.backgroundEndIndex].isInBounds() == true {
+                        
+                        isInBounds = true
+                        
+                        if isMatch(object: self.backgrounds[self.backgroundEndIndex], objectArray: selectedBackgrounds) == false {
+                            
+                            selectedBackgrounds.append(self.backgrounds[self.backgroundEndIndex])
+                        }
+                        
+                        if self.backgroundEndIndex < self.backgrounds.count - 1 {
+                            
+                            self.backgroundEndIndex += 1
+                            
+                        } else {
+                            
+                            break
+                        }
+                        
+                    }
+                }
+                
+            } while (isInBounds == true)
+            
+            for i in 0 ..< self.backgrounds.count {
+                
+                if self.backgrounds[i].isInBounds() == true {
+                    
+                    self.backgroundStartIndex = i
+                    
+                    break
+                    
+                } else {
+                    
+                    let matchPos: Int = getMatchPos(object: self.backgrounds[i], objectArray: selectedBackgrounds)
+                    
+                    if matchPos >= 0 {
+                        selectedToRemove.append(matchPos)
+                    }
+                }
+                
+            }
+        }
+        
+        removeObjects(type: "selectedBackgrounds", toRemove: selectedToRemove)
     }
     
     func updatePowerups(direction: String) {

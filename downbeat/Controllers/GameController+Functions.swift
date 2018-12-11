@@ -593,11 +593,12 @@ extension GameController {
             if direction == "right" {
                 
                 currentStage!.updateBlocks(direction: direction)
+                currentStage!.updateBackgrounds(direction: direction)
                 currentStage!.updatePowerups(direction: direction)
                 
                 nextStage!.updateBlocks(direction: direction)
+                nextStage!.updateBackgrounds(direction: direction)
                 nextStage!.updatePowerups(direction: direction)
-
             }
         }
         
@@ -881,6 +882,10 @@ extension GameController {
         
         removeAllSubviews()
         removeAllLines()
+        
+        for b in selectedBackgrounds {
+            gameView.addSubview(b.view)
+        }
         
         for b in selectedBlocks {
             gameView.addSubview(b.view)

@@ -33,6 +33,7 @@ let mainButtonTextColor = UIColor.white
 
 //let gameViewColor = UIColor(red: 32 / 255, green: 56 / 255, blue: 236 / 255, alpha: 1)
 let gameViewColor = UIColor(red: 101 / 255, green: 208 / 255, blue: 223 / 255, alpha: 1)
+//let gameViewColor = UIColor(red: 95 / 255, green: 63 / 255, blue: 20 / 255, alpha: 1)
 
 // VARIABLES
 
@@ -45,6 +46,7 @@ var enemyBullets = [EnemyBullet]()
 var deflectedBullets = [DeflectedBullet]()
 
 var selectedBlocks = [Block]()
+var selectedBackgrounds = [Background]()
 var selectedEnemies = [Enemy]()
 var selectedPowerups = [Powerup]()
 var selectedEnemySpawners = [EnemySpawner]()
@@ -153,6 +155,10 @@ public func removeObjects(type: String, toRemove: [Int]) {
             
             selectedBlocks = tryToRemove(array: selectedBlocks, value: newToRemove[newI]) as! [Block]
 
+        } else if type == "selectedBackgrounds" {
+            
+            selectedBackgrounds = tryToRemove(array: selectedBackgrounds, value: newToRemove[newI]) as! [Background]
+            
         } else if type == "selectedEnemies" {
             
             selectedEnemies[newToRemove[newI]].isUsed = true
@@ -227,7 +233,8 @@ public func moveDirection(direction: String) {
 extension String {
     
     func capitalizingFirstLetter() -> String {
-        return prefix(1).uppercased() + self.lowercased().dropFirst()
+//        return prefix(1).uppercased() + self.lowercased().dropFirst()
+        return prefix(1).uppercased() + self.dropFirst()
     }
     
     mutating func capitalizeFirstLetter() {
