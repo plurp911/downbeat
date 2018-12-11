@@ -25,7 +25,8 @@ class EnemyBullet {
     static let smallOrangeImage = UIImage(named: "smallOrangeEnemyBullet")
     static let smallBlueImage = UIImage(named: "smallBlueEnemyBullet")
     
-    static let axeLeftImages = [UIImage(named: "axeEnemyBulletUp"), UIImage(named: "axeEnemyBulletLeft"), UIImage(named: "axeEnemyBulletDown"), UIImage(named: "axeEnemyBulletRight")]
+//    static let axeLeftImages = [UIImage(named: "axeEnemyBulletUp"), UIImage(named: "axeEnemyBulletLeft"), UIImage(named: "axeEnemyBulletDown"), UIImage(named: "axeEnemyBulletRight")]
+    static let axeRightImages = [UIImage(named: "axeEnemyBullet1"), UIImage(named: "axeEnemyBullet2"), UIImage(named: "axeEnemyBullet3"), UIImage(named: "axeEnemyBullet4")]
 
     static let regularRightImage = UIImage(named: "regularEnemyBulletRight")
 
@@ -201,36 +202,41 @@ class EnemyBullet {
             
         } else if self.type == "axe" {
             
-            self.width = Block.width * (12 / 16)
+//            self.width = Block.width * (12 / 16)
+//            self.height = self.width
+            self.width = Block.width * (11 / 16)
             self.height = self.width
             
             self.damage = 3
             
             self.xSpeedChange = 0.0075
 
-            if self.xSpeed >= 0 {
+            if xSpeed >= 0 {
                 self.xSpeedChange = -self.xSpeedChange
             }
 
-            self.ySpeedChange = -0.085
+//            self.ySpeedChange = -0.085
+            self.ySpeedChange = -0.065
 
-            self.maxFallSpeed = 3
+//            self.maxFallSpeed = 3
+            self.maxFallSpeed = 2
+
             self.minMoveSpeed = 0
 
-            self.view.animationImages = EnemyBullet.axeLeftImages as! [UIImage]
+            self.view.animationImages = EnemyBullet.axeRightImages as! [UIImage]
             
             self.view.animationDuration = 0.85 * 0.5
 //            self.view.animationDuration = 0.85 * 0.375
             
             self.view.startAnimating()
             
-            if self.xSpeed >= 0 {
-                
-                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-                
-            } else {
-                
+            if xSpeed >= 0 {
+
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+
+            } else {
+
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
             }
             
         } else if self.type == "regular" {
@@ -271,28 +277,43 @@ class EnemyBullet {
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
-        if self.xSpeed <= 0 {
-
-            if self.ySpeed <= 0 {
-
-                self.view.transform = CGAffineTransform(scaleX: -1, y: -1)
-
-            } else {
-
-                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-            }
-
-        } else {
-
-            if self.ySpeed <= 0 {
-
-                self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
-
-            } else {
-
-                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }
-        }
+//        if self.type == "axe" {
+//
+//            if self.xSpeed >= 0 {
+//
+//                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+//
+//            } else {
+//
+//                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+//            }
+//
+//        } else {
+//
+//            if self.xSpeed <= 0 {
+//
+//                if self.ySpeed <= 0 {
+//
+//                    self.view.transform = CGAffineTransform(scaleX: -1, y: -1)
+//
+//                } else {
+//
+//                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+//                }
+//
+//            } else {
+//
+//                if self.ySpeed <= 0 {
+//
+//                    self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
+//
+//                } else {
+//
+//                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+//                }
+//            }
+//
+//        }
         
     }
     

@@ -372,7 +372,7 @@ class Enemy {
             
             self.damage = 5
             
-            self.width = Block.width * (34 / 16)
+            self.width = Block.width * (31 / 16)
             self.height = Block.height * (24 / 16)
             
             self.moveSpeed = 0
@@ -2924,7 +2924,9 @@ class Enemy {
         } else if self.type == "miner" {
             
             let bulletXSpeed: CGFloat = 1
-            let bulletYSpeed: CGFloat = -4
+            
+//            let bulletYSpeed: CGFloat = -4
+            let bulletYSpeed: CGFloat = -2.75
 
             let xOffset: CGFloat = -Block.width * (4 / 16)
             let yOffset: CGFloat = -Block.width * (12 / 16)
