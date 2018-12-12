@@ -22,6 +22,8 @@ class Explosion {
     
     static let popImages = [UIImage(named: "pop1"), UIImage(named: "pop2"), UIImage(named: "pop3"), UIImage(named: "pop4")]
 
+    static let breakImages = [UIImage(named: "break1"), UIImage(named: "break2"), UIImage(named: "break3"), UIImage(named: "break4")]
+
     // VARIABLES
     
     var x: CGFloat = 0
@@ -55,6 +57,10 @@ class Explosion {
         } else if type == "pop" {
             
             self.view.animationImages = Explosion.popImages as! [UIImage]
+            
+        } else if type == "break" {
+            
+            self.view.animationImages = Explosion.breakImages as! [UIImage]
         }
         
         self.view.animationRepeatCount = 1

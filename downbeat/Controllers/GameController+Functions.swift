@@ -402,7 +402,7 @@ extension GameController {
                     
                 } else if bullets[i].type == "bomb" && bullets[i].shouldRemove == true {
                     
-                    explosions.append(Explosion(x: bullets[i].x, y: bullets[i].y, type: "explosion"))
+                    explosions.append(Explosion(x: bullets[i].x, y: bullets[i].y, type: "break"))
                     
                     bulletsToRemove.append(i)
                 }
