@@ -76,7 +76,7 @@ class Powerup {
         
         if self.type == "largeHealth" {
             
-            self.width = Block.width
+            self.width = Block.width * (14 / 16)
             self.height = self.width
             
         } else if self.type == "smallHealth" {
