@@ -81,18 +81,20 @@ class Powerup {
             
         } else if self.type == "smallHealth" {
             
-            self.width = Block.width * 0.5
+            self.width = Block.width * (8 / 16)
             self.height = self.width
             
         } else if self.type == "largeEnergy" {
             
-            self.width = Block.width
-            self.height = self.width
+//            self.width = Block.width
+//            self.height = self.width
+            self.width = Block.width * (15 / 16)
+            self.height = Block.height * (13 / 16)
             
         } else if self.type == "smallEnergy" {
             
-            self.width = Block.width * 0.5
-            self.height = self.width
+            self.width = Block.width * (8 / 16)
+            self.height = Block.height * (7 / 16)
             
         } else if self.type == "extraLife" {
             
