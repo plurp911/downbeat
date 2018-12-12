@@ -448,8 +448,8 @@ class Enemy {
             
             self.damage = 3
             
-            self.width = Block.width * (24 / 16)
-            self.height = self.width
+            self.width = Block.width * (22 / 16)
+            self.height = Block.height * (24 / 16)
             
             self.moveSpeed = 0
             
@@ -2986,18 +2986,21 @@ class Enemy {
             
         } else if self.type == "shooter" {
             
-            let bulletSpeed: CGFloat = 3
+//            let bulletSpeed: CGFloat = 3
+            let bulletSpeed: CGFloat = 2.25
 
             let xOffset: CGFloat = Block.width * (15 / 16)
-            let yOffset: CGFloat = Block.width * (1.5 / 16)
+            let yOffset: CGFloat = Block.width * (0 / 16)
             
             if self.direction == "left" {
 
-                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "regular"))
-                
+//                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "regular"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "smallBlue"))
+
             } else if self.direction == "right" {
                 
-                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "regular"))
+//                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "regular"))
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "smallBlue"))
             }
             
             if self.shootCount >= 2 {
