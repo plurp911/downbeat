@@ -118,8 +118,8 @@ class Player {
 //        var power: String = "regular"
 //        var power: String = "cutter"
 //    var power: String = "blade"
-    var power: String = "beam"
-//    var power: String = "magnet"
+//    var power: String = "beam"
+    var power: String = "magnet"
 //    var power: String = "shield"
 //    var power: String = "bubble"
 //    var power: String = "tornado"
@@ -234,8 +234,8 @@ class Player {
 //                self.power = "regular"
 //                self.power = "cutter"
 //        self.power = "blade"
-        self.power = "beam"
-//        self.power = "magnet"
+//        self.power = "beam"
+        self.power = "magnet"
 //        self.power = "shield"
 //        self.power = "bubble"
 //        self.power = "tornado"
@@ -244,8 +244,8 @@ class Player {
 //                self.energyPos = -1
 //                self.energyPos = 0
 //        self.energyPos = 1
-        self.energyPos = 2
-//        self.energyPos = 3
+//        self.energyPos = 2
+        self.energyPos = 3
 //        self.energyPos = 4
 //        self.energyPos = 5
 //        self.energyPos = 6
