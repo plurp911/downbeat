@@ -18,6 +18,8 @@ class EnemySpawner {
     //    static let color: UIColor = UIColor.gray
     static let color: UIColor = UIColor.clear
     
+    static let followerImages = [UIImage(named: "followerSpawner1"), UIImage(named: "followerSpawner2")]
+    
     // VARIABLES
     
     var xPos: Int = 0
@@ -57,8 +59,11 @@ class EnemySpawner {
         
         if self.type == "follower" {
             
-            self.width = Block.width * (14 / 16)
-            self.height = Block.height * (15 / 16)
+//            self.width = Block.width * (14 / 16)
+//            self.height = Block.height * (15 / 16)
+            
+            self.width = Block.width * (32 / 16)
+            self.height = Block.height * (24 / 16)
             
             self.spawnTimeInterval = 3
             
@@ -84,7 +89,13 @@ class EnemySpawner {
         
         if self.type == "follower" {
             
-            self.view.image = UIImage(named: "\(self.type)Spawner")
+//            self.view.image = UIImage(named: "\(self.type)Spawner")
+            
+            self.view.animationImages = EnemySpawner.followerImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.6
+            
+            self.view.startAnimating()
             
         } else if self.type == "special" {
             
