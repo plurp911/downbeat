@@ -257,6 +257,15 @@ class EnemyBullet {
             
             self.view.image = EnemyBullet.regularRightImage
             
+            if xSpeed >= 0 {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
+            
         } else if self.type == "special" {
             
             self.width = Block.width
