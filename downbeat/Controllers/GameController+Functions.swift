@@ -464,7 +464,15 @@ extension GameController {
                         selectedEnemiesToRemove.append(i)
                     }
                 }
-
+                
+                if selectedEnemies[i].type == "follower" && selectedEnemies[i].isInBounds() == false {
+                    
+                    selectedEnemies[i].isUsed = true
+                    
+                    selectedEnemies[i].endTimers()
+                    
+                    selectedEnemiesToRemove.append(i)
+                }
             }
  
             for i in 0 ..< currentStage!.specialEnemies.count {

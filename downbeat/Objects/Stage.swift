@@ -631,6 +631,18 @@ class Stage {
         }
     }
     
+    func checkForSpawning() {
+        
+        for enemySpawner in selectedEnemySpawners {
+            
+            if enemySpawner.isInSpawningBounds() == true {
+                
+                enemySpawner.startSpawning()
+            }
+        }
+        
+    }
+    
     func moveObjects() {
         
         self.moveBlocks()
@@ -638,6 +650,8 @@ class Stage {
         self.movePowerups()
         self.moveEnemies()
         self.moveEnemySpawners()
+        
+        self.checkForSpawning()
     }
     
     func sortObjectArrays() {
@@ -737,7 +751,7 @@ class Stage {
             
             if enemySpawner.isInBounds() == true {
                 
-                enemySpawner.startSpawning()
+//                enemySpawner.startSpawning()
                 
                 selectedEnemySpawners.append(enemySpawner)
                 
@@ -1270,6 +1284,8 @@ class Stage {
         self.enemies = self.enemies.sorted(by: { $0.x < $1.x })
         selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
 
+        print("HERE")
+        
         removeObjects(type: "selectedEnemies", toRemove: selectedToRemove)
     }
     
@@ -1293,7 +1309,7 @@ class Stage {
                         
                         if isMatch(object: self.enemySpawners[self.enemySpawnerStartIndex], objectArray: selectedEnemySpawners) == false {
 
-                            self.enemySpawners[self.enemySpawnerStartIndex].startSpawning()
+//                            self.enemySpawners[self.enemySpawnerStartIndex].startSpawning()
                             
                             selectedEnemySpawners.insert(self.enemySpawners[self.enemySpawnerStartIndex], at: 0)
                         }
@@ -1347,7 +1363,7 @@ class Stage {
                         
                         if isMatch(object: self.enemySpawners[self.enemySpawnerEndIndex], objectArray: selectedEnemySpawners) == false {
                             
-                            self.enemySpawners[self.enemySpawnerEndIndex].startSpawning()
+//                            self.enemySpawners[self.enemySpawnerEndIndex].startSpawning()
                             
                             selectedEnemySpawners.append(self.enemySpawners[self.enemySpawnerEndIndex])
                         }

@@ -31,9 +31,11 @@ class EnemySpawner {
     var y: CGFloat = 0
     
     var spawnTimer = Timer()
-    
+    var startSpawnTimer = Timer()
+
     var spawnTimeInterval: CGFloat = 0
-    
+    var startSpawnTimeInterval: CGFloat = 0
+
     var direction: String = ""
 
     var view: UIImageView = UIImageView()
@@ -67,6 +69,9 @@ class EnemySpawner {
             
             self.spawnTimeInterval = 3
             
+//            self.startSpawnTimeInterval = 0.5
+            self.startSpawnTimeInterval = 0
+
         } else if self.type == "special" {
             
             self.width = Block.width
@@ -74,6 +79,9 @@ class EnemySpawner {
             
 //            self.spawnTimeInterval = 3
             self.spawnTimeInterval = 1.25
+            
+//            self.startSpawnTimeInterval = 0.25
+            self.startSpawnTimeInterval = 0
         }
         
         self.setXY(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2))
@@ -121,9 +129,48 @@ class EnemySpawner {
         return false
     }
     
+    func isInSpawningBounds() -> Bool {
+        
+        var enemyWidth: CGFloat = 0
+        
+        if self.type == "follower" {
+
+            enemyWidth = Block.width
+            
+        } else if self.type == "special" {
+            
+            enemyWidth = Block.width
+        }
+        
+        if self.x - (enemyWidth / 2) >= 0 && self.x + (enemyWidth / 2) <= screenSize.height * (screenRatio) {
+            return true
+        }
+        
+        return false
+    }
+    
     func startSpawning() {
         
+        if self.startSpawnTimer.isValid == false && self.spawnTimer.isValid == false {
+            
+//            self.spawn()
+            
+            self.startSpawnTimer.invalidate()
+            
+            self.startSpawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.startSpawnTimeInterval), target: self, selector: #selector(startSpawnLoop), userInfo: nil, repeats: false)
+        }
+    }
+    
+    func stopSpawning() {
+        self.spawnTimer.invalidate()
+        self.startSpawnTimer.invalidate()
+    }
+    
+    @objc func startSpawnLoop() {
+        
         if self.spawnTimer.isValid == false {
+            
+            self.startSpawnTimer.invalidate()
             
             self.spawn()
             
@@ -133,28 +180,29 @@ class EnemySpawner {
         }
     }
     
-    func stopSpawning() {
-        self.spawnTimer.invalidate()
-    }
-    
     @objc func spawn() {
         
         if self.type == "follower" {
             
-            //        var enemyCount: Int = 0
-            //
-            //        for enemy in selectedEnemies {
-            //
-            //            if enemy.type == self.type && enemy.isUsed == false {
-            //                enemyCount += 1
-            //            }
-            //        }
-            //
-            //        print(enemyCount)
-            //
-            //        if enemyCount < 3 {
-            selectedEnemies.append(Enemy(x: self.x, y: self.y, type: self.type))
-            //        }
+            print(selectedEnemies.count)
+            
+            var enemyCount: Int = 0
+            
+            for enemy in selectedEnemies {
+                
+                if enemy.type == self.type && enemy.isUsed == false {
+                    enemyCount += 1
+                }
+            }
+            
+//            print(enemyCount)
+            
+            if enemyCount < 3 {
+                
+                selectedEnemies.append(Enemy(x: self.x, y: self.y, type: self.type))
+                
+                selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
+            }
             
         } else if self.type == "special" {
             
