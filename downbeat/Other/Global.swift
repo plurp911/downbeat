@@ -34,7 +34,8 @@ let mainButtonTextColor = UIColor.white
 //let gameViewColor = UIColor(red: 32 / 255, green: 56 / 255, blue: 236 / 255, alpha: 1)
 //let gameViewColor = UIColor(red: 101 / 255, green: 208 / 255, blue: 223 / 255, alpha: 1)
 //let gameViewColor = UIColor(red: 95 / 255, green: 63 / 255, blue: 20 / 255, alpha: 1)
-let gameViewColor = UIColor(red: 75 / 255, green: 125 / 255, blue: 223 / 255, alpha: 1)
+//let gameViewColor = UIColor(red: 75 / 255, green: 125 / 255, blue: 223 / 255, alpha: 1)
+let gameViewColor = UIColor(red: 0 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
 
 // VARIABLES
 

@@ -152,8 +152,9 @@ class Stage {
                     
                     if isEqual(i: i - 1, j: j, block: "#") == false && i > 0 {
                         
-                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: "brick"))
-                        
+//                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: "brick"))
+                        blocks.append(Block(xPos: j, yPos: i, type: "", tileSet: "fire"))
+
                     } else {
                         
                         if j % 2 == 0 {
