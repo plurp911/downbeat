@@ -23,7 +23,8 @@ class Bullet {
     
     static let beamRightImages = [UIImage(named: "beamBulletRight1"), UIImage(named: "beamBulletRight2")]
 
-    static let magnetLeftImage = UIImage(named: "magnetBulletLeft")
+//    static let magnetLeftImage = UIImage(named: "magnetBulletLeft")
+    static let magnetLeftImages = [UIImage(named: "magnetBulletLeft1"), UIImage(named: "magnetBulletLeft2")]
 
     static let shieldImages = [UIImage(named: "shieldBullet1"), UIImage(named: "shieldBullet2"), UIImage(named: "shieldBullet3")]
 
@@ -182,8 +183,11 @@ class Bullet {
             
         } else if self.type == "magnet" {
             
+//            self.width = Block.width
+//            self.height = Block.height * (12 / 16)
+
             self.width = Block.width
-            self.height = Block.height * (12 / 16)
+            self.height = self.width
             
             self.moveSpeed = 3
             
@@ -359,7 +363,13 @@ class Bullet {
             
         } else if self.type == "magnet" {
             
-            self.view.image = Bullet.magnetLeftImage
+//            self.view.image = Bullet.magnetLeftImage
+            
+            self.view.animationImages = Bullet.magnetLeftImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.215
+            
+            self.view.startAnimating()
             
             if self.direction == "left" {
                 
