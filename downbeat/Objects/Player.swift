@@ -121,9 +121,9 @@ class Player {
 //    var power: String = "beam"
 //    var power: String = "magnet"
 //    var power: String = "shield"
-//    var power: String = "bubble"
+    var power: String = "bubble"
 //    var power: String = "tornado"
-    var power: String = "bomb"
+//    var power: String = "bomb"
 
     var endShootTimer = Timer()
     var endShootAnimationTimer = Timer()
@@ -237,9 +237,9 @@ class Player {
 //        self.power = "beam"
 //        self.power = "magnet"
 //        self.power = "shield"
-//        self.power = "bubble"
+        self.power = "bubble"
 //        self.power = "tornado"
-        self.power = "bomb"
+//        self.power = "bomb"
 
 //                self.energyPos = -1
 //                self.energyPos = 0
@@ -247,9 +247,9 @@ class Player {
 //        self.energyPos = 2
 //        self.energyPos = 3
 //        self.energyPos = 4
-//        self.energyPos = 5
+        self.energyPos = 5
 //        self.energyPos = 6
-        self.energyPos = 7
+//        self.energyPos = 7
 
         self.healthBar.setEnergy(energy: self.health)
         

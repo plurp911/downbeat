@@ -29,7 +29,8 @@ class Bullet {
 
     static let tornadoRightImages = [UIImage(named: "tornadoBulletRight1"), UIImage(named: "tornadoBulletRight2"), UIImage(named: "tornadoBulletRight3")]
 
-    static let bubbleImages = [UIImage(named: "bubbleBullet1"), UIImage(named: "bubbleBullet2")]
+//    static let bubbleImages = [UIImage(named: "bubbleBullet1"), UIImage(named: "bubbleBullet2")]
+    static let bubbleRightImages = [UIImage(named: "bubbleBulletRight1"), UIImage(named: "bubbleBulletRight2"), UIImage(named: "bubbleBulletRight3"), UIImage(named: "bubbleBulletRight4"), UIImage(named: "bubbleBulletRight5"), UIImage(named: "bubbleBulletRight6"), UIImage(named: "bubbleBulletRight7"), UIImage(named: "bubbleBulletRight8")]
 
     static let bombImage = UIImage(named: "bombBullet")
 
@@ -396,11 +397,21 @@ class Bullet {
             
         } else if self.type == "bubble" {
             
-            self.view.animationImages = Bullet.bubbleImages as! [UIImage]
+            self.view.animationImages = Bullet.bubbleRightImages as! [UIImage]
             
-            self.view.animationDuration = 0.85 * 0.6875
-            
+//            self.view.animationDuration = 0.85 * 0.6875
+            self.view.animationDuration = 0.85 * 0.6875 * 1
+
             self.view.startAnimating()
+            
+            if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
             
             self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
 
@@ -724,6 +735,15 @@ class Bullet {
                     }
                 }
                 
+            }
+            
+            if self.xSpeed <= 0 {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
 
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
