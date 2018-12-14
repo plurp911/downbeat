@@ -217,8 +217,11 @@ class Bullet {
         
         } else if self.type == "tornado" {
             
-            self.width = Block.width * (15 / 16)
-            self.height = Block.height
+//            self.width = Block.width * (15 / 16)
+//            self.height = Block.height
+
+            self.width = Block.width
+            self.height = self.width
             
             self.damage = 1
             
@@ -392,7 +395,7 @@ class Bullet {
             
             self.view.animationImages = Bullet.tornadoRightImages as! [UIImage]
             
-            self.view.animationDuration = 0.85 * 0.6875
+            self.view.animationDuration = 0.85 * 0.6875 * 0.5
             
             self.view.startAnimating()
             
