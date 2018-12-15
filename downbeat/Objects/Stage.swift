@@ -153,23 +153,44 @@ class Stage {
                     if isEqual(i: i - 1, j: j, block: "#") == false && i > 0 {
                         
 //                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: "brick"))
-                        blocks.append(Block(xPos: j, yPos: i, type: "", tileSet: "fire"))
+                        
+                        blocks.append(Block(xPos: j, yPos: i, type: "topTop", tileSet: "fire"))
 
+                    } else if isEqual(i: i + 1, j: j, block: "#") == false && i < numberOfVerticalBricks {
+                        
+                        //                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: "brick"))
+                        
+                        blocks.append(Block(xPos: j, yPos: i, type: "bottom", tileSet: "fire"))
+                        
+                    } else if isEqual(i: i - 1, j: j, block: "#") == true && isEqual(i: i - 2, j: j, block: "#") == false && i - 1 > 0 {
+                        
+                        //                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: "brick"))
+                        
+                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: "fire"))
+                        
                     } else {
                         
-                        if j % 2 == 0 {
-                            blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: "brick"))
-                        } else {
-                            blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: "brick"))
-                        }
+//                        if j % 2 == 0 {
+//                            blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: "brick"))
+//                        } else {
+//                            blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: "brick"))
+//                        }
+                        
+                        blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: "fire"))
                     }
 
                 } else if text == "=" {
                     
+//                    if isEqual(i: i - 1, j: j, block: "=") {
+//                        blocks.append(Block(xPos: j, yPos: i, type: "ladder", tileSet: "brick"))
+//                    } else {
+//                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: "brick"))
+//                    }
+
                     if isEqual(i: i - 1, j: j, block: "=") {
-                        blocks.append(Block(xPos: j, yPos: i, type: "ladder", tileSet: "brick"))
+                        blocks.append(Block(xPos: j, yPos: i, type: "ladder", tileSet: "fire"))
                     } else {
-                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: "brick"))
+                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: "fire"))
                     }
                     
                 } else if text == "!" {
