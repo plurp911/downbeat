@@ -19,7 +19,7 @@
 		846DE66B21B8A1EE00127572 /* 1-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE66121B8A1EE00127572 /* 1-10.txt */; };
 		846DE67021BF623300127572 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DE66F21BF623300127572 /* Background.swift */; };
 		84BC59C121C4D44400497844 /* 2-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C021C4D44400497844 /* 2-2.txt */; };
-		84BC59C321C4DAF500497844 /* 2-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C221C4DAF500497844 /* 2-3.txt */; };
+		84BC59C521C4E1AA00497844 /* 2-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C421C4E1AA00497844 /* 2-3.txt */; };
 		84C848F521B3B53900CF276A /* 2-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84C848F421B3B53900CF276A /* 2-1.txt */; };
 		92086A4221A23B5000AB51F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A4121A23B5000AB51F8 /* AppDelegate.swift */; };
 		92086A4421A23B5000AB51F8 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A4321A23B5000AB51F8 /* GameController.swift */; };
@@ -78,7 +78,7 @@
 		846DE66121B8A1EE00127572 /* 1-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-10.txt"; sourceTree = "<group>"; };
 		846DE66F21BF623300127572 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		84BC59C021C4D44400497844 /* 2-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-2.txt"; sourceTree = "<group>"; };
-		84BC59C221C4DAF500497844 /* 2-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-3.txt"; sourceTree = "<group>"; };
+		84BC59C421C4E1AA00497844 /* 2-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-3.txt"; sourceTree = "<group>"; };
 		84C848F421B3B53900CF276A /* 2-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-1.txt"; sourceTree = "<group>"; };
 		92086A3E21A23B5000AB51F8 /* downbeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = downbeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92086A4121A23B5000AB51F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -174,7 +174,7 @@
 				846DE66121B8A1EE00127572 /* 1-10.txt */,
 				84C848F421B3B53900CF276A /* 2-1.txt */,
 				84BC59C021C4D44400497844 /* 2-2.txt */,
-				84BC59C221C4DAF500497844 /* 2-3.txt */,
+				84BC59C421C4E1AA00497844 /* 2-3.txt */,
 				92086A7421A2441F00AB51F8 /* Controllers */,
 				92086A7321A2441300AB51F8 /* Objects */,
 				92086A7521A2443A00AB51F8 /* Other */,
@@ -356,7 +356,7 @@
 				846DE66921B8A1EE00127572 /* 1-8.txt in Resources */,
 				92086A4C21A23B5200AB51F8 /* LaunchScreen.storyboard in Resources */,
 				846DE66221B8A1EE00127572 /* 1-1.txt in Resources */,
-				84BC59C321C4DAF500497844 /* 2-3.txt in Resources */,
+				84BC59C521C4E1AA00497844 /* 2-3.txt in Resources */,
 				846DE66321B8A1EE00127572 /* 1-4.txt in Resources */,
 				846DE66521B8A1EE00127572 /* 1-2.txt in Resources */,
 				846DE66621B8A1EE00127572 /* 1-7.txt in Resources */,

@@ -52,6 +52,7 @@ class Stage {
     
 //    var tileSet: String = "brick"
     var tileSet: String = "fire"
+//    var tileSet: String = "tree"
 
     init(fileName: String) {
         
@@ -111,9 +112,19 @@ class Stage {
                                 blocks.append(Block(xPos: j, yPos: i, type: "bottom", tileSet: tileSet))
                             }
                             
-                        } else {
+                        } else if tileSet == "brick" {
                             
                             if j % 2 == 0 {
+                                blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
+                            } else {
+                                blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
+                            }
+                            
+                        } else if tileSet == "tree" {
+                            
+//                            blocks.append(Block(xPos: j, yPos: i, type: "bottom", tileSet: tileSet))
+                            
+                            if (i + j) % 2 == 0 {
                                 blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
                             } else {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
@@ -126,9 +137,19 @@ class Stage {
                             
                             blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: tileSet))
 
-                        } else {
+                        } else if tileSet == "brick" {
                             
                             if j % 2 == 0 {
+                                blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
+                            } else {
+                                blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
+                            }
+                            
+                        } else {
+                            
+//                            blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: tileSet))
+                            
+                            if (i + j) % 2 == 0 {
                                 blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
                             } else {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
@@ -141,15 +162,25 @@ class Stage {
                             
                             blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: tileSet))
                             
-                        } else {
+                        } else if tileSet == "brick" {
                             
                             if j % 2 == 0 {
                                 blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
                             } else {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
                             }
+                            
+                        } else {
+                            
+//                            blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: tileSet))
+                            
+                            if (i + j) % 2 == 0 {
+                                blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
+                            } else {
+                                blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
+                            }
                         }
-
+                        
                     }
 
                 } else if text == "=" {
