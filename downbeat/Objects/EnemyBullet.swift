@@ -352,8 +352,17 @@ class EnemyBullet {
     
     func isInBounds() -> Bool {
         
-        if self.x + (self.width / 2) >= 0 && self.x - (self.width / 2) <= screenSize.height * (screenRatio) && self.y - (self.height / 2) <= screenSize.height && self.y + (self.height / 2) >= 0 {
-            return true
+        if self.type == "axe" {
+            
+            if self.x + (self.width / 2) >= 0 && self.x - (self.width / 2) <= screenSize.height * (screenRatio) {
+                return true
+            }
+            
+        } else {
+            
+            if self.x + (self.width / 2) >= 0 && self.x - (self.width / 2) <= screenSize.height * (screenRatio) && self.y - (self.height / 2) <= screenSize.height && self.y + (self.height / 2) >= 0 {
+                return true
+            }
         }
         
         return false
