@@ -50,8 +50,8 @@ class Stage {
     var canEnterFromBottom: Bool = false
     var canEnterFromLeft: Bool = false
     
-    var tileSet: String = "cut"
-//    var tileSet: String = "totem"
+//    var tileSet: String = "brick"
+    var tileSet: String = "fire"
 
     init(fileName: String) {
         
@@ -90,107 +90,70 @@ class Stage {
                                 
                 if text == "#" {
                     
-//                    if isEqual(i: i - 1, j: j, block: "#") && isEqual(i: i, j: j + 1, block: "#") && isEqual(i: i, j: j - 1, block: "#") == false && isEqual(i: i + 1, j: j, block: "#") == false {
-//
-//                        blocks.append(Block(xPos: j, yPos: i, type: "curveUpRight", tileSet: "totem"))
-//
-//                    } else if isEqual(i: i - 1, j: j, block: "#") && isEqual(i: i, j: j - 1, block: "#") && isEqual(i: i, j: j + 1, block: "#") == false && isEqual(i: i + 1, j: j, block: "#") == false {
-//
-//                        blocks.append(Block(xPos: j, yPos: i, type: "curveUpLeft", tileSet: "totem"))
-//
-//                    } else if isEqual(i: i + 1, j: j, block: "#") && isEqual(i: i, j: j + 1, block: "#") && isEqual(i: i, j: j - 1, block: "#") == false && isEqual(i: i - 1, j: j, block: "#") == false {
-//
-//                        blocks.append(Block(xPos: j, yPos: i, type: "curveDownRight", tileSet: "totem"))
-//
-//                    } else if isEqual(i: i + 1, j: j, block: "#") && isEqual(i: i, j: j - 1, block: "#") && isEqual(i: i, j: j + 1, block: "#") == false && isEqual(i: i - 1, j: j, block: "#") == false {
-//
-//                        blocks.append(Block(xPos: j, yPos: i, type: "curveDownLeft", tileSet: "totem"))
-//
-//                    } else if isEqual(i: i - 1, j: j, block: "#") && isEqual(i: i + 1, j: j, block: "#") {
-//
-////                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowMiddleBlock"))
-//                        blocks.append(Block(xPos: j, yPos: i, type: "upDown", tileSet: "totem"))
-//
-//                    } else if isEqual(i: i, j: j - 1, block: "#") && isEqual(i: i, j: j + 1, block: "#") {
-//
-////                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowMiddleBlock"))
-//                        blocks.append(Block(xPos: j, yPos: i, type: "leftRight", tileSet: "totem"))
-//
-//                    } else if isEqual(i: i, j: j - 1, block: "#") {
-//
-////                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowRightBlock"))
-//                        blocks.append(Block(xPos: j, yPos: i, type: "endRight", tileSet: "totem"))
-//
-//                    } else if isEqual(i: i, j: j + 1, block: "#") {
-//
-////                        blocks.append(Block(xPos: j, yPos: i, type: "horizontalYellowLeftBlock"))
-//                        blocks.append(Block(xPos: j, yPos: i, type: "endLeft", tileSet: "totem"))
-//
-//                    } else if isEqual(i: i - 1, j: j, block: "#") {
-//
-////                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowBottomBlock"))
-//                        blocks.append(Block(xPos: j, yPos: i, type: "endDown", tileSet: "totem"))
-//
-//                    } else if isEqual(i: i + 1, j: j, block: "#") {
-//
-////                        blocks.append(Block(xPos: j, yPos: i, type: "verticalYellowTopBlock"))
-//                        blocks.append(Block(xPos: j, yPos: i, type: "endUp", tileSet: "totem"))
-//                    }
-                    
-//                    if isEqual(i: i - 1, j: j, block: "#") == false && i > 0 {
-//
-//                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: tileSet))
-//
-//                    } else {
-//
-//                        if j % 2 == 0 {
-//                            blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
-//                        } else {
-//                            blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
-//                        }
-//                    }
-                    
                     if isEqual(i: i - 1, j: j, block: "#") == false && i > 0 {
                         
-//                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: "brick"))
-                        
-                        blocks.append(Block(xPos: j, yPos: i, type: "topTop", tileSet: "fire"))
+                        if tileSet == "fire" {
+                            
+                            blocks.append(Block(xPos: j, yPos: i, type: "topTop", tileSet: tileSet))
+
+                        } else {
+                            
+                            blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: tileSet))
+                        }
 
                     } else if isEqual(i: i + 1, j: j, block: "#") == false && i < numberOfVerticalBricks {
                         
-                        //                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: "brick"))
-                        
-                        blocks.append(Block(xPos: j, yPos: i, type: "bottom", tileSet: "fire"))
+                        if tileSet == "fire" {
+                            
+                            blocks.append(Block(xPos: j, yPos: i, type: "bottom", tileSet: tileSet))
+                            
+                        } else {
+                            
+                            if j % 2 == 0 {
+                                blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
+                            } else {
+                                blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
+                            }
+                        }
                         
                     } else if isEqual(i: i - 1, j: j, block: "#") == true && isEqual(i: i - 2, j: j, block: "#") == false && i - 1 > 0 {
                         
-                        //                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: "brick"))
-                        
-                        blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: "fire"))
+                        if tileSet == "fire" {
+                            
+                            blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: tileSet))
+
+                        } else {
+                            
+                            if j % 2 == 0 {
+                                blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
+                            } else {
+                                blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
+                            }
+                        }
                         
                     } else {
                         
-//                        if j % 2 == 0 {
-//                            blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: "brick"))
-//                        } else {
-//                            blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: "brick"))
-//                        }
-                        
-                        blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: "fire"))
+                        if tileSet == "fire" {
+                            
+                            blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: tileSet))
+                            
+                        } else {
+                            
+                            if j % 2 == 0 {
+                                blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
+                            } else {
+                                blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
+                            }
+                        }
+
                     }
 
                 } else if text == "=" {
-                    
-//                    if isEqual(i: i - 1, j: j, block: "=") {
-//                        blocks.append(Block(xPos: j, yPos: i, type: "ladder", tileSet: "brick"))
-//                    } else {
-//                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: "brick"))
-//                    }
 
                     if isEqual(i: i - 1, j: j, block: "=") {
-                        blocks.append(Block(xPos: j, yPos: i, type: "ladder", tileSet: "fire"))
+                        blocks.append(Block(xPos: j, yPos: i, type: "ladder", tileSet: tileSet))
                     } else {
-                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: "fire"))
+                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: tileSet))
                     }
                     
                 } else if text == "!" {
