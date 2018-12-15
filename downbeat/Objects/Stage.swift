@@ -105,7 +105,11 @@ class Stage {
                         
                         if tileSet == "fire" {
                             
-                            blocks.append(Block(xPos: j, yPos: i, type: "bottom", tileSet: tileSet))
+                            if isEqual(i: i - 2, j: j, block: "#") == false && i > 1 {
+                                blocks.append(Block(xPos: j, yPos: i, type: "topBottom", tileSet: tileSet))
+                            } else {
+                                blocks.append(Block(xPos: j, yPos: i, type: "bottom", tileSet: tileSet))
+                            }
                             
                         } else {
                             
