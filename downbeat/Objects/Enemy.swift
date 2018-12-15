@@ -567,10 +567,12 @@ class Enemy {
             
             self.stunTimeInterval = 1.75
             
-//            self.view.animationImages = Enemy.footImages as! [UIImage]
-            self.view.animationImages = Enemy.footLeftImages as! [UIImage]
+            self.view.animationImages = Enemy.footImages as! [UIImage]
+//            self.view.animationImages = Enemy.footLeftImages as! [UIImage]
 
-            self.view.animationDuration = 0.85 * 0.15 * 3
+            self.view.animationDuration = 0.85 * 0.15
+//            self.view.animationDuration = 0.85 * 0.15 * 3
+
             self.view.startAnimating()
             
         } else if self.type == "eye" {
@@ -986,8 +988,8 @@ class Enemy {
 //                    self.view.image = Enemy.foot2Image
 //                }
                 
-//                self.view.image = Enemy.foot2Image
-                self.view.image = Enemy.footLeftImage
+                self.view.image = Enemy.foot1Image
+//                self.view.image = Enemy.footLeftImage
             }
             
             if self.direction == "right" {
@@ -3128,10 +3130,12 @@ class Enemy {
         
         if self.type == "foot" {
          
-//            self.view.animationImages = Enemy.footImages as! [UIImage]
-            self.view.animationImages = Enemy.footLeftImages as! [UIImage]
+            self.view.animationImages = Enemy.footImages as! [UIImage]
+//            self.view.animationImages = Enemy.footLeftImages as! [UIImage]
 
-            self.view.animationDuration = 0.85 * 0.15 * 3
+            self.view.animationDuration = 0.85 * 0.15
+//            self.view.animationDuration = 0.85 * 0.15 * 3
+            
             self.view.startAnimating()
             
         } else if self.type == "eye" {
