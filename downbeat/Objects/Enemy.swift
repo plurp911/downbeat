@@ -35,6 +35,9 @@ class Enemy {
     static let foot1Image = UIImage(named: "footEnemy1")
     static let foot2Image = UIImage(named: "footEnemy2")
     static let footImages = [foot1Image, foot2Image]
+    
+    static let footLeftImage = UIImage(named: "footEnemyLeft1")
+    static let footLeftImages = [UIImage(named: "footEnemyLeft1"), UIImage(named: "footEnemyLeft2"), UIImage(named: "footEnemyLeft3"), UIImage(named: "footEnemyLeft4"), UIImage(named: "footEnemyLeft5"), UIImage(named: "footEnemyLeft6")]
 
     static let snakeLeft1Image = UIImage(named: "snakeEnemyLeft1")
     static let snakeLeft2Image = UIImage(named: "snakeEnemyLeft2")
@@ -564,9 +567,10 @@ class Enemy {
             
             self.stunTimeInterval = 1.75
             
-            self.view.animationImages = Enemy.footImages as! [UIImage]
-            
-            self.view.animationDuration = 0.85 * 0.15
+//            self.view.animationImages = Enemy.footImages as! [UIImage]
+            self.view.animationImages = Enemy.footLeftImages as! [UIImage]
+
+            self.view.animationDuration = 0.85 * 0.15 * 3
             self.view.startAnimating()
             
         } else if self.type == "eye" {
@@ -982,7 +986,17 @@ class Enemy {
 //                    self.view.image = Enemy.foot2Image
 //                }
                 
-                self.view.image = Enemy.foot2Image
+//                self.view.image = Enemy.foot2Image
+                self.view.image = Enemy.footLeftImage
+            }
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
             
         } else if type == "eye" {
@@ -1373,11 +1387,11 @@ class Enemy {
                                 
                                 if block.isInLargeBounds() == true {
                                     
-                                    if self.x + (self.width / 2) + (self.moveSpeed * 5) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 5) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                    if self.x + (self.width / 2) + (self.moveSpeed * 8) < block.x + (Block.width / 2) && self.x + (self.width / 2) + (self.moveSpeed * 8) + offset > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                                         
                                         self.direction = "left"
                                         
-                                        setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 5), y: self.y)
+                                        setXY(x: block.x - (Block.width / 2) - (self.width / 2) - (self.moveSpeed * 8), y: self.y)
                                     }
                                 }
                                 
@@ -1392,11 +1406,11 @@ class Enemy {
                                 
                                 if block.isInLargeBounds() == true {
                                     
-                                    if self.x - (self.width / 2) - (self.moveSpeed * 5) < block.x + (Block.width / 2) && self.x - (self.width / 2) - (self.moveSpeed * 5) > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                    if self.x - (self.width / 2) - (self.moveSpeed * 8) < block.x + (Block.width / 2) && self.x - (self.width / 2) - (self.moveSpeed * 8) > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                                         
                                         self.direction = "right"
 
-                                        setXY(x: block.x + (Block.width / 2) + (self.width / 2) + (self.moveSpeed * 5), y: self.y)
+                                        setXY(x: block.x + (Block.width / 2) + (self.width / 2) + (self.moveSpeed * 8), y: self.y)
                                     }
                                 }
                                 
@@ -1408,7 +1422,7 @@ class Enemy {
 
                 if abs((self.y + (self.height / 2)) - (player.y + (Player.height / 2))) <= self.yRange {
                     
-                    self.xSpeed = moveSpeed * 5
+                    self.xSpeed = moveSpeed * 3.75
                     
                 } else {
                     
@@ -3114,9 +3128,10 @@ class Enemy {
         
         if self.type == "foot" {
          
-            self.view.animationImages = Enemy.footImages as! [UIImage]
-            
-            self.view.animationDuration = 0.85 * 0.15
+//            self.view.animationImages = Enemy.footImages as! [UIImage]
+            self.view.animationImages = Enemy.footLeftImages as! [UIImage]
+
+            self.view.animationDuration = 0.85 * 0.15 * 3
             self.view.startAnimating()
             
         } else if self.type == "eye" {
