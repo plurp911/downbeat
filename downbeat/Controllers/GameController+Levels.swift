@@ -12,13 +12,13 @@ extension GameController {
 
     func loadLevels() {
     
-//        let stages = [[Stage(fileName: "2-1")]]
+        let stages = [[Stage(fileName: "2-1"), Stage(fileName: "2-2")]]
         
-        let stages: [[Stage?]] = [[nil, nil, nil, Stage(fileName: "1-8"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
-                                  [nil, nil, nil, Stage(fileName: "1-7"), nil, nil],
-                                  [nil, nil, nil, Stage(fileName: "1-6"), nil, nil],
-                                  [nil, Stage(fileName: "1-3"), Stage(fileName: "1-4"), Stage(fileName: "1-5"), nil, nil],
-                                  [Stage(fileName: "1-1"), Stage(fileName: "1-2"), nil, nil, nil, nil]]
+//        let stages: [[Stage?]] = [[nil, nil, nil, Stage(fileName: "1-8"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
+//                                  [nil, nil, nil, Stage(fileName: "1-7"), nil, nil],
+//                                  [nil, nil, nil, Stage(fileName: "1-6"), nil, nil],
+//                                  [nil, Stage(fileName: "1-3"), Stage(fileName: "1-4"), Stage(fileName: "1-5"), nil, nil],
+//                                  [Stage(fileName: "1-1"), Stage(fileName: "1-2"), nil, nil, nil, nil]]
 
         levels.append(Level(stages: stages))
     }
