@@ -28,6 +28,27 @@ extension GameController {
                 player.isMovingDown = true
             }
             
+            if isTransitioningRight == true || isTransitioningUp == true || isTransitioningDown == true {
+                
+                if let current = currentStage {
+                    current.updateObjectVisibility(isHidden: true)
+                }
+                
+                if let next = nextStage {
+                    next.updateObjectVisibility(isHidden: true)
+                }
+                
+            } else {
+                
+                if let current = currentStage {
+                    current.updateObjectVisibility(isHidden: false)
+                }
+                
+                if let next = nextStage {
+                    next.updateObjectVisibility(isHidden: false)
+                }
+            }
+            
             if isTransitioningRight == true {
                 
                 player.isMoving = true

@@ -451,6 +451,25 @@ class Stage {
         self.sortObjectArrays()
     }
     
+    func updateObjectVisibility(isHidden: Bool) {
+        
+        for enemy in self.enemies {
+            enemy.view.isHidden = isHidden
+        }
+        
+        for specialEnemy in self.specialEnemies {
+            specialEnemy.view.isHidden = isHidden
+        }
+        
+        for powerup in self.powerups {
+            powerup.view.isHidden = isHidden
+        }
+        
+        for enemySpawner in self.enemySpawners {
+            enemySpawner.view.isHidden = isHidden
+        }
+    }
+    
     func getInsideTileType(i: Int, j: Int) -> String {
         
         if i <= 0 {
