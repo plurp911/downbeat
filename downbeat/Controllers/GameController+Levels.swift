@@ -30,7 +30,8 @@ extension GameController {
 
         // METAL
         
-        let stages = [[Stage(fileName: "3-1"), Stage(fileName: "3-2"), Stage(fileName: "3-3"), Stage(fileName: "3-4")]]
+        let stages = [[Stage(fileName: "3-1"), Stage(fileName: "3-2"), Stage(fileName: "3-3"), Stage(fileName: "3-4")],
+                      [nil, nil, nil, Stage(fileName: "3-5")]]
 
         levels.append(Level(stages: stages))
     }

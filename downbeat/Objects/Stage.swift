@@ -457,31 +457,82 @@ class Stage {
         
         if i <= 0 {
             
-            if isEqual(i: i, j: j - 1, block: "#") == true && isEqual(i: i, j: j + 1, block: "#") == true && isEqual(i: i + 1, j: j, block: "#") == true {
+            if j <= 0 {
                 
-                if isEqual(i: i + 1, j: j + 1, block: "#") == false {
+                if isEqual(i: i, j: j + 1, block: "#") == true && isEqual(i: i + 1, j: j, block: "#") == true {
                     
-                    return "insideBottomRight"
-                    
-                } else if isEqual(i: i + 1, j: j - 1, block: "#") == false {
-                    
-                    return "insideBottomLeft"
-                    
+                    if isEqual(i: i + 1, j: j + 1, block: "#") == false {
+                        
+                        return "insideBottomRight"
+                        
+                    }
                 }
+                
+            } else if j >= self.numberOfHorizontalBlocks - 1 {
+                
+                if isEqual(i: i + 1, j: j, block: "#") == true {
+                    
+                    if isEqual(i: i + 1, j: j - 1, block: "#") == false {
+                        
+                        return "insideBottomLeft"
+                        
+                    }
+                }
+                
+            } else {
+                
+                if isEqual(i: i, j: j - 1, block: "#") == true && isEqual(i: i, j: j + 1, block: "#") == true && isEqual(i: i + 1, j: j, block: "#") == true {
+                    
+                    if isEqual(i: i + 1, j: j + 1, block: "#") == false {
+                        
+                        return "insideBottomRight"
+                        
+                    } else if isEqual(i: i + 1, j: j - 1, block: "#") == false {
+                        
+                        return "insideBottomLeft"
+                        
+                    }
+                }
+                
             }
             
         } else if i >= numberOfVerticalBricks - 1 {
             
-            if isEqual(i: i, j: j - 1, block: "#") == true && isEqual(i: i, j: j + 1, block: "#") == true && isEqual(i: i - 1, j: j, block: "#") == true {
+            if j <= 0 {
                 
-                if isEqual(i: i - 1, j: j - 1, block: "#") == false {
+                if isEqual(i: i, j: j + 1, block: "#") == true && isEqual(i: i - 1, j: j, block: "#") == true {
                     
-                    return "insideTopLeft"
-                    
-                } else if isEqual(i: i - 1, j: j + 1, block: "#") == false {
-                    
-                    return "insideTopRight"
+                    if isEqual(i: i - 1, j: j + 1, block: "#") == false {
+                        
+                        return "insideTopRight"
+                    }
                 }
+                
+            } else if j >= self.numberOfHorizontalBlocks - 1 {
+                
+                if isEqual(i: i, j: j - 1, block: "#") == true && isEqual(i: i - 1, j: j, block: "#") == true {
+                    
+                    if isEqual(i: i - 1, j: j - 1, block: "#") == false {
+                        
+                        return "insideTopLeft"
+                        
+                    }
+                }
+                
+            } else {
+                
+                if isEqual(i: i, j: j - 1, block: "#") == true && isEqual(i: i, j: j + 1, block: "#") == true && isEqual(i: i - 1, j: j, block: "#") == true {
+                    
+                    if isEqual(i: i - 1, j: j - 1, block: "#") == false {
+                        
+                        return "insideTopLeft"
+                        
+                    } else if isEqual(i: i - 1, j: j + 1, block: "#") == false {
+                        
+                        return "insideTopRight"
+                    }
+                }
+                
             }
             
         } else if j <= 0 {
