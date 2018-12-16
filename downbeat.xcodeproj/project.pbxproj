@@ -24,6 +24,7 @@
 		84BC59C921C51FDA00497844 /* 2-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C821C51FDA00497844 /* 2-2.txt */; };
 		84BC59CB21C51FE100497844 /* 2-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59CA21C51FE100497844 /* 2-6.txt */; };
 		84BC59CD21C5D11500497844 /* 2-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59CC21C5D11500497844 /* 2-7.txt */; };
+		84BC59D121C60F9B00497844 /* 3-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59D021C60F9B00497844 /* 3-1.txt */; };
 		84C848F521B3B53900CF276A /* 2-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84C848F421B3B53900CF276A /* 2-1.txt */; };
 		92086A4221A23B5000AB51F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A4121A23B5000AB51F8 /* AppDelegate.swift */; };
 		92086A4421A23B5000AB51F8 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92086A4321A23B5000AB51F8 /* GameController.swift */; };
@@ -87,6 +88,7 @@
 		84BC59C821C51FDA00497844 /* 2-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-2.txt"; sourceTree = "<group>"; };
 		84BC59CA21C51FE100497844 /* 2-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-6.txt"; sourceTree = "<group>"; };
 		84BC59CC21C5D11500497844 /* 2-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-7.txt"; sourceTree = "<group>"; };
+		84BC59D021C60F9B00497844 /* 3-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3-1.txt"; sourceTree = "<group>"; };
 		84C848F421B3B53900CF276A /* 2-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-1.txt"; sourceTree = "<group>"; };
 		92086A3E21A23B5000AB51F8 /* downbeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = downbeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92086A4121A23B5000AB51F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				84BC59C621C51B0D00497844 /* 2-5.txt */,
 				84BC59CA21C51FE100497844 /* 2-6.txt */,
 				84BC59CC21C5D11500497844 /* 2-7.txt */,
+				84BC59D021C60F9B00497844 /* 3-1.txt */,
 				92086A7421A2441F00AB51F8 /* Controllers */,
 				92086A7321A2441300AB51F8 /* Objects */,
 				92086A7521A2443A00AB51F8 /* Other */,
@@ -373,6 +376,7 @@
 				84BC59CB21C51FE100497844 /* 2-6.txt in Resources */,
 				846DE66321B8A1EE00127572 /* 1-4.txt in Resources */,
 				846DE66521B8A1EE00127572 /* 1-2.txt in Resources */,
+				84BC59D121C60F9B00497844 /* 3-1.txt in Resources */,
 				846DE66621B8A1EE00127572 /* 1-7.txt in Resources */,
 				92086A4921A23B5200AB51F8 /* Assets.xcassets in Resources */,
 				846DE66721B8A1EE00127572 /* 1-5.txt in Resources */,

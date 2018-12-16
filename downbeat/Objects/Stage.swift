@@ -309,14 +309,14 @@ class Stage {
                     
                 } else if text == "<" {
                     
-                    blocks.append(Block(xPos: j, yPos: i, type: "electric", tileSet: tileSet))
+                    blocks.append(Block(xPos: j, yPos: i, type: "electricLeft", tileSet: tileSet))
 
 //                    enemies.append(Enemy(xPos: j - 1, yPos: i, type: "electricity", direction: "left"))
                     specialEnemies.append(Enemy(xPos: j - 1, yPos: i, type: "electricity", direction: "left"))
                     
                 } else if text == ">" {
                     
-                    blocks.append(Block(xPos: j, yPos: i, type: "electric", tileSet: tileSet))
+                    blocks.append(Block(xPos: j, yPos: i, type: "electricRight", tileSet: tileSet))
                     
 //                    enemies.append(Enemy(xPos: j + 1, yPos: i, type: "electricity", direction: "right"))
                     specialEnemies.append(Enemy(xPos: j + 1, yPos: i, type: "electricity", direction: "right"))

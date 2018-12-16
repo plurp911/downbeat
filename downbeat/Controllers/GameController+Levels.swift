@@ -12,17 +12,25 @@ extension GameController {
 
     func loadLevels() {
     
-        let stages = [[nil, nil, Stage(fileName: "2-7"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
-                      [nil, nil, Stage(fileName: "2-6"), nil, nil],
-                      [nil, nil, Stage(fileName: "2-5"), nil, nil],
-                      [nil, nil, Stage(fileName: "2-4"), nil, nil],
-                      [Stage(fileName: "2-1"), Stage(fileName: "2-2"), Stage(fileName: "2-3"), nil]]
+        // BRICK
         
 //        let stages: [[Stage?]] = [[nil, nil, nil, Stage(fileName: "1-8"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
 //                                  [nil, nil, nil, Stage(fileName: "1-7"), nil, nil],
 //                                  [nil, nil, nil, Stage(fileName: "1-6"), nil, nil],
 //                                  [nil, Stage(fileName: "1-3"), Stage(fileName: "1-4"), Stage(fileName: "1-5"), nil, nil],
 //                                  [Stage(fileName: "1-1"), Stage(fileName: "1-2"), nil, nil, nil, nil]]
+
+        // FIRE
+        
+        //        let stages = [[nil, nil, Stage(fileName: "2-7"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
+        //                      [nil, nil, Stage(fileName: "2-6"), nil, nil],
+        //                      [nil, nil, Stage(fileName: "2-5"), nil, nil],
+        //                      [nil, nil, Stage(fileName: "2-4"), nil, nil],
+        //                      [Stage(fileName: "2-1"), Stage(fileName: "2-2"), Stage(fileName: "2-3"), nil]]
+
+        // METAL
+        
+        let stages = [[Stage(fileName: "3-1")]]
 
         levels.append(Level(stages: stages))
     }

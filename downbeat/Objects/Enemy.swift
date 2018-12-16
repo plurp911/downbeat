@@ -716,8 +716,9 @@ class Enemy {
                 }
             }
 
-            self.shootTimeInterval = 3
-            
+//            self.shootTimeInterval = 3
+            self.shootTimeInterval = 2
+
             self.totalShootTimeInterval = 1.5
             
             self.isHidden = true
@@ -3162,6 +3163,12 @@ class Enemy {
                     if self.type == "miner" {
                         
                         self.shoot()
+                        
+                    } else if self.type == "electricity" {
+                        
+                        let value: CGFloat = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
+                        
+                        self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval * value), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
                         
                     } else {
                         
