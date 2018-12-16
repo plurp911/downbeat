@@ -82,6 +82,15 @@ class EnemySpawner {
             
 //            self.startSpawnTimeInterval = 0.25
             self.startSpawnTimeInterval = 0
+            
+        } else if self.type == "drop" {
+            
+            self.width = Block.width
+            self.height = self.width
+            
+            self.spawnTimeInterval = 5
+
+            self.startSpawnTimeInterval = 0
         }
         
         self.setXY(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2))
@@ -108,6 +117,10 @@ class EnemySpawner {
         } else if self.type == "special" {
             
             self.view.isHidden = true
+            
+        } else if self.type == "drop" {
+            
+            self.view.isHidden = true
         }
     }
     
@@ -131,19 +144,32 @@ class EnemySpawner {
     
     func isInSpawningBounds() -> Bool {
         
-        var enemyWidth: CGFloat = 0
-        
         if self.type == "follower" {
 
-            enemyWidth = Block.width
+            let enemyWidth: CGFloat = Block.width
+            
+            if self.x - (enemyWidth / 2) >= 0 && self.x + (enemyWidth / 2) <= screenSize.height * (screenRatio) {
+                return true
+            }
             
         } else if self.type == "special" {
             
-            enemyWidth = Block.width
-        }
-        
-        if self.x - (enemyWidth / 2) >= 0 && self.x + (enemyWidth / 2) <= screenSize.height * (screenRatio) {
-            return true
+            let enemyWidth: CGFloat = Block.width
+            
+            if self.x - (enemyWidth / 2) >= 0 && self.x + (enemyWidth / 2) <= screenSize.height * (screenRatio) {
+                return true
+            }
+            
+        } else if self.type == "drop" {
+            
+            let xRange: CGFloat = Block.width * 2
+
+            if player.x + (Player.width / 2) >= self.x - (xRange / 2) && player.x - (Player.width / 2) <= self.x + (xRange / 2) {
+                
+                print("IN RANGE")
+
+                return true
+            }
         }
         
         return false
@@ -153,12 +179,18 @@ class EnemySpawner {
         
         if self.startSpawnTimer.isValid == false && self.spawnTimer.isValid == false {
             
-//            self.spawn()
+            if self.type == "drop" {
+                
+                self.spawn()
+
+            } else {
             
-            self.startSpawnTimer.invalidate()
-            
-            self.startSpawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.startSpawnTimeInterval), target: self, selector: #selector(startSpawnLoop), userInfo: nil, repeats: false)
+                self.startSpawnTimer.invalidate()
+                
+                self.startSpawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.startSpawnTimeInterval), target: self, selector: #selector(startSpawnLoop), userInfo: nil, repeats: false)
+            }
         }
+        
     }
     
     func stopSpawning() {
@@ -184,8 +216,6 @@ class EnemySpawner {
         
         if self.type == "follower" {
             
-            print(selectedEnemies.count)
-            
             var enemyCount: Int = 0
             
             for enemy in selectedEnemies {
@@ -194,8 +224,6 @@ class EnemySpawner {
                     enemyCount += 1
                 }
             }
-            
-//            print(enemyCount)
             
             if enemyCount < 3 {
                 
@@ -221,8 +249,40 @@ class EnemySpawner {
 //                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: 0, ySpeed: bulletSpeed, type: "special"))
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: 0, ySpeed: bulletSpeed, type: "special"))
             }
+            
+        } else if self.type == "drop" {
+            
+            var enemyCount: Int = 0
+            
+            for enemy in selectedEnemies {
+                
+                if enemy.type == self.type && enemy.isUsed == false {
+                    enemyCount += 1
+                }
+            }
+            
+            print("ENEMY COUNT")
+            print(enemyCount)
+
+            if enemyCount < 2 {
+                
+                if self.isInSpawningBounds() == true {
+                    
+                    if self.spawnTimer.isValid == false {
+
+                        selectedEnemies.append(Enemy(x: (screenSize.height * (screenRatio)) + (Block.width / 2), y: self.y, type: self.type, direction: "left"))
+                        
+                        selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
+                        
+                        self.spawnTimer.invalidate()
+                        
+                        self.spawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.spawnTimeInterval), target: self, selector: #selector(spawn), userInfo: nil, repeats: false)
+                    }
+                    
+                }
+            }
+            
         }
-        
     }
     
 }

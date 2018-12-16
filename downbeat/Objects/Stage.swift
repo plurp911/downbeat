@@ -402,10 +402,8 @@ class Stage {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "scooper", direction: "right"))
                 } else if text == "c" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "scooper", direction: "left"))
-                } else if text == "D" {
-                    enemies.append(Enemy(xPos: j, yPos: i, type: "drop", direction: "right"))
                 } else if text == "d" {
-                    enemies.append(Enemy(xPos: j, yPos: i, type: "drop", direction: "left"))
+                    enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "drop"))
                 } else if text == "k" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "sprinkler"))
                 } else if text == "j" {

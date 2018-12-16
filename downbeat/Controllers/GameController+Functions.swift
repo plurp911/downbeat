@@ -465,7 +465,7 @@ extension GameController {
                     }
                 }
                 
-                if selectedEnemies[i].type == "follower" && selectedEnemies[i].isInBounds() == false {
+                if (selectedEnemies[i].type == "follower" || selectedEnemies[i].type == "drop") && selectedEnemies[i].isInBounds() == false {
                     
                     selectedEnemies[i].isUsed = true
                     
