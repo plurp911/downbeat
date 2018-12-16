@@ -12,7 +12,8 @@ extension GameController {
 
     func loadLevels() {
     
-        let stages = [[nil, nil, Stage(fileName: "2-5"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
+        let stages = [[nil, nil, Stage(fileName: "2-6"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
+                      [nil, nil, Stage(fileName: "2-5"), nil, nil],
                       [nil, nil, Stage(fileName: "2-4"), nil, nil],
                       [nil, nil, Stage(fileName: "2-3"), nil, nil],
                       [Stage(fileName: "2-1"), Stage(fileName: "2-1.5"), Stage(fileName: "2-2"), nil]]
