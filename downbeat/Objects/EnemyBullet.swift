@@ -205,8 +205,9 @@ class EnemyBullet {
             
             self.view.animationImages = EnemyBullet.smallBlueImages as! [UIImage]
             
-            self.view.animationDuration = 0.85 * 0.5 * (3 / 4)
-            
+//            self.view.animationDuration = 0.85 * 0.5 * (3 / 4)
+            self.view.animationDuration = 0.85 * 0.5 * 0.5125
+
             self.view.startAnimating()
             
         } else if self.type == "axe" {

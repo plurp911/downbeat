@@ -820,7 +820,9 @@ class Enemy {
             
             self.totalShootTimeInterval = 0.5
             
-            self.betweenShotsTimeInterval = 0.1
+//            self.betweenShotsTimeInterval = 0.1
+//            self.betweenShotsTimeInterval = 0.0625
+            self.betweenShotsTimeInterval = 0.07125
 
             self.view.image = Enemy.shooterShieldRightImage
             
@@ -3007,20 +3009,21 @@ class Enemy {
         } else if self.type == "shooter" {
             
 //            let bulletSpeed: CGFloat = 3
-            let bulletSpeed: CGFloat = 2.25
+//            let bulletSpeed: CGFloat = 2.25
+            let bulletSpeed: CGFloat = 1.75
 
             let xOffset: CGFloat = Block.width * (15 / 16)
             let yOffset: CGFloat = Block.width * (0 / 16)
             
             if self.direction == "left" {
 
-                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "regular"))
-//                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "smallBlue"))
+//                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "regular"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "smallBlue"))
 
             } else if self.direction == "right" {
                 
-                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "regular"))
-//                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "smallBlue"))
+//                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "regular"))
+                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "smallBlue"))
             }
             
             if self.shootCount >= 2 {

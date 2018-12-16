@@ -22,11 +22,11 @@ extension GameController {
 
         // FIRE
         
-        let stages = [[nil, nil, Stage(fileName: "2-7"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
-                      [nil, nil, Stage(fileName: "2-6"), nil, nil],
-                      [nil, nil, Stage(fileName: "2-5"), nil, nil],
-                      [nil, nil, Stage(fileName: "2-4"), nil, nil],
-                      [Stage(fileName: "2-1"), Stage(fileName: "2-2"), Stage(fileName: "2-3"), nil]]
+//        let stages = [[nil, nil, Stage(fileName: "2-7"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
+//                      [nil, nil, Stage(fileName: "2-6"), nil, nil],
+//                      [nil, nil, Stage(fileName: "2-5"), nil, nil],
+//                      [nil, nil, Stage(fileName: "2-4"), nil, nil],
+//                      [Stage(fileName: "2-1"), Stage(fileName: "2-2"), Stage(fileName: "2-3"), nil]]
 
         // METAL
         
@@ -35,6 +35,10 @@ extension GameController {
 //                      [nil, nil, nil, Stage(fileName: "3-6"), nil, nil, nil, nil],
 //                      [nil, nil, nil, Stage(fileName: "3-7"), Stage(fileName: "3-8"), Stage(fileName: "3-9"), Stage(fileName: "1-9"), Stage(fileName: "1-10")]]
 
+        // OTHER
+        
+        let stages = [[Stage(fileName: "4-1")]]
+        
         levels.append(Level(stages: stages))
     }
     
