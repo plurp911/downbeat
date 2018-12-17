@@ -154,12 +154,16 @@ class EnemySpawner {
             
         } else if self.type == "special" {
             
-            let enemyWidth: CGFloat = Block.width
+//            let enemyWidth: CGFloat = Block.width
+//
+//            if self.x - (enemyWidth / 2) >= 0 && self.x + (enemyWidth / 2) <= screenSize.height * (screenRatio) {
+//                return true
+//            }
             
-            if self.x - (enemyWidth / 2) >= 0 && self.x + (enemyWidth / 2) <= screenSize.height * (screenRatio) {
-                return true
-            }
-            
+            print("1")
+
+            return true
+
         } else if self.type == "drop" {
             
             let xRange: CGFloat = Block.width * 2
@@ -260,9 +264,6 @@ class EnemySpawner {
                     enemyCount += 1
                 }
             }
-            
-            print("ENEMY COUNT")
-            print(enemyCount)
 
             if enemyCount < 2 {
                 
