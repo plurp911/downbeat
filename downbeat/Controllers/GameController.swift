@@ -47,6 +47,17 @@ class GameController: UIViewController {
         return view
     }()
     
+    var brickStageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectTile")
+        //        view.isHidden = true
+        return view
+    }()
+    
     var gameView: UIView = {
         let view = UIView()
         view.backgroundColor = gameViewColor
@@ -280,10 +291,18 @@ class GameController: UIViewController {
         imageView.frame.size.height = height
     }
     
-    func setXY(x: CGFloat, y: CGFloat, imageView: UIImageView) {
+    func setXY(x: CGFloat, y: CGFloat, imageView: UIImageView, isCentered: Bool) {
         
-        imageView.frame.origin.x = x - (imageView.frame.size.width / 2)
-        imageView.frame.origin.y = y - (imageView.frame.size.height / 2)
+        if isCentered == true {
+            
+            imageView.frame.origin.x = x - (imageView.frame.size.width / 2)
+            imageView.frame.origin.y = y - (imageView.frame.size.height / 2)
+            
+        } else {
+         
+            imageView.frame.origin.x = x
+            imageView.frame.origin.y = y
+        }
     }
     
     override func viewDidLoad() {
@@ -318,6 +337,7 @@ class GameController: UIViewController {
         
         view.addSubview(stageSelectView)
         view.addSubview(stageSelectTitleView)
+        view.addSubview(brickStageView)
 
         setupStageSelectView()
         setupGameView()
@@ -420,11 +440,23 @@ class GameController: UIViewController {
     override func viewDidLayoutSubviews() {
         
         setupStageSelectTitleView()
+        setupBrickStageView()
     }
     
     func setupStageSelectTitleView() {
         
         setWidthHeight(width: Block.width * (256 / 16), height: Block.height * (7 / 16), imageView: stageSelectTitleView)
-        setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: Block.height * 1, imageView: stageSelectTitleView)
+        setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: Block.height * 1, imageView: stageSelectTitleView, isCentered: true)
+    }
+    
+    func setupBrickStageView() {
+        
+        let verticalSpacing: CGFloat = (240 - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+//        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
+
+        print(verticalSpacing)
+
+        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: brickStageView)
+        setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16)), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + verticalSpacing, imageView: brickStageView, isCentered: false)
     }
 }
