@@ -316,6 +316,75 @@ class GameController: UIViewController {
         
     }
     
+    lazy var pauseButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = mainButtonColor
+        button.setTitle("l l", for: .normal)
+        button.setTitleColor(mainButtonTextColor, for: .normal)
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.semibold)
+        button.layer.borderWidth = 4
+        button.layer.borderColor = mainButtonOtherColor.cgColor
+        button.layer.cornerRadius = mainButtonRadius
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel!.textAlignment = .center
+        button.titleLabel!.numberOfLines = 1
+        button.addTarget(self, action: #selector(handlePause), for: .touchDown)
+        return button
+    }()
+    
+    @objc func handlePause() {
+
+        print("PAUSE")
+        
+    }
+    
+    lazy var weaponLeftButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = mainButtonColor
+        button.setTitle("previous\nweapon", for: .normal)
+        button.setTitleColor(mainButtonTextColor, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold)
+        button.layer.borderWidth = 4
+        button.layer.borderColor = mainButtonOtherColor.cgColor
+        button.layer.cornerRadius = mainButtonRadius
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel!.textAlignment = .center
+        button.titleLabel!.numberOfLines = 2
+        button.addTarget(self, action: #selector(handleWeaponLeft), for: .touchDown)
+        return button
+    }()
+    
+    @objc func handleWeaponLeft() {
+        
+        print("LEFT")
+        
+        player.cycleWeapon(isNext: false)
+    }
+    
+    lazy var weaponRightButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = mainButtonColor
+        button.setTitle("next\nweapon", for: .normal)
+        button.setTitleColor(mainButtonTextColor, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold)
+        button.layer.borderWidth = 4
+        button.layer.borderColor = mainButtonOtherColor.cgColor
+        button.layer.cornerRadius = mainButtonRadius
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel!.textAlignment = .center
+        button.titleLabel!.numberOfLines = 2
+        button.addTarget(self, action: #selector(handleWeaponRight), for: .touchDown)
+        return button
+    }()
+    
+    @objc func handleWeaponRight() {
+        
+        print("RIGHT")
+        
+        player.cycleWeapon(isNext: true)
+    }
+    
     lazy var leftButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = mainButtonColor
@@ -517,7 +586,10 @@ class GameController: UIViewController {
         view.addSubview(touchView)
         view.addSubview(jumpButton)
         view.addSubview(shootButton)
-        
+        view.addSubview(pauseButton)
+        view.addSubview(weaponLeftButton)
+        view.addSubview(weaponRightButton)
+
         view.addSubview(stageSelectView)
         view.addSubview(stageSelectTitleView)
         view.addSubview(topPipeStageSelectView)
@@ -539,6 +611,9 @@ class GameController: UIViewController {
         setupRightCoverView()
         setupJumpButton()
         setupShootButton()
+        setupPauseButton()
+        setupWeaponLeftButton()
+        setupWeaponRightButton()
         setupLeftButton()
         setupRightButton()
         setupUpButton()
@@ -594,6 +669,27 @@ class GameController: UIViewController {
         shootButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         shootButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         shootButton.centerYAnchor.constraint(equalTo: jumpButton.centerYAnchor).isActive = true
+    }
+    
+    func setupPauseButton() {
+        pauseButton.topAnchor.constraint(equalTo: view.topAnchor, constant: mainButtonSpacing).isActive = true
+        pauseButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
+        pauseButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
+        pauseButton.centerXAnchor.constraint(equalTo: jumpButton.centerXAnchor).isActive = true
+    }
+    
+    func setupWeaponLeftButton() {
+        weaponLeftButton.topAnchor.constraint(equalTo: view.topAnchor, constant: mainButtonSpacing).isActive = true
+        weaponLeftButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
+        weaponLeftButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
+        weaponLeftButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: mainButtonSpacing).isActive = true
+    }
+    
+    func setupWeaponRightButton() {
+        weaponRightButton.topAnchor.constraint(equalTo: weaponLeftButton.bottomAnchor, constant: mainButtonSpacing / 2).isActive = true
+        weaponRightButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
+        weaponRightButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
+        weaponRightButton.centerXAnchor.constraint(equalTo: weaponLeftButton.centerXAnchor).isActive = true
     }
     
     func setupLeftButton() {

@@ -108,15 +108,17 @@ class Player {
     
     var energyPos: Int = -1
     
+//    var energies: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
+//    var energyCosts: [Int] = [3, 4, 4, 3, 3, 3, 4, 5]
     var energies: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
-    var energyCosts: [Int] = [3, 4, 4, 3, 3, 3, 4, 5]
+    var energyCosts: [Int] = [3, 4, 3, 5]
     
     var direction: String = "right"
     
     var beforeYSpeed: CGFloat = 0
     
-//        var power: String = "regular"
-        var power: String = "cutter"
+        var power: String = "regular"
+//        var power: String = "cutter"
 //    var power: String = "blade"
 //    var power: String = "beam"
 //    var power: String = "magnet"
@@ -124,6 +126,10 @@ class Player {
 //    var power: String = "bubble"
 //    var power: String = "tornado"
 //    var power: String = "bomb"
+    
+//    var powers = ["regular", "cutter", "blade", "beam", "magnet", "shield", "bubble", "tornado", "bomb"]
+//    var powers = ["regular", "cutter", "blade", "bubble", "bomb"]
+    var powers = ["cutter", "blade", "bubble", "bomb"]
 
     var endShootTimer = Timer()
     var endShootAnimationTimer = Timer()
@@ -231,8 +237,8 @@ class Player {
         
         self.direction = "right"
         
-//                self.power = "regular"
-                self.power = "cutter"
+                self.power = "regular"
+//                self.power = "cutter"
 //        self.power = "blade"
 //        self.power = "beam"
 //        self.power = "magnet"
@@ -241,8 +247,8 @@ class Player {
 //        self.power = "tornado"
 //        self.power = "bomb"
 
-//                self.energyPos = -1
-                self.energyPos = 0
+                self.energyPos = -1
+//                self.energyPos = 0
 //        self.energyPos = 1
 //        self.energyPos = 2
 //        self.energyPos = 3
@@ -1562,6 +1568,53 @@ class Player {
     
     @objc func handleHitAnimation() {
         self.view.isHidden = !self.view.isHidden
+    }
+    
+    func cycleWeapon(isNext: Bool) {
+        
+        if isNext == true {
+            
+            if self.energyPos < energyCosts.count - 1 {
+                
+                self.energyPos += 1
+                
+                self.power = self.powers[self.energyPos]
+                
+                self.energyBar.setEnergy(energy: self.energies[self.energyPos])
+                
+            } else {
+                
+                self.energyPos = -1
+                
+                self.power = "regular"
+            }
+            
+        } else {
+            
+            if self.energyPos > 0 {
+                
+                self.energyPos -= 1
+                
+                self.power = self.powers[self.energyPos]
+                
+                self.energyBar.setEnergy(energy: self.energies[self.energyPos])
+                
+            } else if self.energyPos >= 0 {
+                
+                self.energyPos = -1
+                
+                self.power = "regular"
+                
+            } else {
+                
+                self.energyPos = self.powers.count - 1
+                
+                self.power = self.powers[self.energyPos]
+
+                self.energyBar.setEnergy(energy: self.energies[self.energyPos])
+            }
+        }
+        
     }
     
     //    func isInBounds() -> Bool {
