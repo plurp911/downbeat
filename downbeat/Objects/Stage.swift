@@ -54,8 +54,8 @@ class Stage {
 //    var tileSet: String = "fire"
 //    var tileSet: String = "tree"
 //    var tileSet: String = "metal"
-    var tileSet: String = "ice"
-
+//    var tileSet: String = "ice"
+    
     init(fileName: String) {
         
         let path = Bundle.main.path(forResource: fileName, ofType: "txt")

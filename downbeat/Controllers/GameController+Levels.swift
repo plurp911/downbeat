@@ -14,37 +14,59 @@ extension GameController {
     
         // BRICK
         
-//        let stages: [[Stage?]] = [[nil, nil, nil, Stage(fileName: "1-8"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
-//                                  [nil, nil, nil, Stage(fileName: "1-7"), nil, nil],
-//                                  [nil, nil, nil, Stage(fileName: "1-6"), nil, nil],
-//                                  [nil, Stage(fileName: "1-3"), Stage(fileName: "1-4"), Stage(fileName: "1-5"), nil, nil],
-//                                  [Stage(fileName: "1-1"), Stage(fileName: "1-2"), nil, nil, nil, nil]]
+        tileSet = "brick"
 
+        let brickStages = [[nil, nil, nil, Stage(fileName: "1-8"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
+                           [nil, nil, nil, Stage(fileName: "1-7"), nil, nil],
+                           [nil, nil, nil, Stage(fileName: "1-6"), nil, nil],
+                           [nil, Stage(fileName: "1-3"), Stage(fileName: "1-4"), Stage(fileName: "1-5"), nil, nil],
+                           [Stage(fileName: "1-1"), Stage(fileName: "1-2"), nil, nil, nil, nil]]
+        
         // FIRE
         
-//        let stages = [[nil, nil, Stage(fileName: "2-7"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
-//                      [nil, nil, Stage(fileName: "2-6"), nil, nil],
-//                      [nil, nil, Stage(fileName: "2-5"), nil, nil],
-//                      [nil, nil, Stage(fileName: "2-4"), nil, nil],
-//                      [Stage(fileName: "2-1"), Stage(fileName: "2-2"), Stage(fileName: "2-3"), nil]]
+        tileSet = "fire"
 
+        let fireStages = [[nil, nil, Stage(fileName: "2-7"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
+                          [nil, nil, Stage(fileName: "2-6"), nil, nil],
+                          [nil, nil, Stage(fileName: "2-5"), nil, nil],
+                          [nil, nil, Stage(fileName: "2-4"), nil, nil],
+                          [Stage(fileName: "2-1"), Stage(fileName: "2-2"), Stage(fileName: "2-3"), nil]]
+        
         // METAL
         
-//        let stages = [[Stage(fileName: "3-1"), Stage(fileName: "3-2"), Stage(fileName: "3-3"), Stage(fileName: "3-4"), nil, nil, nil, nil],
-//                      [nil, nil, nil, Stage(fileName: "3-5"), nil, nil, nil, nil],
-//                      [nil, nil, nil, Stage(fileName: "3-6"), nil, nil, nil, nil],
-//                      [nil, nil, nil, Stage(fileName: "3-7"), Stage(fileName: "3-8"), Stage(fileName: "3-9"), Stage(fileName: "1-9"), Stage(fileName: "1-10")]]
+        tileSet = "metal"
 
+        let metalStages = [[Stage(fileName: "3-1"), Stage(fileName: "3-2"), Stage(fileName: "3-3"), Stage(fileName: "3-4"), nil, nil, nil, nil],
+                           [nil, nil, nil, Stage(fileName: "3-5"), nil, nil, nil, nil],
+                           [nil, nil, nil, Stage(fileName: "3-6"), nil, nil, nil, nil],
+                           [nil, nil, nil, Stage(fileName: "3-7"), Stage(fileName: "3-8"), Stage(fileName: "3-9"), Stage(fileName: "1-9"), Stage(fileName: "1-10")]]
+        
+        // ICE
+        
+        tileSet = "ice"
+
+        let iceStages = [[Stage(fileName: "4-1"), Stage(fileName: "4-2"), Stage(fileName: "4-3"), Stage(fileName: "4-4"), nil, nil, nil, nil],
+                         [nil, nil, nil, Stage(fileName: "4-5"), Stage(fileName: "4-6"), Stage(fileName: "4-7"), Stage(fileName: "1-9"), Stage(fileName: "1-10")]]
+        
         // OTHER
         
-        let stages = [[Stage(fileName: "4-1"), Stage(fileName: "4-2"), Stage(fileName: "4-3"), Stage(fileName: "4-4"), nil, nil, nil, nil],
-                      [nil, nil, nil, Stage(fileName: "4-5"), Stage(fileName: "4-6"), Stage(fileName: "4-7"), Stage(fileName: "1-9"), Stage(fileName: "1-10")]]
+        tileSet = "other"
+
+        let otherStages = [[Stage(fileName: "1-1")]]
         
-        levels.append(Level(stages: stages))
+        // LOAD LEVELS
+        
+        levels.append(Level(stages: brickStages))
+        levels.append(Level(stages: fireStages))
+        levels.append(Level(stages: metalStages))
+        levels.append(Level(stages: iceStages))
+        levels.append(Level(stages: otherStages))
     }
     
     func setLevel(level: Level) {
         
+        gameView.backgroundColor = gameViewColor
+
         currentLevel = level
         currentStage = level.startStage
         

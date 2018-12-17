@@ -59,7 +59,7 @@ let stageSelectViewColor = UIColor(red: 30 / 255, green: 161 / 255, blue: 35 / 2
 //let gameViewColor = UIColor(red: 40 / 255, green: 174 / 255, blue: 190 / 255, alpha: 1)
 //let gameViewColor = UIColor(red: 34 / 255, green: 143 / 255, blue: 156 / 255, alpha: 1)
 //let gameViewColor = UIColor(red: 31 / 255, green: 127 / 255, blue: 139 / 255, alpha: 1)
-let gameViewColor = UIColor(red: 27 / 255, green: 111 / 255, blue: 121 / 255, alpha: 1)
+//var gameViewColor = UIColor(red: 27 / 255, green: 111 / 255, blue: 121 / 255, alpha: 1)
 
 // VARIABLES
 
@@ -102,6 +102,10 @@ var isTransitioningUp: Bool = false
 var isTransitioningDown: Bool = false
 
 var lives: Int = 3
+
+var gameViewColor: UIColor = UIColor.clear
+
+var tileSet: String = ""
 
 // OBJECTS
 

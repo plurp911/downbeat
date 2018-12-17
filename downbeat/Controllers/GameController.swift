@@ -97,6 +97,10 @@ class GameController: UIViewController {
         
         print("BRICK")
         
+        gameViewColor = UIColor(red: 75 / 255, green: 125 / 255, blue: 223 / 255, alpha: 1)
+
+        setLevel(level: levels[0])
+        updateStageSelectVisibility(isHidden: true)
     }
     
     lazy var fireStageView: UIImageView = {
@@ -116,6 +120,10 @@ class GameController: UIViewController {
         
         print("FIRE")
 
+        gameViewColor = UIColor(red: 55 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
+
+        setLevel(level: levels[1])
+        updateStageSelectVisibility(isHidden: true)
     }
     
     lazy var metalStageView: UIImageView = {
@@ -135,6 +143,10 @@ class GameController: UIViewController {
         
         print("METAL")
 
+        gameViewColor = UIColor(red: 152 / 255, green: 152 / 255, blue: 152 / 255, alpha: 1)
+
+        setLevel(level: levels[2])
+        updateStageSelectVisibility(isHidden: true)
     }
     
     lazy var iceStageView: UIImageView = {
@@ -154,6 +166,10 @@ class GameController: UIViewController {
         
         print("ICE")
 
+        gameViewColor = UIColor(red: 27 / 255, green: 111 / 255, blue: 121 / 255, alpha: 1)
+
+        setLevel(level: levels[3])
+        updateStageSelectVisibility(isHidden: true)
     }
     
     lazy var centerStageView: UIImageView = {
@@ -173,6 +189,8 @@ class GameController: UIViewController {
         
         print("CENTER")
 
+        setLevel(level: levels[4])
+        updateStageSelectVisibility(isHidden: true)
     }
     
     var gameView: UIView = {
@@ -422,6 +440,20 @@ class GameController: UIViewController {
         }
     }
     
+    func updateStageSelectVisibility(isHidden: Bool) {
+        
+        stageSelectView.isHidden = isHidden
+        stageSelectTitleView.isHidden = isHidden
+        topPipeStageSelectView.isHidden = isHidden
+        middlePipeStageSelectView.isHidden = isHidden
+        bottomPipeStageSelectView.isHidden = isHidden
+        brickStageView.isHidden = isHidden
+        fireStageView.isHidden = isHidden
+        metalStageView.isHidden = isHidden
+        iceStageView.isHidden = isHidden
+        centerStageView.isHidden = isHidden
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -431,8 +463,6 @@ class GameController: UIViewController {
         joystick.showViews()
         
         loadLevels()
-        
-        setLevel(level: levels[0])
         
         view.backgroundColor = backgroundColor
         
