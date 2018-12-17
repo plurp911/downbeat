@@ -278,11 +278,11 @@ class Stage {
 
                 } else if text == "=" {
 
-//                    if isEqual(i: i - 1, j: j, block: "=") {
-//                        blocks.append(Block(xPos: j, yPos: i, type: "ladder", tileSet: tileSet))
-//                    } else {
-//                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: tileSet))
-//                    }
+                    if isEqual(i: i - 1, j: j, block: "=") {
+                        blocks.append(Block(xPos: j, yPos: i, type: "ladder", tileSet: tileSet))
+                    } else {
+                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: tileSet))
+                    }
                     
                 } else if text == "!" {
                     
