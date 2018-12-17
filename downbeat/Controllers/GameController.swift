@@ -542,7 +542,7 @@ class GameController: UIViewController {
     
     func setupBrickStageView() {
         
-        let verticalSpacing: CGFloat = (240 - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
 //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
 
 //        print(verticalSpacing)
@@ -553,7 +553,7 @@ class GameController: UIViewController {
     
     func setupFireStageView() {
         
-        let verticalSpacing: CGFloat = (240 - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
         //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
         
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: fireStageView)
@@ -562,30 +562,30 @@ class GameController: UIViewController {
     
     func setupMetalStageView() {
         
-        let verticalSpacing: CGFloat = (240 - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
         //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
         
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: metalStageView)
-        setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16)), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 3) + (Block.width * (28 / 16) * 2), imageView: metalStageView, isCentered: false)
+        setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16)), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 3) + Block.width * (48 / 16) * 2, imageView: metalStageView, isCentered: false)
     }
     
     func setupIceStageView() {
         
-        let verticalSpacing: CGFloat = (240 - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
         //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
         
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: iceStageView)
-        setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16) * 3) + (Block.width * (48 / 16) * 2), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 3) + (Block.width * (28 / 16) * 2), imageView: iceStageView, isCentered: false)
+        setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16) * 3) + (Block.width * (48 / 16) * 2), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 3) + Block.width * (48 / 16) * 2, imageView: iceStageView, isCentered: false)
     }
     
     func setupCenterStageView() {
         
-        let verticalSpacing: CGFloat = (240 - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
         //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
         
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: centerStageView)
         setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: 0, imageView: centerStageView, isCentered: true)
-        setXY(x: centerStageView.frame.origin.x, y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 2) + Block.width * (28 / 16), imageView: centerStageView, isCentered: false)
+        setXY(x: centerStageView.frame.origin.x, y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 2) + Block.width * (48 / 16), imageView: centerStageView, isCentered: false)
     }
     
     func setupTopPipeStageSelectView() {
