@@ -47,7 +47,84 @@ class GameController: UIViewController {
         return view
     }()
     
+    var topPipeStageSelectView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectPipe")
+        //        view.isHidden = true
+        return view
+    }()
+    
+    var middlePipeStageSelectView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectPipe")
+        //        view.isHidden = true
+        return view
+    }()
+    
+    var bottomPipeStageSelectView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectPipe")
+        //        view.isHidden = true
+        return view
+    }()
+    
     var brickStageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectTile")
+        //        view.isHidden = true
+        return view
+    }()
+    
+    var fireStageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectTile")
+        //        view.isHidden = true
+        return view
+    }()
+    
+    var metalStageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectTile")
+        //        view.isHidden = true
+        return view
+    }()
+    
+    var iceStageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectTile")
+        //        view.isHidden = true
+        return view
+    }()
+    
+    var centerStageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -337,7 +414,14 @@ class GameController: UIViewController {
         
         view.addSubview(stageSelectView)
         view.addSubview(stageSelectTitleView)
+        view.addSubview(topPipeStageSelectView)
+        view.addSubview(middlePipeStageSelectView)
+        view.addSubview(bottomPipeStageSelectView)
         view.addSubview(brickStageView)
+        view.addSubview(fireStageView)
+        view.addSubview(metalStageView)
+        view.addSubview(iceStageView)
+        view.addSubview(centerStageView)
 
         setupStageSelectView()
         setupGameView()
@@ -441,6 +525,13 @@ class GameController: UIViewController {
         
         setupStageSelectTitleView()
         setupBrickStageView()
+        setupFireStageView()
+        setupMetalStageView()
+        setupIceStageView()
+        setupCenterStageView()
+        setupTopPipeStageSelectView()
+        setupMiddlePipeStageSelectView()
+        setupBottomPipeStageSelectView()
     }
     
     func setupStageSelectTitleView() {
@@ -454,9 +545,64 @@ class GameController: UIViewController {
         let verticalSpacing: CGFloat = (240 - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
 //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
 
-        print(verticalSpacing)
+//        print(verticalSpacing)
 
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: brickStageView)
         setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16)), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + verticalSpacing, imageView: brickStageView, isCentered: false)
+    }
+    
+    func setupFireStageView() {
+        
+        let verticalSpacing: CGFloat = (240 - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
+        
+        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: fireStageView)
+        setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16) * 3) + (Block.width * (48 / 16) * 2), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + verticalSpacing, imageView: fireStageView, isCentered: false)
+    }
+    
+    func setupMetalStageView() {
+        
+        let verticalSpacing: CGFloat = (240 - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
+        
+        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: metalStageView)
+        setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16)), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 3) + (Block.width * (28 / 16) * 2), imageView: metalStageView, isCentered: false)
+    }
+    
+    func setupIceStageView() {
+        
+        let verticalSpacing: CGFloat = (240 - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
+        
+        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: iceStageView)
+        setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16) * 3) + (Block.width * (48 / 16) * 2), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 3) + (Block.width * (28 / 16) * 2), imageView: iceStageView, isCentered: false)
+    }
+    
+    func setupCenterStageView() {
+        
+        let verticalSpacing: CGFloat = (240 - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
+        
+        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: centerStageView)
+        setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: 0, imageView: centerStageView, isCentered: true)
+        setXY(x: centerStageView.frame.origin.x, y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 2) + Block.width * (28 / 16), imageView: centerStageView, isCentered: false)
+    }
+    
+    func setupTopPipeStageSelectView() {
+        
+        setWidthHeight(width: Block.width * (256 / 16), height: Block.height * (8 / 16), imageView: topPipeStageSelectView)
+        setXY(x: centerStageView.frame.origin.x + (centerStageView.frame.size.width / 2), y: brickStageView.frame.origin.y + (brickStageView.frame.size.height / 2), imageView: topPipeStageSelectView, isCentered: true)
+    }
+    
+    func setupMiddlePipeStageSelectView() {
+        
+        setWidthHeight(width: Block.width * (256 / 16), height: Block.height * (8 / 16), imageView: middlePipeStageSelectView)
+        setXY(x: centerStageView.frame.origin.x + (centerStageView.frame.size.width / 2), y: centerStageView.frame.origin.y + (centerStageView.frame.size.height / 2), imageView: middlePipeStageSelectView, isCentered: true)
+    }
+    
+    func setupBottomPipeStageSelectView() {
+        
+        setWidthHeight(width: Block.width * (256 / 16), height: Block.height * (8 / 16), imageView: bottomPipeStageSelectView)
+        setXY(x: centerStageView.frame.origin.x + (centerStageView.frame.size.width / 2), y: metalStageView.frame.origin.y + (metalStageView.frame.size.height / 2), imageView: bottomPipeStageSelectView, isCentered: true)
     }
 }
