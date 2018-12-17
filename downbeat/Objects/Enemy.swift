@@ -2767,7 +2767,7 @@ class Enemy {
                 self.view.animationDuration = 0.15
                 self.view.startAnimating()
             }
-            
+
             self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(realShoot), userInfo: nil, repeats: false)
         }
     }
@@ -3124,8 +3124,22 @@ class Enemy {
             }
         }
         
-        self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
-        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+        if self.type == "shooter" {
+            
+            var offset: CGFloat = 0
+            
+            if self.y < screenSize.height / 2 {
+                offset = 0.5
+            }
+            
+            self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval + offset), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval + offset - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            
+        } else {
+            
+            self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+        }
     }
     
     @objc func stopStun() {

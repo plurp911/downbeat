@@ -37,7 +37,8 @@ extension GameController {
 
         // OTHER
         
-        let stages = [[Stage(fileName: "4-1"), Stage(fileName: "4-2"), Stage(fileName: "4-3")]]
+        let stages = [[Stage(fileName: "4-1"), Stage(fileName: "4-2"), Stage(fileName: "4-3"), Stage(fileName: "4-4")],
+                      [nil, nil, nil, Stage(fileName: "4-5")]]
         
         levels.append(Level(stages: stages))
     }
