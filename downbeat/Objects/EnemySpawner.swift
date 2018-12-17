@@ -78,11 +78,12 @@ class EnemySpawner {
             self.height = self.width
             
 //            self.spawnTimeInterval = 3
-            self.spawnTimeInterval = 1.25
-            
-//            self.startSpawnTimeInterval = 0.25
-            self.startSpawnTimeInterval = 0
-            
+//            self.spawnTimeInterval = 1.25
+            self.spawnTimeInterval = 2
+
+//            self.startSpawnTimeInterval = 0
+            self.startSpawnTimeInterval = 1
+
         } else if self.type == "drop" {
             
             self.width = Block.width
@@ -154,15 +155,13 @@ class EnemySpawner {
             
         } else if self.type == "special" {
             
-//            let enemyWidth: CGFloat = Block.width
-//
-//            if self.x - (enemyWidth / 2) >= 0 && self.x + (enemyWidth / 2) <= screenSize.height * (screenRatio) {
-//                return true
-//            }
-            
-            print("1")
+            let enemyWidth: CGFloat = Block.width
 
-            return true
+            if self.x - (enemyWidth / 2) >= 0 && self.x + (enemyWidth / 2) <= screenSize.height * (screenRatio) {
+                return true
+            }
+            
+//            return true
 
         } else if self.type == "drop" {
             
@@ -188,10 +187,12 @@ class EnemySpawner {
                 self.spawn()
 
             } else {
+                
+                let value: CGFloat = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
             
                 self.startSpawnTimer.invalidate()
                 
-                self.startSpawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.startSpawnTimeInterval), target: self, selector: #selector(startSpawnLoop), userInfo: nil, repeats: false)
+                self.startSpawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.startSpawnTimeInterval * value), target: self, selector: #selector(startSpawnLoop), userInfo: nil, repeats: false)
             }
         }
         
@@ -238,20 +239,23 @@ class EnemySpawner {
             
         } else if self.type == "special" {
             
-            let bulletSpeed: CGFloat = 1.5
+            let value: CGFloat = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
             
+//            let bulletSpeed: CGFloat = 1.5
+            let bulletSpeed: CGFloat = 0.9
+
             let xOffset: CGFloat = Block.width * (0 / 16)
             let yOffset: CGFloat = Block.height * (16 / 16)
             
             if self.direction == "up" {
                 
 //                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeed, type: "special"))
-                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: 0, ySpeed: -bulletSpeed, type: "special"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: 0, ySpeed: -bulletSpeed - value, type: "special"))
 
             } else if self.direction == "down" {
                 
 //                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: 0, ySpeed: bulletSpeed, type: "special"))
-                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: 0, ySpeed: bulletSpeed, type: "special"))
+                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: 0, ySpeed: bulletSpeed + value, type: "special"))
             }
             
         } else if self.type == "drop" {
