@@ -2095,14 +2095,14 @@ class Enemy {
             
         } else if self.type == "shooter" {
             
-            if player.x > self.x {
-
-                self.direction = "right"
-
-            } else if player.x < self.x {
-
-                self.direction = "left"
-            }
+//            if player.x > self.x {
+//
+//                self.direction = "right"
+//
+//            } else if player.x < self.x {
+//
+//                self.direction = "left"
+//            }
             
         } else if self.type == "scooper" {
 
@@ -2564,16 +2564,16 @@ class Enemy {
                                 
                             } else {
                                 
-//                                if (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
-//
-//                                    return i
-//
-//                                } else {
-//
-//                                    self.handleDeflectBullet(i: i)
-//                                }
+                                if (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
+
+                                    return i
+
+                                } else {
+
+                                    self.handleDeflectBullet(i: i)
+                                }
                                 
-                                self.handleDeflectBullet(i: i)
+//                                self.handleDeflectBullet(i: i)
                             }
                             
                         } else if bullets[i].type == "cutter" {

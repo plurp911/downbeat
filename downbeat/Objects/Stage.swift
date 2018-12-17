@@ -53,7 +53,8 @@ class Stage {
 //    var tileSet: String = "brick"
 //    var tileSet: String = "fire"
 //    var tileSet: String = "tree"
-    var tileSet: String = "metal"
+//    var tileSet: String = "metal"
+    var tileSet: String = "ice"
 
     init(fileName: String) {
         
@@ -98,7 +99,7 @@ class Stage {
                             
                             blocks.append(Block(xPos: j, yPos: i, type: "topTop", tileSet: tileSet))
 
-                        } else if tileSet == "metal" {
+                        } else if tileSet == "metal" || tileSet == "ice" {
                             
                             if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
                                 
@@ -146,7 +147,7 @@ class Stage {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
                             }
                             
-                        } else if tileSet == "metal" {
+                        } else if tileSet == "metal" || tileSet == "ice" {
                             
                             if i < numberOfVerticalBricks - 1 {
                                 
@@ -199,7 +200,7 @@ class Stage {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
                             }
                             
-                        } else if tileSet == "metal" {
+                        } else if tileSet == "metal" || tileSet == "ice" {
                             
                             if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
                                 
@@ -243,7 +244,7 @@ class Stage {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
                             }
                             
-                        } else if tileSet == "metal" {
+                        } else if tileSet == "metal" || tileSet == "ice" {
                             
                             if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
                                 
@@ -277,11 +278,11 @@ class Stage {
 
                 } else if text == "=" {
 
-                    if isEqual(i: i - 1, j: j, block: "=") {
-                        blocks.append(Block(xPos: j, yPos: i, type: "ladder", tileSet: tileSet))
-                    } else {
-                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: tileSet))
-                    }
+//                    if isEqual(i: i - 1, j: j, block: "=") {
+//                        blocks.append(Block(xPos: j, yPos: i, type: "ladder", tileSet: tileSet))
+//                    } else {
+//                        blocks.append(Block(xPos: j, yPos: i, type: "topLadder", tileSet: tileSet))
+//                    }
                     
                 } else if text == "!" {
                     

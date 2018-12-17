@@ -50,7 +50,13 @@ let mainButtonTextColor = UIColor.white
 
 // METAL
 
-let gameViewColor = UIColor(red: 152 / 255, green: 152 / 255, blue: 152 / 255, alpha: 1)
+//let gameViewColor = UIColor(red: 152 / 255, green: 152 / 255, blue: 152 / 255, alpha: 1)
+
+// ICE
+
+//let gameViewColor = UIColor(red: 27 / 255, green: 111 / 255, blue: 121 / 255, alpha: 1)
+let gameViewColor = UIColor(red: 25 / 255, green: 100 / 255, blue: 109 / 255, alpha: 1)
+//let gameViewColor = UIColor(red: 22 / 255, green: 89 / 255, blue: 97 / 255, alpha: 1)
 
 // VARIABLES
 
