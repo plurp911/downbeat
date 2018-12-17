@@ -26,6 +26,27 @@ class GameController: UIViewController {
     
     var isOnJoyStick: Bool = false
 
+    var stageSelectView: UIView = {
+        let view = UIView()
+        view.backgroundColor = stageSelectViewColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.borderWidth = 0
+        view.layer.borderColor = UIColor.black.cgColor
+//        view.isHidden = true
+        return view
+    }()
+    
+    var stageSelectTitleView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectTitle")
+        //        view.isHidden = true
+        return view
+    }()
+    
     var gameView: UIView = {
         let view = UIView()
         view.backgroundColor = gameViewColor
@@ -253,6 +274,18 @@ class GameController: UIViewController {
         return view
     }()
     
+    func setWidthHeight(width: CGFloat, height: CGFloat, imageView: UIImageView) {
+        
+        imageView.frame.size.width = width
+        imageView.frame.size.height = height
+    }
+    
+    func setXY(x: CGFloat, y: CGFloat, imageView: UIImageView) {
+        
+        imageView.frame.origin.x = x - (imageView.frame.size.width / 2)
+        imageView.frame.origin.y = y - (imageView.frame.size.height / 2)
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -275,7 +308,7 @@ class GameController: UIViewController {
         view.addSubview(upButton)
         view.addSubview(downButton)
         view.addSubview(joystickView)
-        
+
         joystickView.addSubview(joystick.outerView)
         joystickView.addSubview(joystick.innerView)
         
@@ -283,6 +316,10 @@ class GameController: UIViewController {
         view.addSubview(jumpButton)
         view.addSubview(shootButton)
         
+        view.addSubview(stageSelectView)
+        view.addSubview(stageSelectTitleView)
+
+        setupStageSelectView()
         setupGameView()
         setupLeftCoverView()
         setupRightCoverView()
@@ -294,6 +331,13 @@ class GameController: UIViewController {
         setupDownButton()
         setupJoystickView()
         setupTouchView()
+    }
+    
+    func setupStageSelectView() {
+        stageSelectView.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
+        stageSelectView.centerYAnchor.constraint(equalTo: gameView.centerYAnchor).isActive = true
+        stageSelectView.widthAnchor.constraint(equalTo: gameView.widthAnchor).isActive = true
+        stageSelectView.heightAnchor.constraint(equalTo: gameView.heightAnchor).isActive = true
     }
     
     func setupGameView() {
@@ -371,5 +415,16 @@ class GameController: UIViewController {
         touchView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         touchView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         touchView.rightAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        
+        setupStageSelectTitleView()
+    }
+    
+    func setupStageSelectTitleView() {
+        
+        setWidthHeight(width: Block.width * (256 / 16), height: Block.height * (7 / 16), imageView: stageSelectTitleView)
+        setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: Block.height * 1, imageView: stageSelectTitleView)
     }
 }
