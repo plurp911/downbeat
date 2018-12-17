@@ -80,60 +80,100 @@ class GameController: UIViewController {
         return view
     }()
     
-    var brickStageView: UIImageView = {
+    lazy var brickStageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
         view.image = UIImage(named: "stageSelectTile")
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBrickStage)))
         //        view.isHidden = true
         return view
     }()
     
-    var fireStageView: UIImageView = {
+    @objc func handleBrickStage() {
+        
+        print("BRICK")
+        
+    }
+    
+    lazy var fireStageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
         view.image = UIImage(named: "stageSelectTile")
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleFireStage)))
         //        view.isHidden = true
         return view
     }()
     
-    var metalStageView: UIImageView = {
+    @objc func handleFireStage() {
+        
+        print("FIRE")
+
+    }
+    
+    lazy var metalStageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
         view.image = UIImage(named: "stageSelectTile")
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMetalStage)))
         //        view.isHidden = true
         return view
     }()
     
-    var iceStageView: UIImageView = {
+    @objc func handleMetalStage() {
+        
+        print("METAL")
+
+    }
+    
+    lazy var iceStageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
         view.image = UIImage(named: "stageSelectTile")
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleIceStage)))
         //        view.isHidden = true
         return view
     }()
     
-    var centerStageView: UIImageView = {
+    @objc func handleIceStage() {
+        
+        print("ICE")
+
+    }
+    
+    lazy var centerStageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
         view.image = UIImage(named: "stageSelectTile")
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleCenterStage)))
         //        view.isHidden = true
         return view
     }()
+    
+    @objc func handleCenterStage() {
+        
+        print("CENTER")
+
+    }
     
     var gameView: UIView = {
         let view = UIView()
