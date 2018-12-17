@@ -26,6 +26,36 @@ class GameController: UIViewController {
     
     var isOnJoyStick: Bool = false
 
+    lazy var titleView: UIView = {
+        let view = UIView()
+        view.backgroundColor = titleViewColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.borderWidth = 0
+        view.layer.borderColor = UIColor.black.cgColor
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTitleView)))
+        //        view.isHidden = true
+        return view
+    }()
+    
+    @objc func handleTitleView() {
+        
+        print("TITLE")
+        
+        updateTitleVisibility(isHidden: true)
+    }
+    
+    var titleLogoView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "titleLogo")
+        //        view.isHidden = true
+        return view
+    }()
+    
     var stageSelectView: UIView = {
         let view = UIView()
         view.backgroundColor = stageSelectViewColor
@@ -454,6 +484,12 @@ class GameController: UIViewController {
         centerStageView.isHidden = isHidden
     }
     
+    func updateTitleVisibility(isHidden: Bool) {
+        
+        titleView.isHidden = isHidden
+        titleLogoView.isHidden = isHidden
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -492,7 +528,11 @@ class GameController: UIViewController {
         view.addSubview(metalStageView)
         view.addSubview(iceStageView)
         view.addSubview(centerStageView)
+        
+        view.addSubview(titleView)
+        view.addSubview(titleLogoView)
 
+        setupTitleView()
         setupStageSelectView()
         setupGameView()
         setupLeftCoverView()
@@ -505,6 +545,13 @@ class GameController: UIViewController {
         setupDownButton()
         setupJoystickView()
         setupTouchView()
+    }
+    
+    func setupTitleView() {
+        titleView.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
+        titleView.centerYAnchor.constraint(equalTo: gameView.centerYAnchor).isActive = true
+        titleView.widthAnchor.constraint(equalTo: gameView.widthAnchor).isActive = true
+        titleView.heightAnchor.constraint(equalTo: gameView.heightAnchor).isActive = true
     }
     
     func setupStageSelectView() {
@@ -602,6 +649,14 @@ class GameController: UIViewController {
         setupTopPipeStageSelectView()
         setupMiddlePipeStageSelectView()
         setupBottomPipeStageSelectView()
+        
+        setupTitleLogoView()
+    }
+    
+    func setupTitleLogoView() {
+        
+        setWidthHeight(width: Block.width * (140 / 16), height: Block.height * (60 / 16), imageView: titleLogoView)
+        setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: (titleLogoView.frame.size.height / 2) + Block.height * 2.35, imageView: titleLogoView, isCentered: true)
     }
     
     func setupStageSelectTitleView() {
