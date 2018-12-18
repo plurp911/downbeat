@@ -19,19 +19,28 @@ class GameController: UIViewController {
     let mainButtonSpacing: CGFloat = 32.5
 
     let joystickSpacing: CGFloat = 35
-
+    
+    let opacityChange: CGFloat = 0.0065
+    
     // VARIABLES
     
     var moveTimer = Timer()
     
     var isOnJoyStick: Bool = false
-
-    lazy var titleView: UIView = {
-        let view = UIView()
-        view.backgroundColor = titleViewColor
+    
+    var startTitleTextTimer = Timer()
+    
+    var startTitleTextOpacity: CGFloat = 1
+    
+    var isGettingDarker: Bool = false
+    
+    lazy var titleView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.borderWidth = 0
-        view.layer.borderColor = UIColor.black.cgColor
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "titleBackground")
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTitleView)))
         //        view.isHidden = true
@@ -52,6 +61,17 @@ class GameController: UIViewController {
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
         view.image = UIImage(named: "titleLogo")
+        //        view.isHidden = true
+        return view
+    }()
+    
+    var startTitleTextView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "startTitleText")
         //        view.isHidden = true
         return view
     }()
@@ -130,6 +150,8 @@ class GameController: UIViewController {
         gameViewColor = UIColor(red: 75 / 255, green: 125 / 255, blue: 223 / 255, alpha: 1)
 
         setLevel(level: levels[0])
+        
+        updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
     }
     
@@ -153,6 +175,8 @@ class GameController: UIViewController {
         gameViewColor = UIColor(red: 55 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
 
         setLevel(level: levels[1])
+        
+        updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
     }
     
@@ -176,6 +200,8 @@ class GameController: UIViewController {
         gameViewColor = UIColor(red: 152 / 255, green: 152 / 255, blue: 152 / 255, alpha: 1)
 
         setLevel(level: levels[2])
+        
+        updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
     }
     
@@ -199,6 +225,8 @@ class GameController: UIViewController {
         gameViewColor = UIColor(red: 27 / 255, green: 111 / 255, blue: 121 / 255, alpha: 1)
 
         setLevel(level: levels[3])
+        
+        updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
     }
     
@@ -220,6 +248,8 @@ class GameController: UIViewController {
         print("CENTER")
 
         setLevel(level: levels[4])
+        
+        updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
     }
     
@@ -557,11 +587,53 @@ class GameController: UIViewController {
         
         titleView.isHidden = isHidden
         titleLogoView.isHidden = isHidden
+        startTitleTextView.isHidden = isHidden
+    }
+    
+    func updateControlVisibility(isHidden: Bool) {
+        
+        joystickView.isHidden = isHidden
+        touchView.isHidden = isHidden
+        jumpButton.isHidden = isHidden
+        shootButton.isHidden = isHidden
+        pauseButton.isHidden = isHidden
+        weaponLeftButton.isHidden = isHidden
+        weaponRightButton.isHidden = isHidden
+    }
+    
+    @objc func updateStartTitleTextOpacity() {
+        
+        if isGettingDarker == true {
+            
+            startTitleTextOpacity += opacityChange
+            
+            if startTitleTextOpacity >= 1 {
+                
+                startTitleTextOpacity = 1
+                
+                isGettingDarker = false
+            }
+            
+        } else {
+            
+            startTitleTextOpacity -= opacityChange
+            
+            if startTitleTextOpacity <= 0 {
+                
+                startTitleTextOpacity = 0
+                
+                isGettingDarker = true
+            }
+        }
+        
+        startTitleTextView.alpha = startTitleTextOpacity
     }
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        startTitleTextTimer = Timer.scheduledTimer(timeInterval: 1 / 120, target: self, selector: #selector(updateStartTitleTextOpacity), userInfo: nil, repeats: true)
         
         joystick.setOuterXY(x: Joystick.outerRadius + (joystickSpacing * 2.5), y: screenSize.height - Joystick.outerRadius - (joystickSpacing * 0.5))
         joystick.resetInnerXY()
@@ -603,6 +675,7 @@ class GameController: UIViewController {
         
         view.addSubview(titleView)
         view.addSubview(titleLogoView)
+        view.addSubview(startTitleTextView)
 
         setupTitleView()
         setupStageSelectView()
@@ -620,6 +693,8 @@ class GameController: UIViewController {
         setupDownButton()
         setupJoystickView()
         setupTouchView()
+        
+        updateControlVisibility(isHidden: true)
     }
     
     func setupTitleView() {
@@ -747,12 +822,19 @@ class GameController: UIViewController {
         setupBottomPipeStageSelectView()
         
         setupTitleLogoView()
+        setupStartTitleTextView()
     }
     
     func setupTitleLogoView() {
         
         setWidthHeight(width: Block.width * (140 / 16), height: Block.height * (60 / 16), imageView: titleLogoView)
-        setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: (titleLogoView.frame.size.height / 2) + Block.height * 2.35, imageView: titleLogoView, isCentered: true)
+        setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: (titleLogoView.frame.size.height / 2) + Block.height * 3, imageView: titleLogoView, isCentered: true)
+    }
+    
+    func setupStartTitleTextView() {
+        
+        setWidthHeight(width: Block.width * (93 / 16), height: Block.height * (7 / 16), imageView: startTitleTextView)
+        setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: (titleLogoView.frame.size.height / 2) + Block.height * 8.125, imageView: startTitleTextView, isCentered: true)
     }
     
     func setupStageSelectTitleView() {
