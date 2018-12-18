@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "energyBarBackground.png",
+      "filename" : "healthBarBackground.png",
       "scale" : "1x"
     },
     {

@@ -52,8 +52,11 @@ class EnergyBarTick {
             
         } else if self.type == "energy" {
             
-            self.view.image = UIImage(named: "energyBarTick")
+            self.view.image = UIImage(named: "bombEnergyBarTick")
         }
     }
     
+    func updateImage(power: String) {
+        self.view.image = UIImage(named: "\(power)EnergyBarTick")
+    }
 }

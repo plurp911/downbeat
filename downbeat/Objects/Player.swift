@@ -12,8 +12,10 @@ class Player {
     
     // CONSTANTS
     
-    static let maxHealth: Int = 28
-    static let maxEnergy: Int = 28
+//    static let maxHealth: Int = 28
+//    static let maxEnergy: Int = 28
+    static let maxHealth: Int = 32
+    static let maxEnergy: Int = 32
     
     static let width: CGFloat = Block.width * 0.75
     static let height: CGFloat = Block.height * 1.5
@@ -262,6 +264,8 @@ class Player {
         if self.energyPos >= 0 {
             self.energyBar.setEnergy(energy: self.energies[self.energyPos])
         }
+        
+        self.energyBar.updateImages(power: self.power)
     }
     
     func move(direction: String) {
@@ -1615,6 +1619,9 @@ class Player {
             }
         }
         
+        print(self.power)
+        
+        self.energyBar.updateImages(power: self.power)
     }
     
     //    func isInBounds() -> Bool {

@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "energyBarBackground.png",
+      "filename" : "bombEnergyBarTick.png",
       "scale" : "1x"
     },
     {
