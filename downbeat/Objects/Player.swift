@@ -159,8 +159,10 @@ class Player {
         
         setXY(x: self.x, y: self.y)
         
-        self.view.frame.size.width = Block.width * (30 / 16)
-        self.view.frame.size.height = Block.height * (30 / 16)
+//        self.view.frame.size.width = Block.width * (30 / 16)
+//        self.view.frame.size.height = Block.height * (30 / 16)
+        self.view.frame.size.width = Block.width * (31 / 16)
+        self.view.frame.size.height = Block.height * (31 / 16)
         
         self.view.backgroundColor = Player.color
         
@@ -261,11 +263,11 @@ class Player {
 
         self.healthBar.setEnergy(energy: self.health)
         
+        self.energyBar.updateImages(power: self.power)
+
         if self.energyPos >= 0 {
             self.energyBar.setEnergy(energy: self.energies[self.energyPos])
         }
-        
-        self.energyBar.updateImages(power: self.power)
     }
     
     func move(direction: String) {
@@ -1584,6 +1586,7 @@ class Player {
                 
                 self.power = self.powers[self.energyPos]
                 
+                self.energyBar.updateImages(power: self.power)
                 self.energyBar.setEnergy(energy: self.energies[self.energyPos])
                 
             } else {
@@ -1591,6 +1594,8 @@ class Player {
                 self.energyPos = -1
                 
                 self.power = "regular"
+                
+                self.energyBar.updateImages(power: self.power)
             }
             
         } else {
@@ -1601,6 +1606,7 @@ class Player {
                 
                 self.power = self.powers[self.energyPos]
                 
+                self.energyBar.updateImages(power: self.power)
                 self.energyBar.setEnergy(energy: self.energies[self.energyPos])
                 
             } else if self.energyPos >= 0 {
@@ -1609,19 +1615,19 @@ class Player {
                 
                 self.power = "regular"
                 
+                self.energyBar.updateImages(power: self.power)
+
             } else {
                 
                 self.energyPos = self.powers.count - 1
                 
                 self.power = self.powers[self.energyPos]
 
+                self.energyBar.updateImages(power: self.power)
                 self.energyBar.setEnergy(energy: self.energies[self.energyPos])
             }
         }
         
-        print(self.power)
-        
-        self.energyBar.updateImages(power: self.power)
     }
     
     //    func isInBounds() -> Bool {
