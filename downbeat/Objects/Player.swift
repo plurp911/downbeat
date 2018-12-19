@@ -882,61 +882,72 @@ class Player {
                     
                     self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
                     
+                    var yOffset: CGFloat = 0
+                    
+                    if self.isClimbing == true {
+                        
+                        yOffset = -Block.height * (1 / 16)
+                        
+                    } else if self.view.isAnimating == true {
+                        
+                        yOffset = Block.height * (1 / 16)
+                    }
+                    
                     if self.power == "regular" {
                         
                         if self.direction == "left" {
                             
-                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
-                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                         }
                         
                     } else if self.power == "cutter" {
                         
                         if self.direction == "left" {
                             
-                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
-                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                         }
                         
                     } else if self.power == "blade" {
                         
                         if self.direction == "left" {
 
-                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upLeft", type: self.power))
-                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downLeft", type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: "upLeft", type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: "downLeft", type: self.power))
                             
                         } else if self.direction == "right" {
                             
-                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "upRight", type: self.power))
-                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: "downRight", type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: "upRight", type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: "downRight", type: self.power))
                         }
                         
                     } else if self.power == "beam" {
                         
                         if self.direction == "left" {
                             
-                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
-                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                         }
                         
                     } else if self.power == "magnet" {
                         
                         if self.direction == "left" {
                             
-                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
-                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                         }
                         
                     } else if self.power == "shield" {
@@ -959,37 +970,37 @@ class Player {
                         
                         if self.direction == "left" {
                             
-                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, moveSpeed: 0.6, direction: self.direction, type: self.power))
-                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, moveSpeed: 1, direction: self.direction, type: self.power))
-                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet, moveSpeed: 1.4, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, moveSpeed: 0.6, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, moveSpeed: 1, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, moveSpeed: 1.4, direction: self.direction, type: self.power))
 
                         } else if self.direction == "right" {
                             
-                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, moveSpeed: 0.6, direction: self.direction, type: self.power))
-                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, moveSpeed: 1, direction: self.direction, type: self.power))
-                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet, moveSpeed: 1.4, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, moveSpeed: 0.6, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, moveSpeed: 1, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, moveSpeed: 1.4, direction: self.direction, type: self.power))
                         }
                         
                     } else if self.power == "bubble" {
                         
                         if self.direction == "left" {
                             
-                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet - (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet - (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
-                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet + (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet + (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                         }
                         
                     } else if self.power == "bomb" {
                         
                         if self.direction == "left" {
                             
-                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet - (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet - (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
-                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet + (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet, direction: self.direction, type: self.power))
+                            bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet + (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                         }
                     }
                     
