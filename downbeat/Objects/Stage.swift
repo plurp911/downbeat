@@ -417,6 +417,30 @@ class Stage {
 
                     enemies.append(Enemy(xPos: j, yPos: i, type: "brickBoss"))
                     
+                } else if text == "|" {
+                    
+                    self.boss = "bomb"
+//                    self.boss = "blade"
+                    
+//                    enemies.append(Enemy(xPos: j, yPos: i, type: "fireBoss"))
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "brickBoss"))
+
+                } else if text == "{" {
+                    
+                    self.boss = "bomb"
+                    //                    self.boss = "bubble"
+                    
+                    //                    enemies.append(Enemy(xPos: j, yPos: i, type: "metalBoss"))
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "brickBoss"))
+                    
+                } else if text == "}" {
+                    
+                    self.boss = "bomb"
+                    //                    self.boss = "cutter"
+                    
+                    //                    enemies.append(Enemy(xPos: j, yPos: i, type: "iceBoss"))
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "brickBoss"))
+                    
                 } else if text == "H" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "hat", direction: "right"))
                 } else if text == "h" {

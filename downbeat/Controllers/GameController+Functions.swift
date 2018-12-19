@@ -489,7 +489,7 @@ extension GameController {
                         
                         explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "explosion"))
                         
-                        if selectedEnemies[i].type == "brickBoss" {
+                        if selectedEnemies[i].type == "brickBoss" || selectedEnemies[i].type == "fireBoss" || selectedEnemies[i].type == "metalBoss" || selectedEnemies[i].type == "iceBoss"  {
                             
                             print("YOU WIN")
 
