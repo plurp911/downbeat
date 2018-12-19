@@ -103,6 +103,20 @@ class Enemy {
     static let fireBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
     static let fireBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
     static let fireBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
+
+    static let metalBossStandLeftImage = UIImage(named: "brickBossStandLeft")
+    static let metalBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
+    static let metalBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
+    static let metalBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
+    static let metalBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
+    static let metalBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
+    
+    static let iceBossStandLeftImage = UIImage(named: "brickBossStandLeft")
+    static let iceBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
+    static let iceBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
+    static let iceBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
+    static let iceBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
+    static let iceBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
     
     static let checkMargin: CGFloat = Block.width * (1 / 16)
 
@@ -4208,13 +4222,24 @@ class Enemy {
                 
             } else {
                 
+//                if self.direction == "left" {
+//
+//                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "blade"))
+//
+//                } else if self.direction == "right" {
+//
+//                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "blade"))
+//                }
+                
                 if self.direction == "left" {
                     
-                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "bomb"))
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "upLeft", type: "blade"))
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "downLeft", type: "blade"))
                     
                 } else if self.direction == "right" {
                     
-                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "bomb"))
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "upRight", type: "blade"))
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "downRight", type: "blade"))
                 }
             }
             
@@ -4231,13 +4256,22 @@ class Enemy {
                 
             } else {
                 
+//                if self.direction == "left" {
+//
+//                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "bubble"))
+//
+//                } else if self.direction == "right" {
+//
+//                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "bubble"))
+//                }
+                
                 if self.direction == "left" {
                     
-                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "bomb"))
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
                     
                 } else if self.direction == "right" {
                     
-                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "bomb"))
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
                 }
             }
             
@@ -4254,13 +4288,22 @@ class Enemy {
                 
             } else {
                 
+//                if self.direction == "left" {
+//
+//                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "cutter"))
+//
+//                } else if self.direction == "right" {
+//
+//                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "cutter"))
+//                }
+                
                 if self.direction == "left" {
                     
-                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "bomb"))
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "cutter"))
                     
                 } else if self.direction == "right" {
                     
-                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "bomb"))
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "cutter"))
                 }
             }
             
@@ -4515,5 +4558,21 @@ class Enemy {
         self.signalTimer.invalidate()
         self.endStunTimer.invalidate()
         self.endHitTimer.invalidate()
+    }
+    
+    func didHitOwnBullet() -> Int {
+        
+        for i in 0 ..< enemyBullets.count {
+            
+            if enemyBullets[i].type == "cutter" &&  enemyBullets[i].didReachGoal == true {
+                
+                if enemyBullets[i].x + (enemyBullets[i].width / 2) >= self.x - (self.width / 2) && enemyBullets[i].x - (enemyBullets[i].width / 2) <= self.x + (enemyBullets[i].width / 2) && enemyBullets[i].y + (enemyBullets[i].height / 2) >= self.y - (self.height / 2) && enemyBullets[i].y - (enemyBullets[i].height / 2) <= self.y + (self.height / 2) {
+                    return i
+                }
+                
+            }
+        }
+        
+        return -1
     }
 }

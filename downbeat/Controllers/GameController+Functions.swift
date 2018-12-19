@@ -322,6 +322,12 @@ extension GameController {
                     
                     enemyBulletsToRemove.append(i)
                     
+                } else if enemyBullets[i].type == "bubble" && enemyBullets[i].shouldRemove == true {
+                    
+                    explosions.append(Explosion(x: enemyBullets[i].x, y: enemyBullets[i].y, type: "pop"))
+                    
+                    enemyBulletsToRemove.append(i)
+                    
                 } else if enemyBullets[i].type == "bomb" && enemyBullets[i].shouldRemove == true {
                     
                     explosions.append(Explosion(x: enemyBullets[i].x, y: enemyBullets[i].y, type: "break"))
@@ -413,6 +419,23 @@ extension GameController {
             }
             
             removeObjects(type: "bullets", toRemove: bulletsToRemove)
+
+            enemyBulletsToRemove.removeAll()
+
+            for enemy in selectedEnemies {
+                
+                if enemy.type == "brickBoss" || enemy.type == "fireBoss" || enemy.type == "metalBoss" || enemy.type == "iceBoss" {
+                    
+                    let enemyBulletPos: Int = enemy.didHitOwnBullet()
+                    
+                    if enemyBulletPos >= 0 {
+                        
+                        enemyBulletsToRemove.append(enemyBulletPos)
+                    }
+                    
+                    removeObjects(type: "enemyBullets", toRemove: enemyBulletsToRemove)
+                }
+            }
             
             bulletsToRemove.removeAll()
 

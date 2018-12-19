@@ -419,27 +419,21 @@ class Stage {
                     
                 } else if text == "|" {
                     
-                    self.boss = "bomb"
-//                    self.boss = "blade"
+                    self.boss = "blade"
                     
-//                    enemies.append(Enemy(xPos: j, yPos: i, type: "fireBoss"))
-                    enemies.append(Enemy(xPos: j, yPos: i, type: "brickBoss"))
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "fireBoss"))
 
                 } else if text == "{" {
                     
-                    self.boss = "bomb"
-                    //                    self.boss = "bubble"
-                    
-                    //                    enemies.append(Enemy(xPos: j, yPos: i, type: "metalBoss"))
-                    enemies.append(Enemy(xPos: j, yPos: i, type: "brickBoss"))
+                    self.boss = "bubble"
+
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "metalBoss"))
                     
                 } else if text == "}" {
                     
-                    self.boss = "bomb"
-                    //                    self.boss = "cutter"
-                    
-                    //                    enemies.append(Enemy(xPos: j, yPos: i, type: "iceBoss"))
-                    enemies.append(Enemy(xPos: j, yPos: i, type: "brickBoss"))
+                    self.boss = "cutter"
+
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "iceBoss"))
                     
                 } else if text == "H" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "hat", direction: "right"))
