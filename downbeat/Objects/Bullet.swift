@@ -76,6 +76,8 @@ class Bullet {
     var useEnergyTimer = Timer()
     
     var removeTimeInterval: CGFloat = 0
+    
+    var enemiesHit: [AnyObject] = []
 
     var view: UIImageView = UIImageView()
     
@@ -117,12 +119,19 @@ class Bullet {
             
         } else if self.type == "cutter" {
             
-            self.width = Block.width * (9 / 16)
+//            self.width = Block.width * (9 / 16)
+//            self.height = self.width
+
+            self.width = Block.width * (7 / 16)
             self.height = self.width
             
-            self.moveSpeed = 2
+//            self.moveSpeed = 2
+//
+//            self.damage = 3
+
+            self.moveSpeed = 3
             
-            self.damage = 3
+            self.damage = 1
             
             if self.direction == "left" {
                 
@@ -143,7 +152,7 @@ class Bullet {
             
             self.moveSpeed = 2
             
-            self.damage = 3
+            self.damage = 2
             
             if self.direction == "left" {
                 
@@ -244,7 +253,7 @@ class Bullet {
 //            self.moveSpeed = 0.875
             self.moveSpeed = 1.75
 
-            self.damage = 1
+            self.damage = 2
             
             self.ySpeedChange = 0.15
             self.maxFallSpeed = 4
@@ -450,6 +459,15 @@ class Bullet {
         }
         
         return false
+    }
+    
+    func canHitEnemy(enemy: Enemy) -> Bool {
+        
+        return !isMatch(object: enemy, objectArray: self.enemiesHit)
+    }
+    
+    func addHitEnemy(enemy: Enemy) {
+        self.enemiesHit.append(enemy)
     }
     
     func move() {

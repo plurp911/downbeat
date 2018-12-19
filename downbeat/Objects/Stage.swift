@@ -1040,18 +1040,18 @@ class Stage {
         self.updateEnemySpawners(direction: direction)
     }
     
-    func isMatch(object: AnyObject, objectArray: [AnyObject]) -> Bool {
-        
-        for otherObject in objectArray {
-            
-            if object === otherObject {
-                
-                return true
-            }
-        }
-        
-        return false
-    }
+//    func isMatch(object: AnyObject, objectArray: [AnyObject]) -> Bool {
+//
+//        for otherObject in objectArray {
+//
+//            if object === otherObject {
+//
+//                return true
+//            }
+//        }
+//
+//        return false
+//    }
     
     func getMatchPos(object: AnyObject, objectArray: [AnyObject]) -> Int {
         

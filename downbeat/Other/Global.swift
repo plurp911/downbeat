@@ -264,6 +264,19 @@ public func moveDirection(direction: String) {
     }
 }
 
+public func isMatch(object: AnyObject, objectArray: [AnyObject]) -> Bool {
+    
+    for otherObject in objectArray {
+        
+        if object === otherObject {
+            
+            return true
+        }
+    }
+    
+    return false
+}
+
 // PUBLIC EXTENSIONS
 
 extension String {

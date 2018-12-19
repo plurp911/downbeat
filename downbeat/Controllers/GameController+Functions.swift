@@ -444,6 +444,8 @@ extension GameController {
                 
                 if bulletPos >= 0 {
                     
+                    bullets[bulletPos].addHitEnemy(enemy: selectedEnemies[i])
+
                     if bullets[bulletPos].type == "regular" {
                         
                         bulletsToRemove.append(bulletPos)
@@ -936,6 +938,16 @@ extension GameController {
             gameView.addSubview(p.view)
         }
         
+        for e in selectedEnemies {
+            gameView.addSubview(e.view)
+//            gameView.addSubview(e.hitBox)
+        }
+        
+        for e in currentStage!.specialEnemies {
+            gameView.addSubview(e.view)
+            //            gameView.addSubview(e.hitBox)
+        }
+        
         for e in enemyBullets {
             gameView.addSubview(e.view)
         }
@@ -946,16 +958,6 @@ extension GameController {
         
         for d in deflectedBullets {
             gameView.addSubview(d.view)
-        }
-        
-        for e in selectedEnemies {
-            gameView.addSubview(e.view)
-//            gameView.addSubview(e.hitBox)
-        }
-        
-        for e in currentStage!.specialEnemies {
-            gameView.addSubview(e.view)
-            //            gameView.addSubview(e.hitBox)
         }
         
         gameView.addSubview(player.view)

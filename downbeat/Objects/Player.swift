@@ -115,9 +115,11 @@ class Player {
     
 //    var energies: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
 //    var energyCosts: [Int] = [3, 4, 4, 3, 3, 3, 4, 5]
-    var energies: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
-    var energyCosts: [Int] = [3, 4, 3, 5]
     
+    var energies: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
+//    var energyCosts: [Int] = [3, 4, 3, 5]
+    var energyCosts: [Int] = [1, 2, 2, 3]
+
     var direction: String = "right"
     
     var beforeYSpeed: CGFloat = 0
@@ -799,7 +801,7 @@ class Player {
             
         } else if self.power == "cutter" {
             
-            if bullets.count < 1 && self.energies[self.energyPos] >= self.energyCosts[self.energyPos]  {
+            if bullets.count < 3 && self.energies[self.energyPos] >= self.energyCosts[self.energyPos]  {
                 
                 canShootBullet = true
             }
@@ -841,7 +843,7 @@ class Player {
             
         } else if self.power == "bubble" {
             
-            if bullets.count < 3 && self.energies[self.energyPos] >= self.energyCosts[self.energyPos]  {
+            if bullets.count < 2 && self.energies[self.energyPos] >= self.energyCosts[self.energyPos]  {
                 
                 canShootBullet = true
             }

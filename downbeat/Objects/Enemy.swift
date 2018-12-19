@@ -2345,324 +2345,327 @@ class Enemy {
                 
                 if bullets[i].x + (bullets[i].width / 2) >= self.x - (self.width / 2) && bullets[i].x - (bullets[i].width / 2) <= self.x + (self.width / 2) && bullets[i].y + (bullets[i].height / 2) >= self.y - (self.height / 2) && bullets[i].y - (bullets[i].height / 2) <= self.y + (self.height / 2) {
                     
-                    if self.type == "follower" {
+                    if bullets[i].canHitEnemy(enemy: self) == true {
                         
-                        return i
-                        
-                    } else if self.type == "hat" {
-                        
-                        if bullets[i].type == "regular" {
+                        if self.type == "follower" {
                             
-                            if self.isShooting == true {
+                            return i
+                            
+                        } else if self.type == "hat" {
+                            
+                            if bullets[i].type == "regular" {
                                 
-                                return i
-
-//                                if (bullets[i].xSpeed <= 0 && self.direction == "right") || (bullets[i].xSpeed >= 0 && self.direction == "left") {
-//
-//                                    return i
-//
-//                                } else {
-//
-//                                    self.handleDeflectBullet(i: i)
-//                                }
-
-                            } else {
-                                
-                                self.handleDeflectBullet(i: i)
-                            }
-                            
-                        } else if bullets[i].type == "cutter" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "blade" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "magnet" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "shield" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "tornado" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "bubble" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "bomb" {
-                            
-                            return i
-                        }
-                        
-                    } else if self.type == "penguin" {
-                        
-                        return i
-                        
-                    } else if self.type == "head" {
-                        
-                        return i
-                        
-                    } else if self.type == "foot" {
-                        
-                        return i
-                        
-                    } else if self.type == "eye" {
-                        
-                        return i
-                        
-                    } else if self.type == "snake" {
-                        
-                        return i
-                        
-                    } else if self.type == "shell" {
-                        
-                        if bullets[i].type == "regular" {
-                            
-                            if self.isShooting == true || self.isSignalling == true || self.view.isAnimating == true {
-                                
-                                return i
-
-//                                if (bullets[i].xSpeed <= 0 && self.direction == "right") || (bullets[i].xSpeed >= 0 && self.direction == "left") {
-//
-//                                    return i
-//
-//                                } else {
-//
-//                                    self.handleDeflectBullet(i: i)
-//                                }
-                                
-                            } else {
-                                
-                                self.handleDeflectBullet(i: i)
-                            }
-                            
-                        } else if bullets[i].type == "cutter" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "blade" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "magnet" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "shield" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "tornado" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "bubble" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "bomb" {
-                            
-                            return i
-                        }
-                        
-                    } else if self.type == "drop" {
-                        
-                        return i
-                        
-                    } else if self.type == "sprinkler" {
-                        
-                        return i
-                        
-                    } else if self.type == "turret" {
-                        
-                        return i
-                        
-                    } else if self.type == "jumper" {
-                        
-                        return i
-                        
-                    } else if self.type == "miner" {
-                        
-                        if bullets[i].type == "regular" {
-                            
-                            if self.isShooting == true || self.isSignalling == true {
-                                
-                                return i
-                                
-                            } else {
-                                
-                                if (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
+                                if self.isShooting == true {
                                     
                                     return i
-
-                                } else {
                                     
-                                    self.handleDeflectBullet(i: i)
-                                }
-                            }
-                            
-                        } else if bullets[i].type == "cutter" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "blade" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "magnet" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "shield" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "tornado" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "bubble" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "bomb" {
-                            
-                            return i
-                        }
-                        
-                    } else if self.type == "electricity" {
-                        
-                    } else if self.type == "topMaker" {
-                        
-                        return i
-                        
-                    } else if self.type == "eggMaker" {
-                        
-                        return i
-                        
-                    } else if self.type == "top" {
-                        
-                        return i
-                        
-                    }  else if self.type == "egg" {
-                        
-                        return i
-                        
-                    } else if self.type == "shooter" {
-                        
-                        if bullets[i].type == "regular" {
-                            
-                            if self.isShooting == true {
-                                
-                                return i
-                                
-                            } else {
-                                
-                                if (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
-
-                                    return i
-
-                                } else {
-
-                                    self.handleDeflectBullet(i: i)
-                                }
-                                
-//                                self.handleDeflectBullet(i: i)
-                            }
-                            
-                        } else if bullets[i].type == "cutter" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "blade" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "magnet" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "shield" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "tornado" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "bubble" {
-                            
-                            return i
-                            
-                        } else if bullets[i].type == "bomb" {
-                            
-                            return i
-                        }
-                        
-                    } else if self.type == "scooper" {
-                        
-                        if bullets[i].type == "regular" {
-                            
-                            if self.isShooting == true {
-                                
-                                return i
-                                
-                            } else {
-                                
-                                let headHeight: CGFloat = Block.height * (24 / 16)
-                                let headBottomY: CGFloat = self.y - self.height / 2 + headHeight
-
-//                                if bullets[i].y <= headBottomY || (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
-                                if bullets[i].y <= headBottomY {
-
-                                    return i
+                                    //                                if (bullets[i].xSpeed <= 0 && self.direction == "right") || (bullets[i].xSpeed >= 0 && self.direction == "left") {
+                                    //
+                                    //                                    return i
+                                    //
+                                    //                                } else {
+                                    //
+                                    //                                    self.handleDeflectBullet(i: i)
+                                    //                                }
                                     
                                 } else {
                                     
                                     self.handleDeflectBullet(i: i)
                                 }
                                 
-                                //                                self.handleDeflectBullet(i: i)
+                            } else if bullets[i].type == "cutter" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "blade" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "magnet" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "shield" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "tornado" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "bubble" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "bomb" {
+                                
+                                return i
                             }
                             
-                        } else if bullets[i].type == "cutter" {
+                        } else if self.type == "penguin" {
                             
                             return i
                             
-                        } else if bullets[i].type == "blade" {
+                        } else if self.type == "head" {
                             
                             return i
                             
-                        } else if bullets[i].type == "magnet" {
+                        } else if self.type == "foot" {
                             
                             return i
                             
-                        } else if bullets[i].type == "shield" {
+                        } else if self.type == "eye" {
                             
                             return i
                             
-                        } else if bullets[i].type == "tornado" {
+                        } else if self.type == "snake" {
                             
                             return i
                             
-                        } else if bullets[i].type == "bubble" {
+                        } else if self.type == "shell" {
+                            
+                            if bullets[i].type == "regular" {
+                                
+                                if self.isShooting == true || self.isSignalling == true || self.view.isAnimating == true {
+                                    
+                                    return i
+                                    
+                                    //                                if (bullets[i].xSpeed <= 0 && self.direction == "right") || (bullets[i].xSpeed >= 0 && self.direction == "left") {
+                                    //
+                                    //                                    return i
+                                    //
+                                    //                                } else {
+                                    //
+                                    //                                    self.handleDeflectBullet(i: i)
+                                    //                                }
+                                    
+                                } else {
+                                    
+                                    self.handleDeflectBullet(i: i)
+                                }
+                                
+                            } else if bullets[i].type == "cutter" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "blade" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "magnet" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "shield" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "tornado" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "bubble" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "bomb" {
+                                
+                                return i
+                            }
+                            
+                        } else if self.type == "drop" {
                             
                             return i
                             
-                        } else if bullets[i].type == "bomb" {
+                        } else if self.type == "sprinkler" {
                             
                             return i
+                            
+                        } else if self.type == "turret" {
+                            
+                            return i
+                            
+                        } else if self.type == "jumper" {
+                            
+                            return i
+                            
+                        } else if self.type == "miner" {
+                            
+                            if bullets[i].type == "regular" {
+                                
+                                if self.isShooting == true || self.isSignalling == true {
+                                    
+                                    return i
+                                    
+                                } else {
+                                    
+                                    if (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
+                                        
+                                        return i
+                                        
+                                    } else {
+                                        
+                                        self.handleDeflectBullet(i: i)
+                                    }
+                                }
+                                
+                            } else if bullets[i].type == "cutter" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "blade" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "magnet" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "shield" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "tornado" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "bubble" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "bomb" {
+                                
+                                return i
+                            }
+                            
+                        } else if self.type == "electricity" {
+                            
+                        } else if self.type == "topMaker" {
+                            
+                            return i
+                            
+                        } else if self.type == "eggMaker" {
+                            
+                            return i
+                            
+                        } else if self.type == "top" {
+                            
+                            return i
+                            
+                        }  else if self.type == "egg" {
+                            
+                            return i
+                            
+                        } else if self.type == "shooter" {
+                            
+                            if bullets[i].type == "regular" {
+                                
+                                if self.isShooting == true {
+                                    
+                                    return i
+                                    
+                                } else {
+                                    
+                                    if (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
+                                        
+                                        return i
+                                        
+                                    } else {
+                                        
+                                        self.handleDeflectBullet(i: i)
+                                    }
+                                    
+                                    //                                self.handleDeflectBullet(i: i)
+                                }
+                                
+                            } else if bullets[i].type == "cutter" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "blade" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "magnet" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "shield" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "tornado" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "bubble" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "bomb" {
+                                
+                                return i
+                            }
+                            
+                        } else if self.type == "scooper" {
+                            
+                            if bullets[i].type == "regular" {
+                                
+                                if self.isShooting == true {
+                                    
+                                    return i
+                                    
+                                } else {
+                                    
+                                    let headHeight: CGFloat = Block.height * (24 / 16)
+                                    let headBottomY: CGFloat = self.y - self.height / 2 + headHeight
+                                    
+                                    //                                if bullets[i].y <= headBottomY || (bullets[i].xSpeed >= 0 && self.direction == "right") || (bullets[i].xSpeed <= 0 && self.direction == "left") {
+                                    if bullets[i].y <= headBottomY {
+                                        
+                                        return i
+                                        
+                                    } else {
+                                        
+                                        self.handleDeflectBullet(i: i)
+                                    }
+                                    
+                                    //                                self.handleDeflectBullet(i: i)
+                                }
+                                
+                            } else if bullets[i].type == "cutter" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "blade" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "magnet" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "shield" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "tornado" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "bubble" {
+                                
+                                return i
+                                
+                            } else if bullets[i].type == "bomb" {
+                                
+                                return i
+                            }
                         }
+                        
                     }
-                    
                 }
-                
+
             }
         }
         

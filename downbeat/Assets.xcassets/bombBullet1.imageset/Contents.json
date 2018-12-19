@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bombBulletN.png",
+      "filename" : "bombBullet.png",
       "scale" : "1x"
     },
     {
