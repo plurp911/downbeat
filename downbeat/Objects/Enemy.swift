@@ -12,6 +12,8 @@ class Enemy {
     
     // CONSTANTS
     
+    static let maxBossHealth: Int = 32
+    
     static let color: UIColor = UIColor.clear
 //        static let color: UIColor = UIColor.green
     
@@ -100,6 +102,8 @@ class Enemy {
     static let hitTimeInterval: CGFloat = 0.05
 
     static var bulletsToRemove = [Int]()
+
+    static var bossHealthBar: EnergyBar = EnergyBar(type: "bossHealth")
 
     // VARIABLES
     
@@ -3055,6 +3059,10 @@ class Enemy {
         } else {
             
             self.health -= bulletDamage
+            
+            if self.type == "brickBoss" {
+                Enemy.bossHealthBar.setEnergy(energy: self.health)
+            }
         }
         
         self.endHitTimer.invalidate()

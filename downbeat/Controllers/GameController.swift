@@ -33,7 +33,7 @@ class GameController: UIViewController {
     var startTitleTextOpacity: CGFloat = 1
     
     var isGettingDarker: Bool = false
-    
+        
     lazy var titleView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor.clear
@@ -147,7 +147,21 @@ class GameController: UIViewController {
         
         print("BRICK")
         
-        gameViewColor = UIColor(red: 75 / 255, green: 125 / 255, blue: 223 / 255, alpha: 1)
+        // BORING BLUE
+        
+//        gameViewColor = UIColor(red: 75 / 255, green: 125 / 255, blue: 223 / 255, alpha: 1)
+        
+        // SKY BLUE
+        
+//        gameViewColor = UIColor(red: 0 / 255, green: 171 / 255, blue: 255 / 255, alpha: 1)
+        
+        // BORING SKY BLUE
+        
+        gameViewColor = UIColor(red: 0 / 255, green: 136 / 255, blue: 203 / 255, alpha: 1)
+        
+        // BRICK COLOR
+        
+//        gameViewColor = UIColor(red: 192 / 255, green: 114 / 255, blue: 56 / 255, alpha: 1)
 
         setLevel(level: levels[0])
         

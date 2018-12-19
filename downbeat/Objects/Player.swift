@@ -698,6 +698,13 @@ class Player {
                             currentStage!.setupSelectedArrays()
                             
                             self.ySpeed = self.beforeYSpeed
+                            
+                            if currentStage!.boss != "" {
+                                
+                                Enemy.bossHealthBar.updateImages(power: currentStage!.boss)
+                                Enemy.bossHealthBar.setEnergy(energy: Enemy.maxBossHealth)
+                            }
+
                         }
                     }
                     

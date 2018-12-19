@@ -56,6 +56,8 @@ class Stage {
 //    var tileSet: String = "metal"
 //    var tileSet: String = "ice"
     
+    var boss: String = ""
+    
     init(fileName: String) {
         
         let path = Bundle.main.path(forResource: fileName, ofType: "txt")
@@ -410,7 +412,11 @@ class Stage {
                 } else if text == "j" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "jumper"))
                 } else if text == "/" {
+                    
+                    self.boss = "bomb"
+
                     enemies.append(Enemy(xPos: j, yPos: i, type: "brickBoss"))
+                    
                 } else if text == "H" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "hat", direction: "right"))
                 } else if text == "h" {

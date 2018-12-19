@@ -60,6 +60,14 @@ class EnergyBar {
             
             self.x = Block.width + (EnergyBar.width / 2)
             self.y = (Block.height * 0.5) + (EnergyBar.height / 2)
+            
+        } else if self.type == "bossHealth" {
+
+//            self.x = (screenSize.height * screenRatio) - Block.width + (EnergyBar.width / 2)
+//            self.y = (Block.height * 0.5) + (EnergyBar.height / 2)
+            
+            self.x = Block.width + Block.width + (EnergyBar.width / 2)
+            self.y = (Block.height * 0.5) + (EnergyBar.height / 2)
         }
         
         self.view.frame.origin.x = self.x - (EnergyBar.width / 2)
@@ -92,6 +100,15 @@ class EnergyBar {
                 ticks.append(EnergyBarTick(x: self.x, y: (EnergyBarTick.height / 2) + self.y + (Block.height * (2 / 16)) * (CGFloat)(i) - (EnergyBar.height / 2), type: "energy"))
             }
             
+        } else if self.type == "bossHealth" {
+            
+            //            self.view.image = UIImage(named: "healthBarBackground")
+            self.view.image = UIImage(named: "energyBarBackground")
+            
+            for i in 0 ..< Enemy.maxBossHealth {
+                ticks.append(EnergyBarTick(x: self.x, y: (EnergyBarTick.height / 2) + self.y + (Block.height * (2 / 16)) * (CGFloat)(i) - (EnergyBar.height / 2), type: "energy"))
+            }
+            
         }
     }
     
@@ -112,6 +129,12 @@ class EnergyBar {
             } else if self.type == "energy" {
 
                 for i in 0 ..< Player.maxEnergy - energy {
+                    ticks[i].view.isHidden = true
+                }
+                
+            } else if self.type == "bossHealth" {
+                
+                for i in 0 ..< Enemy.maxBossHealth - energy {
                     ticks[i].view.isHidden = true
                 }
             }

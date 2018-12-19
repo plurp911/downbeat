@@ -489,7 +489,14 @@ extension GameController {
                         
                         explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "explosion"))
                         
-                        handleMakePowerup(x: selectedEnemies[i].x, y: selectedEnemies[i].y)
+                        if selectedEnemies[i].type == "brickBoss" {
+                            
+                            print("YOU WIN")
+
+                        } else {
+                            
+                            handleMakePowerup(x: selectedEnemies[i].x, y: selectedEnemies[i].y)
+                        }
                         
                         selectedEnemiesToRemove.append(i)
                     }
@@ -980,8 +987,18 @@ extension GameController {
         for t in player.energyBar.ticks {
             gameView.addSubview(t.view)
         }
+        
+        if currentStage!.boss != "" {
+            
+            gameView.addSubview(Enemy.bossHealthBar.view)
+            
+            for t in Enemy.bossHealthBar.ticks {
+                gameView.addSubview(t.view)
+            }
+        }
+        
     }
-    
+
     func removeAllSubviews() {
         
         for view in gameView.subviews {
