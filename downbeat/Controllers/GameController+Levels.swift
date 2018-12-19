@@ -70,6 +70,7 @@ extension GameController {
         currentLevel = level
         currentStage = level.startStage
         
+        currentLevel!.updateCurrentStagePos()
         currentStage!.setupSelectedArrays()
         
         player.reset()
