@@ -409,6 +409,8 @@ class Stage {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "sprinkler"))
                 } else if text == "j" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "jumper"))
+                } else if text == "/" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "brickBoss"))
                 } else if text == "H" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "hat", direction: "right"))
                 } else if text == "h" {

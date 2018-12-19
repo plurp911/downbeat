@@ -35,6 +35,8 @@ class EnemyBullet {
 
     static let specialImages = [UIImage(named: "specialEnemyBullet1"), UIImage(named: "specialEnemyBullet2"), UIImage(named: "specialEnemyBullet3"), UIImage(named: "specialEnemyBullet4")]
 
+    static let bombImage = UIImage(named: "bombBullet")
+
     // VARIABLES
     
     var x: CGFloat = 0
@@ -56,6 +58,16 @@ class EnemyBullet {
     var maxFallSpeed: CGFloat = 0
     var minMoveSpeed: CGFloat = 0
 
+    var isJumping: Bool = false
+    var isFalling: Bool = false
+    var isRising: Bool = false
+    
+    var removeTimeInterval: CGFloat = 0
+    
+    var removeTimer = Timer()
+
+    var shouldRemove: Bool = false
+    
     var view: UIImageView = UIImageView()
     
     init(x: CGFloat, y: CGFloat, targetX: CGFloat, targetY: CGFloat, speed: CGFloat, type: String) {
@@ -267,6 +279,25 @@ class EnemyBullet {
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
             }
             
+        } else if self.type == "bomb" {
+            
+            self.width = Block.width
+            self.height = self.width
+            
+            self.damage = 3
+            
+            self.view.image = EnemyBullet.bombImage
+
+            self.ySpeedChange = 0.135
+            self.maxFallSpeed = 4
+//            self.ySpeedChange = 0.1
+//            self.maxFallSpeed = 4
+            
+            //            self.removeTimeInterval = 1
+            self.removeTimeInterval = 0
+
+//            self.jump()
+            
         } else if self.type == "special" {
             
             self.width = Block.width
@@ -334,6 +365,9 @@ class EnemyBullet {
 //
 //        }
         
+        if self.type == "bomb" {
+            self.jump()
+        }
     }
     
     func setXY(x: CGFloat, y: CGFloat) {
@@ -391,8 +425,190 @@ class EnemyBullet {
 //
 //                setXYSpeed(xSpeed: newSpeed, ySpeed: self.ySpeed)
 //            }
+            
+            setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+            
+        } else if self.type == "bomb" {
+            
+            if self.isJumping == true || self.isFalling == true {
+                
+                self.ySpeed += self.ySpeedChange
+                
+                if self.ySpeed > 0 {
+                    
+                    self.isFalling = true
+                    
+                    self.isRising = false
+                    
+                    if self.ySpeed > self.maxFallSpeed {
+                        self.ySpeed = self.maxFallSpeed
+                    }
+                    
+                } else if ySpeed < 0 {
+                    
+                    self.isRising = true
+                    
+                    self.isFalling = false
+                }
+            }
+            
+            let moveSpeed: CGFloat = abs(self.xSpeed)
+            
+            //            if self.xSpeed != 0 {
+            
+            for block in selectedBlocks {
+                
+                if block.isHidden == false {
+                    
+                    if block.isLadder == false && block.isTopLadder == false {
+                        
+                        //                        if self.direction == "right" {
+                        
+                        if self.x + (self.width / 2) + moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
+                            
+                            setXY(x: block.x - (Block.width / 2) - (self.width / 2) - moveSpeed, y: self.y)
+                        }
+                        
+                        //                        } else if self.direction == "left" {
+                        
+                        if self.x - (self.width / 2) - moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
+                            
+                            setXY(x: block.x + (Block.width / 2) + (self.width / 2), y: self.y)
+                        }
+                        
+                        //                        }
+                        
+                    }
+                }
+                
+            }
+            
+            //            }
+            
+            if self.isRising == false {
+                
+                var isEmpty: Bool = true
+                
+                for block in selectedBlocks {
+                    
+                    if block.isHidden == false {
+                        
+                        if block.isTopLadder == true {
+                            
+                            if self.y + (self.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                isEmpty = false
+                            }
+                            
+                        } else if block.isLadder == false {
+                            
+                            if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                isEmpty = false
+                            }
+                        }
+                        
+                    }
+                }
+                
+                if isEmpty == true {
+                    
+                    self.isFalling = true
+                }
+            }
+            
+            if self.isFalling == true {
+                
+                for block in selectedBlocks {
+                    
+                    if block.isHidden == false {
+                        
+                        if block.isTopLadder == true {
+                            
+                            if self.y + (self.height / 2) + self.maxFallSpeed <= block.y - (Block.height / 2) + self.maxFallSpeed && self.y + (self.height / 2) + self.maxFallSpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                self.isJumping = false
+                                self.isFalling = false
+                                
+                                self.xSpeed = 0
+                                self.ySpeed = 0
+                                
+                                self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
+                                
+                                setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                            }
+                            
+                        } else if block.isLadder == false {
+                            
+                            if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                self.isJumping = false
+                                self.isFalling = false
+                                
+                                self.xSpeed = 0
+                                self.ySpeed = 0
+                                
+                                self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
+                                
+                                setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                            }
+                        }
+                        
+                    }
+                }
+                
+            }
+            
+            if self.isRising == true {
+                
+                for block in selectedBlocks {
+                    
+                    if block.isHidden == false {
+                        
+                        if block.isLadder == false && block.isTopLadder == false {
+                            
+                            if self.y - (self.height / 2) + self.ySpeed <= block.y + (Block.height / 2) && self.y - (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                self.isFalling = true
+                                
+                                self.isJumping = false
+                                self.isRising = false
+                                
+                                //                                self.xSpeed = 0
+                                self.ySpeed = 0
+                                
+                                self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
+                                
+                                setXY(x: self.x, y: block.y + (Block.height / 2) + (self.height / 2))
+                            }
+                        }
+                        
+                    }
+                    
+                }
+            }
+            
+            setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+
+        } else {
+            
+            setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
         }
+    }
+    
+    func jump() {
         
-        setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+        self.isJumping = true
+        self.isRising = true
+
+        self.ySpeed = -self.maxFallSpeed
+    }
+    
+    @objc func makeRemovable() {
+        self.shouldRemove = true
     }
 }

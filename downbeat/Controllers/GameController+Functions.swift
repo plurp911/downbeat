@@ -319,6 +319,13 @@ extension GameController {
                 enemyBullets[i].move()
                 
                 if enemyBullets[i].isInBounds() == false {
+                    
+                    enemyBulletsToRemove.append(i)
+                    
+                } else if enemyBullets[i].type == "bomb" && enemyBullets[i].shouldRemove == true {
+                    
+                    explosions.append(Explosion(x: enemyBullets[i].x, y: enemyBullets[i].y, type: "break"))
+                    
                     enemyBulletsToRemove.append(i)
                 }
             }

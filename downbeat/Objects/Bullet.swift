@@ -274,7 +274,9 @@ class Bullet {
             
         } else if self.type == "bomb" {
             
-            self.width = Block.width * (14 / 16)
+//            self.width = Block.width * (14 / 16)
+//            self.height = self.width
+            self.width = Block.width
             self.height = self.width
             
             self.moveSpeed = 1.75

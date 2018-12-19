@@ -137,6 +137,8 @@ class Enemy {
     var isMovingLeft: Bool = false
     var isMovingRight: Bool = false
     
+    var shouldShoot: Bool = false
+
     var health: Int = 0
     
     var direction: String = ""
@@ -381,15 +383,19 @@ class Enemy {
             
             self.maxHealth = 30
             
-            self.damage = 3
-            
-            self.ySpeedChange = 0.135
-            self.maxFallSpeed = 5
+//            self.damage = 3
+            self.damage = 5
+
+//            self.ySpeedChange = 0.135
+//            self.maxFallSpeed = 5
+
+            self.ySpeedChange = 0.12
+            self.maxFallSpeed = 5.5
             
             self.width = Block.width * (31 / 16)
             self.height = Block.height * (32 / 16)
             
-            self.moveSpeed = 1
+            self.moveSpeed = 1.25
             
         } else if self.type == "miner" {
             
@@ -704,10 +710,14 @@ class Enemy {
                 setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
             }
             
-            self.jumpTimeInterval = 4
+            self.jumpTimeInterval = 1
             
-            self.signalTimeInterval = 0.3
+            self.signalTimeInterval = 0.25
             
+            self.totalShootTimeInterval = 0.25
+            
+//            self.betweenShotsTimeInterval = 0.1
+
             self.view.image = Enemy.brickBossStandLeftImage
             
             self.direction = "left"
@@ -1172,10 +1182,24 @@ class Enemy {
                 
                 self.view.image = Enemy.brickBossJumpLeftImage
                 
+            } else if self.isShooting == true {
+                
+                self.view.image = Enemy.brickBossThrowLeftImage
+                
             } else if self.isSignalling == true {
                 
+//                if self.shouldShoot == true {
+//
+//                    self.view.image = Enemy.brickBossSignalJumpLeftImage
+//
+//                } else {
+//
+////                    self.view.image = Enemy.brickBossSignalThrowLeft1Image
+//                    self.view.image = Enemy.brickBossSignalThrowLeft2Image
+//                }
+
                 self.view.image = Enemy.brickBossSignalJumpLeftImage
-                
+
             } else {
                 
                 self.view.image = Enemy.brickBossStandLeftImage
@@ -1905,22 +1929,22 @@ class Enemy {
             
             
             
-            if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
-                
-                self.width = Block.width * (24 / 16)
-                self.height = Block.height * (12 / 16)
-                
-                self.xShift = -Block.width * (1 / 16)
-                self.yShift = 0
-                
-            } else {
-                
-                self.width = Block.width * (24 / 16)
-                self.height = Block.height * (12 / 16)
-                
-                self.xShift = -Block.width * (1 / 16)
-                self.yShift = -Block.height * (14 / 16)
-            }
+//            if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
+//
+//                self.width = Block.width * (24 / 16)
+//                self.height = Block.height * (12 / 16)
+//
+//                self.xShift = -Block.width * (1 / 16)
+//                self.yShift = 0
+//
+//            } else {
+//
+//                self.width = Block.width * (24 / 16)
+//                self.height = Block.height * (12 / 16)
+//
+//                self.xShift = -Block.width * (1 / 16)
+//                self.yShift = -Block.height * (14 / 16)
+//            }
             
             if self.isJumping == true || self.isFalling == true {
                 
@@ -2023,8 +2047,8 @@ class Enemy {
                                 self.xSpeed = 0
                                 self.ySpeed = 0
                                 
-                                if self.signalTimer.isValid == false {
-                                    
+                                if self.signalTimer.isValid == false && self.shootTimer.isValid == false {
+
                                     self.signalTimer.invalidate()
                                     
                                     self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
@@ -2043,8 +2067,8 @@ class Enemy {
                                 self.xSpeed = 0
                                 self.ySpeed = 0
                                 
-                                if self.signalTimer.isValid == false {
-                                    
+                                if self.signalTimer.isValid == false && self.shootTimer.isValid == false {
+
                                     self.signalTimer.invalidate()
                                     
                                     self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
@@ -3111,14 +3135,41 @@ class Enemy {
             
         } else if self.type == "brickBoss" {
             
-            if self.jumpTimer.isValid == false {
+            if self.shootTimer.isValid == false && self.jumpTimer.isValid == false {
                 
-                self.jumpTimer.invalidate()
+                if self.shouldShoot == true {
+                    
+                    self.shouldShoot = false
+                    
+//                    if self.endShootTimer.isValid == false {
+//
+//                        self.endShootTimer.invalidate()
+//
+//                        self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(realShoot), userInfo: nil, repeats: false)
+//                    }
+                    
+                    if self.shootTimer.isValid == false {
+                        
+                        self.shootTimer.invalidate()
+                        
+                        self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+                    }
+                    
+                } else {
+                    
+                    self.shouldShoot = true
+                    
+                    if self.jumpTimer.isValid == false {
+                        
+                        self.jumpTimer.invalidate()
+                        
+                        self.jumpTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.signalTimeInterval), target: self, selector: #selector(jump), userInfo: nil, repeats: false)
+                    }
+                }
                 
-                self.jumpTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.signalTimeInterval), target: self, selector: #selector(jump), userInfo: nil, repeats: false)
             }
-        }
         
+        }
     }
     
     @objc func realShoot() {
@@ -3371,6 +3422,43 @@ class Enemy {
             
         } else if self.type == "scooper" {
             
+        } else if self.type == "brickBoss" {
+            
+            //            let bulletSpeed: CGFloat = 3
+            //            let bulletSpeed: CGFloat = 2.25
+            let bulletSpeed: CGFloat = 1.75
+            
+            let xOffset: CGFloat = Block.width * (16 / 16)
+            let yOffset: CGFloat = Block.width * (16 / 16)
+            
+            if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
+                
+            } else {
+                
+                if self.direction == "left" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "bomb"))
+                    
+                } else if self.direction == "right" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "bomb"))
+                }
+            }
+            
+//            if self.shootCount >= 2 {
+//
+//                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+//
+//                self.shootCount = 0
+//
+//            } else {
+//
+//                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.betweenShotsTimeInterval), target: self, selector: #selector(realShoot), userInfo: nil, repeats: false)
+//
+//                self.shootCount += 1
+//            }
+            
+            self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
         }
     }
     
@@ -3452,6 +3540,7 @@ class Enemy {
                 
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
             }
+            
         }
         
         if self.type == "shooter" {
@@ -3464,6 +3553,11 @@ class Enemy {
             
             self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval + offset), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
             self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval + offset - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            
+        } else if self.type == "brickBoss" {
+            
+//            self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             
         } else {
             
@@ -3499,35 +3593,38 @@ class Enemy {
     
     func startTimers() {
         
-        if self.isSprinklerInRange() == true {
+        if self.type != "brickBoss" {
             
-            if self.shootTimeInterval > 0 {
+            if self.isSprinklerInRange() == true {
                 
-                if self.shootTimer.isValid == false && self.endShootTimer.isValid == false && self.signalTimer.isValid == false {
+                if self.shootTimeInterval > 0 {
                     
-                    self.shootTimer.invalidate()
-                    
-                    if self.type == "miner" {
+                    if self.shootTimer.isValid == false && self.endShootTimer.isValid == false && self.signalTimer.isValid == false {
                         
-                        self.shoot()
+                        self.shootTimer.invalidate()
                         
-                    } else if self.type == "electricity" {
+                        if self.type == "miner" {
+                            
+                            self.shoot()
+                            
+                        } else if self.type == "electricity" {
+                            
+                            let value: CGFloat = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
+                            
+                            self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval * value), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+                            
+                        } else {
+                            
+                            self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+                        }
                         
-                        let value: CGFloat = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
+                        //                    self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
                         
-                        self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval * value), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
-                        
-                    } else {
-                        
-                        self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
                     }
-                    
-//                    self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
-                    
-                    self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval - self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
                 }
+                
             }
-            
         }
         
         if self.type == "eye" {
@@ -3556,8 +3653,15 @@ class Enemy {
                 
                 self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             }
+            
+//            if self.shootTimer.isValid == false {
+//
+//                self.shootTimer.invalidate()
+//
+//                self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.shootTimeInterval), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+//            }
+            
         }
-        
     }
     
     func endTimers() {
