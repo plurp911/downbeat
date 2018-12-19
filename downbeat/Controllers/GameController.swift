@@ -172,7 +172,9 @@ class GameController: UIViewController {
         
         print("FIRE")
 
-        gameViewColor = UIColor(red: 55 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
+//        gameViewColor = UIColor(red: 55 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
+        gameViewColor = UIColor(red: 185 / 255, green: 48 / 255, blue: 48 / 255, alpha: 1)
+//        gameViewColor = UIColor(red: 158 / 255, green: 32 / 255, blue: 32 / 255, alpha: 1)
 
         setLevel(level: levels[1])
         
