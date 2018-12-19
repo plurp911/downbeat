@@ -62,9 +62,12 @@ class Player {
     static let xShift: CGFloat = Block.width * (16 / 30)
     static let yShift: CGFloat = Block.height * 0
     
-    static let xShiftBullet: CGFloat = Block.width * (8 / 16)
-    static let yShiftBullet: CGFloat = Block.height * (1 / 16)
+//    static let xShiftBullet: CGFloat = Block.width * (8 / 16)
+//    static let yShiftBullet: CGFloat = Block.height * (1 / 16)
     
+    static let xShiftBullet: CGFloat = Block.width * (11 / 16)
+    static let yShiftBullet: CGFloat = -Block.height * (1 / 16)
+
     static let animationCycleTime: Double = 0.55
     
     static let hitTime: CGFloat = 2
@@ -1157,6 +1160,10 @@ class Player {
         
         self.view.animationDuration = (Double)(Player.knockBackTime)
         self.view.startAnimating()
+
+        explosions.append(Explosion(x: self.x - (Player.width / 2) - (Block.width * (4 / 16)), y: self.y - (Player.height / 2) - (Block.height * (2 / 16)), type: "smoke"))
+        explosions.append(Explosion(x: self.x, y: self.y - (Player.height / 2) - (Block.height * (8 / 16)), type: "smoke"))
+        explosions.append(Explosion(x: self.x + (Player.width / 2) + (Block.width * (4 / 16)), y: self.y - (Player.height / 2) - (Block.height * (2 / 16)), type: "smoke"))
     }
     
     func handleStopClimbAnimation() {
@@ -1577,6 +1584,8 @@ class Player {
     }
     
     func cycleWeapon(isNext: Bool) {
+        
+        bullets.removeAll()
         
         if isNext == true {
             
