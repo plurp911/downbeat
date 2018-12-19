@@ -1997,6 +1997,15 @@ class Enemy {
                 
             }
             
+            if self.x - (self.width / 2) - self.moveSpeed < 0 {
+
+                setXY(x: (self.width / 2) + self.moveSpeed, y: self.y)
+
+            } else if self.x + (self.width / 2) + self.moveSpeed > screenSize.height * screenRatio {
+
+                setXY(x: (screenSize.height * screenRatio) - (self.width / 2) - self.moveSpeed, y: self.y)
+            }
+            
             //            }
             
             if self.isRising == false {

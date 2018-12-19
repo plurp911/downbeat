@@ -26,7 +26,7 @@ extension GameController {
         
         tileSet = "fire"
 
-        let fireStages = [[nil, nil, Stage(fileName: "2-7"), Stage(fileName: "1-9"), Stage(fileName: "1-10")],
+        let fireStages = [[nil, nil, Stage(fileName: "2-7"), Stage(fileName: "2-8"), Stage(fileName: "2-9")],
                           [nil, nil, Stage(fileName: "2-6"), nil, nil],
                           [nil, nil, Stage(fileName: "2-5"), nil, nil],
                           [nil, nil, Stage(fileName: "2-4"), nil, nil],
@@ -39,14 +39,14 @@ extension GameController {
         let metalStages = [[Stage(fileName: "3-1"), Stage(fileName: "3-2"), Stage(fileName: "3-3"), Stage(fileName: "3-4"), nil, nil, nil, nil],
                            [nil, nil, nil, Stage(fileName: "3-5"), nil, nil, nil, nil],
                            [nil, nil, nil, Stage(fileName: "3-6"), nil, nil, nil, nil],
-                           [nil, nil, nil, Stage(fileName: "3-7"), Stage(fileName: "3-8"), Stage(fileName: "3-9"), Stage(fileName: "1-9"), Stage(fileName: "1-10")]]
+                           [nil, nil, nil, Stage(fileName: "3-7"), Stage(fileName: "3-8"), Stage(fileName: "3-9"), Stage(fileName: "3-10"), Stage(fileName: "3-11")]]
         
         // ICE
         
         tileSet = "ice"
 
         let iceStages = [[Stage(fileName: "4-1"), Stage(fileName: "4-2"), Stage(fileName: "4-3"), Stage(fileName: "4-4"), nil, nil, nil, nil],
-                         [nil, nil, nil, Stage(fileName: "4-5"), Stage(fileName: "4-6"), Stage(fileName: "4-7"), Stage(fileName: "1-9"), Stage(fileName: "1-10")]]
+                         [nil, nil, nil, Stage(fileName: "4-5"), Stage(fileName: "4-6"), Stage(fileName: "4-7"), Stage(fileName: "4-8"), Stage(fileName: "4-9")]]
         
         // OTHER
         

@@ -668,6 +668,10 @@ class Player {
                             
                             self.beforeYSpeed = self.ySpeed
                             self.ySpeed = 0
+                            
+                            print()
+                            print("TRANSITION")
+                            print()
                         }
                     }
                     
