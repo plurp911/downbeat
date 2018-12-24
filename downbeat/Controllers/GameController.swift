@@ -34,6 +34,17 @@ class GameController: UIViewController {
     
     var isGettingDarker: Bool = false
     
+    var pausedTextView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "pausedText")
+        view.isHidden = true
+        return view
+    }()
+    
     lazy var titleView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor.clear
@@ -387,8 +398,10 @@ class GameController: UIViewController {
             
             print("PAUSE")
             
+            pausedTextView.isHidden = false
+            
             player.handlePause()
-
+            
             for bullet in bullets {
                 bullet.handlePause()
             }
@@ -401,8 +414,10 @@ class GameController: UIViewController {
             
             print("RESUME")
             
+            pausedTextView.isHidden = true
+            
             player.handleResume()
-
+            
             for bullet in bullets {
                 bullet.handleResume()
             }
@@ -690,9 +705,9 @@ class GameController: UIViewController {
             completedLevels = savedCompletedLevels as! [Bool]
         }
     }
-        
+    
     override func viewDidLoad() {
-
+        
         super.viewDidLoad()
         
         startTitleTextTimer = Timer.scheduledTimer(timeInterval: 1 / 120, target: self, selector: #selector(updateStartTitleTextOpacity), userInfo: nil, repeats: true)
@@ -707,6 +722,7 @@ class GameController: UIViewController {
         view.backgroundColor = backgroundColor
         
         view.addSubview(gameView)
+        view.addSubview(pausedTextView)
         view.addSubview(leftCoverView)
         view.addSubview(rightCoverView)
         view.addSubview(leftButton)
@@ -740,6 +756,7 @@ class GameController: UIViewController {
         view.addSubview(titleLogoView)
         view.addSubview(startTitleTextView)
         
+        setupPausedTextView()
         setupTitleView()
         setupStageSelectView()
         setupGameView()
@@ -758,121 +775,128 @@ class GameController: UIViewController {
         setupTouchView()
         
         updateControlVisibility(isHidden: true)
-        }
-        
-        func setupTitleView() {
+    }
+    
+    func setupPausedTextView() {
+        pausedTextView.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
+        pausedTextView.centerYAnchor.constraint(equalTo: gameView.centerYAnchor).isActive = true
+        pausedTextView.widthAnchor.constraint(equalToConstant: Block.width * (47 / 16)).isActive = true
+        pausedTextView.heightAnchor.constraint(equalToConstant: Block.height * (7 / 16)).isActive = true
+    }
+    
+    func setupTitleView() {
         titleView.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
         titleView.centerYAnchor.constraint(equalTo: gameView.centerYAnchor).isActive = true
         titleView.widthAnchor.constraint(equalTo: gameView.widthAnchor).isActive = true
         titleView.heightAnchor.constraint(equalTo: gameView.heightAnchor).isActive = true
-        }
-        
-        func setupStageSelectView() {
+    }
+    
+    func setupStageSelectView() {
         stageSelectView.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
         stageSelectView.centerYAnchor.constraint(equalTo: gameView.centerYAnchor).isActive = true
         stageSelectView.widthAnchor.constraint(equalTo: gameView.widthAnchor).isActive = true
         stageSelectView.heightAnchor.constraint(equalTo: gameView.heightAnchor).isActive = true
-        }
-        
-        func setupGameView() {
+    }
+    
+    func setupGameView() {
         gameView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         gameView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         gameView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         gameView.widthAnchor.constraint(equalTo: gameView.heightAnchor, multiplier: screenRatio).isActive = true
-        }
-        
-        func setupLeftCoverView() {
+    }
+    
+    func setupLeftCoverView() {
         leftCoverView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         leftCoverView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         leftCoverView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         leftCoverView.rightAnchor.constraint(equalTo: gameView.leftAnchor).isActive = true
-        }
-        
-        func setupRightCoverView() {
+    }
+    
+    func setupRightCoverView() {
         rightCoverView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         rightCoverView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         rightCoverView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         rightCoverView.leftAnchor.constraint(equalTo: gameView.rightAnchor).isActive = true
-        }
-        
-        func setupJumpButton() {
+    }
+    
+    func setupJumpButton() {
         jumpButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -mainButtonSpacing).isActive = true
         jumpButton.widthAnchor.constraint(equalToConstant: mainButtonRadius * 2).isActive = true
         jumpButton.heightAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         jumpButton.centerYAnchor.constraint(equalTo: leftButton.centerYAnchor, constant: mainButtonSpacing).isActive = true
-        }
-        
-        func setupShootButton() {
+    }
+    
+    func setupShootButton() {
         shootButton.rightAnchor.constraint(equalTo: jumpButton.leftAnchor, constant: -mainButtonSpacing).isActive = true
         shootButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         shootButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         shootButton.centerYAnchor.constraint(equalTo: jumpButton.centerYAnchor).isActive = true
-        }
-        
-        func setupPauseButton() {
+    }
+    
+    func setupPauseButton() {
         pauseButton.topAnchor.constraint(equalTo: view.topAnchor, constant: mainButtonSpacing).isActive = true
         pauseButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         pauseButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         pauseButton.centerXAnchor.constraint(equalTo: jumpButton.centerXAnchor).isActive = true
-        }
-        
-        func setupWeaponLeftButton() {
+    }
+    
+    func setupWeaponLeftButton() {
         weaponLeftButton.topAnchor.constraint(equalTo: view.topAnchor, constant: mainButtonSpacing).isActive = true
         weaponLeftButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         weaponLeftButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         weaponLeftButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: mainButtonSpacing).isActive = true
-        }
-        
-        func setupWeaponRightButton() {
+    }
+    
+    func setupWeaponRightButton() {
         weaponRightButton.topAnchor.constraint(equalTo: weaponLeftButton.bottomAnchor, constant: mainButtonSpacing / 2).isActive = true
         weaponRightButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         weaponRightButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         weaponRightButton.centerXAnchor.constraint(equalTo: weaponLeftButton.centerXAnchor).isActive = true
-        }
-        
-        func setupLeftButton() {
+    }
+    
+    func setupLeftButton() {
         leftButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: mainButtonSpacing).isActive = true
         leftButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         leftButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         leftButton.bottomAnchor.constraint(equalTo: downButton.centerYAnchor, constant: -mainButtonSpacing / 2).isActive = true
-        }
-        
-        func setupRightButton() {
+    }
+    
+    func setupRightButton() {
         rightButton.leftAnchor.constraint(equalTo: leftButton.rightAnchor, constant: mainButtonSpacing).isActive = true
         rightButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         rightButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         rightButton.centerYAnchor.constraint(equalTo: leftButton.centerYAnchor).isActive = true
-        }
-        
-        func setupUpButton() {
+    }
+    
+    func setupUpButton() {
         upButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         upButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         upButton.bottomAnchor.constraint(equalTo: leftButton.centerYAnchor, constant: -mainButtonSpacing / 2).isActive = true
         upButton.leftAnchor.constraint(equalTo: leftButton.centerXAnchor, constant: mainButtonSpacing / 2).isActive = true
-        }
-        
-        func setupDownButton() {
+    }
+    
+    func setupDownButton() {
         downButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         downButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
         downButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -mainButtonSpacing / 2).isActive = true
         downButton.centerXAnchor.constraint(equalTo: upButton.centerXAnchor).isActive = true
-        }
-        
-        func setupJoystickView() {
+    }
+    
+    func setupJoystickView() {
         joystickView.topAnchor.constraint(equalTo: touchView.topAnchor).isActive = true
         joystickView.bottomAnchor.constraint(equalTo: touchView.bottomAnchor).isActive = true
         joystickView.leftAnchor.constraint(equalTo: touchView.leftAnchor).isActive = true
         joystickView.rightAnchor.constraint(equalTo: touchView.rightAnchor).isActive = true
-        }
-        
-        func setupTouchView() {
+    }
+    
+    func setupTouchView() {
         touchView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         touchView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         touchView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         touchView.rightAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        }
-        
-        override func viewDidLayoutSubviews() {
+    }
+    
+    override func viewDidLayoutSubviews() {
         
         setupStageSelectTitleView()
         setupBrickStageView()
@@ -886,27 +910,27 @@ class GameController: UIViewController {
         
         setupTitleLogoView()
         setupStartTitleTextView()
-        }
-        
-        func setupTitleLogoView() {
+    }
+    
+    func setupTitleLogoView() {
         
         setWidthHeight(width: Block.width * (140 / 16), height: Block.height * (60 / 16), imageView: titleLogoView)
         setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: (titleLogoView.frame.size.height / 2) + Block.height * 3, imageView: titleLogoView, isCentered: true)
-        }
-        
-        func setupStartTitleTextView() {
+    }
+    
+    func setupStartTitleTextView() {
         
         setWidthHeight(width: Block.width * (93 / 16), height: Block.height * (7 / 16), imageView: startTitleTextView)
         setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: (titleLogoView.frame.size.height / 2) + Block.height * 8.125, imageView: startTitleTextView, isCentered: true)
-        }
-        
-        func setupStageSelectTitleView() {
+    }
+    
+    func setupStageSelectTitleView() {
         
         setWidthHeight(width: Block.width * (256 / 16), height: Block.height * (7 / 16), imageView: stageSelectTitleView)
         setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: Block.height * 1, imageView: stageSelectTitleView, isCentered: true)
-        }
-        
-        func setupBrickStageView() {
+    }
+    
+    func setupBrickStageView() {
         
         let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
         //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
@@ -915,36 +939,36 @@ class GameController: UIViewController {
         
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: brickStageView)
         setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16)), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + verticalSpacing, imageView: brickStageView, isCentered: false)
-        }
-        
-        func setupFireStageView() {
+    }
+    
+    func setupFireStageView() {
         
         let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
         //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
         
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: fireStageView)
         setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16) * 3) + (Block.width * (48 / 16) * 2), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + verticalSpacing, imageView: fireStageView, isCentered: false)
-        }
-        
-        func setupMetalStageView() {
+    }
+    
+    func setupMetalStageView() {
         
         let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
         //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
         
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: metalStageView)
         setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16)), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 3) + Block.width * (48 / 16) * 2, imageView: metalStageView, isCentered: false)
-        }
-        
-        func setupIceStageView() {
+    }
+    
+    func setupIceStageView() {
         
         let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
         //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
         
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: iceStageView)
         setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16) * 3) + (Block.width * (48 / 16) * 2), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 3) + Block.width * (48 / 16) * 2, imageView: iceStageView, isCentered: false)
-        }
-        
-        func setupCenterStageView() {
+    }
+    
+    func setupCenterStageView() {
         
         let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
         //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
@@ -952,23 +976,23 @@ class GameController: UIViewController {
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: centerStageView)
         setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: 0, imageView: centerStageView, isCentered: true)
         setXY(x: centerStageView.frame.origin.x, y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 2) + Block.width * (48 / 16), imageView: centerStageView, isCentered: false)
-        }
-        
-        func setupTopPipeStageSelectView() {
+    }
+    
+    func setupTopPipeStageSelectView() {
         
         setWidthHeight(width: Block.width * (256 / 16), height: Block.height * (8 / 16), imageView: topPipeStageSelectView)
         setXY(x: centerStageView.frame.origin.x + (centerStageView.frame.size.width / 2), y: brickStageView.frame.origin.y + (brickStageView.frame.size.height / 2), imageView: topPipeStageSelectView, isCentered: true)
-        }
-        
-        func setupMiddlePipeStageSelectView() {
+    }
+    
+    func setupMiddlePipeStageSelectView() {
         
         setWidthHeight(width: Block.width * (256 / 16), height: Block.height * (8 / 16), imageView: middlePipeStageSelectView)
         setXY(x: centerStageView.frame.origin.x + (centerStageView.frame.size.width / 2), y: centerStageView.frame.origin.y + (centerStageView.frame.size.height / 2), imageView: middlePipeStageSelectView, isCentered: true)
-        }
-        
-        func setupBottomPipeStageSelectView() {
+    }
+    
+    func setupBottomPipeStageSelectView() {
         
         setWidthHeight(width: Block.width * (256 / 16), height: Block.height * (8 / 16), imageView: bottomPipeStageSelectView)
         setXY(x: centerStageView.frame.origin.x + (centerStageView.frame.size.width / 2), y: metalStageView.frame.origin.y + (metalStageView.frame.size.height / 2), imageView: bottomPipeStageSelectView, isCentered: true)
-        }
+    }
 }
