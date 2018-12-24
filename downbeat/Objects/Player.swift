@@ -1782,74 +1782,93 @@ class Player {
     }
     
     func handlePause() {
-        
-        if isClimbing == true {
-            
-            if self.ySpeed == 0 {
-                
-            } else {
-                
-                if self.isShootingAnimation == false {
-                 
-                    player.view.stopAnimating()
-                    
-                    player.view.image = Player.climbImage
-                }
-            }
-            
-        } else if self.ySpeed != 0 {
-            
-        } else if isMoving == true {
-            
-            if self.didHandleJumpAnimation() == false {
-                
-                if isMovingLeft == true {
-                    
-                    self.view.stopAnimating()
-                    
-                    if self.isShootingAnimation == true {
-                        
-                        if self.power == "regular" || self.power == "beam" || self.power == "magnet" {
-                            
-                            player.view.image = UIImage(named: "playerRunShootRight1")
-                            
-                        } else {
-                            
-                            player.view.image = UIImage(named: "playerRunThrowRight1")
-                        }
-                        
-                    } else {
-                        
-                        player.view.image = UIImage(named: "playerRunRight1")
-                    }
-                    
-                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-                    
-                } else if isMovingRight == true {
-                    
-                    self.view.stopAnimating()
-                    
-                    if self.isShootingAnimation == true {
-                        
-                        if self.power == "regular" || self.power == "beam" || self.power == "magnet" {
-                            
-                            player.view.image = UIImage(named: "playerRunShootRight1")
-                            
-                        } else {
-                            
-                            player.view.image = UIImage(named: "playerRunThrowRight1")
-                        }
-                        
-                    } else {
-                        
-                        player.view.image = UIImage(named: "playerRunRight1")
-                    }
 
-                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-                }
-            }
-            
-        }
+//        if self.isKnockedBack == true {
+//
+//            if direction == "left" {
+//
+//                player.view.stopAnimating()
+//
+//                player.view.image = UIImage(named: "playerKnockedBackRight1")
+//
+//                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+//
+//            } else if direction == "right" {
+//
+//                player.view.stopAnimating()
+//
+//                player.view.image = UIImage(named: "playerKnockedBackRight1")
+//
+//                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+//            }
+//
+//        } else if isClimbing == true {
+//
+//            if self.ySpeed == 0 {
+//
+//            } else {
+//
+//                if self.isShootingAnimation == false {
+//
+//                    player.view.stopAnimating()
+//
+//                    player.view.image = Player.climbImage
+//                }
+//            }
+//
+//        } else if self.ySpeed != 0 {
+//
+//        } else if isMoving == true {
+//
+//            if self.didHandleJumpAnimation() == false {
+//
+//                if isMovingLeft == true {
+//
+//                    self.view.stopAnimating()
+//
+//                    if self.isShootingAnimation == true {
+//
+//                        if self.power == "regular" || self.power == "beam" || self.power == "magnet" {
+//
+//                            player.view.image = UIImage(named: "playerRunShootRight1")
+//
+//                        } else {
+//
+//                            player.view.image = UIImage(named: "playerRunThrowRight1")
+//                        }
+//
+//                    } else {
+//
+//                        player.view.image = UIImage(named: "playerRunRight1")
+//                    }
+//
+//                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+//
+//                } else if isMovingRight == true {
+//
+//                    self.view.stopAnimating()
+//
+//                    if self.isShootingAnimation == true {
+//
+//                        if self.power == "regular" || self.power == "beam" || self.power == "magnet" {
+//
+//                            player.view.image = UIImage(named: "playerRunShootRight1")
+//
+//                        } else {
+//
+//                            player.view.image = UIImage(named: "playerRunThrowRight1")
+//                        }
+//
+//                    } else {
+//
+//                        player.view.image = UIImage(named: "playerRunRight1")
+//                    }
+//
+//                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+//                }
+//            }
+//
+//        }
 
         self.timerFireTimes["endShootAnimationTimer"] = getTimerFireTime(timer: self.endShootAnimationTimer)
         self.timerFireTimes["endHitTimer"] = getTimerFireTime(timer: self.endHitTimer)
@@ -1864,10 +1883,11 @@ class Player {
     
     func handleResume() {
         
-        canClimb = true
-        
-        canMoveLeft = true
-        canMoveRight = true
+//        canBeKnockedBack = true
+//        canClimb = true
+//
+//        canMoveLeft = true
+//        canMoveRight = true
         
         if let fireTime = self.timerFireTimes["endShootAnimationTimer"] {
             

@@ -393,6 +393,10 @@ class GameController: UIViewController {
                 bullet.handlePause()
             }
             
+            for enemy in selectedEnemies {
+                enemy.handlePause()
+            }
+            
         } else {
             
             print("RESUME")
@@ -401,6 +405,10 @@ class GameController: UIViewController {
 
             for bullet in bullets {
                 bullet.handleResume()
+            }
+            
+            for enemy in selectedEnemies {
+                enemy.handleResume()
             }
         }
         

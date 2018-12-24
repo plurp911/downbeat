@@ -183,6 +183,8 @@ class Enemy {
     
     var jumpTimer = Timer()
     
+    var timerFireTimes = [String : CGFloat]()
+    
     var shootTimeInterval: CGFloat = 0
     var signalTimeInterval: CGFloat = 0
     
@@ -4625,4 +4627,74 @@ class Enemy {
         
         return -1
     }
+    
+    func handlePause() {
+        
+        self.timerFireTimes["shootTimer"] = getTimerFireTime(timer: self.shootTimer)
+        self.timerFireTimes["endShootTimer"] = getTimerFireTime(timer: self.endShootTimer)
+        self.timerFireTimes["signalTimer"] = getTimerFireTime(timer: self.signalTimer)
+        self.timerFireTimes["endStunTimer"] = getTimerFireTime(timer: self.endStunTimer)
+        self.timerFireTimes["endHitTimer"] = getTimerFireTime(timer: self.endHitTimer)
+        self.timerFireTimes["jumpTimer"] = getTimerFireTime(timer: self.jumpTimer)
+
+        self.shootTimer.invalidate()
+        self.endShootTimer.invalidate()
+        self.signalTimer.invalidate()
+        self.endStunTimer.invalidate()
+        self.endHitTimer.invalidate()
+        self.jumpTimer.invalidate()
+    }
+    
+    func handleResume() {
+        
+        if let fireTime = self.timerFireTimes["shootTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+            }
+        }
+        
+        if let fireTime = self.timerFireTimes["endShootTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            }
+        }
+
+        if let fireTime = self.timerFireTimes["signalTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            }
+        }
+        
+        if let fireTime = self.timerFireTimes["endStunTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.endStunTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(stopStun), userInfo: nil, repeats: false)
+            }
+        }
+        
+        if let fireTime = self.timerFireTimes["endHitTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.endHitTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(stopHit), userInfo: nil, repeats: false)
+            }
+        }
+        
+        if let fireTime = self.timerFireTimes["jumpTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.jumpTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(jump), userInfo: nil, repeats: false)
+            }
+        }
+        
+    }
+    
 }

@@ -1004,6 +1004,7 @@ class Bullet {
                 //            shouldRepeat
             }
         }
+        
     }
     
     func jump() {
