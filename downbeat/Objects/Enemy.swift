@@ -163,7 +163,8 @@ class Enemy {
     var isMovingRight: Bool = false
     
     var shouldShoot: Bool = false
-    var shouldRun: Bool = false
+//    var shouldRun: Bool = false
+    var shouldRun: Bool = true
     
     var health: Int = 0
     
@@ -801,7 +802,8 @@ class Enemy {
                 setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
             }
             
-            self.jumpTimeInterval = 1
+//            self.jumpTimeInterval = 1
+            self.jumpTimeInterval = 0
             
             self.signalTimeInterval = 0.25
             
@@ -2114,6 +2116,11 @@ class Enemy {
                     
                     if self.ySpeed > 0 {
                         
+                        if self.ySpeed - self.ySpeedChange <= 0 {
+                            
+                            self.realShoot()
+                        }
+                        
                         self.isFalling = true
                         
                         self.isRising = false
@@ -2128,9 +2135,6 @@ class Enemy {
                         
                         self.isFalling = false
                         
-                    } else {
-                        
-                        self.realShoot()
                     }
                 }
                 
@@ -2212,9 +2216,17 @@ class Enemy {
                                     self.xSpeed = 0
                                     self.ySpeed = 0
                                     
-                                    self.shouldRun = true
+//                                    print("TEST TEST TEST")
                                     
-                                    //                         self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                    if self.signalTimer.isValid == false && self.isSignalling == false {
+                                        
+                                        self.shouldRun = true
+                                    }
+                                    
+//                                    if self.signalTimer.isValid == false {
+//
+//                                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+//                                    }
                                     
                                     setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
                                 }
@@ -2229,9 +2241,17 @@ class Enemy {
                                     self.xSpeed = 0
                                     self.ySpeed = 0
                                     
-                                    self.shouldRun = true
+//                                    print("TEST TEST TEST")
                                     
-                                    //                         self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                    if self.signalTimer.isValid == false && self.isSignalling == false {
+                                        
+                                        self.shouldRun = true
+                                    }
+                                    
+//                                    if self.signalTimer.isValid == false {
+//
+//                                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+//                                    }
                                     
                                     setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
                                 }
@@ -2306,14 +2326,13 @@ class Enemy {
                     
                 } else if self.direction == "right" {
                     
-                    
-                    if self.x - self.moveSpeed <= Block.width * 2 {
+                    if self.x + self.moveSpeed >= (screenSize.height * screenRatio) - (Block.width * 2) {
                         
                         self.xSpeed = 0
                         
-                        setXY(x: (Block.width * 2) + self.moveSpeed, y: self.y)
+                        setXY(x: (screenSize.height * screenRatio) - (Block.width * 2) - self.moveSpeed, y: self.y)
                         
-                        self.direction = "right"
+                        self.direction = "left"
                         
                         self.shouldRun = false
                         
@@ -3806,6 +3825,10 @@ class Enemy {
     
     @objc func jump() {
         
+        print()
+        print("JUMP")
+        print()
+        
         self.isSignalling = false
         
         self.isJumping = true
@@ -3821,6 +3844,10 @@ class Enemy {
                 
                 self.xSpeed = -self.moveSpeed
             }
+            
+        } else {
+            
+            self.xSpeed = 0
         }
         
         self.ySpeed = -self.maxFallSpeed
@@ -3908,7 +3935,7 @@ class Enemy {
             }
             
         } else if self.type == "fireBoss" {
-            
+                
             if self.jumpTimer.isValid == false {
                 
                 self.jumpTimer.invalidate()
@@ -4462,7 +4489,7 @@ class Enemy {
             
         } else if self.type == "fireBoss" {
             
-            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+//            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             
         } else if self.type == "metalBoss" {
             
@@ -4576,12 +4603,12 @@ class Enemy {
             
         } else if self.type == "fireBoss" {
             
-            if self.signalTimer.isValid == false {
-                
-                self.signalTimer.invalidate()
-                
-                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
-            }
+//            if self.signalTimer.isValid == false {
+//
+//                self.signalTimer.invalidate()
+//
+//                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+//            }
             
         } else if self.type == "metalBoss" {
             
