@@ -150,6 +150,8 @@ class Player {
     
     //    var freezeTimer = Timer()
     
+    var timerFireTimes = [String : CGFloat]()
+    
     var healthBar: EnergyBar = EnergyBar(type: "health")
     var energyBar: EnergyBar = EnergyBar(type: "energy")
     
@@ -1602,7 +1604,15 @@ class Player {
     }
     
     @objc func handleHitAnimation() {
+        
         self.view.isHidden = !self.view.isHidden
+        
+        if self.hitAnimationTimer.timeInterval != TimeInterval(Player.animationCycleTime * 0.075) {
+            
+            self.hitAnimationTimer.invalidate()
+            
+            self.hitAnimationTimer = Timer.scheduledTimer(timeInterval: Player.animationCycleTime * 0.075, target: self, selector: #selector(handleHitAnimation), userInfo: nil, repeats: true)
+        }
     }
     
     func cycleWeapon(isNext: Bool) {
@@ -1769,6 +1779,55 @@ class Player {
             }
         }
         
+    }
+    
+    func handlePause() {
+        
+        self.timerFireTimes["endShootAnimationTimer"] = getTimerFireTime(timer: self.endShootAnimationTimer)
+        self.timerFireTimes["endHitTimer"] = getTimerFireTime(timer: self.endHitTimer)
+        self.timerFireTimes["hitAnimationTimer"] = getTimerFireTime(timer: self.hitAnimationTimer)
+        self.timerFireTimes["endKnockBackTimer"] = getTimerFireTime(timer: self.endKnockBackTimer)
+        
+        self.endShootAnimationTimer.invalidate()
+        self.endHitTimer.invalidate()
+        self.hitAnimationTimer.invalidate()
+        self.endKnockBackTimer.invalidate()
+    }
+    
+    func handleResume() {
+        
+        if let fireTime = self.timerFireTimes["endShootAnimationTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.endShootAnimationTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(stopShootAnimation), userInfo: nil, repeats: false)
+            }
+        }
+        
+        if let fireTime = self.timerFireTimes["endHitTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.endHitTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(endHit), userInfo: nil, repeats: false)
+            }
+        }
+        
+        if let fireTime = self.timerFireTimes["hitAnimationTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.hitAnimationTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(handleHitAnimation), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if let fireTime = self.timerFireTimes["endKnockBackTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.endKnockBackTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(endKnockBack), userInfo: nil, repeats: false)
+            }
+        }
+
     }
     
     //    func isInBounds() -> Bool {

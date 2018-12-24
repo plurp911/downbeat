@@ -980,10 +980,9 @@ class Bullet {
         self.timerFireTimes["removeTimer"] = getTimerFireTime(timer: self.removeTimer)
         self.timerFireTimes["useEnergyTimer"] = getTimerFireTime(timer: self.useEnergyTimer)
         
-        removeTimer.invalidate()
-        useEnergyTimer.invalidate()
+        self.removeTimer.invalidate()
+        self.useEnergyTimer.invalidate()
     }
-    
     
     func handleResume() {
         
@@ -991,7 +990,7 @@ class Bullet {
             
             if fireTime >= 0 {
                 
-                self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval - fireTime), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
+                self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
             }
         }
         
@@ -1000,7 +999,7 @@ class Bullet {
             if fireTime >= 0 {
                 
                 //          self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.useEnergyTimeInterval), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
-                self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.useEnergyTimeInterval - fireTime), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
+                self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
                 
                 //            shouldRepeat
             }

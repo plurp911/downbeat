@@ -163,6 +163,7 @@ class Enemy {
     var isMovingRight: Bool = false
     
     var shouldShoot: Bool = false
+    var shouldRun: Bool = false
     
     var health: Int = 0
     
@@ -442,13 +443,16 @@ class Enemy {
             
             self.damage = 5
             
-            self.ySpeedChange = 0.12
-            self.maxFallSpeed = 5.5
+            //            self.ySpeedChange = 0.12
+            //            self.maxFallSpeed = 5.5
+            self.ySpeedChange = 0.1
+            self.maxFallSpeed = 5.25
             
             self.width = Block.width * (31 / 16)
             self.height = Block.height * (32 / 16)
             
-            self.moveSpeed = 1.25
+            //            self.moveSpeed = 1.25
+            self.moveSpeed = 1.5
             
         } else if self.type == "iceBoss" {
             
@@ -481,11 +485,8 @@ class Enemy {
             
             self.damage = 5
             
-            //           self.width = Block.width * (64 / 16)
-            //           self.height = Block.height
-            
             self.width = Block.width * (64 / 16)
-            self.height = Block.height * (14 / 16)
+            self.height = Block.height
             
             self.moveSpeed = 0
             
@@ -1334,13 +1335,13 @@ class Enemy {
             
         } else if type == "fireBoss" {
             
-            if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
-                
-                self.view.image = Enemy.fireBossJumpLeftImage
-                
-            } else if self.isShooting == true {
+            if self.isShooting == true {
                 
                 self.view.image = Enemy.fireBossThrowLeftImage
+                
+            } else if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
+                
+                self.view.image = Enemy.fireBossJumpLeftImage
                 
             } else if self.isSignalling == true {
                 
@@ -2101,143 +2102,35 @@ class Enemy {
             
         } else if self.type == "fireBoss" {
             
-            if self.isJumping == true || self.isFalling == true {
+            if self.shouldRun == false {
                 
-                self.ySpeed += self.ySpeedChange
+                self.xSpeed = 0
                 
-                if self.ySpeed > 0 {
+                if self.isJumping == true || self.isFalling == true {
                     
-                    self.isFalling = true
+                    self.ySpeed += self.ySpeedChange
                     
-                    self.isRising = false
-                    
-                    if self.ySpeed > self.maxFallSpeed {
-                        self.ySpeed = self.maxFallSpeed
-                    }
-                    
-                } else if ySpeed < 0 {
-                    
-                    self.isRising = true
-                    
-                    self.isFalling = false
-                }
-            }
-            
-            for block in selectedBlocks {
-                
-                if block.isHidden == false {
-                    
-                    if block.isLadder == false && block.isTopLadder == false {
+                    if self.ySpeed > 0 {
                         
-                        if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
-                            
-                            setXY(x: block.x - (Block.width / 2) - (self.width / 2) - self.moveSpeed, y: self.y)
+                        self.isFalling = true
+                        
+                        self.isRising = false
+                        
+                        if self.ySpeed > self.maxFallSpeed {
+                            self.ySpeed = self.maxFallSpeed
                         }
                         
-                        if self.x - (self.width / 2) - self.moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
-                            
-                            setXY(x: block.x + (Block.width / 2) + (self.width / 2), y: self.y)
-                        }
+                    } else if ySpeed < 0 {
                         
+                        self.isRising = true
+                        
+                        self.isFalling = false
+                        
+                    } else {
+                        
+                        self.realShoot()
                     }
                 }
-                
-            }
-            
-            if self.x - (self.width / 2) - self.moveSpeed < 0 {
-                
-                setXY(x: (self.width / 2) + self.moveSpeed, y: self.y)
-                
-            } else if self.x + (self.width / 2) + self.moveSpeed > screenSize.height * screenRatio {
-                
-                setXY(x: (screenSize.height * screenRatio) - (self.width / 2) - self.moveSpeed, y: self.y)
-            }
-            
-            if self.isRising == false {
-                
-                var isEmpty: Bool = true
-                
-                for block in selectedBlocks {
-                    
-                    if block.isHidden == false {
-                        
-                        if block.isTopLadder == true {
-                            
-                            if self.y + (self.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
-                                
-                                isEmpty = false
-                            }
-                            
-                        } else if block.isLadder == false {
-                            
-                            if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
-                                
-                                isEmpty = false
-                            }
-                        }
-                        
-                    }
-                }
-                
-                if isEmpty == true {
-                    
-                    self.isFalling = true
-                }
-            }
-            
-            if self.isFalling == true {
-                
-                for block in selectedBlocks {
-                    
-                    if block.isHidden == false {
-                        
-                        if block.isTopLadder == true {
-                            
-                            if self.y + (self.height / 2) + self.maxFallSpeed <= block.y - (Block.height / 2) + self.maxFallSpeed && self.y + (self.height / 2) + self.maxFallSpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
-                                
-                                self.isJumping = false
-                                self.isFalling = false
-                                
-                                self.xSpeed = 0
-                                self.ySpeed = 0
-                                
-                                if self.signalTimer.isValid == false && self.shootTimer.isValid == false {
-                                    
-                                    self.signalTimer.invalidate()
-                                    
-                                    self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
-                                }
-                                
-                                setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
-                            }
-                            
-                        } else if block.isLadder == false {
-                            
-                            if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
-                                
-                                self.isJumping = false
-                                self.isFalling = false
-                                
-                                self.xSpeed = 0
-                                self.ySpeed = 0
-                                
-                                if self.signalTimer.isValid == false && self.shootTimer.isValid == false {
-                                    
-                                    self.signalTimer.invalidate()
-                                    
-                                    self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
-                                }
-                                
-                                setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
-                            }
-                        }
-                        
-                    }
-                }
-                
-            }
-            
-            if self.isRising == true {
                 
                 for block in selectedBlocks {
                     
@@ -2245,34 +2138,187 @@ class Enemy {
                         
                         if block.isLadder == false && block.isTopLadder == false {
                             
-                            if self.y - (self.height / 2) + self.ySpeed <= block.y + (Block.height / 2) && self.y - (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                            if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                                 
-                                self.isFalling = true
-                                
-                                self.isJumping = false
-                                self.isRising = false
-                                
-                                self.ySpeed = 0
-                                
-                                setXY(x: self.x, y: block.y + (Block.height / 2) + (self.height / 2))
+                                setXY(x: block.x - (Block.width / 2) - (self.width / 2) - self.moveSpeed, y: self.y)
                             }
+                            
+                            if self.x - (self.width / 2) - self.moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                                
+                                setXY(x: block.x + (Block.width / 2) + (self.width / 2), y: self.y)
+                            }
+                            
                         }
-                        
                     }
                     
                 }
-            }
-            
-            if self.isJumping == false {
                 
-                if player.x >= self.x {
+                if self.x - (self.width / 2) - self.moveSpeed < 0 {
                     
-                    self.direction = "right"
+                    setXY(x: (self.width / 2) + self.moveSpeed, y: self.y)
                     
-                } else {
+                } else if self.x + (self.width / 2) + self.moveSpeed > screenSize.height * screenRatio {
                     
-                    self.direction = "left"
+                    setXY(x: (screenSize.height * screenRatio) - (self.width / 2) - self.moveSpeed, y: self.y)
                 }
+                
+                if self.isRising == false {
+                    
+                    var isEmpty: Bool = true
+                    
+                    for block in selectedBlocks {
+                        
+                        if block.isHidden == false {
+                            
+                            if block.isTopLadder == true {
+                                
+                                if self.y + (self.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                    
+                                    isEmpty = false
+                                }
+                                
+                            } else if block.isLadder == false {
+                                
+                                if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                    
+                                    isEmpty = false
+                                }
+                            }
+                            
+                        }
+                    }
+                    
+                    if isEmpty == true {
+                        
+                        self.isFalling = true
+                    }
+                }
+                
+                if self.isFalling == true {
+                    
+                    for block in selectedBlocks {
+                        
+                        if block.isHidden == false {
+                            
+                            if block.isTopLadder == true {
+                                
+                                if self.y + (self.height / 2) + self.maxFallSpeed <= block.y - (Block.height / 2) + self.maxFallSpeed && self.y + (self.height / 2) + self.maxFallSpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                    
+                                    self.isJumping = false
+                                    self.isFalling = false
+                                    
+                                    self.xSpeed = 0
+                                    self.ySpeed = 0
+                                    
+                                    self.shouldRun = true
+                                    
+                                    //                         self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                    
+                                    setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                                }
+                                
+                            } else if block.isLadder == false {
+                                
+                                if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                    
+                                    self.isJumping = false
+                                    self.isFalling = false
+                                    
+                                    self.xSpeed = 0
+                                    self.ySpeed = 0
+                                    
+                                    self.shouldRun = true
+                                    
+                                    //                         self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                    
+                                    setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                                }
+                            }
+                            
+                        }
+                    }
+                    
+                }
+                
+                if self.isRising == true {
+                    
+                    for block in selectedBlocks {
+                        
+                        if block.isHidden == false {
+                            
+                            if block.isLadder == false && block.isTopLadder == false {
+                                
+                                if self.y - (self.height / 2) + self.ySpeed <= block.y + (Block.height / 2) && self.y - (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                    
+                                    self.isFalling = true
+                                    
+                                    self.isJumping = false
+                                    self.isRising = false
+                                    
+                                    self.ySpeed = 0
+                                    
+                                    setXY(x: self.x, y: block.y + (Block.height / 2) + (self.height / 2))
+                                }
+                            }
+                            
+                        }
+                        
+                    }
+                }
+                
+                /*
+                 if self.isJumping == false {
+                 
+                 
+                 if player.x >= self.x {
+                 
+                 self.direction = "right"
+                 
+                 } else {
+                 
+                 self.direction = "left"
+                 }
+                 }
+                 */
+                
+            } else {
+                
+                self.xSpeed = self.moveSpeed
+                
+                if direction == "left" {
+                    
+                    self.xSpeed = -self.xSpeed
+                    
+                    if self.x - self.moveSpeed <= Block.width * 2 {
+                        
+                        self.xSpeed = 0
+                        
+                        setXY(x: (Block.width * 2) + self.moveSpeed, y: self.y)
+                        
+                        self.direction = "right"
+                        
+                        self.shouldRun = false
+                        
+                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                    }
+                    
+                } else if self.direction == "right" {
+                    
+                    
+                    if self.x - self.moveSpeed <= Block.width * 2 {
+                        
+                        self.xSpeed = 0
+                        
+                        setXY(x: (Block.width * 2) + self.moveSpeed, y: self.y)
+                        
+                        self.direction = "right"
+                        
+                        self.shouldRun = false
+                        
+                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                    }
+                }
+                
             }
             
         } else if self.type == "metalBoss" {
@@ -2377,6 +2423,15 @@ class Enemy {
                                 self.xSpeed = 0
                                 self.ySpeed = 0
                                 
+                                if self.direction == "left" {
+                                    
+                                    self.direction = "right"
+                                    
+                                } else if self.direction == "right" {
+                                    
+                                    self.direction = "left"
+                                }
+                                
                                 if self.signalTimer.isValid == false && self.shootTimer.isValid == false {
                                     
                                     self.signalTimer.invalidate()
@@ -2396,6 +2451,15 @@ class Enemy {
                                 
                                 self.xSpeed = 0
                                 self.ySpeed = 0
+                                
+                                if self.direction == "left" {
+                                    
+                                    self.direction = "right"
+                                    
+                                } else if self.direction == "right" {
+                                    
+                                    self.direction = "left"
+                                }
                                 
                                 if self.signalTimer.isValid == false && self.shootTimer.isValid == false {
                                     
@@ -2439,17 +2503,19 @@ class Enemy {
                 }
             }
             
-            if self.isJumping == false {
-                
-                if player.x >= self.x {
-                    
-                    self.direction = "right"
-                    
-                } else {
-                    
-                    self.direction = "left"
-                }
-            }
+            /*
+             if self.isJumping == false {
+             
+             if player.x >= self.x {
+             
+             self.direction = "right"
+             
+             } else {
+             
+             self.direction = "left"
+             }
+             }
+             */
             
         } else if self.type == "iceBoss" {
             
@@ -3743,13 +3809,16 @@ class Enemy {
         self.isJumping = true
         self.isRising = true
         
-        if self.direction == "right" {
+        if self.type != "fireBoss" {
             
-            self.xSpeed = self.moveSpeed
-            
-        } else if self.direction == "left" {
-            
-            self.xSpeed = -self.moveSpeed
+            if self.direction == "right" {
+                
+                self.xSpeed = self.moveSpeed
+                
+            } else if self.direction == "left" {
+                
+                self.xSpeed = -self.moveSpeed
+            }
         }
         
         self.ySpeed = -self.maxFallSpeed
@@ -3838,31 +3907,11 @@ class Enemy {
             
         } else if self.type == "fireBoss" {
             
-            if self.shootTimer.isValid == false && self.jumpTimer.isValid == false {
+            if self.jumpTimer.isValid == false {
                 
-                if self.shouldShoot == true {
-                    
-                    self.shouldShoot = false
-                    
-                    if self.shootTimer.isValid == false {
-                        
-                        self.shootTimer.invalidate()
-                        
-                        self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
-                    }
-                    
-                } else {
-                    
-                    self.shouldShoot = true
-                    
-                    if self.jumpTimer.isValid == false {
-                        
-                        self.jumpTimer.invalidate()
-                        
-                        self.jumpTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.signalTimeInterval), target: self, selector: #selector(jump), userInfo: nil, repeats: false)
-                    }
-                }
+                self.jumpTimer.invalidate()
                 
+                self.jumpTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.signalTimeInterval), target: self, selector: #selector(jump), userInfo: nil, repeats: false)
             }
             
         } else if self.type == "metalBoss" {
@@ -4222,8 +4271,6 @@ class Enemy {
             let yOffset: CGFloat = Block.width * (16 / 16)
             
             if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
-                
-            } else {
                 
                 //                if self.direction == "left" {
                 //

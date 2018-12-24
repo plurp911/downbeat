@@ -289,7 +289,7 @@ public func getTimerFireTime(timer: Timer) -> CGFloat {
         let currentDateMilliseconds = (NSDate().timeIntervalSince1970 * 1000.0).rounded()
         let TimerDateMilliseconds = (timer.fireDate.timeIntervalSince1970 * 1000.0).rounded()
         
-        return CGFloat(TimerDateMilliseconds - currentDateMilliseconds)
+        return CGFloat(TimerDateMilliseconds - currentDateMilliseconds) / 1000.0
     }
     
     return -1

@@ -387,6 +387,8 @@ class GameController: UIViewController {
             
             print("PAUSE")
             
+            player.handlePause()
+
             for bullet in bullets {
                 bullet.handlePause()
             }
@@ -395,6 +397,8 @@ class GameController: UIViewController {
             
             print("RESUME")
             
+            player.handleResume()
+
             for bullet in bullets {
                 bullet.handleResume()
             }
