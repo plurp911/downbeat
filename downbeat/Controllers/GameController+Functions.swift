@@ -9,10 +9,12 @@
 import UIKit
 
 extension GameController {
-
+    
     @objc func move() {
         
         if isPaused == false {
+            
+            time += 1 / 120
             
             player.updateAnimation()
             
@@ -134,7 +136,7 @@ extension GameController {
                             if bullet.type == "shield" {
                                 
                                 bullet.direction = player.direction
-
+                                
                                 bullet.didReachGoal = true
                             }
                         }
@@ -186,7 +188,7 @@ extension GameController {
                                     
                                 }
                             }
-
+                            
                             var shouldClimb: Bool = true
                             
                             if player.isClimbing == false {
@@ -250,8 +252,10 @@ extension GameController {
                                 player.move()
                                 
                                 player.isClimbing = false
-
+                                
                                 player.ySpeed = 0
+                                
+                                player.isFalling = true
                             }
                         }
                         
@@ -311,7 +315,7 @@ extension GameController {
             }
             
             removeObjects(type: "powerups", toRemove: powerupsToRemove)
-
+            
             var enemyBulletsToRemove = [Int]()
             
             for i in 0 ..< enemyBullets.count {
@@ -397,7 +401,7 @@ extension GameController {
                         if enemyBullets[enemyBulletPos].x >= player.x {
                             
                             player.handleHit(damage: enemyBullets[enemyBulletPos].damage, enemyDirection: "left")
-
+                            
                         } else {
                             
                             player.handleHit(damage: enemyBullets[enemyBulletPos].damage, enemyDirection: "right")
@@ -419,9 +423,9 @@ extension GameController {
             }
             
             removeObjects(type: "bullets", toRemove: bulletsToRemove)
-
+            
             enemyBulletsToRemove.removeAll()
-
+            
             for enemy in selectedEnemies {
                 
                 if enemy.type == "brickBoss" || enemy.type == "fireBoss" || enemy.type == "metalBoss" || enemy.type == "iceBoss" {
@@ -438,7 +442,7 @@ extension GameController {
             }
             
             bulletsToRemove.removeAll()
-
+            
             for i in 0 ..< bullets.count {
                 
                 if bullets[i].type == "beam" && bullets[i].shouldRemove == true {
@@ -475,7 +479,7 @@ extension GameController {
                 if bulletPos >= 0 {
                     
                     bullets[bulletPos].addHitEnemy(enemy: selectedEnemies[i])
-
+                    
                     if bullets[bulletPos].type == "regular" {
                         
                         bulletsToRemove.append(bulletPos)
@@ -490,14 +494,14 @@ extension GameController {
                         
                     } else if bullets[bulletPos].type == "shield" {
                         
-//                        bulletsToRemove.append(bulletPos)
+                        //                        bulletsToRemove.append(bulletPos)
                         
                     } else if bullets[bulletPos].type == "tornado" {
                         
                     } else if bullets[bulletPos].type == "bubble" {
-
+                        
                         bulletsToRemove.append(bulletPos)
-
+                        
                     } else if bullets[bulletPos].type == "bomb" {
                         
                     }
@@ -515,7 +519,7 @@ extension GameController {
                         if selectedEnemies[i].type == "brickBoss" || selectedEnemies[i].type == "fireBoss" || selectedEnemies[i].type == "metalBoss" || selectedEnemies[i].type == "iceBoss"  {
                             
                             print("YOU WIN")
-
+                            
                         } else {
                             
                             handleMakePowerup(x: selectedEnemies[i].x, y: selectedEnemies[i].y)
@@ -534,7 +538,7 @@ extension GameController {
                     selectedEnemiesToRemove.append(i)
                 }
             }
- 
+            
             for i in 0 ..< currentStage!.specialEnemies.count {
                 
                 currentStage!.specialEnemies[i].move()
@@ -908,7 +912,7 @@ extension GameController {
                     currentStage!.specialEnemies[i].setXY(x: currentStage!.specialEnemies[i].x - Player.maxMoveSpeed, y: currentStage!.specialEnemies[i].y)
                 }
             }
-                
+            
         }
     }
     
@@ -977,7 +981,7 @@ extension GameController {
         
         for e in selectedEnemies {
             gameView.addSubview(e.view)
-//            gameView.addSubview(e.hitBox)
+            //            gameView.addSubview(e.hitBox)
         }
         
         for e in currentStage!.specialEnemies {
@@ -998,8 +1002,8 @@ extension GameController {
         }
         
         gameView.addSubview(player.view)
-//        gameView.addSubview(player.hitBox)
-
+        //        gameView.addSubview(player.hitBox)
+        
         gameView.addSubview(player.healthBar.view)
         gameView.addSubview(player.energyBar.view)
         
@@ -1021,7 +1025,7 @@ extension GameController {
         }
         
     }
-
+    
     func removeAllSubviews() {
         
         for view in gameView.subviews {

@@ -113,6 +113,11 @@ var gameViewColor: UIColor = UIColor.clear
 
 var tileSet: String = ""
 
+var time: CGFloat = 0
+
+//var completedLevels: [Bool] = [false, false, false, false, false, false, false, false]
+var completedLevels: [Bool] = [true, true, false, false, false, true, false, true]
+
 // OBJECTS
 
 var currentLevel: Level?
@@ -152,13 +157,13 @@ public func tryToRemove(array: [AnyObject], value: Int) -> [AnyObject] {
 public func removeObjects(type: String, toRemove: [Int]) {
     
     var newToRemove = removeDuplicateInts(values: toRemove)
-
+    
     newToRemove = newToRemove.sorted(by: { $0 < $1 })
     
     for i in 0 ..< newToRemove.count {
         
         let newI = newToRemove.count - i - 1
-
+        
         if type == "bullets" {
             
             bullets[newToRemove[newI]].useEnergyTimer.invalidate()
@@ -168,29 +173,29 @@ public func removeObjects(type: String, toRemove: [Int]) {
         } else if type == "deflectedBullets" {
             
             deflectedBullets = tryToRemove(array: deflectedBullets, value: newToRemove[newI]) as! [DeflectedBullet]
-
+            
         } else if type == "powerups" {
             
             powerups = tryToRemove(array: powerups, value: newToRemove[newI]) as! [Powerup]
-
+            
         } else if type == "explosions" {
             
             explosions = tryToRemove(array: explosions, value: newToRemove[newI]) as! [Explosion]
-
+            
         } else if type == "enemies" {
             
             currentStage!.enemies[newToRemove[newI]].endTimers()
             
             currentStage!.enemies = tryToRemove(array: currentStage!.enemies, value: newToRemove[newI]) as! [Enemy]
-
+            
         } else if type == "enemyBullets" {
             
             enemyBullets = tryToRemove(array: enemyBullets, value: newToRemove[newI]) as! [EnemyBullet]
-
+            
         } else if type == "selectedBlocks" {
             
             selectedBlocks = tryToRemove(array: selectedBlocks, value: newToRemove[newI]) as! [Block]
-
+            
         } else if type == "selectedBackgrounds" {
             
             selectedBackgrounds = tryToRemove(array: selectedBackgrounds, value: newToRemove[newI]) as! [Background]
@@ -198,11 +203,11 @@ public func removeObjects(type: String, toRemove: [Int]) {
         } else if type == "selectedEnemies" {
             
             selectedEnemies[newToRemove[newI]].isUsed = true
-
+            
             selectedEnemies[newToRemove[newI]].endTimers()
             
             selectedEnemies = tryToRemove(array: selectedEnemies, value: newToRemove[newI]) as! [Enemy]
-
+            
         } else if type == "selectedEnemySpawners" {
             
             selectedEnemySpawners[newToRemove[newI]].stopSpawning()
@@ -277,12 +282,25 @@ public func isMatch(object: AnyObject, objectArray: [AnyObject]) -> Bool {
     return false
 }
 
+public func getTimerFireTime(timer: Timer) -> CGFloat {
+    
+    if timer.isValid == true {
+        
+        let currentDateMilliseconds = (NSDate().timeIntervalSince1970 * 1000.0).rounded()
+        let TimerDateMilliseconds = (timer.fireDate.timeIntervalSince1970 * 1000.0).rounded()
+        
+        return CGFloat(TimerDateMilliseconds - currentDateMilliseconds)
+    }
+    
+    return -1
+}
+
 // PUBLIC EXTENSIONS
 
 extension String {
     
     func capitalizingFirstLetter() -> String {
-//        return prefix(1).uppercased() + self.lowercased().dropFirst()
+        //        return prefix(1).uppercased() + self.lowercased().dropFirst()
         return prefix(1).uppercased() + self.dropFirst()
     }
     

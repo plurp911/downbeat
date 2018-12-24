@@ -22,19 +22,19 @@ class Bullet {
     static let bladeImages = [UIImage(named: "bladeBullet1"), UIImage(named: "bladeBullet2")]
     
     static let beamRightImages = [UIImage(named: "beamBulletRight1"), UIImage(named: "beamBulletRight2")]
-
-//    static let magnetLeftImage = UIImage(named: "magnetBulletLeft")
+    
+    //    static let magnetLeftImage = UIImage(named: "magnetBulletLeft")
     static let magnetLeftImages = [UIImage(named: "magnetBulletLeft1"), UIImage(named: "magnetBulletLeft2")]
-
+    
     static let shieldImages = [UIImage(named: "shieldBullet1"), UIImage(named: "shieldBullet2"), UIImage(named: "shieldBullet3")]
-
+    
     static let tornadoRightImages = [UIImage(named: "tornadoBulletRight1"), UIImage(named: "tornadoBulletRight2"), UIImage(named: "tornadoBulletRight3")]
-
-//    static let bubbleImages = [UIImage(named: "bubbleBullet1"), UIImage(named: "bubbleBullet2")]
+    
+    //    static let bubbleImages = [UIImage(named: "bubbleBullet1"), UIImage(named: "bubbleBullet2")]
     static let bubbleRightImages = [UIImage(named: "bubbleBulletRight1"), UIImage(named: "bubbleBulletRight2"), UIImage(named: "bubbleBulletRight3"), UIImage(named: "bubbleBulletRight4"), UIImage(named: "bubbleBulletRight5"), UIImage(named: "bubbleBulletRight6"), UIImage(named: "bubbleBulletRight7"), UIImage(named: "bubbleBulletRight8")]
-
+    
     static let bombImage = UIImage(named: "bombBullet")
-
+    
     // VARIABLES
     
     var width: CGFloat = 0
@@ -78,7 +78,9 @@ class Bullet {
     var removeTimeInterval: CGFloat = 0
     
     var enemiesHit: [AnyObject] = []
-
+    
+    var timerFireTimes = [String : CGFloat]()
+    
     var view: UIImageView = UIImageView()
     
     init(x: CGFloat, y: CGFloat, moveSpeed: CGFloat, direction: String, type: String) {
@@ -89,7 +91,7 @@ class Bullet {
     }
     
     init(x: CGFloat, y: CGFloat, direction: String, type: String) {
-
+        
         setup(x: x, y: y, direction: direction, type: type)
     }
     
@@ -119,16 +121,16 @@ class Bullet {
             
         } else if self.type == "cutter" {
             
-//            self.width = Block.width * (9 / 16)
-//            self.height = self.width
-
+            //            self.width = Block.width * (9 / 16)
+            //            self.height = self.width
+            
             self.width = Block.width * (7 / 16)
             self.height = self.width
             
-//            self.moveSpeed = 2
-//
-//            self.damage = 3
-
+            //            self.moveSpeed = 2
+            //
+            //            self.damage = 3
+            
             self.moveSpeed = 3
             
             self.damage = 1
@@ -192,9 +194,9 @@ class Bullet {
             
         } else if self.type == "magnet" {
             
-//            self.width = Block.width
-//            self.height = Block.height * (12 / 16)
-
+            //            self.width = Block.width
+            //            self.height = Block.height * (12 / 16)
+            
             self.width = Block.width
             self.height = self.width
             
@@ -223,12 +225,12 @@ class Bullet {
             self.useEnergyTimeInterval = 0.75
             
             self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.useEnergyTimeInterval), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
-        
+            
         } else if self.type == "tornado" {
             
-//            self.width = Block.width * (15 / 16)
-//            self.height = Block.height
-
+            //            self.width = Block.width * (15 / 16)
+            //            self.height = Block.height
+            
             self.width = Block.width
             self.height = self.width
             
@@ -250,17 +252,17 @@ class Bullet {
             self.width = Block.width
             self.height = self.width
             
-//            self.moveSpeed = 0.875
+            //            self.moveSpeed = 0.875
             self.moveSpeed = 1.75
-
+            
             self.damage = 2
             
             self.ySpeedChange = 0.15
             self.maxFallSpeed = 4
             
-//            self.removeTimeInterval = 2
+            //            self.removeTimeInterval = 2
             self.removeTimeInterval = 3
-
+            
             self.isFalling = true
             
             if self.direction == "left" {
@@ -274,21 +276,21 @@ class Bullet {
             
         } else if self.type == "bomb" {
             
-//            self.width = Block.width * (14 / 16)
-//            self.height = self.width
+            //            self.width = Block.width * (14 / 16)
+            //            self.height = self.width
             self.width = Block.width
             self.height = self.width
             
             self.moveSpeed = 1.75
-
+            
             self.damage = 3
             
             self.ySpeedChange = 0.135
             self.maxFallSpeed = 4
             
-//            self.removeTimeInterval = 1
+            //            self.removeTimeInterval = 1
             self.removeTimeInterval = 0
-
+            
             if self.direction == "left" {
                 
                 self.xSpeed = -self.moveSpeed
@@ -318,14 +320,14 @@ class Bullet {
             
             self.view.image = Bullet.regularImage
             
-//            if self.direction == "left" {
-//
-//                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-//
-//            } else if self.direction == "right" {
-//
-//                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-//            }
+            //            if self.direction == "left" {
+            //
+            //                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            //
+            //            } else if self.direction == "right" {
+            //
+            //                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            //            }
             
         } else if self.type == "cutter" {
             
@@ -359,11 +361,11 @@ class Bullet {
             self.view.animationDuration = 0.85 * 0.215
             
             self.view.startAnimating()
-
+            
             if self.direction == "left" {
                 
                 self.setXY(x: self.x - (self.width / 2), y: self.y)
-
+                
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
                 
             } else if self.direction == "right" {
@@ -377,7 +379,7 @@ class Bullet {
             
         } else if self.type == "magnet" {
             
-//            self.view.image = Bullet.magnetLeftImage
+            //            self.view.image = Bullet.magnetLeftImage
             
             self.view.animationImages = Bullet.magnetLeftImages as! [UIImage]
             
@@ -423,9 +425,9 @@ class Bullet {
             
             self.view.animationImages = Bullet.bubbleRightImages as! [UIImage]
             
-//            self.view.animationDuration = 0.85 * 0.6875
+            //            self.view.animationDuration = 0.85 * 0.6875
             self.view.animationDuration = 0.85 * 0.6875 * 1
-
+            
             self.view.startAnimating()
             
             if self.direction == "left" {
@@ -438,7 +440,7 @@ class Bullet {
             }
             
             self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
-
+            
         } else if self.type == "bomb" {
             
             self.view.image = Bullet.bombImage
@@ -592,17 +594,17 @@ class Bullet {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
                 self.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2))
-
+                
             } else if self.ySpeed > 0 {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
                 self.view.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi/2))
-
+                
             } else if self.xSpeed < 0 {
                 
                 self.view.transform = CGAffineTransform(rotationAngle: CGFloat(0))
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-
+                
             } else if self.xSpeed > 0 {
                 
                 self.view.transform = CGAffineTransform(rotationAngle: CGFloat(0))
@@ -616,7 +618,7 @@ class Bullet {
             self.ySpeed = 0
             
             if self.didReachGoal == true {
-                                
+                
                 self.xSpeed = self.moveSpeed
                 
                 if self.direction == "left" {
@@ -631,7 +633,7 @@ class Bullet {
                 }
                 
                 setXY(x: self.x + self.xSpeed, y: self.y)
-
+                
             } else {
                 
                 self.xSpeed = 0
@@ -646,7 +648,7 @@ class Bullet {
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
             
         } else if self.type == "bubble" {
-
+            
             if self.isFalling == true {
                 
                 self.ySpeed += self.ySpeedChange
@@ -706,7 +708,7 @@ class Bullet {
             if self.direction == "left" {
                 self.xSpeed = -self.xSpeed
             }
-
+            
             var isEmpty: Bool = true
             
             for block in selectedBlocks {
@@ -735,7 +737,7 @@ class Bullet {
                 
                 self.isFalling = true
             }
-
+            
             if self.isFalling == true {
                 
                 for block in selectedBlocks {
@@ -778,11 +780,11 @@ class Bullet {
                 
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
-
+            
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
-
+            
         } else if self.type == "bomb" {
-
+            
             if self.isJumping == true || self.isFalling == true {
                 
                 self.ySpeed += self.ySpeedChange
@@ -818,7 +820,7 @@ class Bullet {
                         if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                             
                             self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
-
+                            
                             setXY(x: block.x - (Block.width / 2) - (self.width / 2) - self.moveSpeed, y: self.y)
                         }
                         
@@ -827,7 +829,7 @@ class Bullet {
                         if self.x - (self.width / 2) - self.moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                             
                             self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
-
+                            
                             setXY(x: block.x + (Block.width / 2) + (self.width / 2), y: self.y)
                         }
                         
@@ -839,7 +841,7 @@ class Bullet {
             }
             
             //            }
-
+            
             if self.isRising == false {
                 
                 var isEmpty: Bool = true
@@ -913,7 +915,7 @@ class Bullet {
                 }
                 
             }
-
+            
             if self.isRising == true {
                 
                 for block in selectedBlocks {
@@ -929,11 +931,11 @@ class Bullet {
                                 self.isJumping = false
                                 self.isRising = false
                                 
-//                                self.xSpeed = 0
+                                //                                self.xSpeed = 0
                                 self.ySpeed = 0
                                 
                                 self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
-
+                                
                                 setXY(x: self.x, y: block.y + (Block.height / 2) + (self.height / 2))
                             }
                         }
@@ -942,7 +944,7 @@ class Bullet {
                     
                 }
             }
-
+            
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
         }
     }
@@ -965,6 +967,44 @@ class Bullet {
             }
         }
         
+        if self.useEnergyTimer.timeInterval != TimeInterval(self.useEnergyTimeInterval) {
+            
+            self.useEnergyTimer.invalidate()
+            
+            self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.useEnergyTimeInterval), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
+        }
+    }
+    
+    func handlePause() {
+        
+        self.timerFireTimes["removeTimer"] = getTimerFireTime(timer: self.removeTimer)
+        self.timerFireTimes["useEnergyTimer"] = getTimerFireTime(timer: self.useEnergyTimer)
+        
+        removeTimer.invalidate()
+        useEnergyTimer.invalidate()
+    }
+    
+    
+    func handleResume() {
+        
+        if let fireTime = self.timerFireTimes["removeTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval - fireTime), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
+            }
+        }
+        
+        if let fireTime = self.timerFireTimes["useEnergyTimer"] {
+            
+            if fireTime >= 0 {
+                
+                //          self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.useEnergyTimeInterval), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
+                self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.useEnergyTimeInterval - fireTime), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
+                
+                //            shouldRepeat
+            }
+        }
     }
     
     func jump() {
@@ -972,14 +1012,14 @@ class Bullet {
         self.isJumping = true
         self.isRising = true
         
-//        if self.direction == "right" {
-//
-//            self.xSpeed = self.moveSpeed
-//
-//        } else if self.direction == "left" {
-//
-//            self.xSpeed = -self.moveSpeed
-//        }
+        //        if self.direction == "right" {
+        //
+        //            self.xSpeed = self.moveSpeed
+        //
+        //        } else if self.direction == "left" {
+        //
+        //            self.xSpeed = -self.moveSpeed
+        //        }
         
         self.ySpeed = -self.maxFallSpeed
     }
