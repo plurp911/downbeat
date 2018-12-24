@@ -115,8 +115,8 @@ var tileSet: String = ""
 
 var time: CGFloat = 0
 
-//var completedLevels: [Bool] = [false, false, false, false, false, false, false, false]
-var completedLevels: [Bool] = [true, true, false, false, false, true, false, true]
+var completedLevels: [Bool] = [false, false, false, false, false, false, false, false]
+//var completedLevels: [Bool] = [true, true, false, false, false, true, false, true]
 
 // OBJECTS
 

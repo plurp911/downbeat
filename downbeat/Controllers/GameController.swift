@@ -674,6 +674,14 @@ class GameController: UIViewController {
         startTitleTextView.alpha = startTitleTextOpacity
     }
     
+    func saveCompletedLevels() {
+        
+        let tempDefault = UserDefaults.standard
+        
+        tempDefault.setValue(completedLevels, forKey: "completedLevels")
+        tempDefault.synchronize()
+    }
+    
     func loadCompletedLevels() {
         
         let tempDefault = UserDefaults.standard

@@ -518,7 +518,29 @@ extension GameController {
                         
                         if selectedEnemies[i].type == "brickBoss" || selectedEnemies[i].type == "fireBoss" || selectedEnemies[i].type == "metalBoss" || selectedEnemies[i].type == "iceBoss"  {
                             
+                            if selectedEnemies[i].type == "brickBoss" {
+                                
+                                completedLevels[7] = true
+
+                            } else if selectedEnemies[i].type == "fireBoss" {
+                                
+                                completedLevels[1] = true
+                                
+                            } else if selectedEnemies[i].type == "metalBoss" {
+                                
+                                completedLevels[5] = true
+                                
+                            } else {
+                                
+                                completedLevels[0] = true
+                            }
+                            
                             print("YOU WIN")
+                            
+                            saveCompletedLevels()
+                            
+                            updateControlVisibility(isHidden: true)
+                            updateStageSelectVisibility(isHidden: false)
                             
                         } else {
                             
