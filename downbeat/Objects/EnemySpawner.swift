@@ -38,6 +38,8 @@ class EnemySpawner {
 
     var direction: String = ""
 
+    var timerFireTimes = [String : CGFloat]()
+
     var view: UIImageView = UIImageView()
     
     init(xPos: Int, yPos: Int, type: String) {
@@ -288,6 +290,42 @@ class EnemySpawner {
             }
             
         }
+        
+        if self.spawnTimer.timeInterval != TimeInterval(self.spawnTimeInterval) {
+            
+            self.spawnTimer.invalidate()
+            
+            self.spawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.spawnTimeInterval), target: self, selector: #selector(spawn), userInfo: nil, repeats: true)
+        }
+    }
+    
+    func handlePause() {
+        
+        self.timerFireTimes["startSpawnTimer"] = getTimerFireTime(timer: self.startSpawnTimer)
+        self.timerFireTimes["spawnTimer"] = getTimerFireTime(timer: self.spawnTimer)
+
+        self.startSpawnTimer.invalidate()
+        self.spawnTimer.invalidate()
+    }
+    
+    func handleResume() {
+        
+        if let fireTime = self.timerFireTimes["startSpawnTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.startSpawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(startSpawnLoop), userInfo: nil, repeats: false)
+            }
+        }
+        
+        if let fireTime = self.timerFireTimes["spawnTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.spawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(spawn), userInfo: nil, repeats: true)
+            }
+        }
+        
     }
     
 }

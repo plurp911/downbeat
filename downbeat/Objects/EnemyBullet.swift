@@ -82,6 +82,8 @@ class EnemyBullet {
 
     var didReachGoal: Bool = false
     
+    var timerFireTimes = [String : CGFloat]()
+
     var view: UIImageView = UIImageView()
     
     init(x: CGFloat, y: CGFloat, targetX: CGFloat, targetY: CGFloat, speed: CGFloat, type: String) {
@@ -994,4 +996,24 @@ class EnemyBullet {
     @objc func makeRemovable() {
         self.shouldRemove = true
     }
+    
+    func handlePause() {
+        
+        self.timerFireTimes["removeTimer"] = getTimerFireTime(timer: self.removeTimer)
+        
+        self.removeTimer.invalidate()
+    }
+    
+    func handleResume() {
+        
+        if let fireTime = self.timerFireTimes["removeTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
+            }
+        }
+        
+    }
+    
 }
