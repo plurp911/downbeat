@@ -432,8 +432,8 @@ class Enemy {
             
             self.damage = 5
             
-            self.ySpeedChange = 0.12
-            self.maxFallSpeed = 5.5
+            self.ySpeedChange = 0.1
+            self.maxFallSpeed = 6
             
             self.width = Block.width * (31 / 16)
             self.height = Block.height * (32 / 16)
@@ -449,13 +449,13 @@ class Enemy {
             //            self.ySpeedChange = 0.12
             //            self.maxFallSpeed = 5.5
             self.ySpeedChange = 0.1
-            self.maxFallSpeed = 5.25
+            self.maxFallSpeed = 6
             
             self.width = Block.width * (31 / 16)
             self.height = Block.height * (32 / 16)
             
             //            self.moveSpeed = 1.25
-            self.moveSpeed = 1.5
+            self.moveSpeed = 2.3125
             
         } else if self.type == "iceBoss" {
             
@@ -2311,11 +2311,11 @@ class Enemy {
                     
                     self.xSpeed = -self.xSpeed
                     
-                    if self.x - self.moveSpeed <= Block.width * 2 {
+                    if self.x - self.moveSpeed <= (Block.width * 2) + (Block.width * 0.5) {
                         
                         self.xSpeed = 0
                         
-                        setXY(x: (Block.width * 2) + self.moveSpeed, y: self.y)
+                        setXY(x: (Block.width * 2) + (Block.width * 0.5) + self.moveSpeed, y: self.y)
                         
                         self.direction = "right"
                         
@@ -2326,11 +2326,11 @@ class Enemy {
                     
                 } else if self.direction == "right" {
                     
-                    if self.x + self.moveSpeed >= (screenSize.height * screenRatio) - (Block.width * 2) {
+                    if self.x + self.moveSpeed >= (screenSize.height * screenRatio) - (Block.width * 2) - (Block.width * 0.5) {
                         
                         self.xSpeed = 0
                         
-                        setXY(x: (screenSize.height * screenRatio) - (Block.width * 2) - self.moveSpeed, y: self.y)
+                        setXY(x: (screenSize.height * screenRatio) - (Block.width * 2) - (Block.width * 0.5) - self.moveSpeed, y: self.y)
                         
                         self.direction = "left"
                         
@@ -2444,16 +2444,28 @@ class Enemy {
                                 self.xSpeed = 0
                                 self.ySpeed = 0
                                 
-                                if self.direction == "left" {
-                                    
-                                    self.direction = "right"
-                                    
-                                } else if self.direction == "right" {
-                                    
-                                    self.direction = "left"
-                                }
+//                                if self.signalTimer.isValid == false && self.isSignalling == false {
+//
+//                                    if self.direction == "left" {
+//
+//                                        self.direction = "right"
+//
+//                                    } else if self.direction == "right" {
+//
+//                                        self.direction = "left"
+//                                    }
+//                                }
                                 
-                                if self.signalTimer.isValid == false && self.shootTimer.isValid == false {
+                                if self.signalTimer.isValid == false && self.shootTimer.isValid == false && self.jumpTimer.isValid == false && endShootTimer.isValid == false {
+
+                                    if self.direction == "left" {
+                                        
+                                        self.direction = "right"
+                                        
+                                    } else if self.direction == "right" {
+                                        
+                                        self.direction = "left"
+                                    }
                                     
                                     self.signalTimer.invalidate()
                                     
@@ -2473,16 +2485,28 @@ class Enemy {
                                 self.xSpeed = 0
                                 self.ySpeed = 0
                                 
-                                if self.direction == "left" {
-                                    
-                                    self.direction = "right"
-                                    
-                                } else if self.direction == "right" {
-                                    
-                                    self.direction = "left"
-                                }
+//                                if self.signalTimer.isValid == false && self.isSignalling == false {
+//
+//                                    if self.direction == "left" {
+//
+//                                        self.direction = "right"
+//
+//                                    } else if self.direction == "right" {
+//
+//                                        self.direction = "left"
+//                                    }
+//                                }
                                 
-                                if self.signalTimer.isValid == false && self.shootTimer.isValid == false {
+                                if self.signalTimer.isValid == false && self.shootTimer.isValid == false && self.jumpTimer.isValid == false && endShootTimer.isValid == false {
+                                    
+                                    if self.direction == "left" {
+                                        
+                                        self.direction = "right"
+                                        
+                                    } else if self.direction == "right" {
+                                        
+                                        self.direction = "left"
+                                    }
                                     
                                     self.signalTimer.invalidate()
                                     
