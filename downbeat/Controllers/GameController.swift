@@ -168,8 +168,9 @@ class GameController: UIViewController {
         
         // BORING SKY BLUE
         
-        gameViewColor = UIColor(red: 0 / 255, green: 136 / 255, blue: 203 / 255, alpha: 1)
-        
+//        gameViewColor = UIColor(red: 0 / 255, green: 136 / 255, blue: 203 / 255, alpha: 1)
+        gameViewColor = UIColor(red: 136 / 255, green: 198 / 255, blue: 253 / 255, alpha: 1)
+
         // BRICK COLOR
         
         //        gameViewColor = UIColor(red: 192 / 255, green: 114 / 255, blue: 56 / 255, alpha: 1)

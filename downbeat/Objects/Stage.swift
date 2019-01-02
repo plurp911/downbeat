@@ -101,7 +101,7 @@ class Stage {
                             
                             blocks.append(Block(xPos: j, yPos: i, type: "topTop", tileSet: tileSet))
 
-                        } else if tileSet == "metal" || tileSet == "ice" {
+                        } else if tileSet == "metal" || tileSet == "sky" || tileSet == "ice" {
                             
                             if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
                                 
@@ -149,7 +149,7 @@ class Stage {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
                             }
                             
-                        } else if tileSet == "metal" || tileSet == "ice" {
+                        } else if tileSet == "metal" || tileSet == "sky" || tileSet == "ice" {
                             
                             if i < numberOfVerticalBricks - 1 {
                                 
@@ -202,7 +202,7 @@ class Stage {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
                             }
                             
-                        } else if tileSet == "metal" || tileSet == "ice" {
+                        } else if tileSet == "metal" || tileSet == "sky" || tileSet == "ice" {
                             
                             if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
                                 
@@ -246,7 +246,7 @@ class Stage {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
                             }
                             
-                        } else if tileSet == "metal" || tileSet == "ice" {
+                        } else if tileSet == "metal" || tileSet == "sky" || tileSet == "ice" {
                             
                             if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
                                 

@@ -57,7 +57,8 @@ class Enemy {
     static let dropEmptyImages = [UIImage(named: "dropEnemyEmpty1Other"), UIImage(named: "dropEnemyEmpty2Other")]
     static let dropDropImage = UIImage(named: "dropEnemyDropOther")
     
-    static let sprinklerImages = [UIImage(named: "sprinklerEnemy1"), UIImage(named: "sprinklerEnemy2"), UIImage(named: "sprinklerEnemy3")]
+//    static let sprinklerImages = [UIImage(named: "sprinklerEnemy1"), UIImage(named: "sprinklerEnemy2"), UIImage(named: "sprinklerEnemy3")]
+    static let sprinklerImages = [UIImage(named: "sprinklerEnemy1"), UIImage(named: "sprinklerEnemy2"), UIImage(named: "sprinklerEnemy3"), UIImage(named: "sprinklerEnemy4")]
     static let sprinklerDownImage = UIImage(named: "sprinklerEnemyDown")
     
     static let turretLeftOpenImages = [UIImage(named: "turretEnemyLeft1"), UIImage(named: "turretEnemyLeft2")]
@@ -81,8 +82,9 @@ class Enemy {
     static let eggMakerShootLeftImage = UIImage(named: "eggMakerEnemyShootLeft")
     static let eggMakerLeftImages = [UIImage(named: "eggMakerEnemyLeft1"), UIImage(named: "eggMakerEnemyLeft2")]
     
-    static let topImages = [UIImage(named: "topEnemy1"), UIImage(named: "topEnemy2"), UIImage(named: "topEnemy3")]
-    
+//    static let topImages = [UIImage(named: "topEnemy1"), UIImage(named: "topEnemy2"), UIImage(named: "topEnemy3")]
+    static let topImages = [UIImage(named: "topEnemy1"), UIImage(named: "topEnemy2"), UIImage(named: "topEnemy3"), UIImage(named: "topEnemy4"), UIImage(named: "topEnemy5"), UIImage(named: "topEnemy6"), UIImage(named: "topEnemy7"), UIImage(named: "topEnemy8")]
+
     static let eggLeftImages = [UIImage(named: "eggEnemyLeft1"), UIImage(named: "eggEnemyLeft2"), UIImage(named: "eggEnemyLeft3"), UIImage(named: "eggEnemyLeft2")]
     
     static let shooterShootRightImage = UIImage(named: "shooterEnemyShootRight")
@@ -526,8 +528,10 @@ class Enemy {
             
             self.isFalling = true
             
-            self.width = Block.width * (15 / 16)
-            self.height = Block.height
+//            self.width = Block.width * (15 / 16)
+//            self.height = Block.height
+            self.width = Block.width
+            self.height = Block.height * (15 / 16)
             
             self.moveSpeed = 0.875
             
@@ -915,7 +919,7 @@ class Enemy {
             
             self.shootTimeInterval = 2
             
-            self.totalShootTimeInterval = 0.25
+            self.totalShootTimeInterval = 0.3
             
             self.view.animationImages = Enemy.topMakerRightImages as! [UIImage]
             
@@ -959,7 +963,11 @@ class Enemy {
             
             self.view.animationImages = Enemy.topImages as! [UIImage]
             
-            self.view.animationDuration = 0.85 * (1 / 3)
+//            self.view.animationDuration = 0.85 * (1 / 3)
+            
+//            self.view.animationDuration = 0.615
+            self.view.animationDuration = 0.475
+
             self.view.startAnimating()
             
         } else if self.type == "egg" {
@@ -1035,16 +1043,19 @@ class Enemy {
         
         if self.type == "snake" {
             
-            if self.direction == "right" {
-                
-                self.view.frame.origin.x = self.x - self.width / 2 + (Block.width * (5 / 16))
-                self.view.frame.origin.y = self.y - self.height / 2
-                
-            } else if self.direction == "left" {
-                
-                self.view.frame.origin.x = self.x - self.width / 2 - (Block.width * (5 / 16))
-                self.view.frame.origin.y = self.y - self.height / 2
-            }
+//            if self.direction == "right" {
+//
+//                self.view.frame.origin.x = self.x - self.width / 2 + (Block.width * (5 / 16))
+//                self.view.frame.origin.y = self.y - self.height / 2
+//
+//            } else if self.direction == "left" {
+//
+//                self.view.frame.origin.x = self.x - self.width / 2 - (Block.width * (5 / 16))
+//                self.view.frame.origin.y = self.y - self.height / 2
+//            }
+            
+            self.view.frame.origin.x = self.x - self.width / 2 + self.xShift
+            self.view.frame.origin.y = self.y - self.height / 2 + self.yShift
             
         } else if self.type == "miner" {
             
@@ -1488,6 +1499,15 @@ class Enemy {
             
         } else if type == "top" {
             
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
         } else if type == "egg" {
             
             if self.direction == "right" {
@@ -1896,6 +1916,10 @@ class Enemy {
             if self.isSprinklerInRange() == true {
                 
                 self.startTimers()
+                
+            } else {
+                
+//                self.endTimers()
             }
             
         } else if self.type == "turret" {
@@ -3889,7 +3913,8 @@ class Enemy {
                 
                 self.view.animationImages = Enemy.sprinklerImages as! [UIImage]
                 
-                self.view.animationDuration = 0.85 * (1 / 3)
+//                self.view.animationDuration = 0.85 * (1 / 3)
+                self.view.animationDuration = 0.85 * (1 / 3) * (4 / 3)
                 self.view.startAnimating()
                 
             } else if self.type == "turret" {
@@ -4068,8 +4093,11 @@ class Enemy {
             
             let bulletSpeed: CGFloat = 2.5
             
+//            let xOffset: CGFloat = Block.width * (14 / 16)
+//            let yOffset: CGFloat = Block.width * (4 / 16)
+
             let xOffset: CGFloat = Block.width * (14 / 16)
-            let yOffset: CGFloat = Block.width * (4 / 16)
+            let yOffset: CGFloat = Block.width * (0 / 16)
             
             if self.direction == "left" {
                 
@@ -4088,8 +4116,11 @@ class Enemy {
             
             let bulletSpeed: CGFloat = 1.75
             
-            let xOffset: CGFloat = Block.width * (14 / 16)
-            let yOffset: CGFloat = Block.width * (1 / 16)
+//            let xOffset: CGFloat = Block.width * (14 / 16)
+            let xOffset: CGFloat = Block.width * (8 / 16)
+
+//            let yOffset: CGFloat = Block.width * (1 / 16)
+            let yOffset: CGFloat = -Block.width * (0 / 16)
             
             if self.direction == "left" {
                 
@@ -4117,8 +4148,9 @@ class Enemy {
             let bulletSpeedMax: CGFloat = 3.25
             let bulletSpeedMin: CGFloat = bulletSpeedMax / (sqrt(2))
             
-            let yOffset: CGFloat = Block.width * (4 / 16)
-            
+//            let yOffset: CGFloat = Block.width * (4 / 16)
+            let yOffset: CGFloat = Block.width * (5 / 16)
+
             enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallOrange"))
             enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMax, ySpeed: 0, type: "smallOrange"))
             enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeedMax, type: "smallOrange"))
@@ -4209,8 +4241,8 @@ class Enemy {
             
         } else if self.type == "topMaker" {
             
-            let xOffset: CGFloat = Block.width * (1 / 16)
-            let yOffset: CGFloat = (self.height / 2) - (Block.height / 2) - (Block.height * (4 / 16))
+            let xOffset: CGFloat = -Block.width * (6 / 16)
+            let yOffset: CGFloat = (self.height / 2) - (Block.height / 2) - (Block.height * (4 / 16)) + (Block.height * (3 / 16))
             
             if self.direction == "left" {
                 
@@ -4447,7 +4479,8 @@ class Enemy {
             
             self.view.animationImages = Enemy.topMakerRightImages as! [UIImage]
             
-            self.view.animationDuration = 0.85 * (1 / 3)
+//            self.view.animationDuration = 0.85 * (1 / 3)
+            self.view.animationDuration = 0.375
             self.view.startAnimating()
             
             if self.direction == "right" {

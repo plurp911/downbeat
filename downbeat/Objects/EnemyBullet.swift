@@ -17,8 +17,9 @@ class EnemyBullet {
     
     static let smallRegularImage = UIImage(named: "smallRegularEnemyBullet")
     
-    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet")
-    
+//    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet")
+    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet2")
+
 //    static let dropHeadImage = UIImage(named: "dropHeadEnemyBullet")
     static let dropHeadImage = UIImage(named: "dropHeadEnemyBulletOther")
 
