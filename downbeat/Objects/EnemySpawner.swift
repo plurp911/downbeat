@@ -32,23 +32,23 @@ class EnemySpawner {
     
     var spawnTimer = Timer()
     var startSpawnTimer = Timer()
-
+    
     var spawnTimeInterval: CGFloat = 0
     var startSpawnTimeInterval: CGFloat = 0
-
+    
     var direction: String = ""
-
+    
     var timerFireTimes = [String : CGFloat]()
-
+    
     var view: UIImageView = UIImageView()
     
     init(xPos: Int, yPos: Int, type: String) {
-
+        
         self.setup(xPos: xPos, yPos: yPos, type: type)
     }
     
     init(xPos: Int, yPos: Int, type: String, direction: String) {
-
+        
         self.direction = direction
         
         self.setup(xPos: xPos, yPos: yPos, type: type)
@@ -63,36 +63,36 @@ class EnemySpawner {
         
         if self.type == "follower" {
             
-//            self.width = Block.width * (14 / 16)
-//            self.height = Block.height * (15 / 16)
+            //            self.width = Block.width * (14 / 16)
+            //            self.height = Block.height * (15 / 16)
             
             self.width = Block.width * (32 / 16)
             self.height = Block.height * (24 / 16)
             
             self.spawnTimeInterval = 3
             
-//            self.startSpawnTimeInterval = 0.5
+            //            self.startSpawnTimeInterval = 0.5
             self.startSpawnTimeInterval = 0
-
+            
         } else if self.type == "special" {
             
             self.width = Block.width
             self.height = self.width
             
-//            self.spawnTimeInterval = 3
-//            self.spawnTimeInterval = 1.25
+            //            self.spawnTimeInterval = 3
+            //            self.spawnTimeInterval = 1.25
             self.spawnTimeInterval = 2
-
-//            self.startSpawnTimeInterval = 0
+            
+            //            self.startSpawnTimeInterval = 0
             self.startSpawnTimeInterval = 1
-
+            
         } else if self.type == "drop" {
             
             self.width = Block.width
             self.height = self.width
             
             self.spawnTimeInterval = 5
-
+            
             self.startSpawnTimeInterval = 0
         }
         
@@ -109,7 +109,7 @@ class EnemySpawner {
         
         if self.type == "follower" {
             
-//            self.view.image = UIImage(named: "\(self.type)Spawner")
+            //            self.view.image = UIImage(named: "\(self.type)Spawner")
             
             self.view.animationImages = EnemySpawner.followerImages as! [UIImage]
             
@@ -148,7 +148,7 @@ class EnemySpawner {
     func isInSpawningBounds() -> Bool {
         
         if self.type == "follower" {
-
+            
             let enemyWidth: CGFloat = Block.width
             
             if self.x - (enemyWidth / 2) >= 0 && self.x + (enemyWidth / 2) <= screenSize.height * (screenRatio) {
@@ -158,21 +158,21 @@ class EnemySpawner {
         } else if self.type == "special" {
             
             let enemyWidth: CGFloat = Block.width
-
+            
             if self.x - (enemyWidth / 2) >= 0 && self.x + (enemyWidth / 2) <= screenSize.height * (screenRatio) {
                 return true
             }
             
-//            return true
-
+            //            return true
+            
         } else if self.type == "drop" {
             
             let xRange: CGFloat = Block.width * 2
-
+            
             if player.x + (Player.width / 2) >= self.x - (xRange / 2) && player.x - (Player.width / 2) <= self.x + (xRange / 2) {
                 
                 print("IN RANGE")
-
+                
                 return true
             }
         }
@@ -187,11 +187,11 @@ class EnemySpawner {
             if self.type == "drop" {
                 
                 self.spawn()
-
+                
             } else {
                 
                 let value: CGFloat = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
-            
+                
                 self.startSpawnTimer.invalidate()
                 
                 self.startSpawnTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.startSpawnTimeInterval * value), target: self, selector: #selector(startSpawnLoop), userInfo: nil, repeats: false)
@@ -243,20 +243,20 @@ class EnemySpawner {
             
             let value: CGFloat = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
             
-//            let bulletSpeed: CGFloat = 1.5
+            //            let bulletSpeed: CGFloat = 1.5
             let bulletSpeed: CGFloat = 0.9
-
+            
             let xOffset: CGFloat = Block.width * (0 / 16)
             let yOffset: CGFloat = Block.height * (16 / 16)
             
             if self.direction == "up" {
                 
-//                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeed, type: "special"))
+                //                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeed, type: "special"))
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: 0, ySpeed: -bulletSpeed - value, type: "special"))
-
+                
             } else if self.direction == "down" {
                 
-//                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: 0, ySpeed: bulletSpeed, type: "special"))
+                //                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: 0, ySpeed: bulletSpeed, type: "special"))
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: 0, ySpeed: bulletSpeed + value, type: "special"))
             }
             
@@ -270,14 +270,14 @@ class EnemySpawner {
                     enemyCount += 1
                 }
             }
-
+            
             if enemyCount < 2 {
                 
                 if self.isInSpawningBounds() == true {
                     
                     if self.spawnTimer.isValid == false {
-
-                        selectedEnemies.append(Enemy(x: (screenSize.height * (screenRatio)) + (Block.width / 2), y: self.y, type: self.type, direction: "left"))
+                        
+                        selectedEnemies.append(Enemy(x: (screenSize.height * (screenRatio)) + (Block.width / 2), y: self.y, type: self.type, direction: self.direction))
                         
                         selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
                         
@@ -303,7 +303,7 @@ class EnemySpawner {
         
         self.timerFireTimes["startSpawnTimer"] = getTimerFireTime(timer: self.startSpawnTimer)
         self.timerFireTimes["spawnTimer"] = getTimerFireTime(timer: self.spawnTimer)
-
+        
         self.startSpawnTimer.invalidate()
         self.spawnTimer.invalidate()
     }

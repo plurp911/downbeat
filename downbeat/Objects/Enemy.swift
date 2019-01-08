@@ -1924,14 +1924,14 @@ class Enemy {
             
         } else if self.type == "turret" {
             
-            if player.x > self.x {
-                
-                self.direction = "right"
-                
-            } else if player.x < self.x {
-                
-                self.direction = "left"
-            }
+//            if player.x > self.x {
+//
+//                self.direction = "right"
+//
+//            } else if player.x < self.x {
+//
+//                self.direction = "left"
+//            }
             
         } else if self.type == "jumper" {
             
@@ -4197,8 +4197,9 @@ class Enemy {
                 xOffset = -xOffset
             }
             
-            enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, targetX: goalX, targetY: goalY, speed: bulletSpeed, type: "smallBlue"))
-            
+//            enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, targetX: goalX, targetY: goalY, speed: bulletSpeed, type: "smallBlue"))
+            enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, targetX: goalX, targetY: goalY, speed: bulletSpeed, type: "smallTan"))
+
             if self.shootCount >= 3 {
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)

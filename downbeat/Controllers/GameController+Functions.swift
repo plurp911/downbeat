@@ -1002,8 +1002,21 @@ extension GameController {
         }
         
         for e in selectedEnemies {
-            gameView.addSubview(e.view)
-            //            gameView.addSubview(e.hitBox)
+            
+            if e.type == "topMaker" {
+                
+                gameView.addSubview(e.view)
+                //            gameView.addSubview(e.hitBox)
+            }
+        }
+        
+        for e in selectedEnemies {
+            
+            if e.type != "topMaker" {
+                
+                gameView.addSubview(e.view)
+                //            gameView.addSubview(e.hitBox)
+            }
         }
         
         for e in currentStage!.specialEnemies {

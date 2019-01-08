@@ -167,10 +167,9 @@ class GameController: UIViewController {
         //        gameViewColor = UIColor(red: 0 / 255, green: 171 / 255, blue: 255 / 255, alpha: 1)
         
         // BORING SKY BLUE
-        
-//        gameViewColor = UIColor(red: 0 / 255, green: 136 / 255, blue: 203 / 255, alpha: 1)
-        gameViewColor = UIColor(red: 136 / 255, green: 198 / 255, blue: 253 / 255, alpha: 1)
 
+        gameViewColor = UIColor(red: 0 / 255, green: 136 / 255, blue: 203 / 255, alpha: 1)
+        
         // BRICK COLOR
         
         //        gameViewColor = UIColor(red: 192 / 255, green: 114 / 255, blue: 56 / 255, alpha: 1)
@@ -275,7 +274,120 @@ class GameController: UIViewController {
         
         print("CENTER")
         
+        setLevel(level: levels[8])
+        
+        updateControlVisibility(isHidden: false)
+        updateStageSelectVisibility(isHidden: true)
+    }
+    
+    lazy var skyStageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectTile")
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSkyStage)))
+        //        view.isHidden = true
+        return view
+    }()
+    
+    @objc func handleSkyStage() {
+        
+        print("SKY")
+        
+        gameViewColor = UIColor(red: 136 / 255, green: 198 / 255, blue: 253 / 255, alpha: 1)
+
         setLevel(level: levels[4])
+        
+        updateControlVisibility(isHidden: false)
+        updateStageSelectVisibility(isHidden: true)
+    }
+    
+    lazy var snowStageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectTile")
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSnowStage)))
+        //        view.isHidden = true
+        return view
+    }()
+    
+    @objc func handleSnowStage() {
+        
+        print("SNOW")
+        
+        // WHITER
+        
+//        gameViewColor = UIColor(red: 171 / 255, green: 206 / 255, blue: 208 / 255, alpha: 1)
+        
+        // BLUER
+        
+        gameViewColor = UIColor(red: 124 / 255, green: 182 / 255, blue: 184 / 255, alpha: 1)
+
+        setLevel(level: levels[5])
+        
+        updateControlVisibility(isHidden: false)
+        updateStageSelectVisibility(isHidden: true)
+    }
+    
+    lazy var waterStageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectTile")
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWaterStage)))
+        //        view.isHidden = true
+        return view
+    }()
+    
+    @objc func handleWaterStage() {
+        
+        print("WATER")
+        
+        // LIGHTER
+        
+//        gameViewColor = UIColor(red: 87 / 255, green: 193 / 255, blue: 189 / 255, alpha: 1)
+
+        // DARKER
+        
+        gameViewColor = UIColor(red: 0 / 255, green: 63 / 255, blue: 66 / 255, alpha: 1)
+
+        setLevel(level: levels[6])
+        
+        updateControlVisibility(isHidden: false)
+        updateStageSelectVisibility(isHidden: true)
+    }
+    
+    lazy var sandStageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "stageSelectTile")
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSandStage)))
+        //        view.isHidden = true
+        return view
+    }()
+    
+    @objc func handleSandStage() {
+        
+        print("SAND")
+        
+        //        gameViewColor = UIColor(red: 255 / 255, green: 214 / 255, blue: 92 / 255, alpha: 1)
+        gameViewColor = UIColor(red: 227 / 255, green: 179 / 255, blue: 89 / 255, alpha: 1)
+        
+        setLevel(level: levels[7])
         
         updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
@@ -349,7 +461,7 @@ class GameController: UIViewController {
     lazy var shootButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = mainButtonColor
-        button.setTitle("◎", for: .normal)
+        button.setTitle("⦿", for: .normal)
         button.setTitleColor(mainButtonTextColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
@@ -642,6 +754,10 @@ class GameController: UIViewController {
         metalStageView.isHidden = isHidden
         iceStageView.isHidden = isHidden
         centerStageView.isHidden = isHidden
+        skyStageView.isHidden = isHidden
+        snowStageView.isHidden = isHidden
+        waterStageView.isHidden = isHidden
+        sandStageView.isHidden = isHidden
     }
     
     func updateTitleVisibility(isHidden: Bool) {
@@ -705,6 +821,8 @@ class GameController: UIViewController {
         if let savedCompletedLevels = tempDefault.value(forKey: "completedLevels") {
             completedLevels = savedCompletedLevels as! [Bool]
         }
+        
+        completedLevels = [true, true, true, true, true, true, true, true]
     }
     
     override func viewDidLoad() {
@@ -752,6 +870,10 @@ class GameController: UIViewController {
         view.addSubview(metalStageView)
         view.addSubview(iceStageView)
         view.addSubview(centerStageView)
+        view.addSubview(skyStageView)
+        view.addSubview(snowStageView)
+        view.addSubview(waterStageView)
+        view.addSubview(sandStageView)
         
         view.addSubview(titleView)
         view.addSubview(titleLogoView)
@@ -905,6 +1027,10 @@ class GameController: UIViewController {
         setupMetalStageView()
         setupIceStageView()
         setupCenterStageView()
+        setupSkyStageView()
+        setupSnowStageView()
+        setupWaterStageView()
+        setupSandStageView()
         setupTopPipeStageSelectView()
         setupMiddlePipeStageSelectView()
         setupBottomPipeStageSelectView()
@@ -977,6 +1103,42 @@ class GameController: UIViewController {
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: centerStageView)
         setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: 0, imageView: centerStageView, isCentered: true)
         setXY(x: centerStageView.frame.origin.x, y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 2) + Block.width * (48 / 16), imageView: centerStageView, isCentered: false)
+    }
+    
+    func setupSkyStageView() {
+        
+        let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
+        
+        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: skyStageView)
+        setXY(x: centerStageView.frame.origin.x, y: brickStageView.frame.origin.y, imageView: skyStageView, isCentered: false)
+    }
+    
+    func setupSnowStageView() {
+        
+        let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
+        
+        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: snowStageView)
+        setXY(x: brickStageView.frame.origin.x, y: centerStageView.frame.origin.y, imageView: snowStageView, isCentered: false)
+    }
+    
+    func setupWaterStageView() {
+        
+        let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
+        
+        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: waterStageView)
+        setXY(x: fireStageView.frame.origin.x, y: centerStageView.frame.origin.y, imageView: waterStageView, isCentered: false)
+    }
+    
+    func setupSandStageView() {
+        
+        let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
+        //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
+        
+        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: sandStageView)
+        setXY(x: centerStageView.frame.origin.x, y: metalStageView.frame.origin.y, imageView: sandStageView, isCentered: false)
     }
     
     func setupTopPipeStageSelectView() {

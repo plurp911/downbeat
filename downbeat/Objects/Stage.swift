@@ -68,6 +68,8 @@ class Stage {
         
         do {
             
+//            print(fileName)
+            
             let text = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
             
             var stageText = text.components(separatedBy: "\n")
@@ -82,6 +84,11 @@ class Stage {
 
                 textArray[i] = newText
                 textArray[i].removeLast()
+                
+                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "8" || fileName[0] == "9" {
+                    
+                    textArray[i].removeLast()
+                }
             }
             
         } catch let error { print(error) }
@@ -101,7 +108,7 @@ class Stage {
                             
                             blocks.append(Block(xPos: j, yPos: i, type: "topTop", tileSet: tileSet))
 
-                        } else if tileSet == "metal" || tileSet == "sky" || tileSet == "ice" {
+                        } else if tileSet == "metal" || tileSet == "sky" || tileSet == "sand" || tileSet == "chemical" || tileSet == "snow" || tileSet == "ice" || tileSet == "water" {
                             
                             if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
                                 
@@ -113,7 +120,7 @@ class Stage {
                                 
                             } else {
                                 
-                                blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: tileSet))
+                                blocks.append(Block(xPos: j, yPos: i, type: "topMiddle", tileSet: tileSet))
                             }
                             
                         } else {
@@ -139,6 +146,64 @@ class Stage {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
                             }
                             
+                        } else if tileSet == "water" {
+                            
+//                            if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
+//
+//                                blocks.append(Block(xPos: j, yPos: i, type: "left", tileSet: tileSet))
+//
+//                            } else if isEqual(i: i, j: j + 1, block: "#") == false && j < self.numberOfHorizontalBlocks - 1 {
+//
+//                                blocks.append(Block(xPos: j, yPos: i, type: "right", tileSet: tileSet))
+//
+//                            } else {
+//
+//                                blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: tileSet))
+//                            }
+                            
+                            if i < numberOfVerticalBricks - 1 {
+                                
+                                if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
+                                    
+                                    blocks.append(Block(xPos: j, yPos: i, type: "topLeft", tileSet: tileSet))
+                                    
+                                } else if isEqual(i: i, j: j + 1, block: "#") == false && j < self.numberOfHorizontalBlocks - 1 {
+                                    
+                                    blocks.append(Block(xPos: j, yPos: i, type: "topRight", tileSet: tileSet))
+                                    
+                                } else {
+                                    
+                                    blocks.append(Block(xPos: j, yPos: i, type: "topMiddle", tileSet: tileSet))
+                                }
+                                
+                            } else {
+                                
+                                if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
+                                    
+                                    blocks.append(Block(xPos: j, yPos: i, type: "left", tileSet: tileSet))
+                                    
+                                } else if isEqual(i: i, j: j + 1, block: "#") == false && j < self.numberOfHorizontalBlocks - 1 {
+                                    
+                                    blocks.append(Block(xPos: j, yPos: i, type: "right", tileSet: tileSet))
+                                    
+                                } else {
+                                    
+                                    if isEqual(i: i + 1, j: j - 1, block: "#") == false || isEqual(i: i - 1, j: j - 1, block: "#") == false {
+                                        
+                                        blocks.append(Block(xPos: j, yPos: i, type: "left", tileSet: tileSet))
+                                        
+                                    } else if isEqual(i: i + 1, j: j + 1, block: "#") == false || isEqual(i: i - 1, j: j + 1, block: "#") == false {
+                                        
+                                        blocks.append(Block(xPos: j, yPos: i, type: "right", tileSet: tileSet))
+                                        
+                                    } else {
+                                        
+                                        blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: tileSet))
+                                    }
+                                }
+                                
+                            }
+                            
                         } else if tileSet == "tree" {
                             
 //                            blocks.append(Block(xPos: j, yPos: i, type: "bottom", tileSet: tileSet))
@@ -149,7 +214,7 @@ class Stage {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
                             }
                             
-                        } else if tileSet == "metal" || tileSet == "sky" || tileSet == "ice" {
+                        } else if tileSet == "metal" || tileSet == "sky" || tileSet == "sand" || tileSet == "chemical" || tileSet == "snow" || tileSet == "ice" {
                             
                             if i < numberOfVerticalBricks - 1 {
                                 
@@ -202,7 +267,33 @@ class Stage {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
                             }
                             
-                        } else if tileSet == "metal" || tileSet == "sky" || tileSet == "ice" {
+                        } else if tileSet == "water" {
+                            
+                            if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
+                                
+                                blocks.append(Block(xPos: j, yPos: i, type: "left", tileSet: tileSet))
+                                
+                            } else if isEqual(i: i, j: j + 1, block: "#") == false && j < self.numberOfHorizontalBlocks - 1 {
+                                
+                                blocks.append(Block(xPos: j, yPos: i, type: "right", tileSet: tileSet))
+                                
+                            } else {
+                                
+                                if isEqual(i: i + 1, j: j - 1, block: "#") == false || isEqual(i: i - 1, j: j - 1, block: "#") == false {
+                                    
+                                    blocks.append(Block(xPos: j, yPos: i, type: "left", tileSet: tileSet))
+                                    
+                                } else if isEqual(i: i + 1, j: j + 1, block: "#") == false || isEqual(i: i - 1, j: j + 1, block: "#") == false {
+                                    
+                                    blocks.append(Block(xPos: j, yPos: i, type: "right", tileSet: tileSet))
+                                    
+                                } else {
+                                    
+                                    blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: tileSet))
+                                }
+                            }
+                            
+                        } else if tileSet == "metal" || tileSet == "sky" || tileSet == "sand" || tileSet == "chemical" || tileSet == "snow" || tileSet == "ice" {
                             
                             if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
                                 
@@ -246,7 +337,33 @@ class Stage {
                                 blocks.append(Block(xPos: j, yPos: i, type: "2", tileSet: tileSet))
                             }
                             
-                        } else if tileSet == "metal" || tileSet == "sky" || tileSet == "ice" {
+                        } else if tileSet == "water" {
+                            
+                            if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
+                                
+                                blocks.append(Block(xPos: j, yPos: i, type: "left", tileSet: tileSet))
+                                
+                            } else if isEqual(i: i, j: j + 1, block: "#") == false && j < self.numberOfHorizontalBlocks - 1 {
+                                
+                                blocks.append(Block(xPos: j, yPos: i, type: "right", tileSet: tileSet))
+                                
+                            } else {
+                                
+                                if isEqual(i: i + 1, j: j - 1, block: "#") == false || isEqual(i: i - 1, j: j - 1, block: "#") == false {
+                                    
+                                    blocks.append(Block(xPos: j, yPos: i, type: "left", tileSet: tileSet))
+                                    
+                                } else if isEqual(i: i + 1, j: j + 1, block: "#") == false || isEqual(i: i - 1, j: j + 1, block: "#") == false {
+                                    
+                                    blocks.append(Block(xPos: j, yPos: i, type: "right", tileSet: tileSet))
+                                    
+                                } else {
+                                    
+                                    blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: tileSet))
+                                }
+                            }
+                            
+                        } else if tileSet == "metal" || tileSet == "sky" || tileSet == "sand" || tileSet == "chemical" || tileSet == "snow" || tileSet == "ice" {
                             
                             if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
                                 
@@ -406,7 +523,9 @@ class Stage {
                 } else if text == "c" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "scooper", direction: "left"))
                 } else if text == "d" {
-                    enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "drop"))
+                    enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "drop", direction: "left"))
+                } else if text == "D" {
+                    enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "drop", direction: "right"))
                 } else if text == "k" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "sprinkler"))
                 } else if text == "j" {
