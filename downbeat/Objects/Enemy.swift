@@ -66,10 +66,11 @@ class Enemy {
     static let turretLeftClosedImage = UIImage(named: "turretEnemyClosedLeft")
     static let turretLeftOpenImage = UIImage(named: "turretEnemyOpenLeft")
     
-    static let jumperEnemyLeft1Image = UIImage(named: "jumperEnemyLeft1")
-    static let jumperEnemyLeft2Image = UIImage(named: "jumperEnemyLeft2")
-    static let jumperEnemyLeftJumpImage = UIImage(named: "jumperEnemyLeftJump")
-    
+    static let jumperLeft1Image = UIImage(named: "jumperEnemyLeft1")
+    static let jumperLeft2Image = UIImage(named: "jumperEnemyLeft2")
+//    static let jumperLeftJumpImage = UIImage(named: "jumperLeftJump")
+    static let jumperJumpLeftImages = [UIImage(named: "jumperEnemyJumpLeft1"), UIImage(named: "jumperEnemyJumpLeft2"), UIImage(named: "jumperEnemyJumpLeft3")]
+
     static let minerThrowLeftImage = UIImage(named: "minerEnemyThrowLeft")
     static let minerSignalLeftImage = UIImage(named: "minerEnemySignalLeft")
     static let minerShieldLeftImage = UIImage(named: "minerEnemyShieldLeft")
@@ -778,7 +779,7 @@ class Enemy {
             
             self.signalTimeInterval = 0.3
             
-            self.view.image = Enemy.jumperEnemyLeft1Image
+            self.view.image = Enemy.jumperLeft1Image
             
             self.direction = "left"
             
@@ -1288,17 +1289,48 @@ class Enemy {
             
         } else if type == "jumper" {
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
                 
-                self.view.image = Enemy.jumperEnemyLeftJumpImage
+                if self.view.isAnimating == false {
+                    
+                    self.view.stopAnimating()
+                    
+                    self.view.animationImages = Enemy.jumperJumpLeftImages as! [UIImage]
+                    
+                    self.view.animationDuration = 0.85 * (1 / 3)
+                    self.view.startAnimating()
+                }
+                
+//                self.view.image = Enemy.jumperLeftJumpImage
                 
             } else if self.isSignalling == true {
                 
-                self.view.image = Enemy.jumperEnemyLeft2Image
+                self.view.stopAnimating()
+
+                self.view.image = Enemy.jumperLeft2Image
                 
             } else {
                 
-                self.view.image = Enemy.jumperEnemyLeft1Image
+                self.view.stopAnimating()
+
+                self.view.image = Enemy.jumperLeft1Image
             }
             
             if self.direction == "right" {

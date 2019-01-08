@@ -272,7 +272,9 @@ class GameController: UIViewController {
     
     @objc func handleCenterStage() {
         
-        print("CENTER")
+        print("CHEMICAL")
+        
+        gameViewColor = UIColor(red: 156 / 255, green: 96 / 255, blue: 191 / 255, alpha: 1)
         
         setLevel(level: levels[8])
         

@@ -413,7 +413,14 @@ class Stage {
                     
                 } else if text == "@" {
                     
-                    backgrounds.append(Background(xPos: j, yPos: i, type: "cageMiddle", tileSet: tileSet))
+                    if tileSet == "brick" {
+                        
+                        backgrounds.append(Background(xPos: j, yPos: i, type: "cageMiddle", tileSet: tileSet))
+
+                    } else if tileSet == "snow" {
+                        
+                        backgrounds.append(Background(xPos: j, yPos: i, type: "pillar", tileSet: tileSet))
+                    }
                     
                 } else if text == "(" {
                     
@@ -429,14 +436,14 @@ class Stage {
                     
                 } else if text == "<" {
                     
-                    blocks.append(Block(xPos: j, yPos: i, type: "electricLeft", tileSet: tileSet))
+                    blocks.append(Block(xPos: j, yPos: i, type: "electricLeft", tileSet: "metal"))
 
 //                    enemies.append(Enemy(xPos: j - 1, yPos: i, type: "electricity", direction: "left"))
                     specialEnemies.append(Enemy(xPos: j - 1, yPos: i, type: "electricity", direction: "left"))
                     
                 } else if text == ">" {
                     
-                    blocks.append(Block(xPos: j, yPos: i, type: "electricRight", tileSet: tileSet))
+                    blocks.append(Block(xPos: j, yPos: i, type: "electricRight", tileSet: "metal"))
                     
 //                    enemies.append(Enemy(xPos: j + 1, yPos: i, type: "electricity", direction: "right"))
                     specialEnemies.append(Enemy(xPos: j + 1, yPos: i, type: "electricity", direction: "right"))

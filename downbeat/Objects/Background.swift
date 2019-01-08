@@ -52,8 +52,8 @@ class Background {
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
             
-//        self.view.image = UIImage(named: "\(tileSet)Background\(self.type.capitalizingFirstLetter())")
-        self.view.image = UIImage(named: "brickBackground\(self.type.capitalizingFirstLetter())")
+        self.view.image = UIImage(named: "\(tileSet)Background\(self.type.capitalizingFirstLetter())")
+//        self.view.image = UIImage(named: "brickBackground\(self.type.capitalizingFirstLetter())")
     }
     
     func setXY(x: CGFloat, y: CGFloat) {
