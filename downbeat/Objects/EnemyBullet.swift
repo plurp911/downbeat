@@ -28,8 +28,10 @@ class EnemyBullet {
 //    static let smallBlueImage = UIImage(named: "smallBlueEnemyBullet")
     
     static let smallBlueImages = [UIImage(named: "smallBlueEnemyBullet1"), UIImage(named: "smallBlueEnemyBullet2"), UIImage(named: "smallBlueEnemyBullet3")]
+    
+    static let smallTanImage = UIImage(named: "smallTanEnemyBullet4")
 
-    static let smallTanImages = [UIImage(named: "smallTanEnemyBullet11"), UIImage(named: "smallTanEnemyBullet22"), UIImage(named: "smallTanEnemyBullet33")]
+//    static let smallTanImages = [UIImage(named: "smallTanEnemyBullet11"), UIImage(named: "smallTanEnemyBullet22"), UIImage(named: "smallTanEnemyBullet33")]
 //    static let smallTanImages = [UIImage(named: "smallTanEnemyBullet1"), UIImage(named: "smallTanEnemyBullet2"), UIImage(named: "smallTanEnemyBullet3"), UIImage(named: "smallTanEnemyBullet4")]
 
 //    static let axeLeftImages = [UIImage(named: "axeEnemyBulletUp"), UIImage(named: "axeEnemyBulletLeft"), UIImage(named: "axeEnemyBulletDown"), UIImage(named: "axeEnemyBulletRight")]
@@ -266,11 +268,11 @@ class EnemyBullet {
             
             self.damage = 1
             
-            //            self.view.image = EnemyBullet.smallBlueImage
+            self.view.image = EnemyBullet.smallTanImage
+
+//            self.view.animationImages = EnemyBullet.smallTanImages as! [UIImage]
             
-            self.view.animationImages = EnemyBullet.smallTanImages as! [UIImage]
-            
-            self.view.animationDuration = 0.85 * 0.5 * 0.5125
+//            self.view.animationDuration = 0.85 * 0.5 * 0.5125
 //            self.view.animationDuration = 0.85 * 0.5 * 0.5125 * (4 / 3)
 
             self.view.startAnimating()

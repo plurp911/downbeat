@@ -120,7 +120,7 @@ class Stage {
                                 
                             } else {
                                 
-                                blocks.append(Block(xPos: j, yPos: i, type: "topMiddle", tileSet: tileSet))
+                                blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: tileSet))
                             }
                             
                         } else {
@@ -173,7 +173,7 @@ class Stage {
                                     
                                 } else {
                                     
-                                    blocks.append(Block(xPos: j, yPos: i, type: "topMiddle", tileSet: tileSet))
+                                    blocks.append(Block(xPos: j, yPos: i, type: "top", tileSet: tileSet))
                                 }
                                 
                             } else {
