@@ -385,8 +385,15 @@ class GameController: UIViewController {
         print("SAND")
         
         //        gameViewColor = UIColor(red: 255 / 255, green: 214 / 255, blue: 92 / 255, alpha: 1)
+        
+        // BLAND
+        
         gameViewColor = UIColor(red: 227 / 255, green: 179 / 255, blue: 89 / 255, alpha: 1)
         
+        // LESS BLAND
+        
+//        gameViewColor = UIColor(red: 255 / 255, green: 188 / 255, blue: 72 / 255, alpha: 1)
+
         setLevel(level: levels[7])
         
         updateControlVisibility(isHidden: false)
