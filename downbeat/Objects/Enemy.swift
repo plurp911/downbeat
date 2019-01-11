@@ -463,8 +463,10 @@ class Enemy {
             self.ySpeedChange = 0.12
             self.maxFallSpeed = 5.5
             
-            self.width = Block.width * (31 / 16)
-            self.height = Block.height * (32 / 16)
+//            self.width = Block.width * (31 / 16)
+//            self.height = Block.height * (32 / 16)
+            self.width = Block.width * (29 / 16)
+            self.height = Block.height * (28 / 16)
             
             self.moveSpeed = 1.25
             
