@@ -274,8 +274,9 @@ class GameController: UIViewController {
         
         print("CHEMICAL")
         
-        gameViewColor = UIColor(red: 156 / 255, green: 96 / 255, blue: 191 / 255, alpha: 1)
-        
+//        gameViewColor = UIColor(red: 156 / 255, green: 96 / 255, blue: 191 / 255, alpha: 1)
+        gameViewColor = UIColor(red: 145 / 255, green: 107 / 255, blue: 189 / 255, alpha: 1)
+
         setLevel(level: levels[8])
         
         updateControlVisibility(isHidden: false)
@@ -328,10 +329,14 @@ class GameController: UIViewController {
         
 //        gameViewColor = UIColor(red: 171 / 255, green: 206 / 255, blue: 208 / 255, alpha: 1)
         
-        // BLUER
-        
-        gameViewColor = UIColor(red: 124 / 255, green: 182 / 255, blue: 184 / 255, alpha: 1)
+//        // BLUER
 
+//        gameViewColor = UIColor(red: 124 / 255, green: 182 / 255, blue: 184 / 255, alpha: 1)
+
+        // NEW
+        
+        gameViewColor = UIColor(red: 75 / 255, green: 147 / 255, blue: 156 / 255, alpha: 1)
+        
         setLevel(level: levels[5])
         
         updateControlVisibility(isHidden: false)

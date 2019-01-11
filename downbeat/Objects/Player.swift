@@ -293,7 +293,21 @@ class Player {
             
             if isTransitioningRight == true {
                 
-                setXY(x: self.x + (self.xSpeed * (((screenSize.height * screenRatio) - Player.width) / (screenSize.height * screenRatio))), y: self.y)
+                if let upcomingStage = nextStage {
+
+                    if upcomingStage.boss == "" {
+
+                        setXY(x: self.x + (self.xSpeed * (((screenSize.height * screenRatio) - Player.width) / (screenSize.height * screenRatio))), y: self.y)
+
+                    } else {
+
+                        setXY(x: self.x + (self.xSpeed * (((screenSize.height * screenRatio) - Player.width - Block.width) / (screenSize.height * screenRatio))), y: self.y)
+                    }
+
+                } else {
+                
+                    setXY(x: self.x + (self.xSpeed * (((screenSize.height * screenRatio) - Player.width) / (screenSize.height * screenRatio))), y: self.y)
+                }
                 
             } else {
                 
@@ -683,11 +697,23 @@ class Player {
                     
                     if isTransitioningRight == true {
                         
-                        if self.x - (Player.width / 2) <= 0 {
+                        if nextStage!.boss == "" {
                             
-                            self.canMove = false
+                            if self.x - (Player.width / 2) <= 0 {
+                                
+                                self.canMove = false
+                                
+                                setXY(x: (Player.width / 2) + self.xSpeed, y: self.y)
+                            }
                             
-                            setXY(x: (Player.width / 2) + self.xSpeed, y: self.y)
+                        } else {
+                            
+                            if self.x - (Player.width / 2) <= Block.width {
+                                
+                                self.canMove = false
+                                
+                                setXY(x: (Player.width / 2) + self.xSpeed + Block.width, y: self.y)
+                            }
                         }
                         
                         if currentStage!.x <= -((CGFloat)(currentStage!.numberOfHorizontalBlocks) * Block.width)  {
@@ -704,6 +730,8 @@ class Player {
                             self.ySpeed = self.beforeYSpeed
                             
                             if currentStage!.boss != "" {
+                                
+                                currentStage!.addBlockWall()
                                 
                                 Enemy.bossHealthBar.updateImages(power: currentStage!.boss)
                                 Enemy.bossHealthBar.setEnergy(energy: Enemy.maxBossHealth)
@@ -969,12 +997,22 @@ class Player {
                             
                         } else {
                             
+                            var canRemoveBullet: Bool = false
+                            
                             for bullet in bullets {
                                 
-                                bullet.useEnergyTimer.invalidate()
+                                if bullet.didReachGoal == false {
+                                    
+                                    canRemoveBullet = true
+                                    
+                                    bullet.useEnergyTimer.invalidate()
+                                }
                             }
                             
-                            bullets.removeAll()
+                            if canRemoveBullet == true {
+                                
+                                bullets.removeAll()
+                            }
                         }
                         
                     } else if self.power == "tornado" {

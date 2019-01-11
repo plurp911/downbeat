@@ -105,9 +105,13 @@ extension GameController {
                             
                             if bullet.type == "shield" {
                                 
-                                bullet.direction = player.direction
+                                if bullet.didReachGoal == false {
+                                    
+                                    bullet.direction = player.direction
+                                    
+                                    bullet.didReachGoal = true
+                                }
                                 
-                                bullet.didReachGoal = true
                             }
                         }
                         
@@ -135,9 +139,13 @@ extension GameController {
                             
                             if bullet.type == "shield" {
                                 
-                                bullet.direction = player.direction
+                                if bullet.didReachGoal == false {
+                                    
+                                    bullet.direction = player.direction
+                                    
+                                    bullet.didReachGoal = true
+                                }
                                 
-                                bullet.didReachGoal = true
                             }
                         }
                         
@@ -521,7 +529,7 @@ extension GameController {
                             if selectedEnemies[i].type == "brickBoss" {
                                 
                                 completedLevels[7] = true
-
+                                
                             } else if selectedEnemies[i].type == "fireBoss" {
                                 
                                 completedLevels[1] = true

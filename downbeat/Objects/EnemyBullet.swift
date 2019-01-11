@@ -455,8 +455,9 @@ class EnemyBullet {
             self.width = Block.width * (7 / 16)
             self.height = self.width
             
-            self.moveSpeed = 3
-            
+//            self.moveSpeed = 3
+            self.moveSpeed = 4
+
             self.damage = 1
             
             if self.direction == "left" {
@@ -617,6 +618,89 @@ class EnemyBullet {
 //            }
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+            
+        } else if self.type == "cutter" {
+            
+            if self.direction == "left" {
+                
+                if self.x <= self.xGoal {
+                    
+                    if self.didReachGoal == false {
+                        
+                        self.didReachGoal = true
+                        
+                        self.view.animationDuration = 0.85 * 0.5
+                        
+                        self.view.startAnimating()
+                    }
+                }
+                
+            } else if self.direction == "right" {
+                
+                if self.x >= self.xGoal {
+                    
+                    if self.didReachGoal == false {
+                        
+                        self.didReachGoal = true
+                        
+                        self.view.animationDuration = 0.85 * 0.5
+                        
+                        self.view.startAnimating()
+                    }
+                }
+                
+            }
+            
+            if self.didReachGoal == false {
+                
+                if self.direction == "left" {
+                    
+                    if self.x <= self.xGoal + (Block.width * 2) {
+                        
+                        setXY(x: self.x - self.xSpeed, y: self.y + self.ySpeed)
+                        
+                    } else {
+                        
+                        setXY(x: self.x - self.xSpeed, y: self.y - self.ySpeed)
+                    }
+                    
+                } else if self.direction == "right" {
+                    
+                    if self.x >= self.xGoal - (Block.width * 2) {
+                        
+                        setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+                        
+                    } else {
+                        
+                        setXY(x: self.x + self.xSpeed, y: self.y - self.ySpeed)
+                    }
+                }
+                
+            } else {
+                
+                for enemy in selectedEnemies {
+                    
+                    if self.x < enemy.x {
+                        
+                        setXY(x: self.x + (self.xSpeed * 1.375), y: self.y)
+                        
+                    } else if self.x > enemy.x {
+                        
+                        setXY(x: self.x - (self.xSpeed * 1.375), y: self.y)
+                        
+                    }
+                    
+                    if self.y < enemy.y {
+                        
+                        setXY(x: self.x, y: self.y + (self.ySpeed * 1.375))
+                        
+                    } else if self.y > enemy.y {
+                        
+                        setXY(x: self.x, y: self.y - (self.ySpeed * 1.375))
+                    }
+                }
+                
+            }
             
         } else if self.type == "bomb" {
             
@@ -924,85 +1008,6 @@ class EnemyBullet {
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
 
-        } else if self.type == "cutter" {
-            
-            if self.direction == "left" {
-                
-                if self.x <= self.xGoal {
-                    
-                    if self.didReachGoal == false {
-                        
-                        self.didReachGoal = true
-                        
-                        self.view.animationDuration = 0.85 * 0.5
-                        
-                        self.view.startAnimating()
-                    }
-                }
-                
-            } else if self.direction == "right" {
-                
-                if self.x >= self.xGoal {
-                    
-                    if self.didReachGoal == false {
-                        
-                        self.didReachGoal = true
-                        
-                        self.view.animationDuration = 0.85 * 0.5
-                        
-                        self.view.startAnimating()
-                    }
-                }
-                
-            }
-            
-            if self.didReachGoal == false {
-                
-                if self.direction == "left" {
-                    
-                    if self.x <= self.xGoal + (Block.width * 2) {
-                        
-                        setXY(x: self.x - self.xSpeed, y: self.y + self.ySpeed)
-                        
-                    } else {
-                        
-                        setXY(x: self.x - self.xSpeed, y: self.y - self.ySpeed)
-                    }
-                    
-                } else if self.direction == "right" {
-                    
-                    if self.x >= self.xGoal - (Block.width * 2) {
-                        
-                        setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
-                        
-                    } else {
-                        
-                        setXY(x: self.x + self.xSpeed, y: self.y - self.ySpeed)
-                    }
-                }
-                
-            } else {
-                
-                if self.x < selectedEnemies[0].x {
-                    
-                    setXY(x: self.x + (self.xSpeed * 1.375), y: self.y)
-                    
-                } else if self.x > selectedEnemies[0].x {
-                    
-                    setXY(x: self.x - (self.xSpeed * 1.375), y: self.y)
-                    
-                }
-                
-                if self.y < selectedEnemies[0].y {
-                    
-                    setXY(x: self.x, y: self.y + (self.ySpeed * 1.375))
-                    
-                } else if self.y > selectedEnemies[0].y {
-                    
-                    setXY(x: self.x, y: self.y - (self.ySpeed * 1.375))
-                }
-            }
-            
         } else {
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)

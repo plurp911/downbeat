@@ -57,7 +57,7 @@ class Enemy {
     static let dropEmptyImages = [UIImage(named: "dropEnemyEmpty1Other"), UIImage(named: "dropEnemyEmpty2Other")]
     static let dropDropImage = UIImage(named: "dropEnemyDropOther")
     
-//    static let sprinklerImages = [UIImage(named: "sprinklerEnemy1"), UIImage(named: "sprinklerEnemy2"), UIImage(named: "sprinklerEnemy3")]
+    //    static let sprinklerImages = [UIImage(named: "sprinklerEnemy1"), UIImage(named: "sprinklerEnemy2"), UIImage(named: "sprinklerEnemy3")]
     static let sprinklerImages = [UIImage(named: "sprinklerEnemy1"), UIImage(named: "sprinklerEnemy2"), UIImage(named: "sprinklerEnemy3"), UIImage(named: "sprinklerEnemy4")]
     static let sprinklerDownImage = UIImage(named: "sprinklerEnemyDown")
     
@@ -68,9 +68,9 @@ class Enemy {
     
     static let jumperLeft1Image = UIImage(named: "jumperEnemyLeft1")
     static let jumperLeft2Image = UIImage(named: "jumperEnemyLeft2")
-//    static let jumperLeftJumpImage = UIImage(named: "jumperLeftJump")
+    //    static let jumperLeftJumpImage = UIImage(named: "jumperLeftJump")
     static let jumperJumpLeftImages = [UIImage(named: "jumperEnemyJumpLeft1"), UIImage(named: "jumperEnemyJumpLeft2"), UIImage(named: "jumperEnemyJumpLeft3")]
-
+    
     static let minerThrowLeftImage = UIImage(named: "minerEnemyThrowLeft")
     static let minerSignalLeftImage = UIImage(named: "minerEnemySignalLeft")
     static let minerShieldLeftImage = UIImage(named: "minerEnemyShieldLeft")
@@ -83,9 +83,9 @@ class Enemy {
     static let eggMakerShootLeftImage = UIImage(named: "eggMakerEnemyShootLeft")
     static let eggMakerLeftImages = [UIImage(named: "eggMakerEnemyLeft1"), UIImage(named: "eggMakerEnemyLeft2")]
     
-//    static let topImages = [UIImage(named: "topEnemy1"), UIImage(named: "topEnemy2"), UIImage(named: "topEnemy3")]
+    //    static let topImages = [UIImage(named: "topEnemy1"), UIImage(named: "topEnemy2"), UIImage(named: "topEnemy3")]
     static let topImages = [UIImage(named: "topEnemy1"), UIImage(named: "topEnemy2"), UIImage(named: "topEnemy3"), UIImage(named: "topEnemy4"), UIImage(named: "topEnemy5"), UIImage(named: "topEnemy6"), UIImage(named: "topEnemy7"), UIImage(named: "topEnemy8")]
-
+    
     static let eggLeftImages = [UIImage(named: "eggEnemyLeft1"), UIImage(named: "eggEnemyLeft2"), UIImage(named: "eggEnemyLeft3"), UIImage(named: "eggEnemyLeft2")]
     
     static let shooterShootRightImage = UIImage(named: "shooterEnemyShootRight")
@@ -95,31 +95,67 @@ class Enemy {
     
     static let brickBossStandLeftImage = UIImage(named: "brickBossStandLeft")
     static let brickBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
-    static let brickBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
-    static let brickBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
+//    static let brickBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
+//    static let brickBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
     static let brickBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
     static let brickBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
     
-    static let fireBossStandLeftImage = UIImage(named: "brickBossStandLeft")
-    static let fireBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
-    static let fireBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
-    static let fireBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
-    static let fireBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
-    static let fireBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
+    static let fireBossStandLeftImage = UIImage(named: "fireBossStandLeft")
+    static let fireBossThrowLeftImage = UIImage(named: "fireBossThrowLeft")
+//    static let fireBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
+//    static let fireBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
+    static let fireBossJumpLeftImage = UIImage(named: "fireBossJumpLeft")
+    static let fireBossSignalJumpLeftImage = UIImage(named: "fireBossSignalJumpLeft")
+    static let fireBossRunLeftImages = [UIImage(named: "fireBossRunLeft1"), UIImage(named: "fireBossRunLeft2"), UIImage(named: "fireBossRunLeft3"), UIImage(named: "fireBossRunLeft2")]
     
-    static let metalBossStandLeftImage = UIImage(named: "brickBossStandLeft")
-    static let metalBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
-    static let metalBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
-    static let metalBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
-    static let metalBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
-    static let metalBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
+    static let metalBossStandLeftImage = UIImage(named: "metalBossStandLeft")
+    static let metalBossThrowLeftImage = UIImage(named: "metalBossThrowLeft")
+//    static let metalBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
+//    static let metalBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
+    static let metalBossJumpLeftImage = UIImage(named: "metalBossJumpLeft")
+    static let metalBossSignalJumpLeftImage = UIImage(named: "metalBossSignalJumpLeft")
     
-    static let iceBossStandLeftImage = UIImage(named: "brickBossStandLeft")
-    static let iceBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
-    static let iceBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
-    static let iceBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
-    static let iceBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
-    static let iceBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
+    static let iceBossStandLeftImage = UIImage(named: "iceBossStandLeft")
+    static let iceBossThrowLeftImage = UIImage(named: "iceBossThrowLeft")
+//    static let iceBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
+//    static let iceBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
+    static let iceBossJumpLeftImage = UIImage(named: "iceBossJumpLeft")
+    static let iceBossSignalJumpLeftImage = UIImage(named: "iceBossSignalJumpLeft")
+    
+    static let skyBossStandLeftImage = UIImage(named: "brickBossStandLeft")
+    static let skyBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
+//    static let skyBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
+//    static let skyBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
+    static let skyBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
+    static let skyBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
+    
+    static let snowBossStandLeftImage = UIImage(named: "snowBossStandLeft")
+//    static let snowBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
+//    static let snowBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
+//    static let snowBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
+    static let snowBossJumpLeftImage = UIImage(named: "snowBossJumpLeft")
+    static let snowBossSignalJumpLeftImage = UIImage(named: "snowBossSignalJumpLeft")
+    
+    static let waterBossStandLeftImage = UIImage(named: "brickBossStandLeft")
+    static let waterBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
+//    static let waterBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
+//    static let waterBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
+    static let waterBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
+    static let waterBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
+    
+    static let sandBossStandLeftImage = UIImage(named: "brickBossStandLeft")
+    static let sandBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
+//    static let sandBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
+//    static let sandBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
+    static let sandBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
+    static let sandBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
+    
+    static let chemicalBossStandLeftImage = UIImage(named: "brickBossStandLeft")
+    static let chemicalBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
+//    static let chemicalBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
+//    static let chemicalBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
+    static let chemicalBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
+    static let chemicalBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
     
     static let checkMargin: CGFloat = Block.width * (1 / 16)
     
@@ -166,7 +202,7 @@ class Enemy {
     var isMovingRight: Bool = false
     
     var shouldShoot: Bool = false
-//    var shouldRun: Bool = false
+    //    var shouldRun: Bool = false
     var shouldRun: Bool = true
     
     var health: Int = 0
@@ -438,8 +474,11 @@ class Enemy {
             self.ySpeedChange = 0.1
             self.maxFallSpeed = 6
             
-            self.width = Block.width * (31 / 16)
-            self.height = Block.height * (32 / 16)
+//            self.width = Block.width * (31 / 16)
+//            self.height = Block.height * (32 / 16)
+            
+            self.width = Block.width * (33 / 16)
+            self.height = Block.height * (28 / 16)
             
             self.moveSpeed = 1.25
             
@@ -454,8 +493,11 @@ class Enemy {
             self.ySpeedChange = 0.1
             self.maxFallSpeed = 6
             
-            self.width = Block.width * (31 / 16)
-            self.height = Block.height * (32 / 16)
+//            self.width = Block.width * (31 / 16)
+//            self.height = Block.height * (32 / 16)
+
+            self.width = Block.width * (37 / 16)
+            self.height = Block.height * (35 / 16)
             
             //            self.moveSpeed = 1.25
             self.moveSpeed = 2.3125
@@ -466,8 +508,98 @@ class Enemy {
             
             self.damage = 5
             
-            self.ySpeedChange = 0.12
-            self.maxFallSpeed = 5.5
+            self.ySpeedChange = 0.07
+            self.maxFallSpeed = 5
+            
+            self.width = Block.width * (31 / 16)
+            self.height = Block.height * (37 / 16)
+            
+            self.moveSpeed = 0.625
+            
+        } else if self.type == "skyBoss" {
+            
+            self.maxHealth = 30
+            
+            //            self.damage = 3
+            self.damage = 5
+            
+            //            self.ySpeedChange = 0.12
+            //            self.maxFallSpeed = 5.5
+            
+            self.ySpeedChange = 0.125
+            self.maxFallSpeed = 6
+            
+            self.width = Block.width * (31 / 16)
+            self.height = Block.height * (32 / 16)
+            
+            self.moveSpeed = 1.25
+            
+        } else if self.type == "snowBoss" {
+            
+            self.maxHealth = 30
+            
+            //            self.damage = 3
+            self.damage = 5
+            
+            //            self.ySpeedChange = 0.12
+            //            self.maxFallSpeed = 5.5
+            
+            self.ySpeedChange = 0.35
+            self.maxFallSpeed = 6.125
+            
+            self.width = Block.width * (32 / 16)
+            self.height = Block.height * (29 / 16)
+            
+            self.moveSpeed = 1.5
+            
+        } else if self.type == "waterBoss" {
+            
+            self.maxHealth = 30
+            
+            //            self.damage = 3
+            self.damage = 5
+            
+            //            self.ySpeedChange = 0.12
+            //            self.maxFallSpeed = 5.5
+            
+            self.ySpeedChange = 0.125
+            self.maxFallSpeed = 6
+            
+            self.width = Block.width * (31 / 16)
+            self.height = Block.height * (32 / 16)
+            
+            self.moveSpeed = 1.25
+            
+        } else if self.type == "sandBoss" {
+            
+            self.maxHealth = 30
+            
+            //            self.damage = 3
+            self.damage = 5
+            
+            //            self.ySpeedChange = 0.12
+            //            self.maxFallSpeed = 5.5
+            
+            self.ySpeedChange = 0.125
+            self.maxFallSpeed = 6
+            
+            self.width = Block.width * (31 / 16)
+            self.height = Block.height * (32 / 16)
+            
+            self.moveSpeed = 1.25
+            
+        } else if self.type == "chemicalBoss" {
+            
+            self.maxHealth = 30
+            
+            //            self.damage = 3
+            self.damage = 5
+            
+            //            self.ySpeedChange = 0.12
+            //            self.maxFallSpeed = 5.5
+            
+            self.ySpeedChange = 0.125
+            self.maxFallSpeed = 6
             
             self.width = Block.width * (31 / 16)
             self.height = Block.height * (32 / 16)
@@ -529,8 +661,8 @@ class Enemy {
             
             self.isFalling = true
             
-//            self.width = Block.width * (15 / 16)
-//            self.height = Block.height
+            //            self.width = Block.width * (15 / 16)
+            //            self.height = Block.height
             self.width = Block.width
             self.height = Block.height * (15 / 16)
             
@@ -807,7 +939,7 @@ class Enemy {
                 setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
             }
             
-//            self.jumpTimeInterval = 1
+            //            self.jumpTimeInterval = 1
             self.jumpTimeInterval = 0
             
             self.signalTimeInterval = 0.25
@@ -840,13 +972,110 @@ class Enemy {
                 setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
             }
             
+//            self.jumpTimeInterval = 1
+            self.jumpTimeInterval = 0.125
+
+//            self.signalTimeInterval = 0.25
+            self.signalTimeInterval = 0.125
+
+//            self.totalShootTimeInterval = 0.25
+            self.totalShootTimeInterval = 0.125
+
+            self.view.image = Enemy.iceBossStandLeftImage
+            
+            self.direction = "left"
+            
+        } else if self.type == "skyBoss" {
+            
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
+            
             self.jumpTimeInterval = 1
             
             self.signalTimeInterval = 0.25
             
             self.totalShootTimeInterval = 0.25
             
-            self.view.image = Enemy.iceBossStandLeftImage
+            //            self.betweenShotsTimeInterval = 0.1
+            
+            self.view.image = Enemy.skyBossStandLeftImage
+            
+            self.direction = "left"
+            
+        } else if self.type == "snowBoss" {
+            
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
+            
+            //            self.jumpTimeInterval = 1
+            
+            //            self.signalTimeInterval = 0.25
+            
+            self.jumpTimeInterval = 0.125
+            
+            self.signalTimeInterval = 0.125
+            
+            //            self.totalShootTimeInterval = 0.25
+            
+            //            self.betweenShotsTimeInterval = 0.1
+            
+            self.view.image = Enemy.snowBossStandLeftImage
+            
+            self.direction = "left"
+            
+        } else if self.type == "waterBoss" {
+            
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
+            
+            self.jumpTimeInterval = 1
+            
+            self.signalTimeInterval = 0.25
+            
+            self.totalShootTimeInterval = 0.25
+            
+            //            self.betweenShotsTimeInterval = 0.1
+            
+            self.view.image = Enemy.waterBossStandLeftImage
+            
+            self.direction = "left"
+            
+        } else if self.type == "sandBoss" {
+            
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
+            
+            self.jumpTimeInterval = 1
+            
+            self.signalTimeInterval = 0.25
+            
+            self.totalShootTimeInterval = 0.25
+            
+            //            self.betweenShotsTimeInterval = 0.1
+            
+            self.view.image = Enemy.sandBossStandLeftImage
+            
+            self.direction = "left"
+            
+        } else if self.type == "chemicalBoss" {
+            
+            if self.isResetting == false {
+                setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
+            }
+            
+            self.jumpTimeInterval = 1
+            
+            self.signalTimeInterval = 0.25
+            
+            self.totalShootTimeInterval = 0.25
+            
+            //            self.betweenShotsTimeInterval = 0.1
+            
+            self.view.image = Enemy.chemicalBossStandLeftImage
             
             self.direction = "left"
             
@@ -964,11 +1193,11 @@ class Enemy {
             
             self.view.animationImages = Enemy.topImages as! [UIImage]
             
-//            self.view.animationDuration = 0.85 * (1 / 3)
+            //            self.view.animationDuration = 0.85 * (1 / 3)
             
-//            self.view.animationDuration = 0.615
+            //            self.view.animationDuration = 0.615
             self.view.animationDuration = 0.475
-
+            
             self.view.startAnimating()
             
         } else if self.type == "egg" {
@@ -1044,16 +1273,16 @@ class Enemy {
         
         if self.type == "snake" {
             
-//            if self.direction == "right" {
-//
-//                self.view.frame.origin.x = self.x - self.width / 2 + (Block.width * (5 / 16))
-//                self.view.frame.origin.y = self.y - self.height / 2
-//
-//            } else if self.direction == "left" {
-//
-//                self.view.frame.origin.x = self.x - self.width / 2 - (Block.width * (5 / 16))
-//                self.view.frame.origin.y = self.y - self.height / 2
-//            }
+            //            if self.direction == "right" {
+            //
+            //                self.view.frame.origin.x = self.x - self.width / 2 + (Block.width * (5 / 16))
+            //                self.view.frame.origin.y = self.y - self.height / 2
+            //
+            //            } else if self.direction == "left" {
+            //
+            //                self.view.frame.origin.x = self.x - self.width / 2 - (Block.width * (5 / 16))
+            //                self.view.frame.origin.y = self.y - self.height / 2
+            //            }
             
             self.view.frame.origin.x = self.x - self.width / 2 + self.xShift
             self.view.frame.origin.y = self.y - self.height / 2 + self.yShift
@@ -1318,18 +1547,18 @@ class Enemy {
                     self.view.startAnimating()
                 }
                 
-//                self.view.image = Enemy.jumperLeftJumpImage
+                //                self.view.image = Enemy.jumperLeftJumpImage
                 
             } else if self.isSignalling == true {
                 
                 self.view.stopAnimating()
-
+                
                 self.view.image = Enemy.jumperLeft2Image
                 
             } else {
                 
                 self.view.stopAnimating()
-
+                
                 self.view.image = Enemy.jumperLeft1Image
             }
             
@@ -1382,21 +1611,40 @@ class Enemy {
             
         } else if type == "fireBoss" {
             
-            if self.isShooting == true {
+            if xSpeed == 0 {
                 
-                self.view.image = Enemy.fireBossThrowLeftImage
+                self.view.stopAnimating()
                 
-            } else if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
-                
-                self.view.image = Enemy.fireBossJumpLeftImage
-                
-            } else if self.isSignalling == true {
-                
-                self.view.image = Enemy.fireBossSignalJumpLeftImage
+                if self.isShooting == true {
+                    
+                    self.view.image = Enemy.fireBossThrowLeftImage
+                    
+                } else if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
+                    
+                    self.view.image = Enemy.fireBossJumpLeftImage
+                    
+                } else if self.isSignalling == true {
+                    
+                    self.view.image = Enemy.fireBossSignalJumpLeftImage
+                    
+                } else {
+                    
+                    self.view.image = Enemy.fireBossStandLeftImage
+                }
                 
             } else {
                 
-                self.view.image = Enemy.fireBossStandLeftImage
+                if self.view.isAnimating == false {
+                    
+                    self.view.stopAnimating()
+                    
+                    self.view.animationImages = Enemy.fireBossRunLeftImages as! [UIImage]
+                    
+//                    self.view.animationDuration = 0.55
+                    self.view.animationDuration = 0.5
+                    
+                    self.view.startAnimating()
+                }
             }
             
             if self.direction == "right" {
@@ -1453,6 +1701,146 @@ class Enemy {
             } else {
                 
                 self.view.image = Enemy.iceBossStandLeftImage
+            }
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if type == "skyBoss" {
+            
+            if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
+                
+                self.view.image = Enemy.skyBossJumpLeftImage
+                
+            } else if self.isShooting == true {
+                
+                self.view.image = Enemy.skyBossThrowLeftImage
+                
+            } else if self.isSignalling == true {
+                
+                self.view.image = Enemy.skyBossSignalJumpLeftImage
+                
+            } else {
+                
+                self.view.image = Enemy.skyBossStandLeftImage
+            }
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if type == "snowBoss" {
+            
+            if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
+                
+                self.view.image = Enemy.snowBossJumpLeftImage
+                
+            } else if self.isShooting == true {
+                
+//                self.view.image = Enemy.snowBossThrowLeftImage
+                
+            } else if self.isSignalling == true {
+                
+                self.view.image = Enemy.snowBossSignalJumpLeftImage
+                
+            } else {
+                
+                self.view.image = Enemy.snowBossStandLeftImage
+            }
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if type == "waterBoss" {
+            
+            if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
+                
+                self.view.image = Enemy.waterBossJumpLeftImage
+                
+            } else if self.isShooting == true {
+                
+                self.view.image = Enemy.waterBossThrowLeftImage
+                
+            } else if self.isSignalling == true {
+                
+                self.view.image = Enemy.waterBossSignalJumpLeftImage
+                
+            } else {
+                
+                self.view.image = Enemy.waterBossStandLeftImage
+            }
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if type == "sandBoss" {
+            
+            if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
+                
+                self.view.image = Enemy.sandBossJumpLeftImage
+                
+            } else if self.isShooting == true {
+                
+                self.view.image = Enemy.sandBossThrowLeftImage
+                
+            } else if self.isSignalling == true {
+                
+                self.view.image = Enemy.sandBossSignalJumpLeftImage
+                
+            } else {
+                
+                self.view.image = Enemy.sandBossStandLeftImage
+            }
+            
+            if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if type == "chemicalBoss" {
+            
+            if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
+                
+                self.view.image = Enemy.chemicalBossJumpLeftImage
+                
+            } else if self.isShooting == true {
+                
+                self.view.image = Enemy.chemicalBossThrowLeftImage
+                
+            } else if self.isSignalling == true {
+                
+                self.view.image = Enemy.chemicalBossSignalJumpLeftImage
+                
+            } else {
+                
+                self.view.image = Enemy.chemicalBossStandLeftImage
             }
             
             if self.direction == "right" {
@@ -1951,19 +2339,19 @@ class Enemy {
                 
             } else {
                 
-//                self.endTimers()
+                //                self.endTimers()
             }
             
         } else if self.type == "turret" {
             
-//            if player.x > self.x {
-//
-//                self.direction = "right"
-//
-//            } else if player.x < self.x {
-//
-//                self.direction = "left"
-//            }
+            //            if player.x > self.x {
+            //
+            //                self.direction = "right"
+            //
+            //            } else if player.x < self.x {
+            //
+            //                self.direction = "left"
+            //            }
             
         } else if self.type == "jumper" {
             
@@ -2272,17 +2660,17 @@ class Enemy {
                                     self.xSpeed = 0
                                     self.ySpeed = 0
                                     
-//                                    print("TEST TEST TEST")
+                                    //                                    print("TEST TEST TEST")
                                     
                                     if self.signalTimer.isValid == false && self.isSignalling == false {
                                         
                                         self.shouldRun = true
                                     }
                                     
-//                                    if self.signalTimer.isValid == false {
-//
-//                                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
-//                                    }
+                                    //                                    if self.signalTimer.isValid == false {
+                                    //
+                                    //                                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                    //                                    }
                                     
                                     setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
                                 }
@@ -2297,17 +2685,17 @@ class Enemy {
                                     self.xSpeed = 0
                                     self.ySpeed = 0
                                     
-//                                    print("TEST TEST TEST")
+                                    //                                    print("TEST TEST TEST")
                                     
                                     if self.signalTimer.isValid == false && self.isSignalling == false {
                                         
                                         self.shouldRun = true
                                     }
                                     
-//                                    if self.signalTimer.isValid == false {
-//
-//                                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
-//                                    }
+                                    //                                    if self.signalTimer.isValid == false {
+                                    //
+                                    //                                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                    //                                    }
                                     
                                     setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
                                 }
@@ -2500,20 +2888,20 @@ class Enemy {
                                 self.xSpeed = 0
                                 self.ySpeed = 0
                                 
-//                                if self.signalTimer.isValid == false && self.isSignalling == false {
-//
-//                                    if self.direction == "left" {
-//
-//                                        self.direction = "right"
-//
-//                                    } else if self.direction == "right" {
-//
-//                                        self.direction = "left"
-//                                    }
-//                                }
+                                //                                if self.signalTimer.isValid == false && self.isSignalling == false {
+                                //
+                                //                                    if self.direction == "left" {
+                                //
+                                //                                        self.direction = "right"
+                                //
+                                //                                    } else if self.direction == "right" {
+                                //
+                                //                                        self.direction = "left"
+                                //                                    }
+                                //                                }
                                 
                                 if self.signalTimer.isValid == false && self.shootTimer.isValid == false && self.jumpTimer.isValid == false && endShootTimer.isValid == false {
-
+                                    
                                     if self.direction == "left" {
                                         
                                         self.direction = "right"
@@ -2541,17 +2929,17 @@ class Enemy {
                                 self.xSpeed = 0
                                 self.ySpeed = 0
                                 
-//                                if self.signalTimer.isValid == false && self.isSignalling == false {
-//
-//                                    if self.direction == "left" {
-//
-//                                        self.direction = "right"
-//
-//                                    } else if self.direction == "right" {
-//
-//                                        self.direction = "left"
-//                                    }
-//                                }
+                                //                                if self.signalTimer.isValid == false && self.isSignalling == false {
+                                //
+                                //                                    if self.direction == "left" {
+                                //
+                                //                                        self.direction = "right"
+                                //
+                                //                                    } else if self.direction == "right" {
+                                //
+                                //                                        self.direction = "left"
+                                //                                    }
+                                //                                }
                                 
                                 if self.signalTimer.isValid == false && self.shootTimer.isValid == false && self.jumpTimer.isValid == false && endShootTimer.isValid == false {
                                     
@@ -2720,11 +3108,41 @@ class Enemy {
                                 self.xSpeed = 0
                                 self.ySpeed = 0
                                 
-                                if self.signalTimer.isValid == false && self.shootTimer.isValid == false {
+                                //                                if self.signalTimer.isValid == false && self.isSignalling == false {
+                                //
+                                //                                    if self.direction == "left" {
+                                //
+                                //                                        self.direction = "right"
+                                //
+                                //                                    } else if self.direction == "right" {
+                                //
+                                //                                        self.direction = "left"
+                                //                                    }
+                                //                                }
+                                
+                                if self.signalTimer.isValid == false && self.shootTimer.isValid == false && self.jumpTimer.isValid == false && endShootTimer.isValid == false {
                                     
-                                    self.signalTimer.invalidate()
-                                    
-                                    self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                    if self.x >= (screenSize.height * screenRatio) - (Block.width * 3) || self.x <= (Block.width * 3) {
+                                        
+                                        if self.direction == "left" {
+                                            
+                                            self.direction = "right"
+                                            
+                                        } else if self.direction == "right" {
+                                            
+                                            self.direction = "left"
+                                        }
+                                        
+                                        self.signalTimer.invalidate()
+                                        
+                                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                        
+                                    } else {
+                                        
+                                        self.signalTimer.invalidate()
+                                        
+                                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                    }
                                 }
                                 
                                 setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
@@ -2740,11 +3158,41 @@ class Enemy {
                                 self.xSpeed = 0
                                 self.ySpeed = 0
                                 
-                                if self.signalTimer.isValid == false && self.shootTimer.isValid == false {
+                                //                                if self.signalTimer.isValid == false && self.isSignalling == false {
+                                //
+                                //                                    if self.direction == "left" {
+                                //
+                                //                                        self.direction = "right"
+                                //
+                                //                                    } else if self.direction == "right" {
+                                //
+                                //                                        self.direction = "left"
+                                //                                    }
+                                //                                }
+                                
+                                if self.signalTimer.isValid == false && self.shootTimer.isValid == false && self.jumpTimer.isValid == false && endShootTimer.isValid == false {
                                     
-                                    self.signalTimer.invalidate()
+                                    if self.x >= (screenSize.height * screenRatio) - (Block.width * 3) || self.x <= (Block.width * 3) {
+                                        
+                                        if self.direction == "left" {
+                                            
+                                            self.direction = "right"
+                                            
+                                        } else if self.direction == "right" {
+                                            
+                                            self.direction = "left"
+                                        }
+                                        
+                                        self.signalTimer.invalidate()
+                                        
+                                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
                                     
-                                    self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                    } else {
+                                        
+                                        self.signalTimer.invalidate()
+                                        
+                                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                    }
                                 }
                                 
                                 setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
@@ -2782,17 +3230,19 @@ class Enemy {
                 }
             }
             
-            if self.isJumping == false {
-                
-                if player.x >= self.x {
-                    
-                    self.direction = "right"
-                    
-                } else {
-                    
-                    self.direction = "left"
-                }
-            }
+            /*
+             if self.isJumping == false {
+             
+             if player.x >= self.x {
+             
+             self.direction = "right"
+             
+             } else {
+             
+             self.direction = "left"
+             }
+             }
+             */
             
         } else if self.type == "brickBoss" {
             
@@ -2969,6 +3419,194 @@ class Enemy {
                     self.direction = "left"
                 }
             }
+            
+        } else if self.type == "snowBoss" {
+            
+            if self.isJumping == true || self.isFalling == true {
+                
+                self.ySpeed += self.ySpeedChange
+                
+                if self.ySpeed > 0 {
+                    
+                    self.isFalling = true
+                    
+                    self.isRising = false
+                    
+                    if self.ySpeed > self.maxFallSpeed {
+                        self.ySpeed = self.maxFallSpeed
+                    }
+                    
+                } else if ySpeed < 0 {
+                    
+                    self.isRising = true
+                    
+                    self.isFalling = false
+                }
+            }
+            
+            for block in selectedBlocks {
+                
+                if block.isHidden == false {
+                    
+                    if block.isLadder == false && block.isTopLadder == false {
+                        
+                        if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            setXY(x: block.x - (Block.width / 2) - (self.width / 2) - self.moveSpeed, y: self.y)
+                            
+                            self.direction = "left"
+                        }
+                        
+                        if self.x - (self.width / 2) - self.moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            setXY(x: block.x + (Block.width / 2) + (self.width / 2), y: self.y)
+                            
+                            self.direction = "right"
+                        }
+                        
+                    }
+                }
+                
+            }
+            
+            if self.x - (self.width / 2) - self.moveSpeed < 0 {
+                
+                setXY(x: (self.width / 2) + self.moveSpeed, y: self.y)
+                
+                self.direction = "right"
+                
+            } else if self.x + (self.width / 2) + self.moveSpeed > screenSize.height * screenRatio {
+                
+                setXY(x: (screenSize.height * screenRatio) - (self.width / 2) - self.moveSpeed, y: self.y)
+                
+                self.direction = "left"
+            }
+            
+            if self.isRising == false {
+                
+                var isEmpty: Bool = true
+                
+                for block in selectedBlocks {
+                    
+                    if block.isHidden == false {
+                        
+                        if block.isTopLadder == true {
+                            
+                            if self.y + (self.height / 2) + self.ySpeed <= block.y - (Block.height / 2) + self.ySpeed && self.y + (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                isEmpty = false
+                            }
+                            
+                        } else if block.isLadder == false {
+                            
+                            if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                isEmpty = false
+                            }
+                        }
+                        
+                    }
+                }
+                
+                if isEmpty == true {
+                    
+                    self.isFalling = true
+                }
+            }
+            
+            if self.isFalling == true {
+                
+                for block in selectedBlocks {
+                    
+                    if block.isHidden == false {
+                        
+                        if block.isTopLadder == true {
+                            
+                            if self.y + (self.height / 2) + self.maxFallSpeed <= block.y - (Block.height / 2) + self.maxFallSpeed && self.y + (self.height / 2) + self.maxFallSpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                self.isJumping = false
+                                self.isFalling = false
+                                
+                                self.xSpeed = 0
+                                self.ySpeed = 0
+                                
+                                if self.signalTimer.isValid == false {
+                                    
+                                    self.signalTimer.invalidate()
+                                    
+                                    self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                }
+                                
+                                setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                            }
+                            
+                        } else if block.isLadder == false {
+                            
+                            if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                self.isJumping = false
+                                self.isFalling = false
+                                
+                                self.xSpeed = 0
+                                self.ySpeed = 0
+                                
+                                if self.signalTimer.isValid == false {
+                                    
+                                    self.signalTimer.invalidate()
+                                    
+                                    self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                                }
+                                
+                                setXY(x: self.x, y: block.y - (Block.height / 2) - (self.height / 2))
+                            }
+                        }
+                        
+                    }
+                }
+                
+            }
+            
+            if self.isRising == true {
+                
+                for block in selectedBlocks {
+                    
+                    if block.isHidden == false {
+                        
+                        if block.isLadder == false && block.isTopLadder == false {
+                            
+                            if self.y - (self.height / 2) + self.ySpeed <= block.y + (Block.height / 2) && self.y - (self.height / 2) + self.ySpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                self.isFalling = true
+                                
+                                self.isJumping = false
+                                self.isRising = false
+                                
+                                self.ySpeed = 0
+                                
+                                setXY(x: self.x, y: block.y + (Block.height / 2) + (self.height / 2))
+                            }
+                        }
+                        
+                    }
+                    
+                }
+            }
+            
+            /*
+             
+             if self.isJumping == false {
+             
+             if player.x >= self.x {
+             
+             self.direction = "right"
+             
+             } else {
+             
+             self.direction = "left"
+             }
+             }
+             
+             */
             
         } else if self.type == "miner" {
             
@@ -3661,6 +4299,26 @@ class Enemy {
                             
                             return i
                             
+                        } else if self.type == "skyBoss" {
+                            
+                            return i
+                            
+                        } else if self.type == "snowBoss" {
+                            
+                            return i
+                            
+                        } else if self.type == "waterBoss" {
+                            
+                            return i
+                            
+                        } else if self.type == "sandBoss" {
+                            
+                            return i
+                            
+                        } else if self.type == "chemicalBoss" {
+                            
+                            return i
+                            
                         } else if self.type == "miner" {
                             
                             if bullets[i].type == "regular" {
@@ -3877,7 +4535,7 @@ class Enemy {
             
             self.health -= bulletDamage
             
-            if self.type == "brickBoss" || self.type == "fireBoss" || self.type == "metalBoss" || self.type == "iceBoss" {
+            if self.type == "brickBoss" || self.type == "fireBoss" || self.type == "metalBoss" || self.type == "iceBoss" || self.type == "skyBoss" || self.type == "snowBoss" || self.type == "waterBoss" || self.type == "sandBoss" || self.type == "chemicalBoss" {
                 Enemy.bossHealthBar.setEnergy(energy: self.health)
             }
         }
@@ -3945,7 +4603,7 @@ class Enemy {
                 
                 self.view.animationImages = Enemy.sprinklerImages as! [UIImage]
                 
-//                self.view.animationDuration = 0.85 * (1 / 3)
+                //                self.view.animationDuration = 0.85 * (1 / 3)
                 self.view.animationDuration = 0.85 * (1 / 3) * (4 / 3)
                 self.view.startAnimating()
                 
@@ -4016,7 +4674,7 @@ class Enemy {
             }
             
         } else if self.type == "fireBoss" {
-                
+            
             if self.jumpTimer.isValid == false {
                 
                 self.jumpTimer.invalidate()
@@ -4081,8 +4739,21 @@ class Enemy {
                 }
                 
             }
+            
+        } else if self.type == "snowBoss" {
+            
+            if self.jumpTimer.isValid == false {
+                
+                if self.jumpTimer.isValid == false {
+                    
+                    self.jumpTimer.invalidate()
+                    
+                    self.jumpTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.signalTimeInterval), target: self, selector: #selector(jump), userInfo: nil, repeats: false)
+                }
+                
+            }
+            
         }
-        
     }
     
     @objc func realShoot() {
@@ -4125,9 +4796,9 @@ class Enemy {
             
             let bulletSpeed: CGFloat = 2.5
             
-//            let xOffset: CGFloat = Block.width * (14 / 16)
-//            let yOffset: CGFloat = Block.width * (4 / 16)
-
+            //            let xOffset: CGFloat = Block.width * (14 / 16)
+            //            let yOffset: CGFloat = Block.width * (4 / 16)
+            
             let xOffset: CGFloat = Block.width * (14 / 16)
             let yOffset: CGFloat = Block.width * (0 / 16)
             
@@ -4148,10 +4819,10 @@ class Enemy {
             
             let bulletSpeed: CGFloat = 1.75
             
-//            let xOffset: CGFloat = Block.width * (14 / 16)
+            //            let xOffset: CGFloat = Block.width * (14 / 16)
             let xOffset: CGFloat = Block.width * (8 / 16)
-
-//            let yOffset: CGFloat = Block.width * (1 / 16)
+            
+            //            let yOffset: CGFloat = Block.width * (1 / 16)
             let yOffset: CGFloat = -Block.width * (0 / 16)
             
             if self.direction == "left" {
@@ -4180,9 +4851,9 @@ class Enemy {
             let bulletSpeedMax: CGFloat = 3.25
             let bulletSpeedMin: CGFloat = bulletSpeedMax / (sqrt(2))
             
-//            let yOffset: CGFloat = Block.width * (4 / 16)
+            //            let yOffset: CGFloat = Block.width * (4 / 16)
             let yOffset: CGFloat = Block.width * (5 / 16)
-
+            
             enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallOrange"))
             enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMax, ySpeed: 0, type: "smallOrange"))
             enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeedMax, type: "smallOrange"))
@@ -4229,9 +4900,9 @@ class Enemy {
                 xOffset = -xOffset
             }
             
-//            enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, targetX: goalX, targetY: goalY, speed: bulletSpeed, type: "smallBlue"))
+            //            enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, targetX: goalX, targetY: goalY, speed: bulletSpeed, type: "smallBlue"))
             enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, targetX: goalX, targetY: goalY, speed: bulletSpeed, type: "smallTan"))
-
+            
             if self.shootCount >= 3 {
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
@@ -4415,23 +5086,12 @@ class Enemy {
             
         } else if self.type == "metalBoss" {
             
-            let bulletSpeed: CGFloat = 1.75
-            
-            let xOffset: CGFloat = Block.width * (16 / 16)
-            let yOffset: CGFloat = Block.width * (16 / 16)
+            let xOffset: CGFloat = Block.width * (21 / 16)
+            let yOffset: CGFloat = Block.width * (1 / 16)
             
             if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
                 
             } else {
-                
-                //                if self.direction == "left" {
-                //
-                //                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "bubble"))
-                //
-                //                } else if self.direction == "right" {
-                //
-                //                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "bubble"))
-                //                }
                 
                 if self.direction == "left" {
                     
@@ -4447,23 +5107,12 @@ class Enemy {
             
         } else if self.type == "iceBoss" {
             
-            let bulletSpeed: CGFloat = 1.75
-            
             let xOffset: CGFloat = Block.width * (16 / 16)
-            let yOffset: CGFloat = Block.width * (16 / 16)
+            let yOffset: CGFloat = Block.width * (4 / 16)
             
             if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
                 
             } else {
-                
-                //                if self.direction == "left" {
-                //
-                //                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "cutter"))
-                //
-                //                } else if self.direction == "right" {
-                //
-                //                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "cutter"))
-                //                }
                 
                 if self.direction == "left" {
                     
@@ -4476,6 +5125,9 @@ class Enemy {
             }
             
             self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
+            
+        } else if self.type == "snowBoss" {
+            
         }
     }
     
@@ -4512,7 +5164,7 @@ class Enemy {
             
             self.view.animationImages = Enemy.topMakerRightImages as! [UIImage]
             
-//            self.view.animationDuration = 0.85 * (1 / 3)
+            //            self.view.animationDuration = 0.85 * (1 / 3)
             self.view.animationDuration = 0.375
             self.view.startAnimating()
             
@@ -4579,13 +5231,33 @@ class Enemy {
             
         } else if self.type == "fireBoss" {
             
-//            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            //            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             
         } else if self.type == "metalBoss" {
             
             self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             
         } else if self.type == "iceBoss" {
+            
+            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            
+        } else if self.type == "skyBoss" {
+            
+            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            
+        } else if self.type == "snowBoss" {
+            
+            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            
+        } else if self.type == "waterBoss" {
+            
+            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            
+        } else if self.type == "sandBoss" {
+            
+            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            
+        } else if self.type == "chemicalBoss" {
             
             self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             
@@ -4623,7 +5295,7 @@ class Enemy {
     
     func startTimers() {
         
-        if self.type != "brickBoss" && self.type != "fireBoss" && self.type != "metalBoss" && self.type != "iceBoss" {
+        if self.type != "brickBoss" && self.type != "fireBoss" && self.type != "metalBoss" && self.type != "iceBoss" && self.type != "skyBoss" && self.type != "snowBoss" && self.type != "waterBoss" && self.type != "sandBoss" && self.type != "chemicalBoss" {
             
             if self.isSprinklerInRange() == true {
                 
@@ -4637,7 +5309,7 @@ class Enemy {
                             
                             self.shoot()
                             
-                        } else if self.type == "electricity" {
+                        } else if self.type == "electricity" || self.type == "turret" || self.type == "shell" || self.type == "shooter" {
                             
                             let value: CGFloat = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
                             
@@ -4663,7 +5335,11 @@ class Enemy {
                 
                 self.endStunTimer.invalidate()
                 
-                self.endStunTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.stunTimeInterval), target: self, selector: #selector(stopStun), userInfo: nil, repeats: false)
+                //                self.endStunTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.stunTimeInterval), target: self, selector: #selector(stopStun), userInfo: nil, repeats: false)
+                
+                let value: CGFloat = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
+                
+                self.endStunTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.stunTimeInterval * value), target: self, selector: #selector(stopStun), userInfo: nil, repeats: false)
             }
             
         } else if self.type == "jumper" {
@@ -4693,12 +5369,12 @@ class Enemy {
             
         } else if self.type == "fireBoss" {
             
-//            if self.signalTimer.isValid == false {
-//
-//                self.signalTimer.invalidate()
-//
-//                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
-//            }
+            //            if self.signalTimer.isValid == false {
+            //
+            //                self.signalTimer.invalidate()
+            //
+            //                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            //            }
             
         } else if self.type == "metalBoss" {
             
@@ -4710,6 +5386,51 @@ class Enemy {
             }
             
         } else if self.type == "iceBoss" {
+            
+            if self.signalTimer.isValid == false {
+                
+                self.signalTimer.invalidate()
+                
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            }
+            
+        } else if self.type == "skyBoss" {
+            
+            if self.signalTimer.isValid == false {
+                
+                self.signalTimer.invalidate()
+                
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            }
+            
+        } else if self.type == "snowBoss" {
+            
+            if self.signalTimer.isValid == false {
+                
+                self.signalTimer.invalidate()
+                
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            }
+            
+        } else if self.type == "waterBoss" {
+            
+            if self.signalTimer.isValid == false {
+                
+                self.signalTimer.invalidate()
+                
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            }
+            
+        } else if self.type == "sandBoss" {
+            
+            if self.signalTimer.isValid == false {
+                
+                self.signalTimer.invalidate()
+                
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+            }
+            
+        } else if self.type == "chemicalBoss" {
             
             if self.signalTimer.isValid == false {
                 
@@ -4753,7 +5474,7 @@ class Enemy {
         self.timerFireTimes["endStunTimer"] = getTimerFireTime(timer: self.endStunTimer)
         self.timerFireTimes["endHitTimer"] = getTimerFireTime(timer: self.endHitTimer)
         self.timerFireTimes["jumpTimer"] = getTimerFireTime(timer: self.jumpTimer)
-
+        
         self.shootTimer.invalidate()
         self.endShootTimer.invalidate()
         self.signalTimer.invalidate()
@@ -4779,7 +5500,7 @@ class Enemy {
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             }
         }
-
+        
         if let fireTime = self.timerFireTimes["signalTimer"] {
             
             if fireTime >= 0 {
