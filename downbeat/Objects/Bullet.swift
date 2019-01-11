@@ -26,8 +26,9 @@ class Bullet {
     //    static let magnetLeftImage = UIImage(named: "magnetBulletLeft")
     static let magnetLeftImages = [UIImage(named: "magnetBulletLeft1"), UIImage(named: "magnetBulletLeft2")]
     
-    static let shieldImages = [UIImage(named: "shieldBullet1"), UIImage(named: "shieldBullet2"), UIImage(named: "shieldBullet3")]
-    
+//    static let shieldImages = [UIImage(named: "shieldBullet1"), UIImage(named: "shieldBullet2"), UIImage(named: "shieldBullet3")]
+    static let shieldRightImages = [UIImage(named: "shieldBulletRight1"), UIImage(named: "shieldBulletRight2"), UIImage(named: "shieldBulletRight3"), UIImage(named: "shieldBulletRight4")]
+
     static let tornadoRightImages = [UIImage(named: "tornadoBulletRight1"), UIImage(named: "tornadoBulletRight2"), UIImage(named: "tornadoBulletRight3")]
     
     //    static let bubbleImages = [UIImage(named: "bubbleBullet1"), UIImage(named: "bubbleBullet2")]
@@ -398,11 +399,21 @@ class Bullet {
             
         } else if self.type == "shield" {
             
-            self.view.animationImages = Bullet.shieldImages as! [UIImage]
+            self.view.animationImages = Bullet.shieldRightImages as! [UIImage]
             
-            self.view.animationDuration = 0.85 * 0.6875
-            
+//            self.view.animationDuration = 0.85 * 0.6875
+            self.view.animationDuration = 0.85 * 0.6875 * (4 / 3) * 0.5
+
             self.view.startAnimating()
+            
+            if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
             
         } else if self.type == "tornado" {
             

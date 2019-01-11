@@ -143,13 +143,14 @@ class Enemy {
     static let waterBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
     static let waterBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
     
-    static let sandBossStandLeftImage = UIImage(named: "brickBossStandLeft")
-    static let sandBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
+    static let sandBossStandLeftImage = UIImage(named: "sandBossStandLeft")
+    static let sandBossThrowLeftImage = UIImage(named: "sandBossThrowLeft")
 //    static let sandBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
 //    static let sandBossSignalThrowLeft2Image = UIImage(named: "brickBossSignalThrowLeft2")
-    static let sandBossJumpLeftImage = UIImage(named: "brickBossJumpLeft")
-    static let sandBossSignalJumpLeftImage = UIImage(named: "brickBossSignalJumpLeft")
-    
+//    static let sandBossJumpLeftImage = UIImage(named: "sandBossJumpLeft")
+    static let sandBossSignalJumpLeftImage = UIImage(named: "sandBossSignalJumpLeft")
+    static let sandBossRunLeftImages = [UIImage(named: "sandBossRunLeft1"), UIImage(named: "sandBossRunLeft2"), UIImage(named: "sandBossRunLeft3"), UIImage(named: "sandBossRunLeft2")]
+
     static let chemicalBossStandLeftImage = UIImage(named: "brickBossStandLeft")
     static let chemicalBossThrowLeftImage = UIImage(named: "brickBossThrowLeft")
 //    static let chemicalBossSignalThrowLeft1Image = UIImage(named: "brickBossSignalThrowLeft1")
@@ -583,8 +584,8 @@ class Enemy {
             self.ySpeedChange = 0.125
             self.maxFallSpeed = 6
             
-            self.width = Block.width * (31 / 16)
-            self.height = Block.height * (32 / 16)
+            self.width = Block.width * (34 / 16)
+            self.height = Block.height * (30 / 16)
             
             self.moveSpeed = 1.25
             
@@ -1798,21 +1799,36 @@ class Enemy {
             
         } else if type == "sandBoss" {
             
-            if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
+            if xSpeed == 0 {
                 
-                self.view.image = Enemy.sandBossJumpLeftImage
+                self.view.stopAnimating()
                 
-            } else if self.isShooting == true {
-                
-                self.view.image = Enemy.sandBossThrowLeftImage
-                
-            } else if self.isSignalling == true {
-                
-                self.view.image = Enemy.sandBossSignalJumpLeftImage
+                if self.isShooting == true {
+                    
+                    self.view.image = Enemy.sandBossThrowLeftImage
+                    
+                } else if self.isSignalling == true {
+                    
+                    self.view.image = Enemy.sandBossSignalJumpLeftImage
+                    
+                } else {
+                    
+                    self.view.image = Enemy.sandBossStandLeftImage
+                }
                 
             } else {
                 
-                self.view.image = Enemy.sandBossStandLeftImage
+                if self.view.isAnimating == false {
+                    
+                    self.view.stopAnimating()
+                    
+                    self.view.animationImages = Enemy.sandBossRunLeftImages as! [UIImage]
+                    
+                                        self.view.animationDuration = 0.55
+//                    self.view.animationDuration = 0.5
+                    
+                    self.view.startAnimating()
+                }
             }
             
             if self.direction == "right" {
