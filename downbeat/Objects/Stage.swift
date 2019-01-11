@@ -87,8 +87,9 @@ class Stage {
                 textArray[i] = newText
                 textArray[i].removeLast()
                 
-                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "8" || fileName[0] == "9" {
-                    
+//                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "8" || fileName[0] == "9" {
+                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "9" {
+
                     textArray[i].removeLast()
                 }
             }
@@ -659,7 +660,7 @@ class Stage {
     
     func addBlockWall() {
         
-        for i in 2 ..< numberOfVerticalBricks - 2 {
+        for i in 3 ..< numberOfVerticalBricks - 3 {
             
             if self.ownTileSet == "brick" {
                 

@@ -162,6 +162,8 @@ class Enemy {
     
     static let hitTimeInterval: CGFloat = 0.05
     
+    static let bossStartTimeInterval: CGFloat = 1
+
     static var bulletsToRemove = [Int]()
     
     static var bossHealthBar: EnergyBar = EnergyBar(type: "bossHealth")
@@ -575,20 +577,18 @@ class Enemy {
             
             self.maxHealth = 30
             
-            //            self.damage = 3
             self.damage = 5
             
-            //            self.ySpeedChange = 0.12
-            //            self.maxFallSpeed = 5.5
-            
-            self.ySpeedChange = 0.125
-            self.maxFallSpeed = 6
+//            self.ySpeedChange = 0.125
+//            self.maxFallSpeed = 6
             
             self.width = Block.width * (34 / 16)
             self.height = Block.height * (30 / 16)
             
-            self.moveSpeed = 1.25
-            
+//            self.moveSpeed = 1.25
+//            self.moveSpeed = 1
+            self.moveSpeed = 1.15
+
         } else if self.type == "chemicalBoss" {
             
             self.maxHealth = 30
@@ -1050,13 +1050,9 @@ class Enemy {
                 setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
             }
             
-            self.jumpTimeInterval = 1
-            
             self.signalTimeInterval = 0.25
-            
+
             self.totalShootTimeInterval = 0.25
-            
-            //            self.betweenShotsTimeInterval = 0.1
             
             self.view.image = Enemy.sandBossStandLeftImage
             
@@ -2802,6 +2798,46 @@ class Enemy {
                 
             }
             
+        } else if self.type == "sandBoss" {
+            
+            if self.isShooting == false && self.isSignalling == false && self.signalTimer.isValid == false && self.signalTimer.isValid == false {
+                
+                self.xSpeed = self.moveSpeed
+                
+                if direction == "left" {
+                    
+                    self.xSpeed = -self.xSpeed
+                    
+                    if self.x - self.moveSpeed <= (Block.width * 2) + (Block.width * 0.5) {
+                        
+                        self.xSpeed = 0
+                        
+                        setXY(x: (Block.width * 2) + (Block.width * 0.5) + self.moveSpeed, y: self.y)
+                        
+                        self.direction = "right"
+                        
+                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                    }
+                    
+                } else if self.direction == "right" {
+                    
+                    if self.x + self.moveSpeed >= (screenSize.height * screenRatio) - (Block.width * 2) - (Block.width * 0.5) {
+                        
+                        self.xSpeed = 0
+                        
+                        setXY(x: (screenSize.height * screenRatio) - (Block.width * 2) - (Block.width * 0.5) - self.moveSpeed, y: self.y)
+                        
+                        self.direction = "left"
+                        
+                        self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.signalTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                    }
+                }
+                
+            } else {
+                
+                self.xSpeed = 0
+            }
+   
         } else if self.type == "metalBoss" {
             
             if self.isJumping == true || self.isFalling == true {
@@ -4766,10 +4802,18 @@ class Enemy {
                     
                     self.jumpTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.signalTimeInterval), target: self, selector: #selector(jump), userInfo: nil, repeats: false)
                 }
-                
             }
             
+        } else if self.type == "sandBoss" {
+            
+            if self.shootTimer.isValid == false {
+                
+                self.shootTimer.invalidate()
+                
+                self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+            }
         }
+        
     }
     
     @objc func realShoot() {
@@ -5144,6 +5188,30 @@ class Enemy {
             
         } else if self.type == "snowBoss" {
             
+        } else if self.type == "sandBoss" {
+            
+            let xOffset: CGFloat = Block.width * (17 / 16)
+            let yOffset: CGFloat = Block.width * (4 / 16)
+            
+            if self.isJumping == true || (self.ySpeed != 0 && self.isFalling == false) {
+                
+            } else {
+                
+                if self.direction == "left" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, moveSpeed: 0.6, direction: self.direction, type: "tornado"))
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, moveSpeed: 1, direction: self.direction, type: "tornado"))
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, moveSpeed: 1.4, direction: self.direction, type: "tornado"))
+                    
+                } else if self.direction == "right" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, moveSpeed: 0.6, direction: self.direction, type: "tornado"))
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, moveSpeed: 1, direction: self.direction, type: "tornado"))
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, moveSpeed: 1.4, direction: self.direction, type: "tornado"))
+                }
+            }
+            
+            self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
         }
     }
     
@@ -5271,7 +5339,7 @@ class Enemy {
             
         } else if self.type == "sandBoss" {
             
-            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+//            self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             
         } else if self.type == "chemicalBoss" {
             
@@ -5373,7 +5441,7 @@ class Enemy {
                 
                 self.signalTimer.invalidate()
                 
-                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Enemy.bossStartTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             }
             
             //            if self.shootTimer.isValid == false {
@@ -5398,7 +5466,7 @@ class Enemy {
                 
                 self.signalTimer.invalidate()
                 
-                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Enemy.bossStartTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             }
             
         } else if self.type == "iceBoss" {
@@ -5407,7 +5475,7 @@ class Enemy {
                 
                 self.signalTimer.invalidate()
                 
-                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Enemy.bossStartTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             }
             
         } else if self.type == "skyBoss" {
@@ -5416,7 +5484,7 @@ class Enemy {
                 
                 self.signalTimer.invalidate()
                 
-                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Enemy.bossStartTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             }
             
         } else if self.type == "snowBoss" {
@@ -5425,7 +5493,7 @@ class Enemy {
                 
                 self.signalTimer.invalidate()
                 
-                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Enemy.bossStartTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             }
             
         } else if self.type == "waterBoss" {
@@ -5434,7 +5502,7 @@ class Enemy {
                 
                 self.signalTimer.invalidate()
                 
-                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Enemy.bossStartTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             }
             
         } else if self.type == "sandBoss" {
@@ -5443,7 +5511,7 @@ class Enemy {
                 
                 self.signalTimer.invalidate()
                 
-                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Enemy.bossStartTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             }
             
         } else if self.type == "chemicalBoss" {
@@ -5452,7 +5520,7 @@ class Enemy {
                 
                 self.signalTimer.invalidate()
                 
-                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.jumpTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
+                self.signalTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Enemy.bossStartTimeInterval), target: self, selector: #selector(signal), userInfo: nil, repeats: false)
             }
         }
         

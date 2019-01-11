@@ -134,6 +134,14 @@ class EnemyBullet {
         setup(x: x, y: y, xSpeed: newXSpeed, ySpeed: newYSpeed, type: type)
     }
     
+    init(x: CGFloat, y: CGFloat, moveSpeed: CGFloat, direction: String, type: String) {
+        
+        self.moveSpeed = moveSpeed
+        self.direction = direction
+
+        setup(x: x, y: y, xSpeed: 0, ySpeed: 0, type: type)
+    }
+    
     init(x: CGFloat, y: CGFloat, xSpeed: CGFloat, ySpeed: CGFloat, type: String) {
         
         setup(x: x, y: y, xSpeed: xSpeed, ySpeed: ySpeed, type: type)
@@ -487,6 +495,39 @@ class EnemyBullet {
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
             
+        } else if self.type == "tornado" {
+            
+            self.width = Block.width
+            self.height = self.width
+            
+            self.damage = 1
+            
+            self.ySpeedChange = 0.03
+            
+            if self.direction == "left" {
+                
+                self.xSpeed = -self.moveSpeed
+                
+            } else if self.direction == "right" {
+                
+                self.xSpeed = self.moveSpeed
+            }
+            
+            self.view.animationImages = Bullet.tornadoRightImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.6875 * 0.5
+            
+            self.view.startAnimating()
+            
+            if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
         } else if self.type == "special" {
             
             self.width = Block.width
@@ -616,6 +657,12 @@ class EnemyBullet {
 //
 //                setXYSpeed(xSpeed: newSpeed, ySpeed: self.ySpeed)
 //            }
+            
+            setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+            
+        } else if self.type == "tornado" {
+            
+            self.ySpeed -= self.ySpeedChange
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
             
