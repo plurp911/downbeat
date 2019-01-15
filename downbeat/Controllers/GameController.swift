@@ -34,6 +34,10 @@ class GameController: UIViewController {
     
     var isGettingDarker: Bool = false
     
+    var completedStageSelectTiles = [UIImageView]()
+    
+    var setupCount: Int = 0
+
     var pausedTextView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor.clear
@@ -147,7 +151,7 @@ class GameController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "stageSelectTile")
+        view.image = UIImage(named: "brickBossStageSelectTile")
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBrickStage)))
         //        view.isHidden = true
@@ -167,7 +171,7 @@ class GameController: UIViewController {
         //        gameViewColor = UIColor(red: 0 / 255, green: 171 / 255, blue: 255 / 255, alpha: 1)
         
         // BORING SKY BLUE
-
+        
         gameViewColor = UIColor(red: 0 / 255, green: 136 / 255, blue: 203 / 255, alpha: 1)
         
         // BRICK COLOR
@@ -186,7 +190,7 @@ class GameController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "stageSelectTile")
+        view.image = UIImage(named: "fireBossStageSelectTile")
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleFireStage)))
         //        view.isHidden = true
@@ -213,7 +217,7 @@ class GameController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "stageSelectTile")
+        view.image = UIImage(named: "metalBossStageSelectTile")
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMetalStage)))
         //        view.isHidden = true
@@ -238,7 +242,7 @@ class GameController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "stageSelectTile")
+        view.image = UIImage(named: "iceBossStageSelectTile")
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleIceStage)))
         //        view.isHidden = true
@@ -274,9 +278,9 @@ class GameController: UIViewController {
         
         print("CHEMICAL")
         
-//        gameViewColor = UIColor(red: 156 / 255, green: 96 / 255, blue: 191 / 255, alpha: 1)
+        //        gameViewColor = UIColor(red: 156 / 255, green: 96 / 255, blue: 191 / 255, alpha: 1)
         gameViewColor = UIColor(red: 145 / 255, green: 107 / 255, blue: 189 / 255, alpha: 1)
-
+        
         setLevel(level: levels[8])
         
         updateControlVisibility(isHidden: false)
@@ -289,7 +293,7 @@ class GameController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "stageSelectTile")
+        view.image = UIImage(named: "skyBossStageSelectTile")
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSkyStage)))
         //        view.isHidden = true
@@ -301,7 +305,7 @@ class GameController: UIViewController {
         print("SKY")
         
         gameViewColor = UIColor(red: 136 / 255, green: 198 / 255, blue: 253 / 255, alpha: 1)
-
+        
         setLevel(level: levels[4])
         
         updateControlVisibility(isHidden: false)
@@ -314,7 +318,7 @@ class GameController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "stageSelectTile")
+        view.image = UIImage(named: "snowBossStageSelectTile")
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSnowStage)))
         //        view.isHidden = true
@@ -327,12 +331,12 @@ class GameController: UIViewController {
         
         // WHITER
         
-//        gameViewColor = UIColor(red: 171 / 255, green: 206 / 255, blue: 208 / 255, alpha: 1)
+        //        gameViewColor = UIColor(red: 171 / 255, green: 206 / 255, blue: 208 / 255, alpha: 1)
         
-//        // BLUER
-
-//        gameViewColor = UIColor(red: 124 / 255, green: 182 / 255, blue: 184 / 255, alpha: 1)
-
+        //        // BLUER
+        
+        //        gameViewColor = UIColor(red: 124 / 255, green: 182 / 255, blue: 184 / 255, alpha: 1)
+        
         // NEW
         
         gameViewColor = UIColor(red: 75 / 255, green: 147 / 255, blue: 156 / 255, alpha: 1)
@@ -349,7 +353,7 @@ class GameController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "stageSelectTile")
+        view.image = UIImage(named: "waterBossStageSelectTile")
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWaterStage)))
         //        view.isHidden = true
@@ -362,12 +366,12 @@ class GameController: UIViewController {
         
         // LIGHTER
         
-//        gameViewColor = UIColor(red: 87 / 255, green: 193 / 255, blue: 189 / 255, alpha: 1)
-
+        //        gameViewColor = UIColor(red: 87 / 255, green: 193 / 255, blue: 189 / 255, alpha: 1)
+        
         // DARKER
         
         gameViewColor = UIColor(red: 0 / 255, green: 63 / 255, blue: 66 / 255, alpha: 1)
-
+        
         setLevel(level: levels[6])
         
         updateControlVisibility(isHidden: false)
@@ -380,7 +384,7 @@ class GameController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "stageSelectTile")
+        view.image = UIImage(named: "sandBossStageSelectTile")
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSandStage)))
         //        view.isHidden = true
@@ -399,8 +403,8 @@ class GameController: UIViewController {
         
         // LESS BLAND
         
-//        gameViewColor = UIColor(red: 255 / 255, green: 188 / 255, blue: 72 / 255, alpha: 1)
-
+        //        gameViewColor = UIColor(red: 255 / 255, green: 188 / 255, blue: 72 / 255, alpha: 1)
+        
         setLevel(level: levels[7])
         
         updateControlVisibility(isHidden: false)
@@ -437,7 +441,7 @@ class GameController: UIViewController {
     lazy var jumpButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = mainButtonColor
-        button.setTitle("⇪", for: .normal)
+        button.setTitle("?", for: .normal)
         button.setTitleColor(mainButtonTextColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
@@ -475,7 +479,7 @@ class GameController: UIViewController {
     lazy var shootButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = mainButtonColor
-        button.setTitle("⦿", for: .normal)
+        button.setTitle("?", for: .normal)
         button.setTitleColor(mainButtonTextColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
@@ -605,7 +609,7 @@ class GameController: UIViewController {
     lazy var leftButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = mainButtonColor
-        button.setTitle("⇧", for: .normal)
+        button.setTitle("?", for: .normal)
         button.setTitleColor(mainButtonTextColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
@@ -634,7 +638,7 @@ class GameController: UIViewController {
     lazy var rightButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = mainButtonColor
-        button.setTitle("⇧", for: .normal)
+        button.setTitle("?", for: .normal)
         button.setTitleColor(mainButtonTextColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
@@ -663,7 +667,7 @@ class GameController: UIViewController {
     lazy var upButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = mainButtonColor
-        button.setTitle("⇧", for: .normal)
+        button.setTitle("?", for: .normal)
         button.setTitleColor(mainButtonTextColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
@@ -691,7 +695,7 @@ class GameController: UIViewController {
     lazy var downButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = mainButtonColor
-        button.setTitle("⇧", for: .normal)
+        button.setTitle("?", for: .normal)
         button.setTitleColor(mainButtonTextColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.semibold)
         button.layer.borderWidth = 4
@@ -772,6 +776,10 @@ class GameController: UIViewController {
         snowStageView.isHidden = isHidden
         waterStageView.isHidden = isHidden
         sandStageView.isHidden = isHidden
+        
+        for i in 0 ..< completedStageSelectTiles.count {
+            completedStageSelectTiles[i].isHidden = isHidden
+        }
     }
     
     func updateTitleVisibility(isHidden: Bool) {
@@ -836,7 +844,144 @@ class GameController: UIViewController {
             completedLevels = savedCompletedLevels as! [Bool]
         }
         
-        completedLevels = [true, true, true, true, true, true, true, true]
+//        completedLevels = [true, true, true, true, true, true, true, true]
+        completedLevels = [false, false, false, false, false, false, false, false]
+    }
+    
+    func createCompletedStageViews() {
+        
+        completedStageSelectTiles.removeAll()
+        
+        for i in 0 ..< completedLevels.count {
+            
+            let imageView: UIImageView = UIImageView()
+            
+            imageView.backgroundColor = UIColor.clear
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .scaleAspectFill
+            imageView.layer.magnificationFilter = CALayerContentsFilter.nearest
+            imageView.image = UIImage(named: "completedStageSelectTile")
+            //                      imageView.isUserInteractionEnabled = true
+            //                      imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWaterStage)))
+            imageView.isHidden = true
+            
+            imageView.frame.size.width = brickStageView.frame.size.width
+            imageView.frame.size.height = brickStageView.frame.size.height
+            
+            if i == 0 {
+                
+                imageView.frame.origin.x = iceStageView.frame.origin.x
+                imageView.frame.origin.y = iceStageView.frame.origin.y
+                
+            } else if i == 1 {
+                
+                imageView.frame.origin.x = fireStageView.frame.origin.x
+                imageView.frame.origin.y = fireStageView.frame.origin.y
+                
+            } else if i == 2 {
+                
+                imageView.frame.origin.x = snowStageView.frame.origin.x
+                imageView.frame.origin.y = snowStageView.frame.origin.y
+                
+            } else if i == 3 {
+                
+                imageView.frame.origin.x = waterStageView.frame.origin.x
+                imageView.frame.origin.y = waterStageView.frame.origin.y
+                
+            } else if i == 4 {
+                
+                imageView.frame.origin.x = skyStageView.frame.origin.x
+                imageView.frame.origin.y = skyStageView.frame.origin.y
+                
+            } else if i == 5 {
+                
+                imageView.frame.origin.x = metalStageView.frame.origin.x
+                imageView.frame.origin.y = metalStageView.frame.origin.y
+                
+            } else if i == 6 {
+                
+                imageView.frame.origin.x = sandStageView.frame.origin.x
+                imageView.frame.origin.y = sandStageView.frame.origin.y
+                
+            } else if i == 7 {
+                
+                imageView.frame.origin.x = brickStageView.frame.origin.x
+                imageView.frame.origin.y = brickStageView.frame.origin.y
+            }
+            
+            completedStageSelectTiles.append(imageView)
+            
+            print(completedStageSelectTiles.count)
+            
+            view.addSubview(completedStageSelectTiles[completedStageSelectTiles.count - 1])
+        }
+    }
+    
+    func setupCompletedStageViews() {
+        
+        for i in 0 ..< completedStageSelectTiles.count {
+            
+            completedStageSelectTiles[i].frame.size.width = brickStageView.frame.size.width
+            completedStageSelectTiles[i].frame.size.height = brickStageView.frame.size.height
+            
+            if i == 0 {
+                
+                completedStageSelectTiles[i].frame.origin.x = iceStageView.frame.origin.x
+                completedStageSelectTiles[i].frame.origin.y = iceStageView.frame.origin.y
+                
+            } else if i == 1 {
+                
+                completedStageSelectTiles[i].frame.origin.x = fireStageView.frame.origin.x
+                completedStageSelectTiles[i].frame.origin.y = fireStageView.frame.origin.y
+                
+            } else if i == 2 {
+                
+                completedStageSelectTiles[i].frame.origin.x = snowStageView.frame.origin.x
+                completedStageSelectTiles[i].frame.origin.y = snowStageView.frame.origin.y
+                
+            } else if i == 3 {
+                
+                completedStageSelectTiles[i].frame.origin.x = waterStageView.frame.origin.x
+                completedStageSelectTiles[i].frame.origin.y = waterStageView.frame.origin.y
+                
+            } else if i == 4 {
+                
+                completedStageSelectTiles[i].frame.origin.x = skyStageView.frame.origin.x
+                completedStageSelectTiles[i].frame.origin.y = skyStageView.frame.origin.y
+                
+            } else if i == 5 {
+                
+                completedStageSelectTiles[i].frame.origin.x = metalStageView.frame.origin.x
+                completedStageSelectTiles[i].frame.origin.y = metalStageView.frame.origin.y
+                
+            } else if i == 6 {
+                
+                completedStageSelectTiles[i].frame.origin.x = sandStageView.frame.origin.x
+                completedStageSelectTiles[i].frame.origin.y = sandStageView.frame.origin.y
+                
+            } else if i == 7 {
+                
+                completedStageSelectTiles[i].frame.origin.x = brickStageView.frame.origin.x
+                completedStageSelectTiles[i].frame.origin.y = brickStageView.frame.origin.y
+            }
+        }
+        
+    }
+    
+    func updateCompletedStageViews() {
+        
+        for i in 0 ..< completedLevels.count {
+            
+            if completedLevels[i] == true {
+                
+                completedStageSelectTiles[i].isHidden = false
+                
+            } else {
+                
+                completedStageSelectTiles[i].isHidden = true
+            }
+        }
+        
     }
     
     override func viewDidLoad() {
@@ -888,6 +1033,8 @@ class GameController: UIViewController {
         view.addSubview(snowStageView)
         view.addSubview(waterStageView)
         view.addSubview(sandStageView)
+        
+        createCompletedStageViews()
         
         view.addSubview(titleView)
         view.addSubview(titleLogoView)
@@ -1048,6 +1195,15 @@ class GameController: UIViewController {
         setupTopPipeStageSelectView()
         setupMiddlePipeStageSelectView()
         setupBottomPipeStageSelectView()
+        
+        setupCount += 1
+        
+//        if setupCount == 1 {
+        
+//            createCompletedStageViews()
+            setupCompletedStageViews()
+            updateCompletedStageViews()
+//        }
         
         setupTitleLogoView()
         setupStartTitleTextView()

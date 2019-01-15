@@ -13,42 +13,42 @@ class EnemyBullet {
     // CONSTANTS
     
     static let color: UIColor = UIColor.clear
-//    static let color: UIColor = UIColor.red
+    //    static let color: UIColor = UIColor.red
     
     static let smallRegularImage = UIImage(named: "smallRegularEnemyBullet")
     
-//    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet")
+    //    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet")
     static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet2")
-
-//    static let dropHeadImage = UIImage(named: "dropHeadEnemyBullet")
+    
+    //    static let dropHeadImage = UIImage(named: "dropHeadEnemyBullet")
     static let dropHeadImage = UIImage(named: "dropHeadEnemyBulletOther")
-
+    
     static let smallOrangeImage = UIImage(named: "smallOrangeEnemyBullet")
     
-//    static let smallBlueImage = UIImage(named: "smallBlueEnemyBullet")
+    //    static let smallBlueImage = UIImage(named: "smallBlueEnemyBullet")
     
     static let smallBlueImages = [UIImage(named: "smallBlueEnemyBullet1"), UIImage(named: "smallBlueEnemyBullet2"), UIImage(named: "smallBlueEnemyBullet3")]
     
     static let smallTanImage = UIImage(named: "smallTanEnemyBullet4")
-
-//    static let smallTanImages = [UIImage(named: "smallTanEnemyBullet11"), UIImage(named: "smallTanEnemyBullet22"), UIImage(named: "smallTanEnemyBullet33")]
-//    static let smallTanImages = [UIImage(named: "smallTanEnemyBullet1"), UIImage(named: "smallTanEnemyBullet2"), UIImage(named: "smallTanEnemyBullet3"), UIImage(named: "smallTanEnemyBullet4")]
-
-//    static let axeLeftImages = [UIImage(named: "axeEnemyBulletUp"), UIImage(named: "axeEnemyBulletLeft"), UIImage(named: "axeEnemyBulletDown"), UIImage(named: "axeEnemyBulletRight")]
+    
+    //    static let smallTanImages = [UIImage(named: "smallTanEnemyBullet11"), UIImage(named: "smallTanEnemyBullet22"), UIImage(named: "smallTanEnemyBullet33")]
+    //    static let smallTanImages = [UIImage(named: "smallTanEnemyBullet1"), UIImage(named: "smallTanEnemyBullet2"), UIImage(named: "smallTanEnemyBullet3"), UIImage(named: "smallTanEnemyBullet4")]
+    
+    //    static let axeLeftImages = [UIImage(named: "axeEnemyBulletUp"), UIImage(named: "axeEnemyBulletLeft"), UIImage(named: "axeEnemyBulletDown"), UIImage(named: "axeEnemyBulletRight")]
     static let axeRightImages = [UIImage(named: "axeEnemyBullet1"), UIImage(named: "axeEnemyBullet2"), UIImage(named: "axeEnemyBullet3"), UIImage(named: "axeEnemyBullet4")]
-
+    
     static let regularRightImage = UIImage(named: "regularEnemyBulletRight")
-
+    
     static let specialImages = [UIImage(named: "specialEnemyBullet1"), UIImage(named: "specialEnemyBullet2"), UIImage(named: "specialEnemyBullet3"), UIImage(named: "specialEnemyBullet4")]
-
+    
     static let cutterRightImages = [UIImage(named: "cutterBulletUp"), UIImage(named: "cutterBulletRight"), UIImage(named: "cutterBulletDown"), UIImage(named: "cutterBulletLeft")]
     
     static let bladeImages = [UIImage(named: "bladeBullet1"), UIImage(named: "bladeBullet2")]
-   
+    
     static let bubbleRightImages = [UIImage(named: "bubbleBulletRight1"), UIImage(named: "bubbleBulletRight2"), UIImage(named: "bubbleBulletRight3"), UIImage(named: "bubbleBulletRight4"), UIImage(named: "bubbleBulletRight5"), UIImage(named: "bubbleBulletRight6"), UIImage(named: "bubbleBulletRight7"), UIImage(named: "bubbleBulletRight8")]
     
     static let bombImage = UIImage(named: "bombBullet")
-
+    
     // VARIABLES
     
     var x: CGFloat = 0
@@ -61,7 +61,7 @@ class EnemyBullet {
     
     var width: CGFloat = 0
     var height: CGFloat = 0
-
+    
     var damage: Int = 0
     
     var xSpeedChange: CGFloat = 0
@@ -69,7 +69,7 @@ class EnemyBullet {
     
     var maxFallSpeed: CGFloat = 0
     var minMoveSpeed: CGFloat = 0
-
+    
     var isJumping: Bool = false
     var isFalling: Bool = false
     var isRising: Bool = false
@@ -77,19 +77,19 @@ class EnemyBullet {
     var removeTimeInterval: CGFloat = 0
     
     var removeTimer = Timer()
-
+    
     var shouldRemove: Bool = false
     
     var direction: String = ""
     
     var xGoal: CGFloat = 0
-
+    
     var moveSpeed: CGFloat = 0
-
+    
     var didReachGoal: Bool = false
     
     var timerFireTimes = [String : CGFloat]()
-
+    
     var view: UIImageView = UIImageView()
     
     init(x: CGFloat, y: CGFloat, targetX: CGFloat, targetY: CGFloat, speed: CGFloat, type: String) {
@@ -138,7 +138,7 @@ class EnemyBullet {
         
         self.moveSpeed = moveSpeed
         self.direction = direction
-
+        
         setup(x: x, y: y, xSpeed: 0, ySpeed: 0, type: type)
     }
     
@@ -170,7 +170,7 @@ class EnemyBullet {
             
             let ratio = xDist / yDist
             let newDist = speed
-
+            
             var holder = (ratio * ratio) + 1
             
             if holder == 0 {
@@ -206,7 +206,7 @@ class EnemyBullet {
         self.view.stopAnimating()
         
         if self.type == "smallRegular" {
-           
+            
             self.width = Block.width * (6 / 16)
             self.height = self.width
             
@@ -215,7 +215,7 @@ class EnemyBullet {
             self.view.image = EnemyBullet.smallRegularImage
             
             self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
-
+            
         } else if self.type == "mediumRegular" {
             
             self.width = Block.width * (8 / 16)
@@ -226,11 +226,11 @@ class EnemyBullet {
             self.view.image = EnemyBullet.mediumRegularImage
             
             self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
-
+            
         } else if self.type == "dropHead" {
             
-//            self.width = Block.width * (14 / 16)
-//            self.height = Block.height
+            //            self.width = Block.width * (14 / 16)
+            //            self.height = Block.height
             self.width = Block.width
             self.height = self.width
             
@@ -239,7 +239,7 @@ class EnemyBullet {
             self.view.image = EnemyBullet.dropHeadImage
             
             self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
-
+            
         } else if self.type == "smallOrange" {
             
             self.width = Block.width * (6 / 16)
@@ -250,7 +250,7 @@ class EnemyBullet {
             self.view.image = EnemyBullet.smallOrangeImage
             
             self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
-
+            
         } else if self.type == "smallBlue" {
             
             self.width = Block.width * (6 / 16)
@@ -258,17 +258,17 @@ class EnemyBullet {
             
             self.damage = 1
             
-//            self.view.image = EnemyBullet.smallBlueImage
+            //            self.view.image = EnemyBullet.smallBlueImage
             
             self.view.animationImages = EnemyBullet.smallBlueImages as! [UIImage]
             
-//            self.view.animationDuration = 0.85 * 0.5 * (3 / 4)
+            //            self.view.animationDuration = 0.85 * 0.5 * (3 / 4)
             self.view.animationDuration = 0.85 * 0.5 * 0.5125
-
+            
             self.view.startAnimating()
             
             self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
-
+            
         } else if self.type == "smallTan" {
             
             self.width = Block.width * (6 / 16)
@@ -277,57 +277,119 @@ class EnemyBullet {
             self.damage = 1
             
             self.view.image = EnemyBullet.smallTanImage
-
-//            self.view.animationImages = EnemyBullet.smallTanImages as! [UIImage]
             
-//            self.view.animationDuration = 0.85 * 0.5 * 0.5125
-//            self.view.animationDuration = 0.85 * 0.5 * 0.5125 * (4 / 3)
-
+            //            self.view.animationImages = EnemyBullet.smallTanImages as! [UIImage]
+            
+            //            self.view.animationDuration = 0.85 * 0.5 * 0.5125
+            //            self.view.animationDuration = 0.85 * 0.5 * 0.5125 * (4 / 3)
+            
             self.view.startAnimating()
             
             self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
             
+        } else if self.type == "magnet" {
+            
+            //            self.width = Block.width
+            //            self.height = Block.height * (12 / 16)
+            
+            self.width = Block.width
+            self.height = self.width
+            
+            self.moveSpeed = 3
+            
+            self.damage = 1
+            
+            if self.direction == "left" {
+                
+                self.xSpeed = -self.moveSpeed
+                
+            } else if self.direction == "right" {
+                
+                self.xSpeed = self.moveSpeed
+            }
+            
+            //            self.view.image = Bullet.magnetLeftImage
+            
+            self.view.animationImages = Bullet.magnetLeftImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.215
+            
+            self.view.startAnimating()
+            
+            if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
+        } else if self.type == "shield" {
+            
+            self.width = Block.width * (48 / 16)
+            self.height = self.width
+            
+            self.moveSpeed = 3
+
+            self.damage = 1
+            
+            self.view.animationImages = Bullet.shieldRightImages as! [UIImage]
+            
+            self.view.animationDuration = 0.85 * 0.6875 * (4 / 3) * 0.5
+            
+            self.view.startAnimating()
+            
+            if self.direction == "left" {
+                
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                
+            } else if self.direction == "right" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+            
         } else if self.type == "axe" {
             
-//            self.width = Block.width * (12 / 16)
-//            self.height = self.width
+            //            self.width = Block.width * (12 / 16)
+            //            self.height = self.width
             self.width = Block.width * (11 / 16)
             self.height = self.width
             
             self.damage = 3
             
             self.xSpeedChange = 0.0075
-
+            
             if xSpeed >= 0 {
                 self.xSpeedChange = -self.xSpeedChange
             }
-
-//            self.ySpeedChange = -0.085
+            
+            //            self.ySpeedChange = -0.085
             self.ySpeedChange = -0.065
-
-//            self.maxFallSpeed = 3
+            
+            //            self.maxFallSpeed = 3
             self.maxFallSpeed = 2
-
+            
             self.minMoveSpeed = 0
-
+            
             self.view.animationImages = EnemyBullet.axeRightImages as! [UIImage]
             
             self.view.animationDuration = 0.85 * 0.5
-//            self.view.animationDuration = 0.85 * 0.375
+            //            self.view.animationDuration = 0.85 * 0.375
             
             self.view.startAnimating()
             
             if xSpeed >= 0 {
-
+                
                 self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-
+                
             } else {
-
+                
                 self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
             }
             
             self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
-
+            
         } else if self.type == "regular" {
             
             self.width = Block.width * (8 / 16)
@@ -356,21 +418,21 @@ class EnemyBullet {
             self.damage = 3
             
             self.view.image = EnemyBullet.bombImage
-
+            
             self.ySpeedChange = 0.135
             self.maxFallSpeed = 4
-//            self.ySpeedChange = 0.1
-//            self.maxFallSpeed = 4
+            //            self.ySpeedChange = 0.1
+            //            self.maxFallSpeed = 4
             
             //            self.removeTimeInterval = 1
             self.removeTimeInterval = 0
-
-//            self.jump()
+            
+            //            self.jump()
             
             self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
             
         } else if self.type == "blade" {
-
+            
             self.width = Block.width * (16 / 16)
             self.height = self.width
             
@@ -427,7 +489,7 @@ class EnemyBullet {
             self.maxFallSpeed = 4
             
             self.removeTimeInterval = 2
-//            self.removeTimeInterval = 3
+            //            self.removeTimeInterval = 3
             
             self.isFalling = true
             
@@ -459,13 +521,13 @@ class EnemyBullet {
             self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
             
         } else if self.type == "cutter" {
-
+            
             self.width = Block.width * (7 / 16)
             self.height = self.width
             
-//            self.moveSpeed = 3
+            //            self.moveSpeed = 3
             self.moveSpeed = 4
-
+            
             self.damage = 1
             
             if self.direction == "left" {
@@ -534,19 +596,19 @@ class EnemyBullet {
             self.height = self.width
             
             self.damage = 3
-
+            
             self.view.animationImages = EnemyBullet.specialImages as! [UIImage]
             
             self.view.animationDuration = 0.85 * 0.5
-
+            
             self.view.startAnimating()
             
             self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
         }
         
         self.setXY(x: x, y: y)
-//        self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
-
+        //        self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
+        
         self.view.frame.origin.x = self.x - (self.width / 2)
         self.view.frame.origin.y = self.y - (self.height / 2)
         
@@ -559,43 +621,43 @@ class EnemyBullet {
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
-//        if self.type == "axe" {
-//
-//            if self.xSpeed >= 0 {
-//
-//                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-//
-//            } else {
-//
-//                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-//            }
-//
-//        } else {
-//
-//            if self.xSpeed <= 0 {
-//
-//                if self.ySpeed <= 0 {
-//
-//                    self.view.transform = CGAffineTransform(scaleX: -1, y: -1)
-//
-//                } else {
-//
-//                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-//                }
-//
-//            } else {
-//
-//                if self.ySpeed <= 0 {
-//
-//                    self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
-//
-//                } else {
-//
-//                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-//                }
-//            }
-//
-//        }
+        //        if self.type == "axe" {
+        //
+        //            if self.xSpeed >= 0 {
+        //
+        //                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+        //
+        //            } else {
+        //
+        //                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+        //            }
+        //
+        //        } else {
+        //
+        //            if self.xSpeed <= 0 {
+        //
+        //                if self.ySpeed <= 0 {
+        //
+        //                    self.view.transform = CGAffineTransform(scaleX: -1, y: -1)
+        //
+        //                } else {
+        //
+        //                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+        //                }
+        //
+        //            } else {
+        //
+        //                if self.ySpeed <= 0 {
+        //
+        //                    self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
+        //
+        //                } else {
+        //
+        //                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+        //                }
+        //            }
+        //
+        //        }
         
         if self.type == "bomb" {
             self.jump()
@@ -639,26 +701,110 @@ class EnemyBullet {
         
         if self.type == "axe" {
             
-//            setXYSpeed(xSpeed: self.xSpeed - self.xSpeedChange, ySpeed: self.ySpeed - self.ySpeedChange)
+            //            setXYSpeed(xSpeed: self.xSpeed - self.xSpeedChange, ySpeed: self.ySpeed - self.ySpeedChange)
             setXYSpeed(xSpeed: self.xSpeed, ySpeed: self.ySpeed - self.ySpeedChange)
-
-//            if self.ySpeed >= self.maxFallSpeed {
-//
-//                setXYSpeed(xSpeed: self.xSpeed, ySpeed: self.maxFallSpeed)
-//            }
-//
-//            if abs(self.xSpeed) <= abs(self.minMoveSpeed) {
-//
-//                var newSpeed = self.minMoveSpeed
-//
-//                if xSpeed < 0 {
-//                    newSpeed = -newSpeed
-//                }
-//
-//                setXYSpeed(xSpeed: newSpeed, ySpeed: self.ySpeed)
-//            }
+            
+            //            if self.ySpeed >= self.maxFallSpeed {
+            //
+            //                setXYSpeed(xSpeed: self.xSpeed, ySpeed: self.maxFallSpeed)
+            //            }
+            //
+            //            if abs(self.xSpeed) <= abs(self.minMoveSpeed) {
+            //
+            //                var newSpeed = self.minMoveSpeed
+            //
+            //                if xSpeed < 0 {
+            //                    newSpeed = -newSpeed
+            //                }
+            //
+            //                setXYSpeed(xSpeed: newSpeed, ySpeed: self.ySpeed)
+            //            }
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+            
+        } else if self.type == "magnet" {
+            
+            if self.didReachGoal == false {
+                
+                if abs(player.x - self.x) <= abs(self.xSpeed) + abs(player.xSpeed) {
+                    
+                    self.didReachGoal = true
+                    
+                    self.xSpeed = 0
+                    
+                    if player.y < self.y {
+                        
+                        self.ySpeed = -self.moveSpeed
+                        
+                    } else {
+                        
+                        self.ySpeed = self.moveSpeed
+                    }
+                }
+                
+            }
+            
+            if self.ySpeed < 0 {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2))
+                
+            } else if self.ySpeed > 0 {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.view.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi/2))
+                
+            } else if self.xSpeed < 0 {
+                
+                self.view.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else if self.xSpeed > 0 {
+                
+                self.view.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
+            
+            setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+            
+        } else if self.type == "shield" {
+            
+//            self.xSpeed = 0
+//            self.ySpeed = 0
+//
+//            for enemy in selectedEnemies {
+//
+//                setXY(x: enemy.x, y: enemy.y)
+//            }
+            
+            self.ySpeed = 0
+            
+            if self.didReachGoal == true {
+                
+                self.xSpeed = self.moveSpeed
+                
+                if self.direction == "left" {
+                    
+                    self.xSpeed = -self.xSpeed
+                    
+                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+                    
+                } else if self.direction == "right" {
+                    
+                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
+                
+                setXY(x: self.x + self.xSpeed, y: self.y)
+                
+            } else {
+                
+                self.xSpeed = 0
+                
+                for enemy in selectedEnemies {
+                    
+                    setXY(x: enemy.x, y: enemy.y)
+                }
+            }
             
         } else if self.type == "tornado" {
             
@@ -914,7 +1060,7 @@ class EnemyBullet {
             }
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
-
+            
         } else if self.type == "blade" {
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
@@ -1054,7 +1200,7 @@ class EnemyBullet {
             }
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
-
+            
         } else {
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
@@ -1065,7 +1211,7 @@ class EnemyBullet {
         
         self.isJumping = true
         self.isRising = true
-
+        
         self.ySpeed = -self.maxFallSpeed
     }
     

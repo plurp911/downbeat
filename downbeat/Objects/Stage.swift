@@ -88,7 +88,8 @@ class Stage {
                 textArray[i].removeLast()
                 
 //                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "8" || fileName[0] == "9" {
-                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "9" {
+//                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "9" {
+                if fileName[0] == "5" || fileName[0] == "9" {
 
                     textArray[i].removeLast()
                 }

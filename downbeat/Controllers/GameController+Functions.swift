@@ -436,7 +436,7 @@ extension GameController {
             
             for enemy in selectedEnemies {
                 
-                if enemy.type == "brickBoss" || enemy.type == "fireBoss" || enemy.type == "metalBoss" || enemy.type == "iceBoss" {
+                if enemy.type == "iceBoss" {
                     
                     let enemyBulletPos: Int = enemy.didHitOwnBullet()
                     
@@ -514,7 +514,7 @@ extension GameController {
                         
                     }
                     
-                    selectedEnemies[i].handleHit(bulletDamage: bullets[bulletPos].damage)
+                    selectedEnemies[i].handleHit(bulletDamage: bullets[bulletPos].damage, bulletType: bullets[bulletPos].type)
                     
                     if selectedEnemies[i].isDead() == true {
                         
@@ -524,7 +524,7 @@ extension GameController {
                         
                         explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "explosion"))
                         
-                        if selectedEnemies[i].type == "brickBoss" || selectedEnemies[i].type == "fireBoss" || selectedEnemies[i].type == "metalBoss" || selectedEnemies[i].type == "iceBoss"  {
+                        if selectedEnemies[i].type == "brickBoss" || selectedEnemies[i].type == "fireBoss" || selectedEnemies[i].type == "metalBoss" || selectedEnemies[i].type == "iceBoss" || selectedEnemies[i].type == "skyBoss" || selectedEnemies[i].type == "snowBoss" || selectedEnemies[i].type == "waterBoss" || selectedEnemies[i].type == "sandBoss" || selectedEnemies[i].type == "chemicalBoss" {
                             
                             if selectedEnemies[i].type == "brickBoss" {
                                 
@@ -538,14 +538,32 @@ extension GameController {
                                 
                                 completedLevels[5] = true
                                 
-                            } else {
+                            } else if selectedEnemies[i].type == "iceBoss" {
                                 
                                 completedLevels[0] = true
+                                
+                            } else if selectedEnemies[i].type == "skyBoss" {
+                                
+                                completedLevels[4] = true
+                                
+                            } else if selectedEnemies[i].type == "snowBoss" {
+                                
+                                completedLevels[2] = true
+                                
+                            } else if selectedEnemies[i].type == "waterBoss" {
+                                
+                                completedLevels[3] = true
+                                
+                            } else if selectedEnemies[i].type == "sandBoss" {
+                                
+                                completedLevels[6] = true
                             }
                             
                             print("YOU WIN")
                             
                             saveCompletedLevels()
+                            
+                            updateCompletedStageViews()
                             
                             updateControlVisibility(isHidden: true)
                             updateStageSelectVisibility(isHidden: false)
