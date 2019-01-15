@@ -31,6 +31,9 @@ let mainButtonColor = UIColor.gray.withAlphaComponent(0.35)
 let mainButtonOtherColor = UIColor.lightGray.withAlphaComponent(0.7)
 let mainButtonTextColor = UIColor.white
 
+let pausedButtonColor = UIColor(red: 25 / 255, green: 175 / 255, blue: 28 / 255, alpha: 1)
+let pausedButtonOtherColor = UIColor(red: 25 / 255, green: 128 / 255, blue: 28 / 255, alpha: 1)
+
 //let stageSelectViewColor = UIColor(red: 30 / 255, green: 161 / 255, blue: 35 / 255, alpha: 1)
 let stageSelectViewColor = UIColor(red: 25 / 255, green: 128 / 255, blue: 28 / 255, alpha: 1)
 

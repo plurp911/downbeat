@@ -15,6 +15,9 @@ class Joystick {
     static let innerRadius: CGFloat = 30
     static let outerRadius: CGFloat = 85
     
+    static var innerImageRadius: CGFloat = Block.width * (20 / 16)
+    static var outerImageRadius: CGFloat = Block.width * (55 / 16)
+
     static let innerColor: UIColor = UIColor.white.withAlphaComponent(0.5)
     static let outerColor: UIColor = UIColor.white.withAlphaComponent(0.2)
 
@@ -30,6 +33,9 @@ class Joystick {
     
     var innerView: UIView = UIView()
     var outerView: UIView = UIView()
+    
+    var innerImageView: UIImageView = UIImageView()
+    var outerImageView: UIImageView = UIImageView()
 
     init() {
         
@@ -46,6 +52,26 @@ class Joystick {
         
         self.innerView.layer.cornerRadius = Joystick.innerRadius
         self.outerView.layer.cornerRadius = Joystick.outerRadius
+        
+        self.innerImageView.frame.size.width = Joystick.innerImageRadius * 2
+        self.innerImageView.frame.size.height = Joystick.innerImageRadius * 2
+        
+        self.innerImageView.backgroundColor = UIColor.clear
+        self.innerImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.innerImageView.contentMode = .scaleAspectFill
+        self.innerImageView.layer.magnificationFilter = CALayerContentsFilter.nearest
+        self.innerImageView.image = UIImage(named: "innerJoystick")
+        self.innerImageView.alpha = 0.5
+        
+        self.outerImageView.frame.size.width = Joystick.outerImageRadius * 2
+        self.outerImageView.frame.size.height = Joystick.outerImageRadius * 2
+        
+        self.outerImageView.backgroundColor = UIColor.clear
+        self.outerImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.outerImageView.contentMode = .scaleAspectFill
+        self.outerImageView.layer.magnificationFilter = CALayerContentsFilter.nearest
+        self.outerImageView.image = UIImage(named: "outerJoystick")
+        self.outerImageView.alpha = 0.5
     }
     
     func setInnterXY(x: CGFloat, y: CGFloat) {
@@ -112,6 +138,14 @@ class Joystick {
         
         self.innerView.frame.origin.x = self.innerX - Joystick.innerRadius
         self.innerView.frame.origin.y = self.innerY - Joystick.innerRadius
+        
+        Joystick.innerImageRadius = Block.width * (20 / 16)
+        
+        self.innerImageView.frame.size.width = Joystick.innerImageRadius * 2
+        self.innerImageView.frame.size.height = Joystick.innerImageRadius * 2
+        
+        self.innerImageView.frame.origin.x = self.innerX - Joystick.innerImageRadius
+        self.innerImageView.frame.origin.y = self.innerY - Joystick.innerImageRadius
     }
     
     func setOuterXY(x: CGFloat, y: CGFloat) {
@@ -121,6 +155,14 @@ class Joystick {
         
         self.outerView.frame.origin.x = self.outerX - Joystick.outerRadius
         self.outerView.frame.origin.y = self.outerY - Joystick.outerRadius
+        
+        Joystick.outerImageRadius = Block.width * (55 / 16)
+        
+        self.outerImageView.frame.size.width = Joystick.outerImageRadius * 2
+        self.outerImageView.frame.size.height = Joystick.outerImageRadius * 2
+
+        self.outerImageView.frame.origin.x = self.outerX - Joystick.outerImageRadius
+        self.outerImageView.frame.origin.y = self.outerY - Joystick.outerImageRadius
     }
     
     func resetInnerXY() {
@@ -128,13 +170,21 @@ class Joystick {
     }
     
     func hideViews() {
+        
         innerView.isHidden = true
         outerView.isHidden = true
+        
+        innerImageView.isHidden = true
+        outerImageView.isHidden = true
     }
     
     func showViews() {
+        
         innerView.isHidden = false
         outerView.isHidden = false
+        
+        innerImageView.isHidden = false
+        outerImageView.isHidden = false
     }
     
     func handleDirection() {
