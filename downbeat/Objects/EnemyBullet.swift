@@ -18,7 +18,9 @@ class EnemyBullet {
     static let smallRegularImage = UIImage(named: "smallRegularEnemyBullet")
     
     //    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet")
-    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet2")
+    //    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet2")
+//    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet3")
+    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet4")
     
     //    static let dropHeadImage = UIImage(named: "dropHeadEnemyBullet")
     static let dropHeadImage = UIImage(named: "dropHeadEnemyBulletOther")
@@ -331,7 +333,7 @@ class EnemyBullet {
             self.height = self.width
             
             self.moveSpeed = 3
-
+            
             self.damage = 1
             
             self.view.animationImages = Bullet.shieldRightImages as! [UIImage]
@@ -769,13 +771,13 @@ class EnemyBullet {
             
         } else if self.type == "shield" {
             
-//            self.xSpeed = 0
-//            self.ySpeed = 0
-//
-//            for enemy in selectedEnemies {
-//
-//                setXY(x: enemy.x, y: enemy.y)
-//            }
+            //            self.xSpeed = 0
+            //            self.ySpeed = 0
+            //
+            //            for enemy in selectedEnemies {
+            //
+            //                setXY(x: enemy.x, y: enemy.y)
+            //            }
             
             self.ySpeed = 0
             

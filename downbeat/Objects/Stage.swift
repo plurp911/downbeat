@@ -57,7 +57,7 @@ class Stage {
     //    var tileSet: String = "ice"
     
     var ownTileSet: String = ""
-
+    
     var boss: String = ""
     
     init(fileName: String) {
@@ -87,10 +87,10 @@ class Stage {
                 textArray[i] = newText
                 textArray[i].removeLast()
                 
-//                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "8" || fileName[0] == "9" {
-//                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "9" {
+                //                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "8" || fileName[0] == "9" {
+                //                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "9" {
                 if fileName[0] == "5" || fileName[0] == "9" {
-
+                    
                     textArray[i].removeLast()
                 }
             }
@@ -389,7 +389,7 @@ class Stage {
                         
                         backgrounds.append(Background(xPos: j, yPos: i, type: "cageMiddle", tileSet: tileSet))
                         
-                    } else if tileSet == "snow" {
+                    } else if tileSet == "snow" || tileSet == "sand" {
                         
                         backgrounds.append(Background(xPos: j, yPos: i, type: "pillar", tileSet: tileSet))
                     }
@@ -465,10 +465,10 @@ class Stage {
                     
                     blocks.append(Block(xPos: j, yPos: i, hideOffsetTime: offsetTime, hideTotalTime: totalTime, tileSet: tileSet))
                     
-                } else if text == "N" {
-                    enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "right"))
                 } else if text == "n" {
-                    enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "left"))
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "up"))
+                } else if text == "N" {
+                    enemies.append(Enemy(xPos: j, yPos: i, type: "snake", direction: "down"))
                 } else if text == "R" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "shooter", direction: "right"))
                 } else if text == "r" {
@@ -746,7 +746,7 @@ class Stage {
                 }
                 
             } else if j >= numberOfHorizontalBlocks - 1 {
-
+                
                 if isEqual(i: i + 1, j: j - 1, block: "#") == false || isEqual(i: i - 1, j: j - 1, block: "#") == false {
                     
                     blocks.append(Block(xPos: j, yPos: i, type: "left", tileSet: tileSet))

@@ -92,6 +92,8 @@ class GameController: UIViewController {
         
         print("TITLE")
         
+//        updateCompletedStageViews()
+
         updateTitleVisibility(isHidden: true)
     }
     
@@ -102,7 +104,18 @@ class GameController: UIViewController {
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
         view.image = UIImage(named: "titleLogo")
-        //        view.isHidden = true
+        view.isHidden = true
+        return view
+    }()
+    
+    var copyrightTextView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "copyrightText")
+        view.isHidden = true
         return view
     }()
     
@@ -113,7 +126,7 @@ class GameController: UIViewController {
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
         view.image = UIImage(named: "startTitleText")
-        //        view.isHidden = true
+        view.isHidden = true
         return view
     }()
     
@@ -952,8 +965,9 @@ class GameController: UIViewController {
     func updateTitleVisibility(isHidden: Bool) {
         
         titleView.isHidden = isHidden
-        titleLogoView.isHidden = isHidden
-        startTitleTextView.isHidden = isHidden
+//        titleLogoView.isHidden = isHidden
+//        copyrightTextView.isHidden = isHidden
+//        startTitleTextView.isHidden = isHidden
     }
     
     func updateControlVisibility(isHidden: Bool) {
@@ -1037,7 +1051,7 @@ class GameController: UIViewController {
             imageView.image = UIImage(named: "completedStageSelectTile")
             //                      imageView.isUserInteractionEnabled = true
             //                      imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWaterStage)))
-            imageView.isHidden = true
+            imageView.isHidden = false
             
             imageView.frame.size.width = brickStageView.frame.size.width
             imageView.frame.size.height = brickStageView.frame.size.height
@@ -1184,7 +1198,7 @@ class GameController: UIViewController {
         
         super.viewDidLoad()
         
-        startTitleTextTimer = Timer.scheduledTimer(timeInterval: 1 / 120, target: self, selector: #selector(updateStartTitleTextOpacity), userInfo: nil, repeats: true)
+//        startTitleTextTimer = Timer.scheduledTimer(timeInterval: 1 / 120, target: self, selector: #selector(updateStartTitleTextOpacity), userInfo: nil, repeats: true)
         
         joystick.setOuterXY(x: Joystick.outerRadius + (joystickSpacing * 2.5), y: screenSize.height - Joystick.outerRadius - (joystickSpacing * 0.5))
         joystick.resetInnerXY()
@@ -1240,6 +1254,7 @@ class GameController: UIViewController {
         
         view.addSubview(titleView)
         view.addSubview(titleLogoView)
+        view.addSubview(copyrightTextView)
         view.addSubview(startTitleTextView)
         
         setupPausedTextView()
@@ -1449,6 +1464,7 @@ class GameController: UIViewController {
         updateCompletedStageViews()
         
         setupTitleLogoView()
+        setupCopyrightTextView()
         setupStartTitleTextView()
         
         joystick.setOuterXY(x: Joystick.outerRadius + (joystickSpacing * 2.5), y: screenSize.height - Joystick.outerRadius - (joystickSpacing * 0.5))
@@ -1461,10 +1477,19 @@ class GameController: UIViewController {
         setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: (titleLogoView.frame.size.height / 2) + Block.height * 3, imageView: titleLogoView, isCentered: true)
     }
     
+    func setupCopyrightTextView() {
+        
+        setWidthHeight(width: Block.width * (87 / 16), height: Block.height * (8 / 16), imageView: copyrightTextView)
+        setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: screenSize.height - Block.height * 1, imageView: copyrightTextView, isCentered: true)
+    }
+    
     func setupStartTitleTextView() {
         
-        setWidthHeight(width: Block.width * (93 / 16), height: Block.height * (7 / 16), imageView: startTitleTextView)
-        setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: (titleLogoView.frame.size.height / 2) + Block.height * 8.125, imageView: startTitleTextView, isCentered: true)
+//        setWidthHeight(width: Block.width * (93 / 16), height: Block.height * (7 / 16), imageView: startTitleTextView)
+        setWidthHeight(width: Block.width * (85 / 16), height: Block.height * (8 / 16), imageView: startTitleTextView)
+
+//        setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: (titleLogoView.frame.size.height / 2) + Block.height * 8.125, imageView: startTitleTextView, isCentered: true)
+        setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: Block.height * 8, imageView: startTitleTextView, isCentered: true)
     }
     
     func setupStageSelectTitleView() {
