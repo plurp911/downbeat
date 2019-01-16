@@ -140,6 +140,8 @@ extension GameController {
         currentLevel = level
         currentStage = level.startStage
         
+        currentStage?.reset()
+        
         resetGlobalVariables()
         
         currentLevel!.updateCurrentStagePos()
@@ -159,6 +161,22 @@ extension GameController {
     }
     
     func resetGlobalVariables() {
+        
+        
+        
+        
+        
+        
+        
+        
+        // stop all timers
+        
+        
+        
+        
+        
+        
+        
         
         bullets.removeAll()
         explosions.removeAll()

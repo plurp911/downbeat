@@ -539,8 +539,7 @@ class GameController: UIViewController {
         
         print("RETRY")
         
-        
-        
+        setLevel(level: currentLevel!)
     }
     
     lazy var quitButton: UIButton = {

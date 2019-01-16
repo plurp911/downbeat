@@ -42,7 +42,7 @@ class Stage {
     
     var numberOfHorizontalBlocks: Int = 0
     
-    var counter: Int = 0
+//    var counter: Int = 0
     
     var textArray = [[String]]()
     
@@ -606,6 +606,107 @@ class Stage {
         self.sortObjectArrays()
     }
     
+    func reset() {
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        self.x = 0
+//
+//        self.moveBlocks()
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+  
+        
+        
+//        var blocks = [Block]()
+//        var backgrounds = [Background]()
+//        var enemies = [Enemy]()
+//        var specialEnemies = [Enemy]()
+//        var powerups = [Powerup]()
+//        var enemySpawners = [EnemySpawner]()
+        
+//        var playerStartX: CGFloat = -1
+//        var playerStartY: CGFloat = -1
+        
+        self.blockStartIndex = 0
+        self.blockEndIndex = 0
+        
+        self.backgroundStartIndex = 0
+        self.backgroundEndIndex = 0
+        
+        self.enemyStartIndex = 0
+        self.enemyEndIndex = 0
+        
+        self.powerupStartIndex = 0
+        self.powerupEndIndex = 0
+        
+        self.enemySpawnerStartIndex = 0
+        self.enemySpawnerEndIndex = 0
+        
+        self.x = 0
+        self.y = 0
+        
+//        var numberOfHorizontalBlocks: Int = 0
+        
+//        var counter: Int = 0
+        
+//        var textArray = [[String]]()
+        
+//        var canEnterFromTop: Bool = false
+//        var canEnterFromBottom: Bool = false
+//        var canEnterFromLeft: Bool = false
+        
+        //    var tileSet: String = "brick"
+        //    var tileSet: String = "fire"
+        //    var tileSet: String = "tree"
+        //    var tileSet: String = "metal"
+        //    var tileSet: String = "ice"
+        
+//        var ownTileSet: String = ""
+        
+//        var boss: String = ""
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        self.sortObjectArrays()
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
     func updateObjectVisibility(isHidden: Bool) {
         
         for enemy in self.enemies {
@@ -1031,13 +1132,6 @@ class Stage {
             self.enemySpawners[i].setXY(x: self.x + (((CGFloat)(self.enemySpawners[i].xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(self.enemySpawners[i].yPos)) * Block.height) + (Block.height / 2))
         }
     }
-    
-    //    func reset() {
-    //
-    //        self.x = 0
-    //
-    //        self.moveBlocks()
-    //    }
     
     func setupAsNextStage(direction: String) {
         
