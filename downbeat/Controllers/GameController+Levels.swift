@@ -149,6 +149,8 @@ extension GameController {
         
         player.reset()
         
+//        player = Player()
+        
 //        handleResume()
         
         moveTimer.invalidate()
