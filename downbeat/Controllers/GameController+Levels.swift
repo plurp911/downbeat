@@ -140,11 +140,57 @@ extension GameController {
         currentLevel = level
         currentStage = level.startStage
         
+        resetGlobalVariables()
+        
         currentLevel!.updateCurrentStagePos()
         currentStage!.setupSelectedArrays()
         
         player.reset()
         
+//        handleResume()
+        
+        moveTimer.invalidate()
+        
         moveTimer = Timer.scheduledTimer(timeInterval: (1 / 120), target: self, selector: #selector(move), userInfo: nil, repeats: true)
+        
+        if isPaused == true {
+            handleResume()
+        }
+    }
+    
+    func resetGlobalVariables() {
+        
+        bullets.removeAll()
+        explosions.removeAll()
+        powerups.removeAll()
+        enemyBullets.removeAll()
+        deflectedBullets.removeAll()
+        
+        selectedBlocks.removeAll()
+        selectedBackgrounds.removeAll()
+        selectedEnemies.removeAll()
+        selectedPowerups.removeAll()
+        selectedEnemySpawners.removeAll()
+        
+        canMoveLeft = true
+        canMoveRight = true
+        
+        canBeKnockedBack = true
+        
+        canClimb = true
+        
+//        var isLeftPressed: Bool = false
+//        var isRightPressed: Bool = false
+//        var isUpPressed: Bool = false
+//        var isDownPressed: Bool = false
+        
+//        var isPaused: Bool = false
+        
+        currentStageXPos = -1
+        currentStageYPos = -1
+        
+        isTransitioningRight = false
+        isTransitioningUp = false
+        isTransitioningDown = false
     }
 }

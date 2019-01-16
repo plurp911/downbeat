@@ -16,17 +16,20 @@ extension GameController {
         
         if let touch = touches.first {
             
-            let position = touch.location(in: touchView)
-            
-            if joystick.isInOuterRadius(x: position.x, y: position.y) == true {
+            if joystickView.isHidden == false {
                 
-                isOnJoyStick = true
+                let position = touch.location(in: touchView)
                 
-                joystick.setInnterXY(x: position.x, y: position.y)
-                
-            } else {
-                
-                isOnJoyStick = false
+                if joystick.isInOuterRadius(x: position.x, y: position.y) == true {
+                    
+                    isOnJoyStick = true
+                    
+                    joystick.setInnterXY(x: position.x, y: position.y)
+                    
+                } else {
+                    
+                    isOnJoyStick = false
+                }
             }
             
         }

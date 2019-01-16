@@ -503,7 +503,8 @@ class GameController: UIViewController {
         isPaused = false
         
         updatePausedVisibility(isHidden: true)
-        
+        updateControlVisibility(isHidden: false)
+
         player.handleResume()
         
         for bullet in bullets {
@@ -565,8 +566,10 @@ class GameController: UIViewController {
         
         print("QUIT")
         
+//        handleResume()
         
-        
+        updateControlVisibility(isHidden: true)
+        updateStageSelectVisibility(isHidden: false)
     }
     
 //    lazy var jumpButton: UIButton = {
@@ -701,7 +704,12 @@ class GameController: UIViewController {
 
         //            pausedTextView.isHidden = false
 
+        updateControlVisibility(isHidden: true)
         updatePausedVisibility(isHidden: false)
+        
+        isOnJoyStick = false
+        
+        joystick.resetInnerXY()
 
         player.handlePause()
 
@@ -979,6 +987,14 @@ class GameController: UIViewController {
         pauseButton.isHidden = isHidden
         weaponLeftButton.isHidden = isHidden
         weaponRightButton.isHidden = isHidden
+        
+//        joystickView.isUserInteractionEnabled = !isHidden
+//        touchView.isUserInteractionEnabled = !isHidden
+//        jumpButton.isUserInteractionEnabled = !isHidden
+//        shootButton.isUserInteractionEnabled = !isHidden
+//        pauseButton.isUserInteractionEnabled = !isHidden
+//        weaponLeftButton.isUserInteractionEnabled = !isHidden
+//        weaponRightButton.isUserInteractionEnabled = !isHidden
     }
     
     func updatePausedVisibility(isHidden: Bool) {
