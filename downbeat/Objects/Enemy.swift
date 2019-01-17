@@ -260,6 +260,9 @@ class Enemy {
     
     var isHidden: Bool = false
     
+    var hitBoxXOffset: CGFloat = 0
+    var hitBoxYOffset: CGFloat = 0
+
     var view: UIImageView = UIImageView()
     var hitBox: UIView = UIView()
     
@@ -722,8 +725,54 @@ class Enemy {
         
         self.hitBox.backgroundColor = Enemy.hitBoxColor
         
-        self.hitBox.frame.size.width = self.width
-        self.hitBox.frame.size.height = self.height
+        if self.type == "snowBoss" {
+            
+            self.hitBoxXOffset = Block.width * (0 / 16)
+            self.hitBoxYOffset = Block.height * (0 / 16)
+            
+            self.hitBox.frame.size.width = Block.width * (14 / 16)
+            self.hitBox.frame.size.height = Block.height * (29 / 16)
+            
+        } else if self.type == "waterBoss" {
+            
+            self.hitBoxXOffset = Block.width * (0 / 16)
+            self.hitBoxYOffset = Block.height * (2.5 / 16)
+
+            self.hitBox.frame.size.width = Block.width * (24 / 16)
+            self.hitBox.frame.size.height = Block.height * (26 / 16)
+            
+        } else if self.type == "skyBoss" {
+            
+            self.hitBoxXOffset = Block.width * (1 / 16)
+            self.hitBoxYOffset = Block.height * (2.5 / 16)
+
+            self.hitBox.frame.size.width = Block.width * (22 / 16)
+            self.hitBox.frame.size.height = Block.height * (23 / 16)
+            
+        } else if self.type == "iceBoss" {
+            
+            self.hitBoxXOffset = Block.width * (3.5 / 16)
+            self.hitBoxYOffset = Block.height * (3 / 16)
+            
+            self.hitBox.frame.size.width = Block.width * (24 / 16)
+            self.hitBox.frame.size.height = Block.height * (31 / 16)
+            
+        } else if self.type == "brickBoss" {
+            
+            self.hitBoxXOffset = Block.width * (0 / 16)
+            self.hitBoxYOffset = Block.height * (2 / 16)
+            
+            self.hitBox.frame.size.width = Block.width * (25 / 16)
+            self.hitBox.frame.size.height = Block.height * (24 / 16)
+            
+        } else {
+            
+            self.hitBoxXOffset = 0
+            self.hitBoxYOffset = 0
+            
+            self.hitBox.frame.size.width = self.width
+            self.hitBox.frame.size.height = self.height
+        }
         
         if self.type == "jumper" {
             
@@ -1331,8 +1380,19 @@ class Enemy {
             self.view.frame.origin.y = self.y - self.height / 2 + self.yShift
         }
         
-        self.hitBox.frame.origin.x = self.x - self.width / 2
-        self.hitBox.frame.origin.y = self.y - self.height / 2
+//        self.hitBox.frame.origin.x = self.x - self.width / 2
+//        self.hitBox.frame.origin.y = self.y - self.height / 2
+        
+        if self.direction == "left" {
+            
+            self.hitBox.frame.origin.x = self.x - (self.hitBox.frame.size.width / 2) + self.hitBoxXOffset
+            self.hitBox.frame.origin.y = self.y - (self.hitBox.frame.size.height / 2) + self.hitBoxYOffset
+            
+        } else {
+            
+            self.hitBox.frame.origin.x = self.x - (self.hitBox.frame.size.width / 2) - self.hitBoxXOffset
+            self.hitBox.frame.origin.y = self.y - (self.hitBox.frame.size.height / 2) + self.hitBoxYOffset
+        }
     }
     
     func reset() {
@@ -1391,6 +1451,9 @@ class Enemy {
         
         self.isHidden = false
         
+        self.hitBoxXOffset = 0
+        self.hitBoxYOffset = 0
+
         self.endTimers()
         
         self.setup(x: (((CGFloat)(self.xPos)) * Block.width) + (Block.width / 2), y: (((CGFloat)(self.yPos)) * Block.height) + (Block.height / 2), type: self.type)
@@ -4905,6 +4968,22 @@ class Enemy {
         }
         
         setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
+        
+        self.updateHitbox()
+    }
+    
+    func updateHitbox() {
+        
+        if self.direction == "left" {
+            
+            self.hitBox.frame.origin.x = self.x - (self.hitBox.frame.size.width / 2) + self.hitBoxXOffset
+            self.hitBox.frame.origin.y = self.y - (self.hitBox.frame.size.height / 2) + self.hitBoxYOffset
+            
+        } else {
+            
+            self.hitBox.frame.origin.x = self.x - (self.hitBox.frame.size.width / 2) - self.hitBoxXOffset
+            self.hitBox.frame.origin.y = self.y - (self.hitBox.frame.size.height / 2) + self.hitBoxYOffset
+        }
     }
     
     func isSprinklerInRange() -> Bool {

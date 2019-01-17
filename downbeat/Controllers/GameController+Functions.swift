@@ -1041,7 +1041,7 @@ extension GameController {
             if e.type != "topMaker" {
                 
                 gameView.addSubview(e.view)
-                //            gameView.addSubview(e.hitBox)
+                gameView.addSubview(e.hitBox)
             }
         }
         
