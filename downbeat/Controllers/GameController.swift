@@ -590,17 +590,35 @@ class GameController: UIViewController {
 //        return button
 //    }()
     
-    lazy var jumpButton: UIImageView = {
-        let view = UIImageView()
-        view.backgroundColor = UIColor.clear
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFill
-        view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "jumpButton")
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleJump)))
-        view.alpha = 0.5
-        return view
+//    lazy var jumpButton: UIImageView = {
+//        let view = UIImageView()
+//        view.backgroundColor = UIColor.clear
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.contentMode = .scaleAspectFill
+//        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+//        view.image = UIImage(named: "jumpButton")
+//        view.isUserInteractionEnabled = true
+//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleJump)))
+//        view.alpha = 0.5
+//        return view
+//    }()
+    
+    lazy var jumpButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.clear
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
+        button.setImage(UIImage(named: "jumpButton"), for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: #selector(handleJump), for: .touchDown)
+        button.addTarget(self, action: #selector(handleJumpCancel), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleJumpCancel), for: .touchUpOutside)
+        button.addTarget(self, action: #selector(handleJumpCancel), for: .touchCancel)
+        button.adjustsImageWhenHighlighted = false
+        button.alpha = 0.5
+        return button
     }()
     
     @objc func handleJump() {
@@ -640,17 +658,32 @@ class GameController: UIViewController {
     }()
     */
     
-    lazy var shootButton: UIImageView = {
-        let view = UIImageView()
-        view.backgroundColor = UIColor.clear
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFill
-        view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "shootButton")
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleShoot)))
-        view.alpha = 0.5
-        return view
+//    lazy var shootButton: UIImageView = {
+//        let view = UIImageView()
+//        view.backgroundColor = UIColor.clear
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.contentMode = .scaleAspectFill
+//        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+//        view.image = UIImage(named: "shootButton")
+//        view.isUserInteractionEnabled = true
+//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleShoot)))
+//        view.alpha = 0.5
+//        return view
+//    }()
+
+    lazy var shootButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.clear
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
+        button.setImage(UIImage(named: "shootButton"), for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: #selector(handleShoot), for: .touchDown)
+        button.adjustsImageWhenHighlighted = false
+        button.alpha = 0.5
+        return button
     }()
     
     @objc func handleShoot() {
@@ -682,17 +715,32 @@ class GameController: UIViewController {
 //        return button
 //    }()
 
-    lazy var pauseButton: UIImageView = {
-        let view = UIImageView()
-        view.backgroundColor = UIColor.clear
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFill
-        view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "pauseButton")
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handlePause)))
-        view.alpha = 0.5
-        return view
+//    lazy var pauseButton: UIImageView = {
+//        let view = UIImageView()
+//        view.backgroundColor = UIColor.clear
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.contentMode = .scaleAspectFill
+//        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+//        view.image = UIImage(named: "pauseButton")
+//        view.isUserInteractionEnabled = true
+//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handlePause)))
+//        view.alpha = 0.5
+//        return view
+//    }()
+    
+    lazy var pauseButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.clear
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
+        button.setImage(UIImage(named: "pauseButton"), for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: #selector(handlePause), for: .touchDown)
+        button.adjustsImageWhenHighlighted = false
+        button.alpha = 0.5
+        return button
     }()
     
     @objc func handlePause() {
@@ -737,17 +785,32 @@ class GameController: UIViewController {
 //        return button
 //    }()
     
-    lazy var weaponLeftButton: UIImageView = {
-        let view = UIImageView()
-        view.backgroundColor = UIColor.clear
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFill
-        view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "weaponLeftButton")
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWeaponLeft)))
-        view.alpha = 0.5
-        return view
+//    lazy var weaponLeftButton: UIImageView = {
+//        let view = UIImageView()
+//        view.backgroundColor = UIColor.clear
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.contentMode = .scaleAspectFill
+//        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+//        view.image = UIImage(named: "weaponLeftButton")
+//        view.isUserInteractionEnabled = true
+//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWeaponLeft)))
+//        view.alpha = 0.5
+//        return view
+//    }()
+    
+    lazy var weaponLeftButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.clear
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
+        button.setImage(UIImage(named: "weaponLeftButton"), for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: #selector(handleWeaponLeft), for: .touchDown)
+        button.adjustsImageWhenHighlighted = false
+        button.alpha = 0.5
+        return button
     }()
     
     @objc func handleWeaponLeft() {
@@ -773,17 +836,32 @@ class GameController: UIViewController {
 //        return button
 //    }()
     
-    lazy var weaponRightButton: UIImageView = {
-        let view = UIImageView()
-        view.backgroundColor = UIColor.clear
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFill
-        view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "weaponRightButton")
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWeaponRight)))
-        view.alpha = 0.5
-        return view
+//    lazy var weaponRightButton: UIImageView = {
+//        let view = UIImageView()
+//        view.backgroundColor = UIColor.clear
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.contentMode = .scaleAspectFill
+//        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+//        view.image = UIImage(named: "weaponRightButton")
+//        view.isUserInteractionEnabled = true
+//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWeaponRight)))
+//        view.alpha = 0.5
+//        return view
+//    }()
+
+    lazy var weaponRightButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.clear
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
+        button.setImage(UIImage(named: "weaponRightButton"), for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: #selector(handleWeaponRight), for: .touchDown)
+        button.adjustsImageWhenHighlighted = false
+        button.alpha = 0.5
+        return button
     }()
     
     @objc func handleWeaponRight() {
