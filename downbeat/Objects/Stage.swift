@@ -621,6 +621,22 @@ class Stage {
         
         
         
+        for enemy in enemies {
+            enemy.endTimers()
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 //        self.x = 0
 //
 //        self.moveBlocks()

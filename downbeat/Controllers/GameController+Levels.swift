@@ -173,6 +173,25 @@ extension GameController {
         
         // stop all timers
         
+        // removing powerups ???
+        
+        for bullet in bullets {
+            bullet.useEnergyTimer.invalidate()
+        }
+        
+        for enemy in selectedEnemies {
+            enemy.isUsed = true
+            enemy.endTimers()
+        }
+        
+        for spawner in selectedEnemySpawners {
+            spawner.stopSpawning()
+        }
+        
+        for powerup in selectedPowerups {
+            powerup.isUsed = true
+        }
+        
         
         
         

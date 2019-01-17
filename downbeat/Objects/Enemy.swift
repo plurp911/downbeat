@@ -415,7 +415,8 @@ class Enemy {
             
             self.damage = 3
             
-            self.xGoal = Block.width * 5
+//            self.xGoal = Block.width * 5
+            self.xGoal = Block.width * 6
             
             self.width = Block.width
             self.height = self.width
@@ -1540,7 +1541,20 @@ class Enemy {
             
         } else if type == "sprinkler" {
             
-            if self.isShooting == false {
+            if self.isShooting == true {
+                
+                if self.view.isAnimating == false {
+                    
+                    self.view.stopAnimating()
+                    
+                    self.view.animationImages = Enemy.sprinklerImages as! [UIImage]
+                    
+                    //                self.view.animationDuration = 0.85 * (1 / 3)
+                    self.view.animationDuration = 0.85 * (1 / 3) * (4 / 3)
+                    self.view.startAnimating()
+                }
+                
+            } else {
                 
                 self.view.stopAnimating()
                 
@@ -5477,11 +5491,11 @@ class Enemy {
             
             if self.type == "sprinkler" {
                 
-                self.view.animationImages = Enemy.sprinklerImages as! [UIImage]
-                
-                //                self.view.animationDuration = 0.85 * (1 / 3)
-                self.view.animationDuration = 0.85 * (1 / 3) * (4 / 3)
-                self.view.startAnimating()
+//                self.view.animationImages = Enemy.sprinklerImages as! [UIImage]
+//
+//                //                self.view.animationDuration = 0.85 * (1 / 3)
+//                self.view.animationDuration = 0.85 * (1 / 3) * (4 / 3)
+//                self.view.startAnimating()
                 
             } else if self.type == "turret" {
                 
