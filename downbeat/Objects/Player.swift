@@ -1476,7 +1476,11 @@ class Player {
             
             if selectedEnemies[i].isHidden == false {
                 
-                if selectedEnemies[i].x + (selectedEnemies[i].width / 2) >= self.x - (Player.width / 2) && selectedEnemies[i].x - (selectedEnemies[i].width / 2) <= self.x + (Player.width / 2) && selectedEnemies[i].y + (selectedEnemies[i].height / 2) >= self.y - (Player.height / 2) && selectedEnemies[i].y - (selectedEnemies[i].height / 2) <= self.y + (Player.height / 2) {
+//                if selectedEnemies[i].x + (selectedEnemies[i].width / 2) >= self.x - (Player.width / 2) && selectedEnemies[i].x - (selectedEnemies[i].width / 2) <= self.x + (Player.width / 2) && selectedEnemies[i].y + (selectedEnemies[i].height / 2) >= self.y - (Player.height / 2) && selectedEnemies[i].y - (selectedEnemies[i].height / 2) <= self.y + (Player.height / 2) {
+//                    return i
+//                }
+                
+                if selectedEnemies[i].x + (selectedEnemies[i].hitBox.frame.size.width / 2) >= self.x - (Player.width / 2) && selectedEnemies[i].x - (selectedEnemies[i].hitBox.frame.size.width / 2) <= self.x + (Player.width / 2) && selectedEnemies[i].y + (selectedEnemies[i].hitBox.frame.size.height / 2) >= self.y - (Player.height / 2) && selectedEnemies[i].y - (selectedEnemies[i].hitBox.frame.size.height / 2) <= self.y + (Player.height / 2) {
                     return i
                 }
             }
@@ -1492,7 +1496,11 @@ class Player {
             
             if currentStage!.specialEnemies[i].isHidden == false {
                 
-                if currentStage!.specialEnemies[i].x + (currentStage!.specialEnemies[i].width / 2) >= self.x - (Player.width / 2) && currentStage!.specialEnemies[i].x - (currentStage!.specialEnemies[i].width / 2) <= self.x + (Player.width / 2) && currentStage!.specialEnemies[i].y + (currentStage!.specialEnemies[i].height / 2) >= self.y - (Player.height / 2) && currentStage!.specialEnemies[i].y - (currentStage!.specialEnemies[i].height / 2) <= self.y + (Player.height / 2) {
+//                if currentStage!.specialEnemies[i].x + (currentStage!.specialEnemies[i].width / 2) >= self.x - (Player.width / 2) && currentStage!.specialEnemies[i].x - (currentStage!.specialEnemies[i].width / 2) <= self.x + (Player.width / 2) && currentStage!.specialEnemies[i].y + (currentStage!.specialEnemies[i].height / 2) >= self.y - (Player.height / 2) && currentStage!.specialEnemies[i].y - (currentStage!.specialEnemies[i].height / 2) <= self.y + (Player.height / 2) {
+//                    return i
+//                }
+                
+                if currentStage!.specialEnemies[i].x + (currentStage!.specialEnemies[i].hitBox.frame.size.width / 2) >= self.x - (Player.width / 2) && currentStage!.specialEnemies[i].x - (currentStage!.specialEnemies[i].hitBox.frame.size.width / 2) <= self.x + (Player.width / 2) && currentStage!.specialEnemies[i].y + (currentStage!.specialEnemies[i].hitBox.frame.size.height / 2) >= self.y - (Player.height / 2) && currentStage!.specialEnemies[i].y - (currentStage!.specialEnemies[i].hitBox.frame.size.height / 2) <= self.y + (Player.height / 2) {
                     return i
                 }
             }

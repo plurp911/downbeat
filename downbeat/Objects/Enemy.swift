@@ -765,6 +765,32 @@ class Enemy {
             self.hitBox.frame.size.width = Block.width * (25 / 16)
             self.hitBox.frame.size.height = Block.height * (24 / 16)
             
+        } else if self.type == "fireBoss" {
+            
+//            self.hitBoxXOffset = Block.width * (1 / 16)
+            self.hitBoxXOffset = -Block.width * (1 / 16)
+            self.hitBoxYOffset = Block.height * (0.5 / 16)
+            
+//            self.hitBox.frame.size.width = Block.width * (22 / 16)
+            self.hitBox.frame.size.width = Block.width * (18 / 16)
+            self.hitBox.frame.size.height = Block.height * (23 / 16)
+            
+        } else if self.type == "sandBoss" {
+            
+            self.hitBoxXOffset = Block.width * (2 / 16)
+            self.hitBoxYOffset = Block.height * (1 / 16)
+            
+            self.hitBox.frame.size.width = Block.width * (16 / 16)
+            self.hitBox.frame.size.height = Block.height * (30 / 16)
+            
+        } else if self.type == "metalBoss" {
+            
+            self.hitBoxXOffset = Block.width * (3 / 16)
+            self.hitBoxYOffset = Block.height * (4.5 / 16)
+            
+            self.hitBox.frame.size.width = Block.width * (29 / 16)
+            self.hitBox.frame.size.height = Block.height * (26 / 16)
+            
         } else {
             
             self.hitBoxXOffset = 0
