@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,24 +15,21 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DOWNBEAT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="px0-WA-5Uv">
-                                <rect key="frame" x="129.5" y="321.5" width="116" height="24"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Sc2-eQ-QM9">
+                                <rect key="frame" x="72.5" y="40" width="175" height="400"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="116" id="P6s-OJ-IuO"/>
-                                    <constraint firstAttribute="height" constant="24" id="sit-74-QUR"/>
+                                    <constraint firstAttribute="width" constant="175" id="IpS-h6-bE9"/>
+                                    <constraint firstAttribute="height" constant="400" id="Lfc-Mc-7Zd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
-                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="px0-WA-5Uv" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Xsf-Fl-K9R"/>
-                            <constraint firstItem="px0-WA-5Uv" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Zsm-QZ-4Y6"/>
+                            <constraint firstItem="Sc2-eQ-QM9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="TNw-jY-yub"/>
+                            <constraint firstItem="Sc2-eQ-QM9" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="cFc-gQ-lqj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -42,4 +39,7 @@
             <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="launchTitle" width="2560" height="1440"/>
+    </resources>
 </document>
