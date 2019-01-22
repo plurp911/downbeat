@@ -105,7 +105,7 @@ class GameController: UIViewController {
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
         view.image = UIImage(named: "gameOverBackground")
         view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGameOverView)))
+//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGameOverView)))
         view.isHidden = true
         return view
     }()
@@ -114,7 +114,7 @@ class GameController: UIViewController {
         
         print("GAME OVER")
         
-        handleQuit()
+//        handleQuit()
         
         updateGameOverVisibility(isHidden: true)
         updateTitleVisibility(isHidden: false)
@@ -591,6 +591,10 @@ class GameController: UIViewController {
         
         print("RETRY")
         
+        updateGameOverVisibility(isHidden: true)
+
+        updateControlVisibility(isHidden: false)
+        
         setLevel(level: currentLevel!)
     }
     
@@ -619,8 +623,16 @@ class GameController: UIViewController {
         
         //        handleResume()
         
-        updateControlVisibility(isHidden: true)
-        updateStageSelectVisibility(isHidden: false)
+        if gameOverView.isHidden == true {
+            
+            updatePausedVisibility(isHidden: true)
+            //        updateControlVisibility(isHidden: true)
+            updateStageSelectVisibility(isHidden: false)
+            
+        } else {
+            
+            handleGameOverView()
+        }
     }
     
     //    lazy var jumpButton: UIButton = {
@@ -1189,8 +1201,8 @@ class GameController: UIViewController {
             completedLevels = savedCompletedLevels as! [Bool]
         }
         
-        completedLevels = [true, true, true, true, true, true, true, true]
-//        completedLevels = [false, false, false, false, false, false, false, false]
+//        completedLevels = [true, true, true, true, true, true, true, true]
+        completedLevels = [false, false, false, false, false, false, false, false]
     }
     
     func createCompletedStageViews() {

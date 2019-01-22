@@ -600,6 +600,17 @@ extension GameController {
             
             draw()
         }
+        
+        if player.isGameOver() == true {
+            
+            print("HERE")
+            
+//            handleQuit()
+            
+            updateStageSelectVisibility(isHidden: true)
+            updateControlVisibility(isHidden: true)
+            updateGameOverVisibility(isHidden: false)
+        }
     }
     
     func handleMoving() {

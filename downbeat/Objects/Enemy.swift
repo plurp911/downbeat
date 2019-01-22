@@ -2780,6 +2780,15 @@ class Enemy {
                                 self.xSpeed = 0
                                 self.ySpeed = 0
                                 
+//                                if player.x >= self.x {
+//
+//                                    self.direction = "right"
+//
+//                                } else {
+//
+//                                    self.direction = "left"
+//                                }
+                                
                                 self.jump()
                                 
                                 /*
@@ -2805,6 +2814,15 @@ class Enemy {
                                 
                                 self.xSpeed = 0
                                 self.ySpeed = 0
+                                
+//                                if player.x >= self.x {
+//
+//                                    self.direction = "right"
+//
+//                                } else {
+//
+//                                    self.direction = "left"
+//                                }
                                 
                                 self.jump()
                                 
@@ -2855,28 +2873,36 @@ class Enemy {
                 }
             }
             
-            if self.isJumping == false {
+//            if self.isJumping == false {
+//
+//                if player.x >= self.x {
+//
+//                    self.direction = "right"
+//
+//                } else {
+//
+//                    self.direction = "left"
+//                }
+//
+//            } else {
+//
+//                if self.direction == "right" {
+//
+//                    self.xSpeed = self.moveSpeed
+//
+//                } else if self.direction == "left" {
+//
+//                    self.xSpeed = -self.moveSpeed
+//                }
+//            }
+
+            if self.direction == "right" {
                 
-                if player.x >= self.x {
-                    
-                    self.direction = "right"
-                    
-                } else {
-                    
-                    self.direction = "left"
-                }
+                self.xSpeed = self.moveSpeed
                 
-            } else {
+            } else if self.direction == "left" {
                 
-                
-                if self.direction == "right" {
-                    
-                    self.xSpeed = self.moveSpeed
-                    
-                } else if self.direction == "left" {
-                    
-                    self.xSpeed = -self.moveSpeed
-                }
+                self.xSpeed = -self.moveSpeed
             }
             
         } else if self.type == "fireBoss" {

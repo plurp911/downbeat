@@ -109,6 +109,8 @@ class Player {
     
     var canMove: Bool = true
     
+    var isDead: Bool = false
+    
     var health: Int = 0
     
     var energyPos: Int = -1
@@ -241,6 +243,8 @@ class Player {
         self.isAtPeak = false
         
         self.canMove = true
+        
+        self.isDead = false
         
         self.health = Player.maxHealth
         
@@ -630,6 +634,8 @@ class Player {
                     } else {
                         
                         print("GAME OVER")
+                        
+                        self.isDead = true
                         
                         //            handleGameOver()
                     }
@@ -1569,6 +1575,8 @@ class Player {
             
             print("GAME OVER")
             
+            self.isDead = true
+            
             //            handleGameOver()
         }
         
@@ -1581,6 +1589,11 @@ class Player {
         self.hitAnimationTimer = Timer.scheduledTimer(timeInterval: Player.animationCycleTime * 0.075, target: self, selector: #selector(handleHitAnimation), userInfo: nil, repeats: true)
         
         self.handleKnockBack(enemyDirection: enemyDirection)
+    }
+    
+    func isGameOver() -> Bool {
+        
+        return self.isDead
     }
     
     func handleKnockBack(enemyDirection: String) {
