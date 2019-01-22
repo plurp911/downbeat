@@ -603,10 +603,16 @@ extension GameController {
         
         if player.isGameOver() == true {
             
-            print("HERE")
+            print("1 2 3")
             
 //            handleQuit()
             
+            player.reset()
+            
+            handlePause()
+            
+            updatePausedVisibility(isHidden: true)
+
             updateStageSelectVisibility(isHidden: true)
             updateControlVisibility(isHidden: true)
             updateGameOverVisibility(isHidden: false)

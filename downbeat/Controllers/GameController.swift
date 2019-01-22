@@ -95,6 +95,7 @@ class GameController: UIViewController {
         //        updateCompletedStageViews()
         
         updateTitleVisibility(isHidden: true)
+        updateStageSelectVisibility(isHidden: false)
     }
     
     lazy var gameOverView: UIImageView = {

@@ -630,7 +630,7 @@ class Enemy {
             self.damage = 5
             
             self.width = Block.width * (64 / 16)
-            self.height = Block.height
+            self.height = Block.height * (14 / 16)
             
             self.moveSpeed = 0
             

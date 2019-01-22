@@ -277,7 +277,14 @@ class EnemySpawner {
                     
                     if self.spawnTimer.isValid == false {
                         
-                        selectedEnemies.append(Enemy(x: (screenSize.height * (screenRatio)) + (Block.width / 2), y: self.y, type: self.type, direction: self.direction))
+                        if self.direction == "left" {
+                            
+                            selectedEnemies.append(Enemy(x: (screenSize.height * (screenRatio)) + (Block.width / 2), y: self.y, type: self.type, direction: self.direction))
+
+                        } else if self.direction == "right" {
+                            
+                            selectedEnemies.append(Enemy(x: -Block.width / 2, y: self.y, type: self.type, direction: self.direction))
+                        }
                         
                         selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
                         
