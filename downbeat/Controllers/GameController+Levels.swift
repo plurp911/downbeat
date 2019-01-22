@@ -101,17 +101,11 @@ extension GameController {
         
         tileSet = "chemical"
         
-        let chemicalStages = [[Stage(fileName: "9-1"), nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-                              [Stage(fileName: "9-2"), nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-                              [Stage(fileName: "9-3"), nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-                              [Stage(fileName: "9-4"), nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-                              [Stage(fileName: "9-5"), nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-                              [Stage(fileName: "9-6"), nil, nil, nil, nil, nil, nil, nil, nil, nil, Stage(fileName: "9-26"), Stage(fileName: "9-27"), Stage(fileName: "9-28")],
-                              [Stage(fileName: "9-7"), Stage(fileName: "9-8"), nil, nil, nil, nil, nil, nil, nil, nil, Stage(fileName: "9-25"), nil, nil],
-                              [nil, Stage(fileName: "9-9"), Stage(fileName: "9-10"), nil, nil, nil, nil, Stage(fileName: "9-21"), Stage(fileName: "9-22"), Stage(fileName: "9-23"), Stage(fileName: "9-24"), nil, nil],
-                              [nil, nil, Stage(fileName: "9-11"), Stage(fileName: "9-12"), Stage(fileName: "9-13"), nil, Stage(fileName: "9-19"), Stage(fileName: "9-20"), nil, nil, nil, nil, nil],
-                              [nil, nil, nil, nil, Stage(fileName: "9-14"), Stage(fileName: "9-17"), Stage(fileName: "9-18"), nil, nil, nil, nil, nil, nil],
-                              [nil, nil, nil, nil, Stage(fileName: "9-15"), Stage(fileName: "9-16"), nil, nil, nil, nil, nil, nil, nil]]
+        let chemicalStages = [[nil, nil, nil, nil, nil, nil, nil, nil, Stage(fileName: "9-17"), Stage(fileName: "9-18"), Stage(fileName: "9-19")],
+                              [nil, nil, nil, nil, nil, nil, nil, nil, Stage(fileName: "9-16"), nil, nil],
+                              [Stage(fileName: "9-1"), Stage(fileName: "9-6"), Stage(fileName: "9-7"), Stage(fileName: "9-8"), Stage(fileName: "9-9"), Stage(fileName: "9-12"), Stage(fileName: "9-13"), Stage(fileName: "9-14"), Stage(fileName: "9-15"), nil, nil],
+                              [Stage(fileName: "9-2"), Stage(fileName: "9-5"), nil, nil, Stage(fileName: "9-10"), Stage(fileName: "9-11"), nil, nil, nil, nil, nil],
+                              [Stage(fileName: "9-3"), Stage(fileName: "9-4"), nil, nil, nil, nil, nil, nil, nil, nil, nil]]
         
         // OTHER
         
@@ -149,9 +143,9 @@ extension GameController {
         
         player.reset()
         
-//        player = Player()
+        //        player = Player()
         
-//        handleResume()
+        //        handleResume()
         
         moveTimer.invalidate()
         
@@ -218,12 +212,12 @@ extension GameController {
         
         canClimb = true
         
-//        var isLeftPressed: Bool = false
-//        var isRightPressed: Bool = false
-//        var isUpPressed: Bool = false
-//        var isDownPressed: Bool = false
+        //        var isLeftPressed: Bool = false
+        //        var isRightPressed: Bool = false
+        //        var isUpPressed: Bool = false
+        //        var isDownPressed: Bool = false
         
-//        var isPaused: Bool = false
+        //        var isPaused: Bool = false
         
         currentStageXPos = -1
         currentStageYPos = -1
