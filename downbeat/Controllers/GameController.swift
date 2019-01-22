@@ -144,8 +144,9 @@ class GameController: UIViewController {
         
         updateCompletedStageViews()
         
-        handleQuit()
+//        handleQuit()
         
+        updatePausedVisibility(isHidden: true)
         updateCongratulationsVisibility(isHidden: true)
         updateTitleVisibility(isHidden: false)
     }
@@ -1202,8 +1203,8 @@ class GameController: UIViewController {
             completedLevels = savedCompletedLevels as! [Bool]
         }
         
-//        completedLevels = [true, true, true, true, true, true, true, true]
-        completedLevels = [false, false, false, false, false, false, false, false]
+        completedLevels = [true, true, true, true, true, true, true, true]
+//        completedLevels = [false, false, false, false, false, false, false, false]
     }
     
     func createCompletedStageViews() {

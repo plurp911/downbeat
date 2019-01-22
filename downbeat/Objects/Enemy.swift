@@ -1772,30 +1772,30 @@ class Enemy {
             
         } else if type == "chemicalBoss" {
             
-            if self.isShooting == true {
-                
-                self.view.stopAnimating()
-                
-                self.view.image = Enemy.chemicalBossThrowImage
-                
-            } else if self.isSignalling == true {
-                
-                self.view.stopAnimating()
-                
-                self.view.image = Enemy.chemicalBossSignalImage
-                
-            } else {
-                
-                if self.view.isAnimating == true {
-                    
-                    self.view.stopAnimating()
-                    
-                    self.view.animationImages = Enemy.chemicalBossImages as! [UIImage]
-                    
-                    self.view.animationDuration = 0.85 * (1 / 3)
-                    self.view.startAnimating()
-                }
-            }
+//            if self.isShooting == true {
+//
+//                self.view.stopAnimating()
+//
+//                self.view.image = Enemy.chemicalBossThrowImage
+//
+//            } else if self.isSignalling == true {
+//
+//                self.view.stopAnimating()
+//
+//                self.view.image = Enemy.chemicalBossSignalImage
+//
+//            } else {
+//
+//                if self.view.isAnimating == true {
+//
+//                    self.view.stopAnimating()
+//
+//                    self.view.animationImages = Enemy.chemicalBossImages as! [UIImage]
+//
+//                    self.view.animationDuration = 0.85 * (1 / 3)
+//                    self.view.startAnimating()
+//                }
+//            }
             
             /*
              if self.direction == "right" {

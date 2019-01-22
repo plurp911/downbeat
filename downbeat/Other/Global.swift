@@ -25,7 +25,10 @@ let chanceOfPowerup: CGFloat = 0.25
 
 // COLORS
 
-let backgroundColor = UIColor.black
+//let backgroundColor = UIColor.black
+
+//let backgroundColor = UIColor(red: 26 / 255, green: 26 / 255, blue: 26 / 255, alpha: 1)
+let backgroundColor = UIColor(red: 20 / 255, green: 20 / 255, blue: 20 / 255, alpha: 1)
 
 let mainButtonColor = UIColor.gray.withAlphaComponent(0.35)
 let mainButtonOtherColor = UIColor.lightGray.withAlphaComponent(0.7)

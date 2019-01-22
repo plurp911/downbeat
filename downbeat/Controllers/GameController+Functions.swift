@@ -559,14 +559,27 @@ extension GameController {
                                 completedLevels[6] = true
                             }
                             
-                            print("YOU WIN")
-                            
-                            saveCompletedLevels()
-                            
-                            updateCompletedStageViews()
-                            
-                            updateControlVisibility(isHidden: true)
-                            updateStageSelectVisibility(isHidden: false)
+                            if selectedEnemies[i].type == "chemicalBoss" {
+                                
+                                print("YOU WIN")
+
+                                player.reset()
+                                
+                                handlePause()
+                                
+                                updateStageSelectVisibility(isHidden: true)
+                                updateControlVisibility(isHidden: true)
+                                updateCongratulationsVisibility(isHidden: false)
+
+                            } else {
+                                
+                                saveCompletedLevels()
+                                
+                                updateCompletedStageViews()
+                                
+                                updateControlVisibility(isHidden: true)
+                                updateStageSelectVisibility(isHidden: false)
+                            }
                             
                         } else {
                             
