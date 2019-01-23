@@ -86,9 +86,7 @@ var players = [AVAudioPlayer?]()
 
 var musicPlayer: AVAudioPlayer?
 
-var currentTrack: String = ""
-
-var musicTimer: Timer = Timer()
+//var currentTrack: String = ""
 
 var levels = [Level]()
 
@@ -442,7 +440,7 @@ public func playSound(name: String) {
         newPlayer.play()
         
         players.append(newPlayer)
-        
+
     } catch let error as NSError {
         print(error.description)
     }

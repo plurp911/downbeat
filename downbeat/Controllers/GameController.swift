@@ -598,6 +598,8 @@ class GameController: UIViewController {
         
         print("RESUME")
         
+        musicPlayer?.play()
+
         playSound(name: "menu")
         
         isPaused = false
@@ -671,11 +673,15 @@ class GameController: UIViewController {
         
         print("QUIT")
         
+        musicPlayer?.pause()
+        
         //        handleResume()
+        
+        playSound(name: "menu")
         
         if gameOverView.isHidden == true {
             
-            playSound(name: "menu")
+            playTrack(track: "stageSelect")
             
             updatePausedVisibility(isHidden: true)
             //        updateControlVisibility(isHidden: true)
@@ -863,14 +869,23 @@ class GameController: UIViewController {
         
         print("PAUSE")
         
-        playSound(name: "menu")
+        musicPlayer?.pause()
         
         isPaused = true
         
         //            pausedTextView.isHidden = false
         
         updateControlVisibility(isHidden: true)
-        updatePausedVisibility(isHidden: false)
+        
+        if gameOverView.isHidden == true {
+            
+            playSound(name: "menu")
+            
+            updatePausedVisibility(isHidden: false)
+
+        } else {
+            
+        }
         
         isOnJoyStick = false
         
@@ -1855,11 +1870,109 @@ class GameController: UIViewController {
     
     // MUSIC FUNCTIONS
     
-    @objc func playMusic() {
+//    @objc func playMusic() {
+//
+//        //        if isMusicMuted == false {
+//
+//        let track: String = currentTrack
+//
+//        let url = Bundle.main.url(forResource: track, withExtension: "mp3")!
+//
+//        do {
+//
+//            musicPlayer = try AVAudioPlayer(contentsOf: url)
+//
+//            guard let musicPlayer = musicPlayer else { return }
+//
+//            var volume: Float = 0
+//
+//            if track == "brick" {
+//                volume = 0.5
+//            } else if track == "sky" {
+//                volume = 0.5
+//            } else if track == "fire" {
+//                volume = 0.5
+//            } else if track == "snow" {
+//                volume = 0.5
+//            } else if track == "water" {
+//                volume = 0.5
+//            } else if track == "metal" {
+//                volume = 0.5
+//            } else if track == "sand" {
+//                volume = 0.5
+//            } else if track == "ice" {
+//                volume = 0.5
+//            } else if track == "chemical" {
+//                volume = 0.5
+//            } else if track == "congratulations" {
+//                volume = 0.5
+//            } else if track == "stageSelect" {
+//                volume = 0.5
+//            } else {
+//                print("-- PLAY TRACK ERROR --")
+//            }
+//
+//            musicPlayer.volume = volume
+//
+//            musicPlayer.numberOfLoops = -1
+//
+//            musicPlayer.prepareToPlay()
+//            musicPlayer.play()
+//
+//        } catch let error as NSError {
+//            print(error.description)
+//        }
+//
+//        //        }
+//    }
+    
+//    func playTrack(track: String) {
+//
+//        musicPlayer?.stop()
+//
+//        currentTrack = track
+//
+//        playMusic()
+//
+//        var time: Double = 0
+//
+//        if track == "brick" {
+//            time = 123
+//        } else if track == "sky" {
+//            time = 210
+//        } else if track == "fire" {
+//            time = 266
+//        } else if track == "snow" {
+//            time = 210
+//        } else if track == "water" {
+//            time = 266
+//        } else if track == "metal" {
+//            time = 210
+//        } else if track == "sand" {
+//            time = 266
+//        } else if track == "ice" {
+//            time = 210
+//        } else if track == "chemical" {
+//            time = 266
+//        } else if track == "congratulations" {
+//            time = 210
+//        } else if track == "stageSelect" {
+//            time = 266
+//        } else {
+//            print("-- PLAY TRACK ERROR --")
+//        }
+//
+////        if isMusicMuted == true {
+//
+////            musicPlayer?.pause()
+////
+////            musicTimer.invalidate()
+////        }
+//    }
+    
+    func playTrack(track: String) {
         
-        //        if isMusicMuted == false {
-        
-        let track: String = currentTrack
+        musicPlayer?.stop()
         
         let url = Bundle.main.url(forResource: track, withExtension: "mp3")!
         
@@ -1899,62 +2012,14 @@ class GameController: UIViewController {
             
             musicPlayer.volume = volume
             
+            musicPlayer.numberOfLoops = -1
+            
             musicPlayer.prepareToPlay()
             musicPlayer.play()
             
         } catch let error as NSError {
             print(error.description)
         }
-        
-        //        }
-    }
-    
-    func playTrack(track: String) {
-        
-        musicPlayer?.stop()
-        
-        currentTrack = track
-        
-        playMusic()
-        
-        var time: Double = 0
-        
-        if track == "brick" {
-            time = 123
-        } else if track == "sky" {
-            time = 210
-        } else if track == "fire" {
-            time = 266
-        } else if track == "snow" {
-            time = 210
-        } else if track == "water" {
-            time = 266
-        } else if track == "metal" {
-            time = 210
-        } else if track == "sand" {
-            time = 266
-        } else if track == "ice" {
-            time = 210
-        } else if track == "chemical" {
-            time = 266
-        } else if track == "congratulations" {
-            time = 210
-        } else if track == "stageSelect" {
-            time = 266
-        } else {
-            print("-- PLAY TRACK ERROR --")
-        }
-        
-        musicTimer.invalidate()
-        
-        musicTimer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(playMusic), userInfo: nil, repeats: true)
-        
-//        if isMusicMuted == true {
-        
-//            musicPlayer?.pause()
-//
-//            musicTimer.invalidate()
-//        }
     }
     
 }

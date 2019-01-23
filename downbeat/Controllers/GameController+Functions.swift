@@ -626,13 +626,15 @@ extension GameController {
             
             player.reset()
             
-            handlePause()
+//            handlePause()
             
             updatePausedVisibility(isHidden: true)
 
             updateStageSelectVisibility(isHidden: true)
             updateControlVisibility(isHidden: true)
             updateGameOverVisibility(isHidden: false)
+            
+            handlePause()
         }
     }
     
