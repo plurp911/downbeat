@@ -146,6 +146,8 @@ class GameController: UIViewController {
         
         print("CONGRATULATIONS")
         
+        playSound(name: "menu")
+        
         completedLevels = [false, false, false, false, false, false, false, false]
         
         saveCompletedLevels()
@@ -1799,6 +1801,7 @@ class GameController: UIViewController {
         
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: iceStageView)
         setXY(x: centerStageView.frame.origin.x, y: metalStageView.frame.origin.y, imageView: iceStageView, isCentered: false)
+        setXY(x: centerStageView.frame.origin.x + (centerStageView.frame.size.width / 2), y: iceStageView.frame.origin.y + (iceStageView.frame.size.height / 2), imageView: iceStageView, isCentered: true)
     }
     
     func setupCenterStageView() {
@@ -1806,7 +1809,8 @@ class GameController: UIViewController {
         let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
         //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
         
-        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: centerStageView)
+//        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: centerStageView)
+        setWidthHeight(width: Block.width * (64 / 16), height: Block.height * (48 / 16), imageView: centerStageView)
         setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: 0, imageView: centerStageView, isCentered: true)
         setXY(x: centerStageView.frame.origin.x, y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 2) + Block.width * (48 / 16), imageView: centerStageView, isCentered: false)
     }
@@ -1818,6 +1822,7 @@ class GameController: UIViewController {
         
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: skyStageView)
         setXY(x: centerStageView.frame.origin.x, y: brickStageView.frame.origin.y, imageView: skyStageView, isCentered: false)
+        setXY(x: centerStageView.frame.origin.x + (centerStageView.frame.size.width / 2), y: skyStageView.frame.origin.y + (skyStageView.frame.size.height / 2), imageView: skyStageView, isCentered: true)
     }
     
     func setupSnowStageView() {

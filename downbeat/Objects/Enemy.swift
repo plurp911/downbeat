@@ -1066,7 +1066,7 @@ class Enemy {
             
             self.view.animationImages = Enemy.chemicalBossImages as! [UIImage]
             
-            self.view.animationDuration = 0.85 * (1 / 3)
+            self.view.animationDuration = 0.85 * (1 / 3) * 1.5
             self.view.startAnimating()
             
             self.direction = "left"
@@ -1792,7 +1792,7 @@ class Enemy {
 //
 //                    self.view.animationImages = Enemy.chemicalBossImages as! [UIImage]
 //
-//                    self.view.animationDuration = 0.85 * (1 / 3)
+//                    self.view.animationDuration = 0.85 * (1 / 3) * 1.5
 //                    self.view.startAnimating()
 //                }
 //            }
