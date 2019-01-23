@@ -4455,6 +4455,52 @@ class Enemy {
             
             
             
+            if self.xSpeed == 0 && self.ySpeed == 0 {
+                
+                self.xSpeed = -self.moveSpeed * (2 / 3)
+                self.ySpeed = -self.moveSpeed
+            }
+            
+            var speedChange: CGFloat = 1.125
+            
+//            let maxSpeed: CGFloat = 2
+//            let maxSpeed: CGFloat = 2.5
+            let maxSpeed: CGFloat = 3
+
+            if abs(self.xSpeed) >= maxSpeed || abs(self.ySpeed) >= maxSpeed {
+
+                speedChange = 1
+            }
+            
+            if self.x - (self.width / 2) <= Block.width {
+                
+                self.xSpeed = -self.xSpeed * speedChange
+                
+            } else if self.x + (self.width / 2) >= (screenSize.height * screenRatio) - Block.width {
+                
+                self.xSpeed = -self.xSpeed * speedChange
+            }
+            
+            if self.y - (self.height / 2) <= (Block.width * 2) {
+                
+                self.ySpeed = -self.ySpeed * speedChange
+                
+            } else if self.y + (self.height / 2) >= screenSize.height - (Block.width * 3) {
+                
+                self.ySpeed = -self.ySpeed * speedChange
+            }
+            
+            
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             
