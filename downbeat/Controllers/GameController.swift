@@ -11,7 +11,6 @@ import Darwin
 import Foundation
 import AVFoundation
 import AudioToolbox
-import AVFoundation
 
 class GameController: UIViewController {
     
@@ -96,6 +95,10 @@ class GameController: UIViewController {
     @objc func handleTitleView() {
         
         print("TITLE")
+        
+        playSound(name: "menu")
+        
+        playTrack(track: "stageSelect")
         
         //        updateCompletedStageViews()
         
@@ -260,6 +263,8 @@ class GameController: UIViewController {
         
         print("BRICK")
         
+        playSound(name: "menu")
+        
         // BORING BLUE
         
         //        gameViewColor = UIColor(red: 75 / 255, green: 125 / 255, blue: 223 / 255, alpha: 1)
@@ -277,6 +282,8 @@ class GameController: UIViewController {
         //        gameViewColor = UIColor(red: 192 / 255, green: 114 / 255, blue: 56 / 255, alpha: 1)
         
         setLevel(level: levels[0])
+        
+        playTrack(track: "brick")
         
         updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
@@ -299,12 +306,16 @@ class GameController: UIViewController {
         
         print("FIRE")
         
+        playSound(name: "menu")
+        
         //        gameViewColor = UIColor(red: 55 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
         gameViewColor = UIColor(red: 185 / 255, green: 48 / 255, blue: 48 / 255, alpha: 1)
         //        gameViewColor = UIColor(red: 158 / 255, green: 32 / 255, blue: 32 / 255, alpha: 1)
         
         setLevel(level: levels[1])
         
+        playTrack(track: "fire")
+
         updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
     }
@@ -326,9 +337,13 @@ class GameController: UIViewController {
         
         print("METAL")
         
+        playSound(name: "menu")
+
         gameViewColor = UIColor(red: 152 / 255, green: 152 / 255, blue: 152 / 255, alpha: 1)
         
         setLevel(level: levels[2])
+        
+        playTrack(track: "metal")
         
         updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
@@ -351,10 +366,14 @@ class GameController: UIViewController {
         
         print("ICE")
         
+        playSound(name: "menu")
+
         gameViewColor = UIColor(red: 27 / 255, green: 111 / 255, blue: 121 / 255, alpha: 1)
         
         setLevel(level: levels[3])
         
+        playTrack(track: "ice")
+
         updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
     }
@@ -376,11 +395,15 @@ class GameController: UIViewController {
         
         print("CHEMICAL")
         
+        playSound(name: "menu")
+
         //        gameViewColor = UIColor(red: 156 / 255, green: 96 / 255, blue: 191 / 255, alpha: 1)
         gameViewColor = UIColor(red: 145 / 255, green: 107 / 255, blue: 189 / 255, alpha: 1)
         
         setLevel(level: levels[8])
         
+        playTrack(track: "chemical")
+
         updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
     }
@@ -402,9 +425,13 @@ class GameController: UIViewController {
         
         print("SKY")
         
+        playSound(name: "menu")
+
         gameViewColor = UIColor(red: 136 / 255, green: 198 / 255, blue: 253 / 255, alpha: 1)
         
         setLevel(level: levels[4])
+        
+        playTrack(track: "sky")
         
         updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
@@ -427,6 +454,8 @@ class GameController: UIViewController {
         
         print("SNOW")
         
+        playSound(name: "menu")
+
         // WHITER
         
         //        gameViewColor = UIColor(red: 171 / 255, green: 206 / 255, blue: 208 / 255, alpha: 1)
@@ -440,6 +469,8 @@ class GameController: UIViewController {
         gameViewColor = UIColor(red: 75 / 255, green: 147 / 255, blue: 156 / 255, alpha: 1)
         
         setLevel(level: levels[5])
+        
+        playTrack(track: "snow")
         
         updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
@@ -462,6 +493,8 @@ class GameController: UIViewController {
         
         print("WATER")
         
+        playSound(name: "menu")
+
         // LIGHTER
         
         //        gameViewColor = UIColor(red: 87 / 255, green: 193 / 255, blue: 189 / 255, alpha: 1)
@@ -472,6 +505,8 @@ class GameController: UIViewController {
         
         setLevel(level: levels[6])
         
+        playTrack(track: "water")
+
         updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
     }
@@ -493,6 +528,8 @@ class GameController: UIViewController {
         
         print("SAND")
         
+        playSound(name: "menu")
+
         //        gameViewColor = UIColor(red: 255 / 255, green: 214 / 255, blue: 92 / 255, alpha: 1)
         
         // BLAND
@@ -504,6 +541,8 @@ class GameController: UIViewController {
         //        gameViewColor = UIColor(red: 255 / 255, green: 188 / 255, blue: 72 / 255, alpha: 1)
         
         setLevel(level: levels[7])
+        
+        playTrack(track: "sand")
         
         updateControlVisibility(isHidden: false)
         updateStageSelectVisibility(isHidden: true)
@@ -559,6 +598,8 @@ class GameController: UIViewController {
         
         print("RESUME")
         
+        playSound(name: "menu")
+        
         isPaused = false
         
         updatePausedVisibility(isHidden: true)
@@ -598,6 +639,8 @@ class GameController: UIViewController {
         
         print("RETRY")
         
+        playSound(name: "menu")
+        
         updateGameOverVisibility(isHidden: true)
 
         updateControlVisibility(isHidden: false)
@@ -631,6 +674,8 @@ class GameController: UIViewController {
         //        handleResume()
         
         if gameOverView.isHidden == true {
+            
+            playSound(name: "menu")
             
             updatePausedVisibility(isHidden: true)
             //        updateControlVisibility(isHidden: true)
@@ -817,6 +862,8 @@ class GameController: UIViewController {
     @objc func handlePause() {
         
         print("PAUSE")
+        
+        playSound(name: "menu")
         
         isPaused = true
         
@@ -1810,47 +1857,59 @@ class GameController: UIViewController {
     
     @objc func playMusic() {
         
-        var resource = ""
+        //        if isMusicMuted == false {
         
-        if currentTrack == 1 {
-            resource = "music1"
-        } else if currentTrack == 2 {
-            resource = "music2"
-        } else if currentTrack == 3 {
-            resource = "music3"
-        } else {
-            print("-- MUSIC PLAYING ERROR --")
-        }
+        let track: String = currentTrack
         
-//        if isMusicMuted == false {
+        let url = Bundle.main.url(forResource: track, withExtension: "mp3")!
         
-            let url = Bundle.main.url(forResource: resource, withExtension: "mp3")!
+        do {
             
-            do {
-                
-                musicPlayer = try AVAudioPlayer(contentsOf: url)
-                
-                guard let musicPlayer = musicPlayer else { return }
-                
-                if currentTrack == 1 {
-                    musicPlayer.volume = 0.25
-                } else if currentTrack == 2 {
-                    musicPlayer.volume = 1
-                } else if currentTrack == 3 {
-                    musicPlayer.volume = 0.35
-                }
-                
-                musicPlayer.prepareToPlay()
-                musicPlayer.play()
-                
-            } catch let error as NSError {
-                print(error.description)
+            musicPlayer = try AVAudioPlayer(contentsOf: url)
+            
+            guard let musicPlayer = musicPlayer else { return }
+            
+            var volume: Float = 0
+            
+            if track == "brick" {
+                volume = 0.5
+            } else if track == "sky" {
+                volume = 0.5
+            } else if track == "fire" {
+                volume = 0.5
+            } else if track == "snow" {
+                volume = 0.5
+            } else if track == "water" {
+                volume = 0.5
+            } else if track == "metal" {
+                volume = 0.5
+            } else if track == "sand" {
+                volume = 0.5
+            } else if track == "ice" {
+                volume = 0.5
+            } else if track == "chemical" {
+                volume = 0.5
+            } else if track == "congratulations" {
+                volume = 0.5
+            } else if track == "stageSelect" {
+                volume = 0.5
+            } else {
+                print("-- PLAY TRACK ERROR --")
             }
             
-//        }
+            musicPlayer.volume = volume
+            
+            musicPlayer.prepareToPlay()
+            musicPlayer.play()
+            
+        } catch let error as NSError {
+            print(error.description)
+        }
+        
+        //        }
     }
     
-    func playTrack(track: Int) {
+    func playTrack(track: String) {
         
         musicPlayer?.stop()
         
@@ -1860,11 +1919,27 @@ class GameController: UIViewController {
         
         var time: Double = 0
         
-        if track == 1 {
+        if track == "brick" {
             time = 123
-        } else if track == 2 {
+        } else if track == "sky" {
             time = 210
-        } else if track == 3 {
+        } else if track == "fire" {
+            time = 266
+        } else if track == "snow" {
+            time = 210
+        } else if track == "water" {
+            time = 266
+        } else if track == "metal" {
+            time = 210
+        } else if track == "sand" {
+            time = 266
+        } else if track == "ice" {
+            time = 210
+        } else if track == "chemical" {
+            time = 266
+        } else if track == "congratulations" {
+            time = 210
+        } else if track == "stageSelect" {
             time = 266
         } else {
             print("-- PLAY TRACK ERROR --")
@@ -1876,9 +1951,9 @@ class GameController: UIViewController {
         
 //        if isMusicMuted == true {
         
-            musicPlayer?.pause()
-            
-            musicTimer.invalidate()
+//            musicPlayer?.pause()
+//
+//            musicTimer.invalidate()
 //        }
     }
     

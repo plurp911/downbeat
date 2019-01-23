@@ -522,6 +522,8 @@ extension GameController {
                         
                         selectedEnemies[i].endTimers()
                         
+                        playSound(name: "explosion")
+                        
                         explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "explosion"))
                         
                         if selectedEnemies[i].type == "brickBoss" || selectedEnemies[i].type == "fireBoss" || selectedEnemies[i].type == "metalBoss" || selectedEnemies[i].type == "iceBoss" || selectedEnemies[i].type == "skyBoss" || selectedEnemies[i].type == "snowBoss" || selectedEnemies[i].type == "waterBoss" || selectedEnemies[i].type == "sandBoss" || selectedEnemies[i].type == "chemicalBoss" {
@@ -566,6 +568,8 @@ extension GameController {
                                 player.reset()
                                 
                                 handlePause()
+                                
+                                playTrack(track: "congratulations")
                                 
                                 updateStageSelectVisibility(isHidden: true)
                                 updateControlVisibility(isHidden: true)

@@ -452,6 +452,15 @@ class Player {
                             
                             if self.y + (Player.height / 2) + Player.maxFallSpeed <= block.y - (Block.height / 2) + Player.maxFallSpeed && self.y + (Player.height / 2) + Player.maxFallSpeed >= block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
                                 
+                                if self.view.isAnimating == false && (self.view.image == Player.jumpRightImage || self.view.image == Player.jumpShootRightImage || self.view.image == Player.jumpThrowRightImage) {
+                                    
+                                    playSound(name: "land")
+                                    
+                                    print()
+                                    print("WOWOWOWOWOW 1")
+                                    print()
+                                }
+                                
                                 self.isJumping = false
                                 self.isFalling = false
                                 
@@ -470,6 +479,16 @@ class Player {
                         } else if block.isLadder == false {
                             
                             if self.y + (Player.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (Player.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (Player.width / 2) <= block.x + (Block.width / 2) && self.x + (Player.width / 2) > block.x - (Block.width / 2)) || (self.x - (Player.width / 2) < block.x + (Block.width / 2) && self.x - (Player.width / 2) >= block.x - (Block.width / 2))) {
+                                
+//                                if self.view.isAnimating == false && self.view.image != Player.standRightImage {
+                                if self.view.isAnimating == false && (self.view.image == Player.jumpRightImage || self.view.image == Player.jumpShootRightImage || self.view.image == Player.jumpThrowRightImage) {
+
+                                    playSound(name: "land")
+
+                                    print()
+                                    print("WOWOWOWOWOW 2")
+                                    print()
+                                }
                                 
                                 self.isJumping = false
                                 self.isFalling = false
@@ -496,6 +515,12 @@ class Player {
                     if bullet.type == "beam" {
                         
                         if self.y + (Player.height / 2) + self.ySpeed < bullet.y + (bullet.height / 2) && self.y + (Player.height / 2) + self.ySpeed > bullet.y - (bullet.height / 2) && ((self.x + (Player.width / 2) <= bullet.x + (bullet.width / 2) && self.x + (Player.width / 2) > bullet.x - (bullet.width / 2)) || (self.x - (Player.width / 2) < bullet.x + (bullet.width / 2) && self.x - (Player.width / 2) >= bullet.x - (bullet.width / 2))) {
+                            
+                            //                                playSound(name: "land")
+                            
+//                            print()
+//                            print("WOWOWOWOWOW 3")
+//                            print()
                             
                             self.isJumping = false
                             self.isFalling = false
@@ -902,6 +927,8 @@ class Player {
         }
         
         if canShootBullet == true {
+            
+            playSound(name: "shoot")
             
             canMoveLeft = true
             canMoveRight = true
