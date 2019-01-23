@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AudioToolbox
+import AVFoundation
 
 // CONSTANTS
 
@@ -74,6 +76,15 @@ let titleViewColor = UIColor(red: 14 / 255, green: 74 / 255, blue: 20 / 255, alp
 //var gameViewColor = UIColor(red: 27 / 255, green: 111 / 255, blue: 121 / 255, alpha: 1)
 
 // VARIABLES
+
+var player1: AVAudioPlayer?
+var player2: AVAudioPlayer?
+
+var musicPlayer: AVAudioPlayer?
+
+var currentTrack: Int = 1
+
+var musicTimer: Timer = Timer()
 
 var levels = [Level]()
 
@@ -308,6 +319,58 @@ public func newVal(oldVal: CGFloat) -> CGFloat {
     let newVal: CGFloat = ratio * screenSize.height
     
     return newVal
+}
+
+public func playSound(name: String, playerNum: Int) {
+    
+//    if isSoundMuted == false {
+    
+        let url = Bundle.main.url(forResource: name, withExtension: "mp3")!
+        
+        do {
+            
+            if playerNum == 1 {
+                
+                player1 = try AVAudioPlayer(contentsOf: url)
+                guard let player1 = player1 else { return }
+                
+                if name == "win" || name == "lose" {
+                    player1.volume = 0.3
+                } else if name == "menu" {
+                    player1.volume = 0.4
+                } else if name == "score" {
+                    player1.volume = 0.5
+                } else {
+                    player1.volume = 0.6
+                }
+                
+                player1.prepareToPlay()
+                player1.play()
+                
+            } else {
+                
+                player2 = try AVAudioPlayer(contentsOf: url)
+                guard let player2 = player2 else { return }
+                
+                if name == "win" || name == "lose" {
+                    player2.volume = 0.3
+                } else if name == "menu" {
+                    player2.volume = 0.4
+                } else if name == "score" {
+                    player2.volume = 0.5
+                }  else {
+                    player2.volume = 0.6
+                }
+                
+                player2.prepareToPlay()
+                player2.play()
+                
+            }
+        } catch let error as NSError {
+            print(error.description)
+        }
+        
+//    }
 }
 
 // PUBLIC EXTENSIONS

@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import Darwin
+import Foundation
+import AVFoundation
+import AudioToolbox
+import AVFoundation
 
 class GameController: UIViewController {
     
@@ -1800,4 +1805,81 @@ class GameController: UIViewController {
         setWidthHeight(width: Block.width * (256 / 16), height: Block.height * (8 / 16), imageView: bottomPipeStageSelectView)
         setXY(x: centerStageView.frame.origin.x + (centerStageView.frame.size.width / 2), y: metalStageView.frame.origin.y + (metalStageView.frame.size.height / 2), imageView: bottomPipeStageSelectView, isCentered: true)
     }
+    
+    // MUSIC FUNCTIONS
+    
+    @objc func playMusic() {
+        
+        var resource = ""
+        
+        if currentTrack == 1 {
+            resource = "music1"
+        } else if currentTrack == 2 {
+            resource = "music2"
+        } else if currentTrack == 3 {
+            resource = "music3"
+        } else {
+            print("-- MUSIC PLAYING ERROR --")
+        }
+        
+//        if isMusicMuted == false {
+        
+            let url = Bundle.main.url(forResource: resource, withExtension: "mp3")!
+            
+            do {
+                
+                musicPlayer = try AVAudioPlayer(contentsOf: url)
+                
+                guard let musicPlayer = musicPlayer else { return }
+                
+                if currentTrack == 1 {
+                    musicPlayer.volume = 0.25
+                } else if currentTrack == 2 {
+                    musicPlayer.volume = 1
+                } else if currentTrack == 3 {
+                    musicPlayer.volume = 0.35
+                }
+                
+                musicPlayer.prepareToPlay()
+                musicPlayer.play()
+                
+            } catch let error as NSError {
+                print(error.description)
+            }
+            
+//        }
+    }
+    
+    func playTrack(track: Int) {
+        
+        musicPlayer?.stop()
+        
+        currentTrack = track
+        
+        playMusic()
+        
+        var time: Double = 0
+        
+        if track == 1 {
+            time = 123
+        } else if track == 2 {
+            time = 210
+        } else if track == 3 {
+            time = 266
+        } else {
+            print("-- PLAY TRACK ERROR --")
+        }
+        
+        musicTimer.invalidate()
+        
+        musicTimer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(playMusic), userInfo: nil, repeats: true)
+        
+//        if isMusicMuted == true {
+        
+            musicPlayer?.pause()
+            
+            musicTimer.invalidate()
+//        }
+    }
+    
 }
