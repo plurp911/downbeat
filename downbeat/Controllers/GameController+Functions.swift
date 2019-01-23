@@ -436,7 +436,7 @@ extension GameController {
             
             for enemy in selectedEnemies {
                 
-                if enemy.type == "iceBoss" {
+                if enemy.type == "iceBoss" || enemy.type == "chemicalBoss" {
                     
                     let enemyBulletPos: Int = enemy.didHitOwnBullet()
                     
