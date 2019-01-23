@@ -4463,9 +4463,11 @@ class Enemy {
             
             var speedChange: CGFloat = 1.125
             
+            let maxSpeed: CGFloat = 1.5
+
 //            let maxSpeed: CGFloat = 2
 //            let maxSpeed: CGFloat = 2.5
-            let maxSpeed: CGFloat = 3
+//            let maxSpeed: CGFloat = 3
 
             if abs(self.xSpeed) >= maxSpeed || abs(self.ySpeed) >= maxSpeed {
 
@@ -4488,6 +4490,15 @@ class Enemy {
             } else if self.y + (self.height / 2) >= screenSize.height - (Block.width * 3) {
                 
                 self.ySpeed = -self.ySpeed * speedChange
+            }
+            
+            if self.x >= player.x {
+                
+                self.direction = "left"
+                
+            } else {
+                
+                self.direction = "right"
             }
             
             
@@ -5859,16 +5870,12 @@ class Enemy {
             
             
             
-            /*
-             
-             if self.shootTimer.isValid == false {
-             
-             self.shootTimer.invalidate()
-             
-             self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
-             }
-             
-             */
+            if self.shootTimer.isValid == false {
+                
+                self.shootTimer.invalidate()
+                
+                self.shootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(shoot), userInfo: nil, repeats: false)
+            }
             
             
             
@@ -6340,18 +6347,105 @@ class Enemy {
             let xOffset: CGFloat = Block.width * (24 / 16)
             let yOffset: CGFloat = Block.width * (0 / 16)
             
-            if self.direction == "left" {
+//            if self.direction == "left" {
+//
+//                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
+//
+//            } else if self.direction == "right" {
+//
+//                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
+//            }
+            
+//            let random: Int = Int.random(in: 0 ..< 8)
+            let random: Int = Int.random(in: 0 ..< 7)
+
+            if random == 1 {
                 
-                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
+                let bulletSpeed: CGFloat = 1.75
                 
-            } else if self.direction == "right" {
+                if self.direction == "left" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "bomb"))
+                    
+                } else if self.direction == "right" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "bomb"))
+                }
                 
-                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
+            } else if random == 2 {
+                
+                if self.direction == "left" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "upLeft", type: "blade"))
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "downLeft", type: "blade"))
+                    
+                } else if self.direction == "right" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "upRight", type: "blade"))
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "downRight", type: "blade"))
+                }
+                
+            } else if random == 3 {
+                
+                if self.direction == "left" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
+                    
+                } else if self.direction == "right" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
+                }
+                
+            } else if random == 4 {
+                
+                if self.direction == "left" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "cutter"))
+                    
+                } else if self.direction == "right" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "cutter"))
+                }
+                
+            } else if random == 5 {
+                
+                if self.direction == "left" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, moveSpeed: 0.6, direction: self.direction, type: "tornado"))
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, moveSpeed: 1, direction: self.direction, type: "tornado"))
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, moveSpeed: 1.4, direction: self.direction, type: "tornado"))
+                    
+                } else if self.direction == "right" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, moveSpeed: 0.6, direction: self.direction, type: "tornado"))
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, moveSpeed: 1, direction: self.direction, type: "tornado"))
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, moveSpeed: 1.4, direction: self.direction, type: "tornado"))
+                }
+                
+            } else if random == 6 {
+                
+                if self.x >= player.x {
+
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "left", type: "magnet"))
+                    
+                } else {
+
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "right", type: "magnet"))
+                }
+                
+            } else if random == 7 {
+                
+                if self.direction == "left" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "shield"))
+                    
+                } else if self.direction == "right" {
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "shield"))
+                }
             }
             
             self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
-            
-            
             
             
             
