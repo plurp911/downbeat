@@ -5055,11 +5055,17 @@ class Enemy {
             
             if player.x > self.x {
                 
-                self.direction = "right"
+                if self.direction == "left" && abs(player.x - self.x) >= Block.width * (4 / 16) {
+                    
+                    self.direction = "right"
+                }
                 
             } else if player.x < self.x {
                 
-                self.direction = "left"
+                if self.direction == "right" && abs(player.x - self.x) >= Block.width * (4 / 16) {
+                    
+                    self.direction = "left"
+                }
             }
             
             if self.isFalling == true {

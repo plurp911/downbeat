@@ -59,6 +59,7 @@
 		846DE66A21B8A1EE00127572 /* 1-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE66021B8A1EE00127572 /* 1-9.txt */; };
 		846DE66B21B8A1EE00127572 /* 1-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE66121B8A1EE00127572 /* 1-10.txt */; };
 		846DE67021BF623300127572 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DE66F21BF623300127572 /* Background.swift */; };
+		847F2AF721FFB6CE00E6A020 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F2AF621FFB6CE00E6A020 /* StoreKit.framework */; };
 		84BC59C121C4D44400497844 /* 2-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C021C4D44400497844 /* 2-3.txt */; };
 		84BC59C521C4E1AA00497844 /* 2-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C421C4E1AA00497844 /* 2-4.txt */; };
 		84BC59C721C51B0D00497844 /* 2-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C621C51B0D00497844 /* 2-5.txt */; };
@@ -228,6 +229,7 @@
 		846DE66021B8A1EE00127572 /* 1-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-9.txt"; sourceTree = "<group>"; };
 		846DE66121B8A1EE00127572 /* 1-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-10.txt"; sourceTree = "<group>"; };
 		846DE66F21BF623300127572 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		847F2AF621FFB6CE00E6A020 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		84BC59C021C4D44400497844 /* 2-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-3.txt"; sourceTree = "<group>"; };
 		84BC59C421C4E1AA00497844 /* 2-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-4.txt"; sourceTree = "<group>"; };
 		84BC59C621C51B0D00497844 /* 2-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-5.txt"; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847F2AF721FFB6CE00E6A020 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +361,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		847F2AF521FFB6CE00E6A020 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				847F2AF621FFB6CE00E6A020 /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		92086A3521A23B5000AB51F8 = {
 			isa = PBXGroup;
 			children = (
@@ -365,6 +376,7 @@
 				92086A5521A23B5300AB51F8 /* downbeatTests */,
 				92086A6021A23B5300AB51F8 /* downbeatUITests */,
 				92086A3F21A23B5000AB51F8 /* Products */,
+				847F2AF521FFB6CE00E6A020 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -643,6 +655,11 @@
 				TargetAttributes = {
 					92086A3D21A23B5000AB51F8 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					92086A5121A23B5300AB51F8 = {
 						CreatedOnToolsVersion = 10.1;

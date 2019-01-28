@@ -1245,9 +1245,9 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         
         playSound(name: "menu")
         
-        updatePurchaseVisibility(isHidden: true)
+//        updatePurchaseVisibility(isHidden: true)
         
-        // updatePurchaseVisibility(isHidden: false)
+         updatePurchaseVisibility(isHidden: false)
     }
     
     //    lazy var pauseButton: UIButton = {

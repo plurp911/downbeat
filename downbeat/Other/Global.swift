@@ -97,7 +97,8 @@ var musicPlayer: AVAudioPlayer?
 var isMusicMuted: Bool = false
 var isSoundMuted: Bool = false
 
-var didPurchaseFullGame: Bool = false
+//var didPurchaseFullGame: Bool = false
+var didPurchaseFullGame: Bool = true
 
 var levels = [Level]()
 
