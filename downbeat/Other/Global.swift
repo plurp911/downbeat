@@ -45,7 +45,7 @@ let purchaseButtonColor = UIColor(red: 25 / 255, green: 175 / 255, blue: 28 / 25
 let purchaseButtonOtherColor = UIColor(red: 25 / 255, green: 128 / 255, blue: 28 / 255, alpha: 1)
 
 let settingsButtonColor = UIColor(red: 25 / 255, green: 175 / 255, blue: 28 / 255, alpha: 1)
-let settingseButtonOtherColor = UIColor(red: 25 / 255, green: 128 / 255, blue: 28 / 255, alpha: 1)
+let settingsButtonOtherColor = UIColor(red: 25 / 255, green: 128 / 255, blue: 28 / 255, alpha: 1)
 
 //let stageSelectViewColor = UIColor(red: 30 / 255, green: 161 / 255, blue: 35 / 255, alpha: 1)
 let stageSelectViewColor = UIColor(red: 25 / 255, green: 128 / 255, blue: 28 / 255, alpha: 1)

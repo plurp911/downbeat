@@ -158,6 +158,10 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     
 //    let purchaseButtonSpacing: CGFloat = Block.height * (5 / 16)
     let purchaseButtonSpacing: CGFloat = Block.height * (16 / 16)
+    
+    let purchaseButtonBorderWidth: CGFloat = Block.width * (2 / 16)
+    
+    let pausedButtonBorderWidth: CGFloat = Block.width * (2 / 16)
 
     let settingsButtonWidth: CGFloat = Block.width * (155 / 16)
     // let settingsButtonHeight: CGFloat = Block.height * (31 / 16)
@@ -166,6 +170,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     
     let settingsButtonSpacing1: CGFloat = Block.height * (5 / 16)
     let settingsButtonSpacing2: CGFloat = Block.height * (16 / 16)
+
+    let settingsButtonBorderWidth: CGFloat = Block.width * (2 / 16)
 
     let weaponButtonSpacing: CGFloat = Block.height * (5 / 16)
     
@@ -196,6 +202,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     var loadingTimer = Timer()
     
     var currentTrack: String = ""
+    
+    var isFromPaused: Bool = false
     
     var pausedTextView: UIImageView = {
         let view = UIImageView()
@@ -836,8 +844,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     lazy var restoreButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = purchaseButtonColor
-        button.layer.borderWidth = Block.width * (1 / 16)
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = purchaseButtonBorderWidth
+        button.layer.borderColor = purchaseButtonOtherColor.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
         button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
@@ -865,8 +873,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     lazy var purchaseButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = purchaseButtonColor
-        button.layer.borderWidth = Block.width * (1 / 16)
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = purchaseButtonBorderWidth
+        button.layer.borderColor = purchaseButtonOtherColor.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
         button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
@@ -893,8 +901,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     lazy var resumeButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = pausedButtonColor
-        button.layer.borderWidth = Block.width * (1 / 16)
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = pausedButtonBorderWidth
+        button.layer.borderColor = pausedButtonOtherColor.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
         button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
@@ -936,8 +944,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     lazy var retryButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = pausedButtonColor
-        button.layer.borderWidth = Block.width * (1 / 16)
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = pausedButtonBorderWidth
+        button.layer.borderColor = pausedButtonOtherColor.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
         button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
@@ -978,8 +986,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     lazy var quitButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = pausedButtonColor
-        button.layer.borderWidth = Block.width * (1 / 16)
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = pausedButtonBorderWidth
+        button.layer.borderColor = pausedButtonOtherColor.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
         button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
@@ -1167,7 +1175,15 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         
         playSound(name: "menu")
         
-        updateStageSelectVisibility(isHidden: true)
+        if isFromPaused == true {
+            
+            updatePausedVisibility(isHidden: true)
+            
+        } else {
+            
+            updateStageSelectVisibility(isHidden: true)
+        }
+        
         updateSettingsVisibility(isHidden: false)
     }
     
@@ -1206,7 +1222,15 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         playSound(name: "menu")
         
         updateSettingsVisibility(isHidden: true)
-        updateStageSelectVisibility(isHidden: false)
+        
+        if isFromPaused == true {
+            
+            updatePausedVisibility(isHidden: false)
+            
+        } else {
+            
+            updateStageSelectVisibility(isHidden: false)
+        }
     }
     
     var opacityTextView: UIImageView = {
@@ -1223,8 +1247,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     lazy var buyButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = settingsButtonColor
-        button.layer.borderWidth = Block.width * (1 / 16)
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = settingsButtonBorderWidth
+        button.layer.borderColor = settingsButtonOtherColor.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
         button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
@@ -1309,6 +1333,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         updateControlVisibility(isHidden: true)
         
         if gameOverView.isHidden == true {
+            
+            isFromPaused = true
             
             playSound(name: "menu")
             
@@ -1638,6 +1664,11 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     
     func updateStageSelectVisibility(isHidden: Bool) {
         
+        if isHidden == false {
+            
+            isFromPaused = false
+        }
+        
         settingsButton.isHidden = isHidden
         
         stageSelectView.isHidden = isHidden
@@ -1727,6 +1758,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     }
     
     func updatePausedVisibility(isHidden: Bool) {
+        
+        settingsButton.isHidden = isHidden
         
         // muteButton.isHidden = isHidden
         
