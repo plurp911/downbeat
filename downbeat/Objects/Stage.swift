@@ -42,7 +42,7 @@ class Stage {
     
     var numberOfHorizontalBlocks: Int = 0
     
-//    var counter: Int = 0
+    //    var counter: Int = 0
     
     var textArray = [[String]]()
     
@@ -619,27 +619,21 @@ class Stage {
         
         
         
+        // ???
         
+        /*
+         
+         for enemy in enemies {
+         enemy.endTimers()
+         }
+         
+         for specialEnemy in specialEnemies {
+         specialEnemy.endTimers()
+         }
+         
+         */
         
-        for enemy in enemies {
-            enemy.endTimers()
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-//        self.x = 0
-//
-//        self.moveBlocks()
+        // ???
         
         
         
@@ -650,18 +644,33 @@ class Stage {
         
         
         
-  
+        // ??
+        
+        // self.x = 0
+        
+        // self.moveBlocks()
+        
+        // ??
         
         
-//        var blocks = [Block]()
-//        var backgrounds = [Background]()
-//        var enemies = [Enemy]()
-//        var specialEnemies = [Enemy]()
-//        var powerups = [Powerup]()
-//        var enemySpawners = [EnemySpawner]()
         
-//        var playerStartX: CGFloat = -1
-//        var playerStartY: CGFloat = -1
+        
+        
+        
+        
+        
+        
+        
+        
+        //        var blocks = [Block]()
+        //        var backgrounds = [Background]()
+        //        var enemies = [Enemy]()
+        //        var specialEnemies = [Enemy]()
+        //        var powerups = [Powerup]()
+        //        var enemySpawners = [EnemySpawner]()
+        
+        //        var playerStartX: CGFloat = -1
+        //        var playerStartY: CGFloat = -1
         
         self.blockStartIndex = 0
         self.blockEndIndex = 0
@@ -681,15 +690,15 @@ class Stage {
         self.x = 0
         self.y = 0
         
-//        var numberOfHorizontalBlocks: Int = 0
+        //        var numberOfHorizontalBlocks: Int = 0
         
-//        var counter: Int = 0
+        //        var counter: Int = 0
         
-//        var textArray = [[String]]()
+        //        var textArray = [[String]]()
         
-//        var canEnterFromTop: Bool = false
-//        var canEnterFromBottom: Bool = false
-//        var canEnterFromLeft: Bool = false
+        //        var canEnterFromTop: Bool = false
+        //        var canEnterFromBottom: Bool = false
+        //        var canEnterFromLeft: Bool = false
         
         //    var tileSet: String = "brick"
         //    var tileSet: String = "fire"
@@ -697,11 +706,23 @@ class Stage {
         //    var tileSet: String = "metal"
         //    var tileSet: String = "ice"
         
-//        var ownTileSet: String = ""
+        //        var ownTileSet: String = ""
         
-//        var boss: String = ""
+        //        var boss: String = ""
         
         
+        
+        
+        
+        
+        
+        
+        
+        // ?
+        
+        // self.moveBlocks()
+        
+        // ?
         
         
         
@@ -711,13 +732,48 @@ class Stage {
         
         
         self.sortObjectArrays()
-
         
         
         
         
         
+        // ************************************************************
         
+        
+        
+        self.moveObjects()
+        
+        // ????
+        
+        self.updateObjectArrays(direction: "right")
+        
+        // ????
+        
+        for background in self.backgrounds {
+            
+            if background.isInBounds() == true {
+                
+                selectedBackgrounds.append(background)
+                
+            } else {
+                
+                break
+            }
+        }
+        
+        for block in self.blocks {
+            
+            if block.isInBounds() == true {
+                
+                selectedBlocks.append(block)
+                
+            } else {
+                
+                break
+            }
+        }
+        
+        // ************************************************************
         
         
         
@@ -1032,8 +1088,11 @@ class Stage {
     
     func setPlayerStartXYPos(startXPos: Int, startYPos: Int) {
         
+        // self.playerStartX = ((CGFloat)(startXPos) * Block.width) + (Block.width / 2)
+        // self.playerStartY = ((CGFloat)(startYPos) * Block.height) + (Block.height / 2)
+        
         self.playerStartX = ((CGFloat)(startXPos) * Block.width) + (Block.width / 2)
-        self.playerStartY = ((CGFloat)(startYPos) * Block.height) + (Block.height / 2)
+        self.playerStartY = ((CGFloat)(startYPos) * Block.height) + (Block.height / 2) - (Player.height / 2)
     }
     
     func isInBounds(i: Int, j: Int) -> Bool {
@@ -1268,8 +1327,8 @@ class Stage {
             
             
             
-            // make speed for movement a set constabnt if transitioning right...
-            // or set player.is knocked back to false when strating transitioning...
+            // make speed for movement a set constant if transitioning right...
+            // or set player is knocked back to false when starting transitioning...
             
             // make it impossible to transition from being hit... <- BEST
             

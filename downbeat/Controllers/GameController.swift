@@ -11,8 +11,123 @@ import Darwin
 import Foundation
 import AVFoundation
 import AudioToolbox
+import StoreKit
 
-class GameController: UIViewController {
+class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+    
+    // IN APP PURCHASE FUNCTIONS
+    
+    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        
+        if queue.transactions.count != 0 {
+            
+            //            removeAdsButton.isHidden = true
+            
+            didPurchaseFullGame = true
+            
+            updateLockedStageViews()
+            
+            // viewDidLoad()
+            
+            let didPurchaseFullGameDefault = UserDefaults.standard
+            didPurchaseFullGameDefault.setValue(didPurchaseFullGame, forKey: "didPurchaseFullGame")
+            didPurchaseFullGameDefault.synchronize()
+            
+            UIAlertView(title: "PURCHASE RESTORED", message: "You've successfully restored your purchase!", delegate: nil, cancelButtonTitle: "OK").show()
+        }
+    }
+    
+    func fetchAvailableProducts()  {
+        
+        let productIdentifiers = NSSet(objects:
+            REMOVEADS_PRODUCT_ID
+        )
+        
+        productsRequest = SKProductsRequest(productIdentifiers: productIdentifiers as! Set<String>)
+        productsRequest.delegate = self
+        productsRequest.start()
+    }
+    
+    func productsRequest (_ request:SKProductsRequest, didReceive response:SKProductsResponse) {
+        
+        if (response.products.count > 0) {
+            iapProducts = response.products
+        }
+    }
+    
+    func canMakePurchases() -> Bool {  return SKPaymentQueue.canMakePayments()  }
+    
+    func purchaseMyProduct(product: SKProduct) {
+        
+        if self.canMakePurchases() {
+            
+            let payment = SKPayment(product: product)
+            
+            SKPaymentQueue.default().add(self)
+            SKPaymentQueue.default().add(payment)
+            
+            //print("PRODUCT TO PURCHASE: \(product.productIdentifier)")
+            
+            productID = product.productIdentifier
+            
+        } else {
+            
+            UIAlertView(title: "PURCHASE ERROR", message: "Purchases are disabled on your device!", delegate: nil, cancelButtonTitle: "OK").show()
+        }
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        
+        for transaction:AnyObject in transactions {
+            
+            if let trans = transaction as? SKPaymentTransaction {
+                
+                switch trans.transactionState {
+                    
+                case .purchased:
+                    
+                    SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+                    
+                    if productID == REMOVEADS_PRODUCT_ID {
+                        
+                        //                    removeAdsButton.isHidden = true
+                        
+                        didPurchaseFullGame = true
+                        
+                        updateLockedStageViews()
+                        
+                        // viewDidLoad()
+                        
+                        let didPurchaseFullGameDefault = UserDefaults.standard
+                        didPurchaseFullGameDefault.setValue(didPurchaseFullGame, forKey: "didPurchaseFullGame")
+                        didPurchaseFullGameDefault.synchronize()
+                        
+                        //UIAlertView(title: "ADS REMOVED", message: "You've successfully removed full screen ads!", delegate: nil, cancelButtonTitle: "OK").show()
+                    }
+                    
+                    break
+                    
+                case .failed:
+                    SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+                    break
+                case .restored:
+                    SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+                    break
+                default:
+                    break
+                }
+            }
+            
+        }
+    }
+    
+    // IN APP PURCHASE VARIABLES
+    
+    let REMOVEADS_PRODUCT_ID = "com.collinhoward.downbeat.fullgame"
+    
+    var productID = ""
+    var productsRequest = SKProductsRequest()
+    var iapProducts = [SKProduct]()
     
     // CONSTANTS
     
@@ -24,6 +139,10 @@ class GameController: UIViewController {
     
     let joystickSpacing: CGFloat = 35
     
+//    let cancelButtonSpacing: CGFloat = 25
+//    let cancelButtonSpacing: CGFloat = 32.5
+    let cancelButtonSpacing: CGFloat = Block.height * (5 / 16)
+
     let opacityChange: CGFloat = 0.0065
     
     //    let pausedButtonWidth: CGFloat = Block.width * (125 / 16)
@@ -34,6 +153,28 @@ class GameController: UIViewController {
     //    let pausedButtonSpacing: CGFloat = Block.height * (3 / 16)
     let pausedButtonSpacing: CGFloat = Block.height * (5 / 16)
     
+    let purchaseButtonWidth: CGFloat = Block.width * (155 / 16)
+    let purchaseButtonHeight: CGFloat = Block.height * (31 / 16)
+    
+//    let purchaseButtonSpacing: CGFloat = Block.height * (5 / 16)
+    let purchaseButtonSpacing: CGFloat = Block.height * (16 / 16)
+
+    let settingsButtonWidth: CGFloat = Block.width * (155 / 16)
+    // let settingsButtonHeight: CGFloat = Block.height * (31 / 16)
+    // let settingsButtonHeight: CGFloat = Block.height * (62 / 16)
+    let settingsButtonHeight: CGFloat = Block.height * (48 / 16)
+    
+    let settingsButtonSpacing1: CGFloat = Block.height * (5 / 16)
+    let settingsButtonSpacing2: CGFloat = Block.height * (16 / 16)
+
+    let weaponButtonSpacing: CGFloat = Block.height * (5 / 16)
+    
+//    let deathTimeInterval: CGFloat = 3
+    let deathTimeInterval: CGFloat = 2
+
+//    let loadingTimeInterval: CGFloat = 0.5
+    let loadingTimeInterval: CGFloat = 0.1
+
     // VARIABLES
     
     var moveTimer = Timer()
@@ -47,6 +188,14 @@ class GameController: UIViewController {
     var isGettingDarker: Bool = false
     
     var completedStageSelectTiles = [UIImageView]()
+    
+    var lockedStageSelectTiles = [UIImageView]()
+    
+    var deathTimer = Timer()
+    
+    var loadingTimer = Timer()
+    
+    var currentTrack: String = ""
     
     var pausedTextView: UIImageView = {
         let view = UIImageView()
@@ -106,6 +255,73 @@ class GameController: UIViewController {
         updateStageSelectVisibility(isHidden: false)
     }
     
+    lazy var purchaseView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = backgroundColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        // view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "purchaseBackground")
+        // view.isUserInteractionEnabled = true
+        // view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handlePurchaseView)))
+        view.isHidden = true
+        return view
+    }()
+    
+    /*
+     
+     @objc func handlePurchaseView() {
+     
+     print("PURCHASE")
+     
+     playSound(name: "menu")
+     
+     purchaseMyProduct(product: iapProducts[0])
+     
+     // updateTitleVisibility(isHidden: true)
+     // updateStageSelectVisibility(isHidden: false)
+     }
+     
+     */
+    
+    lazy var cancelButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.clear
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
+//        button.setImage(UIImage(named: "cancelButton"), for: .normal)
+        button.setImage(UIImage(named: "closeButton"), for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: #selector(handleCancel), for: .touchDown)
+        button.adjustsImageWhenHighlighted = false
+        button.alpha = 0.5
+        button.isHidden = true
+        return button
+    }()
+    
+    @objc func handleCancel() {
+        
+        print("CANCEL")
+        
+        updatePurchaseVisibility(isHidden: true)
+        
+        // updateSettingsVisibility(isHidden: false)
+    }
+    
+    lazy var loadingView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.black
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+//        view.image = UIImage(named: "loadingBackground")
+        view.image = nil
+        view.isHidden = true
+        return view
+    }()
+    
     lazy var gameOverView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor.clear
@@ -114,7 +330,7 @@ class GameController: UIViewController {
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
         view.image = UIImage(named: "gameOverBackground")
         view.isUserInteractionEnabled = true
-//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGameOverView)))
+        //        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGameOverView)))
         view.isHidden = true
         return view
     }()
@@ -123,7 +339,7 @@ class GameController: UIViewController {
         
         print("GAME OVER")
         
-//        handleQuit()
+        //        handleQuit()
         
         updateGameOverVisibility(isHidden: true)
         updateTitleVisibility(isHidden: false)
@@ -154,7 +370,7 @@ class GameController: UIViewController {
         
         updateCompletedStageViews()
         
-//        handleQuit()
+        //        handleQuit()
         
         updatePausedVisibility(isHidden: true)
         updateCongratulationsVisibility(isHidden: true)
@@ -267,6 +483,8 @@ class GameController: UIViewController {
         
         playSound(name: "menu")
         
+        handleSelectedStage(type: "brick")
+        
         // BORING BLUE
         
         //        gameViewColor = UIColor(red: 75 / 255, green: 125 / 255, blue: 223 / 255, alpha: 1)
@@ -285,10 +503,10 @@ class GameController: UIViewController {
         
         setLevel(level: levels[0])
         
-        playTrack(track: "brick")
+        // playTrack(track: "brick")
         
-        updateControlVisibility(isHidden: false)
-        updateStageSelectVisibility(isHidden: true)
+        // updateControlVisibility(isHidden: false)
+        // updateStageSelectVisibility(isHidden: true)
     }
     
     lazy var fireStageView: UIImageView = {
@@ -306,20 +524,25 @@ class GameController: UIViewController {
     
     @objc func handleFireStage() {
         
-        print("FIRE")
-        
-        playSound(name: "menu")
-        
-        //        gameViewColor = UIColor(red: 55 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
-        gameViewColor = UIColor(red: 185 / 255, green: 48 / 255, blue: 48 / 255, alpha: 1)
-        //        gameViewColor = UIColor(red: 158 / 255, green: 32 / 255, blue: 32 / 255, alpha: 1)
-        
-        setLevel(level: levels[1])
-        
-        playTrack(track: "fire")
-
-        updateControlVisibility(isHidden: false)
-        updateStageSelectVisibility(isHidden: true)
+        if didPurchaseFullGame == true {
+            
+            print("FIRE")
+            
+            playSound(name: "menu")
+            
+            handleSelectedStage(type: "fire")
+            
+            //        gameViewColor = UIColor(red: 55 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1)
+            gameViewColor = UIColor(red: 185 / 255, green: 48 / 255, blue: 48 / 255, alpha: 1)
+            //        gameViewColor = UIColor(red: 158 / 255, green: 32 / 255, blue: 32 / 255, alpha: 1)
+            
+            setLevel(level: levels[1])
+            
+            // playTrack(track: "fire")
+            
+            // updateControlVisibility(isHidden: false)
+            // updateStageSelectVisibility(isHidden: true)
+        }
     }
     
     lazy var metalStageView: UIImageView = {
@@ -337,18 +560,21 @@ class GameController: UIViewController {
     
     @objc func handleMetalStage() {
         
-        print("METAL")
-        
-        playSound(name: "menu")
-
-        gameViewColor = UIColor(red: 152 / 255, green: 152 / 255, blue: 152 / 255, alpha: 1)
-        
-        setLevel(level: levels[2])
-        
-        playTrack(track: "metal")
-        
-        updateControlVisibility(isHidden: false)
-        updateStageSelectVisibility(isHidden: true)
+        if didPurchaseFullGame == true {
+            
+            print("METAL")
+            
+            playSound(name: "menu")
+            
+            gameViewColor = UIColor(red: 152 / 255, green: 152 / 255, blue: 152 / 255, alpha: 1)
+            
+            setLevel(level: levels[2])
+            
+            playTrack(track: "metal")
+            
+            updateControlVisibility(isHidden: false)
+            updateStageSelectVisibility(isHidden: true)
+        }
     }
     
     lazy var iceStageView: UIImageView = {
@@ -366,18 +592,23 @@ class GameController: UIViewController {
     
     @objc func handleIceStage() {
         
-        print("ICE")
-        
-        playSound(name: "menu")
-
-        gameViewColor = UIColor(red: 27 / 255, green: 111 / 255, blue: 121 / 255, alpha: 1)
-        
-        setLevel(level: levels[3])
-        
-        playTrack(track: "ice")
-
-        updateControlVisibility(isHidden: false)
-        updateStageSelectVisibility(isHidden: true)
+        if didPurchaseFullGame == true {
+            
+            print("ICE")
+            
+            playSound(name: "menu")
+            
+            handleSelectedStage(type: "ice")
+            
+            gameViewColor = UIColor(red: 27 / 255, green: 111 / 255, blue: 121 / 255, alpha: 1)
+            
+            setLevel(level: levels[3])
+            
+            // playTrack(track: "ice")
+            
+            // updateControlVisibility(isHidden: false)
+            // updateStageSelectVisibility(isHidden: true)
+        }
     }
     
     lazy var centerStageView: UIImageView = {
@@ -395,19 +626,24 @@ class GameController: UIViewController {
     
     @objc func handleCenterStage() {
         
-        print("CHEMICAL")
-        
-        playSound(name: "menu")
-
-        //        gameViewColor = UIColor(red: 156 / 255, green: 96 / 255, blue: 191 / 255, alpha: 1)
-        gameViewColor = UIColor(red: 145 / 255, green: 107 / 255, blue: 189 / 255, alpha: 1)
-        
-        setLevel(level: levels[8])
-        
-        playTrack(track: "chemical")
-
-        updateControlVisibility(isHidden: false)
-        updateStageSelectVisibility(isHidden: true)
+        if didPurchaseFullGame == true {
+            
+            print("CHEMICAL")
+            
+            playSound(name: "menu")
+            
+            handleSelectedStage(type: "chemical")
+            
+            //        gameViewColor = UIColor(red: 156 / 255, green: 96 / 255, blue: 191 / 255, alpha: 1)
+            gameViewColor = UIColor(red: 145 / 255, green: 107 / 255, blue: 189 / 255, alpha: 1)
+            
+            setLevel(level: levels[8])
+            
+            // playTrack(track: "chemical")
+            
+            // updateControlVisibility(isHidden: false)
+            // updateStageSelectVisibility(isHidden: true)
+        }
     }
     
     lazy var skyStageView: UIImageView = {
@@ -425,18 +661,23 @@ class GameController: UIViewController {
     
     @objc func handleSkyStage() {
         
-        print("SKY")
-        
-        playSound(name: "menu")
-
-        gameViewColor = UIColor(red: 136 / 255, green: 198 / 255, blue: 253 / 255, alpha: 1)
-        
-        setLevel(level: levels[4])
-        
-        playTrack(track: "sky")
-        
-        updateControlVisibility(isHidden: false)
-        updateStageSelectVisibility(isHidden: true)
+        if didPurchaseFullGame == true {
+            
+            print("SKY")
+            
+            playSound(name: "menu")
+            
+            handleSelectedStage(type: "sky")
+            
+            gameViewColor = UIColor(red: 136 / 255, green: 198 / 255, blue: 253 / 255, alpha: 1)
+            
+            setLevel(level: levels[4])
+            
+            // playTrack(track: "sky")
+            
+            // updateControlVisibility(isHidden: false)
+            // updateStageSelectVisibility(isHidden: true)
+        }
     }
     
     lazy var snowStageView: UIImageView = {
@@ -454,28 +695,33 @@ class GameController: UIViewController {
     
     @objc func handleSnowStage() {
         
-        print("SNOW")
-        
-        playSound(name: "menu")
-
-        // WHITER
-        
-        //        gameViewColor = UIColor(red: 171 / 255, green: 206 / 255, blue: 208 / 255, alpha: 1)
-        
-        //        // BLUER
-        
-        //        gameViewColor = UIColor(red: 124 / 255, green: 182 / 255, blue: 184 / 255, alpha: 1)
-        
-        // NEW
-        
-        gameViewColor = UIColor(red: 75 / 255, green: 147 / 255, blue: 156 / 255, alpha: 1)
-        
-        setLevel(level: levels[5])
-        
-        playTrack(track: "snow")
-        
-        updateControlVisibility(isHidden: false)
-        updateStageSelectVisibility(isHidden: true)
+        if didPurchaseFullGame == true {
+            
+            print("SNOW")
+            
+            playSound(name: "menu")
+            
+            handleSelectedStage(type: "snow")
+            
+            // WHITER
+            
+            //        gameViewColor = UIColor(red: 171 / 255, green: 206 / 255, blue: 208 / 255, alpha: 1)
+            
+            //        // BLUER
+            
+            //        gameViewColor = UIColor(red: 124 / 255, green: 182 / 255, blue: 184 / 255, alpha: 1)
+            
+            // NEW
+            
+            gameViewColor = UIColor(red: 75 / 255, green: 147 / 255, blue: 156 / 255, alpha: 1)
+            
+            setLevel(level: levels[5])
+            
+            // playTrack(track: "snow")
+            
+            // updateControlVisibility(isHidden: false)
+            // updateStageSelectVisibility(isHidden: true)
+        }
     }
     
     lazy var waterStageView: UIImageView = {
@@ -493,24 +739,29 @@ class GameController: UIViewController {
     
     @objc func handleWaterStage() {
         
-        print("WATER")
-        
-        playSound(name: "menu")
-
-        // LIGHTER
-        
-        //        gameViewColor = UIColor(red: 87 / 255, green: 193 / 255, blue: 189 / 255, alpha: 1)
-        
-        // DARKER
-        
-        gameViewColor = UIColor(red: 0 / 255, green: 63 / 255, blue: 66 / 255, alpha: 1)
-        
-        setLevel(level: levels[6])
-        
-        playTrack(track: "water")
-
-        updateControlVisibility(isHidden: false)
-        updateStageSelectVisibility(isHidden: true)
+        if didPurchaseFullGame == true {
+            
+            print("WATER")
+            
+            playSound(name: "menu")
+            
+            handleSelectedStage(type: "water")
+            
+            // LIGHTER
+            
+            //        gameViewColor = UIColor(red: 87 / 255, green: 193 / 255, blue: 189 / 255, alpha: 1)
+            
+            // DARKER
+            
+            gameViewColor = UIColor(red: 0 / 255, green: 63 / 255, blue: 66 / 255, alpha: 1)
+            
+            setLevel(level: levels[6])
+            
+            // playTrack(track: "water")
+            
+            // updateControlVisibility(isHidden: false)
+            // updateStageSelectVisibility(isHidden: true)
+        }
     }
     
     lazy var sandStageView: UIImageView = {
@@ -528,26 +779,31 @@ class GameController: UIViewController {
     
     @objc func handleSandStage() {
         
-        print("SAND")
-        
-        playSound(name: "menu")
-
-        //        gameViewColor = UIColor(red: 255 / 255, green: 214 / 255, blue: 92 / 255, alpha: 1)
-        
-        // BLAND
-        
-        gameViewColor = UIColor(red: 227 / 255, green: 179 / 255, blue: 89 / 255, alpha: 1)
-        
-        // LESS BLAND
-        
-        //        gameViewColor = UIColor(red: 255 / 255, green: 188 / 255, blue: 72 / 255, alpha: 1)
-        
-        setLevel(level: levels[7])
-        
-        playTrack(track: "sand")
-        
-        updateControlVisibility(isHidden: false)
-        updateStageSelectVisibility(isHidden: true)
+        if didPurchaseFullGame == true {
+            
+            print("SAND")
+            
+            playSound(name: "menu")
+            
+            handleSelectedStage(type: "sand")
+            
+            //        gameViewColor = UIColor(red: 255 / 255, green: 214 / 255, blue: 92 / 255, alpha: 1)
+            
+            // BLAND
+            
+            gameViewColor = UIColor(red: 227 / 255, green: 179 / 255, blue: 89 / 255, alpha: 1)
+            
+            // LESS BLAND
+            
+            //        gameViewColor = UIColor(red: 255 / 255, green: 188 / 255, blue: 72 / 255, alpha: 1)
+            
+            setLevel(level: levels[7])
+            
+            // playTrack(track: "sand")
+            
+            // updateControlVisibility(isHidden: false)
+            // updateStageSelectVisibility(isHidden: true)
+        }
     }
     
     var gameView: UIView = {
@@ -577,6 +833,63 @@ class GameController: UIViewController {
         return view
     }()
     
+    lazy var restoreButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = purchaseButtonColor
+        button.layer.borderWidth = Block.width * (1 / 16)
+        button.layer.borderColor = UIColor.black.cgColor
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
+        button.tintColor = UIColor.white
+        button.setImage(UIImage(named: "restoreText"), for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.imageEdgeInsets = UIEdgeInsets(top: (pausedButtonHeight - (Block.height * (7 / 16))) / 2, left: Block.width * (0 / 16), bottom: (pausedButtonHeight - (Block.height * (7 / 16))) / 2, right: Block.width * (0 / 16))
+        button.addTarget(self, action: #selector(handleRestore), for: .touchUpInside)
+        button.adjustsImageWhenHighlighted = false
+        button.isHidden = true
+        return button
+    }()
+    
+    @objc func handleRestore() {
+        
+        print("RESTORE")
+        
+        playSound(name: "menu")
+        
+        SKPaymentQueue.default().add(self)
+        SKPaymentQueue.default().restoreCompletedTransactions()
+    }
+    
+    lazy var purchaseButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = purchaseButtonColor
+        button.layer.borderWidth = Block.width * (1 / 16)
+        button.layer.borderColor = UIColor.black.cgColor
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
+        button.tintColor = UIColor.white
+        button.setImage(UIImage(named: "purchaseText"), for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.imageEdgeInsets = UIEdgeInsets(top: (pausedButtonHeight - (Block.height * (7 / 16))) / 2, left: Block.width * (0 / 16), bottom: (pausedButtonHeight - (Block.height * (7 / 16))) / 2, right: Block.width * (0 / 16))
+        button.addTarget(self, action: #selector(handlePurchase), for: .touchUpInside)
+        button.adjustsImageWhenHighlighted = false
+        button.isHidden = true
+        return button
+    }()
+    
+    @objc func handlePurchase() {
+        
+        print("PURCHASE")
+        
+        playSound(name: "menu")
+        
+        purchaseMyProduct(product: iapProducts[0])
+    }
+    
     lazy var resumeButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = pausedButtonColor
@@ -601,7 +914,7 @@ class GameController: UIViewController {
         print("RESUME")
         
         musicPlayer?.play()
-
+        
         playSound(name: "menu")
         
         isPaused = false
@@ -643,11 +956,21 @@ class GameController: UIViewController {
         
         print("RETRY")
         
+//        playSound(name: "menu")
+//
+//        updateGameOverVisibility(isHidden: true)
+//
+//        updateControlVisibility(isHidden: false)
+//
+//        setLevel(level: currentLevel!)
+
         playSound(name: "menu")
         
         updateGameOverVisibility(isHidden: true)
-
+        
         updateControlVisibility(isHidden: false)
+
+        handleSelectedStage(type: currentTrack)
         
         setLevel(level: currentLevel!)
     }
@@ -822,6 +1145,111 @@ class GameController: UIViewController {
         
     }
     
+    lazy var settingsButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.clear
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
+        button.setImage(UIImage(named: "settingsButton"), for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: #selector(handleSettings), for: .touchDown)
+        button.adjustsImageWhenHighlighted = false
+        button.alpha = 0.5
+        button.isHidden = true
+        return button
+    }()
+    
+    @objc func handleSettings() {
+        
+        print("SETTINGS")
+        
+        playSound(name: "menu")
+        
+        updateStageSelectVisibility(isHidden: true)
+        updateSettingsVisibility(isHidden: false)
+    }
+    
+    lazy var settingsView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.black
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = nil
+        // view.isUserInteractionEnabled = true
+        view.isHidden = true
+        return view
+    }()
+    
+    lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.clear
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
+        button.setImage(UIImage(named: "closeButton"), for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: #selector(handleClose), for: .touchDown)
+        button.adjustsImageWhenHighlighted = false
+        button.alpha = 0.5
+        button.isHidden = true
+        return button
+    }()
+    
+    @objc func handleClose() {
+        
+        print("CLOSE")
+        
+        playSound(name: "menu")
+        
+        updateSettingsVisibility(isHidden: true)
+        updateStageSelectVisibility(isHidden: false)
+    }
+    
+    var opacityTextView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+        view.image = UIImage(named: "opacityText")
+        view.isHidden = true
+        return view
+    }()
+    
+    lazy var buyButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = settingsButtonColor
+        button.layer.borderWidth = Block.width * (1 / 16)
+        button.layer.borderColor = UIColor.black.cgColor
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
+        button.tintColor = UIColor.white
+        button.setImage(UIImage(named: "buyText"), for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.imageEdgeInsets = UIEdgeInsets(top: (settingsButtonHeight - (Block.height * (24 / 16))) / 2, left: Block.width * (0 / 16), bottom: (settingsButtonHeight - (Block.height * (24 / 16))) / 2, right: Block.width * (0 / 16))
+        button.addTarget(self, action: #selector(handleBuy), for: .touchUpInside)
+        button.adjustsImageWhenHighlighted = false
+        button.isHidden = true
+        return button
+    }()
+    
+    @objc func handleBuy() {
+        
+        print("BUY")
+        
+        playSound(name: "menu")
+        
+        updatePurchaseVisibility(isHidden: true)
+        
+        // updatePurchaseVisibility(isHidden: false)
+    }
+    
     //    lazy var pauseButton: UIButton = {
     //        let button = UIButton(type: .system)
     //        button.backgroundColor = mainButtonColor
@@ -864,6 +1292,7 @@ class GameController: UIViewController {
         button.addTarget(self, action: #selector(handlePause), for: .touchDown)
         button.adjustsImageWhenHighlighted = false
         button.alpha = 0.5
+        button.isHidden = true
         return button
     }()
     
@@ -884,7 +1313,7 @@ class GameController: UIViewController {
             playSound(name: "menu")
             
             updatePausedVisibility(isHidden: false)
-
+            
         } else {
             
         }
@@ -902,6 +1331,53 @@ class GameController: UIViewController {
         for enemy in selectedEnemies {
             enemy.handlePause()
         }
+    }
+    
+    lazy var muteButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.clear
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = UIView.ContentMode.scaleAspectFit
+        button.imageView?.layer.magnificationFilter = CALayerContentsFilter.nearest
+        button.setImage(UIImage(named: "isMutedButton"), for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: #selector(handleMute), for: .touchDown)
+        button.adjustsImageWhenHighlighted = false
+        button.alpha = 0.5
+        button.isHidden = true
+        return button
+    }()
+    
+    @objc func handleMute() {
+        
+        if isMusicMuted == false {
+            
+            musicPlayer?.stop()
+            
+            for soundPlayer in players {
+                
+                soundPlayer?.stop()
+            }
+            
+            players.removeAll()
+            
+            isMusicMuted = true
+            isSoundMuted = true
+            
+            muteButton.setImage(UIImage(named: "isMutedButton"), for: .normal)
+            
+        } else {
+            
+            isMusicMuted = false
+            isSoundMuted = false
+            
+            playSound(name: "menu")
+            
+            muteButton.setImage(UIImage(named: "isNotMutedButton"), for: .normal)
+        }
+        
+        saveMutedSettings()
     }
     
     //    lazy var weaponLeftButton: UIButton = {
@@ -1162,6 +1638,8 @@ class GameController: UIViewController {
     
     func updateStageSelectVisibility(isHidden: Bool) {
         
+        settingsButton.isHidden = isHidden
+        
         stageSelectView.isHidden = isHidden
         stageSelectTitleView.isHidden = isHidden
         topPipeStageSelectView.isHidden = isHidden
@@ -1180,6 +1658,33 @@ class GameController: UIViewController {
         for i in 0 ..< completedStageSelectTiles.count {
             completedStageSelectTiles[i].isHidden = isHidden
         }
+        
+        for i in 0 ..< lockedStageSelectTiles.count {
+            lockedStageSelectTiles[i].isHidden = isHidden
+        }
+    }
+    
+    func updateSettingsVisibility(isHidden: Bool) {
+        
+        settingsView.isHidden = isHidden
+        closeButton.isHidden = isHidden
+        muteButton.isHidden = isHidden
+        opacityTextView.isHidden = isHidden
+        // opacitySlider.isHidden = isHidden
+        buyButton.isHidden = isHidden
+    }
+    
+    func updateLoadingVisibility(isHidden: Bool) {
+        
+        loadingView.isHidden = isHidden
+    }
+    
+    func updatePurchaseVisibility(isHidden: Bool) {
+        
+        purchaseView.isHidden = isHidden
+        restoreButton.isHidden = isHidden
+        purchaseButton.isHidden = isHidden
+        cancelButton.isHidden = isHidden
     }
     
     func updateTitleVisibility(isHidden: Bool) {
@@ -1222,6 +1727,8 @@ class GameController: UIViewController {
     }
     
     func updatePausedVisibility(isHidden: Bool) {
+        
+        // muteButton.isHidden = isHidden
         
         resumeButton.isHidden = isHidden
         retryButton.isHidden = isHidden
@@ -1272,8 +1779,116 @@ class GameController: UIViewController {
             completedLevels = savedCompletedLevels as! [Bool]
         }
         
-        completedLevels = [true, true, true, true, true, true, true, true]
-//        completedLevels = [false, false, false, false, false, false, false, false]
+        // completedLevels = [true, true, true, true, true, true, true, true]
+        completedLevels = [false, false, false, false, false, false, false, false]
+    }
+    
+    func saveMutedSettings() {
+        
+        let tempDefault1 = UserDefaults.standard
+        
+        tempDefault1.setValue(isMusicMuted, forKey: "isMusicMuted")
+        tempDefault1.synchronize()
+        
+        let tempDefault2 = UserDefaults.standard
+        
+        tempDefault2.setValue(isSoundMuted, forKey: "isSoundMuted")
+        tempDefault2.synchronize()
+    }
+    
+    func loadMutedSettings() {
+        
+        let tempDefault1 = UserDefaults.standard
+        
+        if let savedIsMusicMuted = tempDefault1.value(forKey: "isMusicMuted") {
+            isMusicMuted = savedIsMusicMuted as! Bool
+        }
+        
+        let tempDefault2 = UserDefaults.standard
+        
+        if let savedIsSoundMuted = tempDefault2.value(forKey: "isSoundMuted") {
+            isSoundMuted = savedIsSoundMuted as! Bool
+        }
+        
+//        handleMute()
+//        handleMute()
+        
+        if isMusicMuted == false {
+            
+            musicPlayer?.stop()
+            
+            for soundPlayer in players {
+                
+                soundPlayer?.stop()
+            }
+            
+            players.removeAll()
+            
+            isMusicMuted = true
+            isSoundMuted = true
+            
+            muteButton.setImage(UIImage(named: "isMutedButton"), for: .normal)
+            
+        } else {
+            
+            isMusicMuted = false
+            isSoundMuted = false
+            
+            muteButton.setImage(UIImage(named: "isNotMutedButton"), for: .normal)
+        }
+        
+        saveMutedSettings()
+    }
+    
+    func handleSelectedStage(type: String) {
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // BACKUP PLAN
+        
+        // loadLevels()
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // musicPlayer?.stop()
+        
+        updateStageSelectVisibility(isHidden: true)
+        updateLoadingVisibility(isHidden: false)
+        
+        currentTrack = type
+        
+        loadingTimer.invalidate()
+        
+        loadingTimer = Timer.scheduledTimer(timeInterval: TimeInterval(loadingTimeInterval), target: self, selector: #selector(handleLoaded), userInfo: nil, repeats: false)
     }
     
     func createCompletedStageViews() {
@@ -1434,9 +2049,199 @@ class GameController: UIViewController {
         }
     }
     
+    func createLockedStageViews() {
+        
+        lockedStageSelectTiles.removeAll()
+        
+        for i in 0 ..< completedLevels.count {
+            
+            let imageView: UIImageView = UIImageView()
+            
+            imageView.backgroundColor = UIColor.clear
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .scaleAspectFill
+            imageView.layer.magnificationFilter = CALayerContentsFilter.nearest
+            imageView.image = UIImage(named: "lockedStageSelectTile")
+            imageView.isUserInteractionEnabled = true
+            imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLockedView)))
+            imageView.isHidden = false
+            
+            imageView.frame.size.width = brickStageView.frame.size.width
+            imageView.frame.size.height = brickStageView.frame.size.height
+            
+            if i == 0 {
+                
+                imageView.frame.origin.x = iceStageView.frame.origin.x
+                imageView.frame.origin.y = iceStageView.frame.origin.y
+                
+            } else if i == 1 {
+                
+                imageView.frame.origin.x = fireStageView.frame.origin.x
+                imageView.frame.origin.y = fireStageView.frame.origin.y
+                
+            } else if i == 2 {
+                
+                imageView.frame.origin.x = snowStageView.frame.origin.x
+                imageView.frame.origin.y = snowStageView.frame.origin.y
+                
+            } else if i == 3 {
+                
+                imageView.frame.origin.x = waterStageView.frame.origin.x
+                imageView.frame.origin.y = waterStageView.frame.origin.y
+                
+            } else if i == 4 {
+                
+                imageView.frame.origin.x = skyStageView.frame.origin.x
+                imageView.frame.origin.y = skyStageView.frame.origin.y
+                
+            } else if i == 5 {
+                
+                imageView.frame.origin.x = metalStageView.frame.origin.x
+                imageView.frame.origin.y = metalStageView.frame.origin.y
+                
+            } else if i == 6 {
+                
+                imageView.frame.origin.x = sandStageView.frame.origin.x
+                imageView.frame.origin.y = sandStageView.frame.origin.y
+                
+            } else if i == 7 {
+                
+                imageView.frame.origin.x = centerStageView.frame.origin.x
+                imageView.frame.origin.y = centerStageView.frame.origin.y
+            }
+            
+            lockedStageSelectTiles.append(imageView)
+            
+            view.addSubview(lockedStageSelectTiles[lockedStageSelectTiles.count - 1])
+        }
+    }
+    
+    func setupLockedStageViews() {
+        
+        for i in 0 ..< lockedStageSelectTiles.count {
+            
+            lockedStageSelectTiles[i].frame.size.width = brickStageView.frame.size.width
+            lockedStageSelectTiles[i].frame.size.height = brickStageView.frame.size.height
+            
+            if i == 0 {
+                
+                lockedStageSelectTiles[i].frame.origin.x = iceStageView.frame.origin.x
+                lockedStageSelectTiles[i].frame.origin.y = iceStageView.frame.origin.y
+                
+            } else if i == 1 {
+                
+                lockedStageSelectTiles[i].frame.origin.x = fireStageView.frame.origin.x
+                lockedStageSelectTiles[i].frame.origin.y = fireStageView.frame.origin.y
+                
+            } else if i == 2 {
+                
+                lockedStageSelectTiles[i].frame.origin.x = snowStageView.frame.origin.x
+                lockedStageSelectTiles[i].frame.origin.y = snowStageView.frame.origin.y
+                
+            } else if i == 3 {
+                
+                lockedStageSelectTiles[i].frame.origin.x = waterStageView.frame.origin.x
+                lockedStageSelectTiles[i].frame.origin.y = waterStageView.frame.origin.y
+                
+            } else if i == 4 {
+                
+                lockedStageSelectTiles[i].frame.origin.x = skyStageView.frame.origin.x
+                lockedStageSelectTiles[i].frame.origin.y = skyStageView.frame.origin.y
+                
+            } else if i == 5 {
+                
+                lockedStageSelectTiles[i].frame.origin.x = metalStageView.frame.origin.x
+                lockedStageSelectTiles[i].frame.origin.y = metalStageView.frame.origin.y
+                
+            } else if i == 6 {
+                
+                lockedStageSelectTiles[i].frame.origin.x = sandStageView.frame.origin.x
+                lockedStageSelectTiles[i].frame.origin.y = sandStageView.frame.origin.y
+                
+            } else if i == 7 {
+                
+                lockedStageSelectTiles[i].frame.origin.x = centerStageView.frame.origin.x
+                lockedStageSelectTiles[i].frame.origin.y = centerStageView.frame.origin.y
+            }
+        }
+        
+    }
+    
+    func updateLockedStageViews() {
+        
+        for i in 0 ..< completedLevels.count {
+            
+            if didPurchaseFullGame == true {
+                
+                //                lockedStageSelectTiles[i].isHidden = true
+                lockedStageSelectTiles[i].alpha = 0
+                
+                lockedStageSelectTiles[i].isUserInteractionEnabled = false
+                
+            } else {
+                
+                //                lockedStageSelectTiles[i].isHidden = false
+                lockedStageSelectTiles[i].alpha = 1
+                
+                lockedStageSelectTiles[i].isUserInteractionEnabled = true
+            }
+        }
+        
+    }
+    
+    @objc func handleLockedView() {
+        
+        updatePurchaseVisibility(isHidden: false)
+    }
+    
+    @objc func handleLoaded() {
+        
+        loadingTimer.invalidate()
+        
+        playTrack(track: currentTrack)
+        
+        updateLoadingVisibility(isHidden: true)
+        updateControlVisibility(isHidden: false)
+    }
+    
+    func loadDidPurchaseFullGame() {
+        
+        let didPurchaseFullGameDefault = UserDefaults.standard
+        
+        if let savedDidPurchaseFullGame = didPurchaseFullGameDefault.value(forKey: "didPurchaseFullGame") {
+            didPurchaseFullGame = savedDidPurchaseFullGame as! Bool
+        }
+        
+        //        didRemoveAds = true
+        
+        if didPurchaseFullGame == true {
+            // removeAdsButton.isHidden = true
+        }
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        fetchAvailableProducts()
+        
+        loadDidPurchaseFullGame()
+        
+        if didPurchaseFullGame == true {
+            
+            // adViewHolder.isHidden = true
+            // adView.isHidden = true
+            
+        } else {
+            
+            // let request = GADRequest()
+            
+            // request.testDevices = [kGADSimulatorID]
+            
+            // adView.load(request)
+        }
+        
+        loadMutedSettings()
         
         //        startTitleTextTimer = Timer.scheduledTimer(timeInterval: 1 / 120, target: self, selector: #selector(updateStartTitleTextOpacity), userInfo: nil, repeats: true)
         
@@ -1490,9 +2295,20 @@ class GameController: UIViewController {
         view.addSubview(waterStageView)
         view.addSubview(sandStageView)
         
+        view.addSubview(settingsButton)
+        view.addSubview(settingsView)
+        view.addSubview(closeButton)
+        view.addSubview(muteButton)
+        view.addSubview(opacityTextView)
+        // view.addSubview(opacitySlider)
+        view.addSubview(buyButton)
+        
         createCompletedStageViews()
+        createLockedStageViews()
         
         view.addSubview(gameOverView)
+        
+        // view.addSubview(muteButton)
         
         view.addSubview(resumeButton)
         view.addSubview(retryButton)
@@ -1505,13 +2321,25 @@ class GameController: UIViewController {
         view.addSubview(copyrightTextView)
         view.addSubview(startTitleTextView)
         
+        view.addSubview(purchaseView)
+        view.addSubview(restoreButton)
+        view.addSubview(purchaseButton)
+        view.addSubview(cancelButton)
+        
+        view.addSubview(loadingView)
+        
         setupPausedTextView()
+        // setupMuteButton()
         setupResumeButton()
         setupRetryButton()
         setupQuitButton()
         setupGameOverView()
         setupCongratulationsView()
         setupTitleView()
+        setupPurchaseView()
+        setupRestoreButton()
+        setupPurchaseButton()
+        setupCancelButton()
         setupStageSelectView()
         setupGameView()
         setupLeftCoverView()
@@ -1519,6 +2347,17 @@ class GameController: UIViewController {
         setupJumpButton()
         setupShootButton()
         setupPauseButton()
+        
+        setupSettingsButton()
+        setupSettingsView()
+        setupCloseButton()
+        setupMuteButton()
+        setupOpacityTextView()
+        // setupOpacitySlider()
+        setupBuyButton()
+        
+        setupLoadingView()
+
         setupWeaponLeftButton()
         setupWeaponRightButton()
         setupLeftButton()
@@ -1536,6 +2375,66 @@ class GameController: UIViewController {
         pausedTextView.centerYAnchor.constraint(equalTo: gameView.centerYAnchor).isActive = true
         pausedTextView.widthAnchor.constraint(equalToConstant: Block.width * (47 / 16)).isActive = true
         pausedTextView.heightAnchor.constraint(equalToConstant: Block.height * (7 / 16)).isActive = true
+    }
+    
+    func setupSettingsButton() {
+        settingsButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -settingsButtonSpacing1).isActive = true
+        settingsButton.topAnchor.constraint(equalTo: view.topAnchor, constant: settingsButtonSpacing1).isActive = true
+        settingsButton.widthAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
+        settingsButton.heightAnchor.constraint(equalTo: pauseButton.heightAnchor).isActive = true
+    }
+    
+    func setupSettingsView() {
+        settingsView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
+        settingsView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
+        settingsView.widthAnchor.constraint(equalTo: titleView.widthAnchor).isActive = true
+        settingsView.heightAnchor.constraint(equalTo: titleView.heightAnchor).isActive = true
+    }
+    
+    func setupCloseButton() {
+        closeButton.centerXAnchor.constraint(equalTo: settingsButton.centerXAnchor).isActive = true
+        closeButton.centerYAnchor.constraint(equalTo: settingsButton.centerYAnchor).isActive = true
+        closeButton.widthAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
+        closeButton.heightAnchor.constraint(equalTo: pauseButton.heightAnchor).isActive = true
+    }
+    
+    /*
+     func setupMuteButton() {
+     muteButton.topAnchor.constraint(equalTo: view.topAnchor, constant: mainButtonSpacing).isActive = true
+     muteButton.widthAnchor.constraint(equalToConstant: Block.width * (49 / 16)).isActive = true
+     muteButton.heightAnchor.constraint(equalTo: muteButton.widthAnchor).isActive = true
+     muteButton.centerXAnchor.constraint(equalTo: jumpButton.centerXAnchor).isActive = true
+     }
+     */
+    
+    /*
+     func setupMuteButton() {
+     muteButton.centerXAnchor.constraint(equalTo: pauseButton.centerXAnchor).isActive = true
+     muteButton.centerYAnchor.constraint(equalTo: pauseButton.centerYAnchor).isActive = true
+     muteButton.widthAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
+     muteButton.heightAnchor.constraint(equalTo: pauseButton.heightAnchor).isActive = true
+     }
+     */
+    
+    func setupMuteButton() {
+        muteButton.centerXAnchor.constraint(equalTo: closeButton.centerXAnchor).isActive = true
+        muteButton.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: settingsButtonSpacing1).isActive = true
+        muteButton.widthAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
+        muteButton.heightAnchor.constraint(equalTo: pauseButton.heightAnchor).isActive = true
+    }
+    
+    func setupOpacityTextView() {
+        opacityTextView.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
+        opacityTextView.topAnchor.constraint(equalTo: gameView.topAnchor, constant: settingsButtonSpacing2).isActive = true
+        opacityTextView.widthAnchor.constraint(equalToConstant: Block.width * (111 / 16)).isActive = true
+        opacityTextView.heightAnchor.constraint(equalToConstant: Block.height * (7 / 16)).isActive = true
+    }
+    
+    func setupBuyButton() {
+        buyButton.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
+        buyButton.bottomAnchor.constraint(equalTo: gameView.bottomAnchor, constant: -settingsButtonSpacing2).isActive = true
+        buyButton.widthAnchor.constraint(equalToConstant: settingsButtonWidth).isActive = true
+        buyButton.heightAnchor.constraint(equalToConstant: settingsButtonHeight).isActive = true
     }
     
     func setupResumeButton() {
@@ -1578,6 +2477,42 @@ class GameController: UIViewController {
         titleView.centerYAnchor.constraint(equalTo: gameView.centerYAnchor).isActive = true
         titleView.widthAnchor.constraint(equalTo: gameView.widthAnchor).isActive = true
         titleView.heightAnchor.constraint(equalTo: gameView.heightAnchor).isActive = true
+    }
+    
+    func setupPurchaseView() {
+        purchaseView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        purchaseView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        purchaseView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        purchaseView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+    }
+    
+    func setupRestoreButton() {
+        restoreButton.rightAnchor.constraint(equalTo: purchaseView.centerXAnchor, constant: -purchaseButtonSpacing / 2).isActive = true
+        restoreButton.bottomAnchor.constraint(equalTo: purchaseView.bottomAnchor, constant: -purchaseButtonSpacing).isActive = true
+        restoreButton.widthAnchor.constraint(equalToConstant: purchaseButtonWidth).isActive = true
+        restoreButton.heightAnchor.constraint(equalToConstant: purchaseButtonHeight).isActive = true
+    }
+    
+    func setupPurchaseButton() {
+        purchaseButton.leftAnchor.constraint(equalTo: purchaseView.centerXAnchor, constant: purchaseButtonSpacing).isActive = true
+        purchaseButton.centerYAnchor.constraint(equalTo: restoreButton.centerYAnchor).isActive = true
+        purchaseButton.widthAnchor.constraint(equalTo: restoreButton.widthAnchor).isActive = true
+        purchaseButton.heightAnchor.constraint(equalTo: restoreButton.heightAnchor).isActive = true
+    }
+    
+//    func setupCancelButton() {
+//        // cancelButton.widthAnchor.constraint(equalToConstant: Block.width * (49 / 16)).isActive = true
+//        cancelButton.widthAnchor.constraint(equalToConstant: Block.width * (40 / 16)).isActive = true
+//        cancelButton.heightAnchor.constraint(equalTo: cancelButton.widthAnchor).isActive = true
+//        cancelButton.rightAnchor.constraint(equalTo: purchaseView.rightAnchor, constant: -cancelButtonSpacing).isActive = true
+//        cancelButton.topAnchor.constraint(equalTo: purchaseView.topAnchor, constant: cancelButtonSpacing).isActive = true
+//    }
+
+    func setupCancelButton() {
+        cancelButton.widthAnchor.constraint(equalToConstant: Block.width * (49 / 16)).isActive = true
+        cancelButton.heightAnchor.constraint(equalTo: cancelButton.widthAnchor).isActive = true
+        cancelButton.centerXAnchor.constraint(equalTo: closeButton.centerXAnchor).isActive = true
+        cancelButton.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor).isActive = true
     }
     
     func setupStageSelectView() {
@@ -1643,22 +2578,36 @@ class GameController: UIViewController {
     //        pauseButton.centerXAnchor.constraint(equalTo: jumpButton.centerXAnchor).isActive = true
     //    }
     
+//    func setupPauseButton() {
+//        pauseButton.topAnchor.constraint(equalTo: view.topAnchor, constant: mainButtonSpacing).isActive = true
+//        pauseButton.widthAnchor.constraint(equalToConstant: Block.width * (49 / 16)).isActive = true
+//        pauseButton.heightAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
+//        pauseButton.centerXAnchor.constraint(equalTo: jumpButton.centerXAnchor).isActive = true
+//    }
+
     func setupPauseButton() {
-        pauseButton.topAnchor.constraint(equalTo: view.topAnchor, constant: mainButtonSpacing).isActive = true
+        pauseButton.topAnchor.constraint(equalTo: view.topAnchor, constant: pausedButtonSpacing).isActive = true
         pauseButton.widthAnchor.constraint(equalToConstant: Block.width * (49 / 16)).isActive = true
         pauseButton.heightAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
-        pauseButton.centerXAnchor.constraint(equalTo: jumpButton.centerXAnchor).isActive = true
+        pauseButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -pausedButtonSpacing).isActive = true
+    }
+    
+    func setupLoadingView() {
+        loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        loadingView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        loadingView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
     
     func setupWeaponLeftButton() {
-        weaponLeftButton.topAnchor.constraint(equalTo: view.topAnchor, constant: mainButtonSpacing).isActive = true
+        weaponLeftButton.topAnchor.constraint(equalTo: view.topAnchor, constant: weaponButtonSpacing).isActive = true
         weaponLeftButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         weaponLeftButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
-        weaponLeftButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: mainButtonSpacing).isActive = true
+        weaponLeftButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: mainButtonSpacing).isActive = true
     }
     
     func setupWeaponRightButton() {
-        weaponRightButton.topAnchor.constraint(equalTo: weaponLeftButton.bottomAnchor, constant: mainButtonSpacing / 2).isActive = true
+        weaponRightButton.topAnchor.constraint(equalTo: weaponLeftButton.bottomAnchor, constant: weaponButtonSpacing).isActive = true
         weaponRightButton.widthAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
         weaponRightButton.heightAnchor.constraint(equalTo: pauseButton.heightAnchor).isActive = true
         weaponRightButton.centerXAnchor.constraint(equalTo: weaponLeftButton.centerXAnchor).isActive = true
@@ -1726,6 +2675,9 @@ class GameController: UIViewController {
         
         setupCompletedStageViews()
         updateCompletedStageViews()
+        
+        setupLockedStageViews()
+        updateLockedStageViews()
         
         setupTitleLogoView()
         setupCopyrightTextView()
@@ -1809,8 +2761,8 @@ class GameController: UIViewController {
         let verticalSpacing: CGFloat = (Block.height * (96 / 16) - (stageSelectTitleView.frame.size.height + stageSelectTitleView.frame.origin.y)) / 4
         //        let verticalSpacing: CGFloat = (240 - (Block.height * (7 / 16) + Block.height * 1)) / 4
         
-//        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: centerStageView)
-        setWidthHeight(width: Block.width * (64 / 16), height: Block.height * (48 / 16), imageView: centerStageView)
+        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: centerStageView)
+        // setWidthHeight(width: Block.width * (64 / 16), height: Block.height * (48 / 16), imageView: centerStageView)
         setXY(x: stageSelectView.frame.origin.x + (stageSelectView.frame.size.width / 2), y: 0, imageView: centerStageView, isCentered: true)
         setXY(x: centerStageView.frame.origin.x, y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 2) + Block.width * (48 / 16), imageView: centerStageView, isCentered: false)
     }
@@ -1875,155 +2827,158 @@ class GameController: UIViewController {
     
     // MUSIC FUNCTIONS
     
-//    @objc func playMusic() {
-//
-//        //        if isMusicMuted == false {
-//
-//        let track: String = currentTrack
-//
-//        let url = Bundle.main.url(forResource: track, withExtension: "mp3")!
-//
-//        do {
-//
-//            musicPlayer = try AVAudioPlayer(contentsOf: url)
-//
-//            guard let musicPlayer = musicPlayer else { return }
-//
-//            var volume: Float = 0
-//
-//            if track == "brick" {
-//                volume = 0.5
-//            } else if track == "sky" {
-//                volume = 0.5
-//            } else if track == "fire" {
-//                volume = 0.5
-//            } else if track == "snow" {
-//                volume = 0.5
-//            } else if track == "water" {
-//                volume = 0.5
-//            } else if track == "metal" {
-//                volume = 0.5
-//            } else if track == "sand" {
-//                volume = 0.5
-//            } else if track == "ice" {
-//                volume = 0.5
-//            } else if track == "chemical" {
-//                volume = 0.5
-//            } else if track == "congratulations" {
-//                volume = 0.5
-//            } else if track == "stageSelect" {
-//                volume = 0.5
-//            } else {
-//                print("-- PLAY TRACK ERROR --")
-//            }
-//
-//            musicPlayer.volume = volume
-//
-//            musicPlayer.numberOfLoops = -1
-//
-//            musicPlayer.prepareToPlay()
-//            musicPlayer.play()
-//
-//        } catch let error as NSError {
-//            print(error.description)
-//        }
-//
-//        //        }
-//    }
+    //    @objc func playMusic() {
+    //
+    //        //        if isMusicMuted == false {
+    //
+    //        let track: String = currentTrack
+    //
+    //        let url = Bundle.main.url(forResource: track, withExtension: "mp3")!
+    //
+    //        do {
+    //
+    //            musicPlayer = try AVAudioPlayer(contentsOf: url)
+    //
+    //            guard let musicPlayer = musicPlayer else { return }
+    //
+    //            var volume: Float = 0
+    //
+    //            if track == "brick" {
+    //                volume = 0.5
+    //            } else if track == "sky" {
+    //                volume = 0.5
+    //            } else if track == "fire" {
+    //                volume = 0.5
+    //            } else if track == "snow" {
+    //                volume = 0.5
+    //            } else if track == "water" {
+    //                volume = 0.5
+    //            } else if track == "metal" {
+    //                volume = 0.5
+    //            } else if track == "sand" {
+    //                volume = 0.5
+    //            } else if track == "ice" {
+    //                volume = 0.5
+    //            } else if track == "chemical" {
+    //                volume = 0.5
+    //            } else if track == "congratulations" {
+    //                volume = 0.5
+    //            } else if track == "stageSelect" {
+    //                volume = 0.5
+    //            } else {
+    //                print("-- PLAY TRACK ERROR --")
+    //            }
+    //
+    //            musicPlayer.volume = volume
+    //
+    //            musicPlayer.numberOfLoops = -1
+    //
+    //            musicPlayer.prepareToPlay()
+    //            musicPlayer.play()
+    //
+    //        } catch let error as NSError {
+    //            print(error.description)
+    //        }
+    //
+    //        //        }
+    //    }
     
-//    func playTrack(track: String) {
-//
-//        musicPlayer?.stop()
-//
-//        currentTrack = track
-//
-//        playMusic()
-//
-//        var time: Double = 0
-//
-//        if track == "brick" {
-//            time = 123
-//        } else if track == "sky" {
-//            time = 210
-//        } else if track == "fire" {
-//            time = 266
-//        } else if track == "snow" {
-//            time = 210
-//        } else if track == "water" {
-//            time = 266
-//        } else if track == "metal" {
-//            time = 210
-//        } else if track == "sand" {
-//            time = 266
-//        } else if track == "ice" {
-//            time = 210
-//        } else if track == "chemical" {
-//            time = 266
-//        } else if track == "congratulations" {
-//            time = 210
-//        } else if track == "stageSelect" {
-//            time = 266
-//        } else {
-//            print("-- PLAY TRACK ERROR --")
-//        }
-//
-////        if isMusicMuted == true {
-//
-////            musicPlayer?.pause()
-////
-////            musicTimer.invalidate()
-////        }
-//    }
+    //    func playTrack(track: String) {
+    //
+    //        musicPlayer?.stop()
+    //
+    //        currentTrack = track
+    //
+    //        playMusic()
+    //
+    //        var time: Double = 0
+    //
+    //        if track == "brick" {
+    //            time = 123
+    //        } else if track == "sky" {
+    //            time = 210
+    //        } else if track == "fire" {
+    //            time = 266
+    //        } else if track == "snow" {
+    //            time = 210
+    //        } else if track == "water" {
+    //            time = 266
+    //        } else if track == "metal" {
+    //            time = 210
+    //        } else if track == "sand" {
+    //            time = 266
+    //        } else if track == "ice" {
+    //            time = 210
+    //        } else if track == "chemical" {
+    //            time = 266
+    //        } else if track == "congratulations" {
+    //            time = 210
+    //        } else if track == "stageSelect" {
+    //            time = 266
+    //        } else {
+    //            print("-- PLAY TRACK ERROR --")
+    //        }
+    //
+    ////        if isMusicMuted == true {
+    //
+    ////            musicPlayer?.pause()
+    ////
+    ////            musicTimer.invalidate()
+    ////        }
+    //    }
     
     func playTrack(track: String) {
         
-        musicPlayer?.stop()
-        
-        let url = Bundle.main.url(forResource: track, withExtension: "mp3")!
-        
-        do {
+        if isMusicMuted == false {
             
-            musicPlayer = try AVAudioPlayer(contentsOf: url)
+            musicPlayer?.stop()
             
-            guard let musicPlayer = musicPlayer else { return }
+            let url = Bundle.main.url(forResource: track, withExtension: "mp3")!
             
-            var volume: Float = 0
-            
-            if track == "brick" {
-                volume = 0.5
-            } else if track == "sky" {
-                volume = 0.5
-            } else if track == "fire" {
-                volume = 0.5
-            } else if track == "snow" {
-                volume = 0.5
-            } else if track == "water" {
-                volume = 0.5
-            } else if track == "metal" {
-                volume = 0.5
-            } else if track == "sand" {
-                volume = 0.5
-            } else if track == "ice" {
-                volume = 0.5
-            } else if track == "chemical" {
-                volume = 0.5
-            } else if track == "congratulations" {
-                volume = 0.5
-            } else if track == "stageSelect" {
-                volume = 0.5
-            } else {
-                print("-- PLAY TRACK ERROR --")
+            do {
+                
+                musicPlayer = try AVAudioPlayer(contentsOf: url)
+                
+                guard let musicPlayer = musicPlayer else { return }
+                
+                var volume: Float = 0
+                
+                if track == "brick" {
+                    volume = 0.5
+                } else if track == "sky" {
+                    volume = 0.5
+                } else if track == "fire" {
+                    volume = 0.5
+                } else if track == "snow" {
+                    volume = 0.5
+                } else if track == "water" {
+                    volume = 0.5
+                } else if track == "metal" {
+                    volume = 0.5
+                } else if track == "sand" {
+                    volume = 0.5
+                } else if track == "ice" {
+                    volume = 0.5
+                } else if track == "chemical" {
+                    volume = 0.5
+                } else if track == "congratulations" {
+                    volume = 0.5
+                } else if track == "stageSelect" {
+                    volume = 0.5
+                } else {
+                    print("-- PLAY TRACK ERROR --")
+                }
+                
+                musicPlayer.volume = volume
+                
+                musicPlayer.numberOfLoops = -1
+                
+                musicPlayer.prepareToPlay()
+                musicPlayer.play()
+                
+            } catch let error as NSError {
+                print(error.description)
             }
-            
-            musicPlayer.volume = volume
-            
-            musicPlayer.numberOfLoops = -1
-            
-            musicPlayer.prepareToPlay()
-            musicPlayer.play()
-            
-        } catch let error as NSError {
-            print(error.description)
         }
     }
     

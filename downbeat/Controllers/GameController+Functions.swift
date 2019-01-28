@@ -21,6 +21,22 @@ extension GameController {
             player.isMovingUp = false
             player.isMovingDown = false
             
+            if player.isGameOver() == true {
+                
+                player.isMovingDown = false
+                
+                player.isMovingUp = false
+                
+                player.isMoving = false
+                player.isMovingLeft = false
+                player.isMovingRight = false
+                
+                isLeftPressed = false
+                isRightPressed = false
+                isUpPressed = false
+                isDownPressed = false
+            }
+            
             if player.ySpeed < 0 {
                 
                 player.isMovingUp = true
@@ -304,8 +320,19 @@ extension GameController {
             
             for i in 0 ..< explosions.count {
                 
-                if explosions[i].view.isAnimating == false {
-                    explosionsToRemove.append(i)
+                if explosions[i].type == "death" {
+                    
+                    explosions[i].move()
+                    
+                    if explosions[i].isInBounds() == false {
+                        explosionsToRemove.append(i)
+                    }
+                    
+                } else {
+                    
+                    if explosions[i].view.isAnimating == false {
+                        explosionsToRemove.append(i)
+                    }
                 }
             }
             
@@ -530,7 +557,14 @@ extension GameController {
                             
                             if selectedEnemies[i].type == "brickBoss" {
                                 
-                                completedLevels[7] = true
+                                if didPurchaseFullGame == true {
+                                    
+                                    completedLevels[7] = true
+                                    
+                                } else {
+                                    
+                                    updatePurchaseVisibility(isHidden: false)
+                                }
                                 
                             } else if selectedEnemies[i].type == "fireBoss" {
                                 
@@ -564,7 +598,7 @@ extension GameController {
                             if selectedEnemies[i].type == "chemicalBoss" {
                                 
                                 print("YOU WIN")
-
+                                
                                 player.reset()
                                 
                                 handlePause()
@@ -574,7 +608,7 @@ extension GameController {
                                 updateStageSelectVisibility(isHidden: true)
                                 updateControlVisibility(isHidden: true)
                                 updateCongratulationsVisibility(isHidden: false)
-
+                                
                             } else {
                                 
                                 saveCompletedLevels()
@@ -620,21 +654,96 @@ extension GameController {
         
         if player.isGameOver() == true {
             
-            print("1 2 3")
             
-//            handleQuit()
             
-            player.reset()
             
-//            handlePause()
             
-            updatePausedVisibility(isHidden: true)
+            
+            
+            
+            if deathTimer.isValid == false {
+                
+                print("3 2 1")
+                
+                updateControlVisibility(isHidden: true)
 
-            updateStageSelectVisibility(isHidden: true)
-            updateControlVisibility(isHidden: true)
-            updateGameOverVisibility(isHidden: false)
+                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: -1, ySpeedMultiplier: -1, type: "death"))
+                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: 1, ySpeedMultiplier: -1, type: "death"))
+                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: -1, ySpeedMultiplier: 1, type: "death"))
+                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: 1, ySpeedMultiplier: 1, type: "death"))
+                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: 0, ySpeedMultiplier: -1, type: "death"))
+                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: 0, ySpeedMultiplier: 1, type: "death"))
+                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: 1, ySpeedMultiplier: 0, type: "death"))
+                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: -1, ySpeedMultiplier: 0, type: "death"))
+                
+                deathTimer.invalidate()
+                
+                deathTimer = Timer.scheduledTimer(timeInterval: TimeInterval(deathTimeInterval), target: self, selector: #selector(handleDeath), userInfo: nil, repeats: false)
+            }
             
-            handlePause()
+            
+            
+            
+            
+            
+            
+            
+            /*
+             
+             print("1 2 3")
+             
+             //            handleQuit()
+             
+             player.reset()
+             
+             //            handlePause()
+             
+             updatePausedVisibility(isHidden: true)
+             
+             updateStageSelectVisibility(isHidden: true)
+             updateControlVisibility(isHidden: true)
+             updateGameOverVisibility(isHidden: false)
+             
+             handlePause()
+             
+             */
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+    }
+    
+    @objc func handleDeath() {
+        
+        deathTimer.invalidate()
+        
+        print("1 2 3")
+        
+        //            handleQuit()
+        
+        player.reset()
+        
+        //            handlePause()
+        
+        updatePausedVisibility(isHidden: true)
+        
+        updateStageSelectVisibility(isHidden: true)
+        updateControlVisibility(isHidden: true)
+        updateGameOverVisibility(isHidden: false)
+        
+        handlePause()
+        
+        if didPurchaseFullGame == false {
+            
+            updatePurchaseVisibility(isHidden: false)
         }
     }
     
@@ -1077,7 +1186,7 @@ extension GameController {
             if e.type != "topMaker" {
                 
                 gameView.addSubview(e.view)
-//                gameView.addSubview(e.hitBox)
+                //                gameView.addSubview(e.hitBox)
             }
         }
         
@@ -1098,8 +1207,11 @@ extension GameController {
             gameView.addSubview(d.view)
         }
         
-        gameView.addSubview(player.view)
-        //        gameView.addSubview(player.hitBox)
+        if player.isGameOver() == false {
+            
+            gameView.addSubview(player.view)
+            // gameView.addSubview(player.hitBox)
+        }
         
         gameView.addSubview(player.healthBar.view)
         gameView.addSubview(player.energyBar.view)

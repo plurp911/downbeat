@@ -41,6 +41,12 @@ let mainButtonTextColor = UIColor.white
 let pausedButtonColor = UIColor(red: 25 / 255, green: 175 / 255, blue: 28 / 255, alpha: 1)
 let pausedButtonOtherColor = UIColor(red: 25 / 255, green: 128 / 255, blue: 28 / 255, alpha: 1)
 
+let purchaseButtonColor = UIColor(red: 25 / 255, green: 175 / 255, blue: 28 / 255, alpha: 1)
+let purchaseButtonOtherColor = UIColor(red: 25 / 255, green: 128 / 255, blue: 28 / 255, alpha: 1)
+
+let settingsButtonColor = UIColor(red: 25 / 255, green: 175 / 255, blue: 28 / 255, alpha: 1)
+let settingseButtonOtherColor = UIColor(red: 25 / 255, green: 128 / 255, blue: 28 / 255, alpha: 1)
+
 //let stageSelectViewColor = UIColor(red: 30 / 255, green: 161 / 255, blue: 35 / 255, alpha: 1)
 let stageSelectViewColor = UIColor(red: 25 / 255, green: 128 / 255, blue: 28 / 255, alpha: 1)
 
@@ -79,14 +85,19 @@ let titleViewColor = UIColor(red: 14 / 255, green: 74 / 255, blue: 20 / 255, alp
 
 // VARIABLES
 
-var player1: AVAudioPlayer?
-var player2: AVAudioPlayer?
+// var player1: AVAudioPlayer?
+// var player2: AVAudioPlayer?
 
 var players = [AVAudioPlayer?]()
 
 var musicPlayer: AVAudioPlayer?
 
 //var currentTrack: String = ""
+
+var isMusicMuted: Bool = false
+var isSoundMuted: Bool = false
+
+var didPurchaseFullGame: Bool = false
 
 var levels = [Level]()
 
@@ -343,109 +354,109 @@ public func newVal(oldVal: CGFloat) -> CGFloat {
 
 public func playSound(name: String) {
     
-    //    if isSoundMuted == false {
-    
-    let url = Bundle.main.url(forResource: name, withExtension: "wav")!
-    
-    do {
+    if isSoundMuted == false {
         
-//        player1 = try AVAudioPlayer(contentsOf: url)
-//        guard let player1 = player1 else { return }
-//
-//        player2 = try AVAudioPlayer(contentsOf: url)
-//        guard let player2 = player2 else { return }
-//
-//        var volume: Float = 0
-//
-//        if name == "explosion" {
-//            volume = 0.9
-//        } else if name == "land" {
-//            volume = 0.9
-//        } else if name == "menu" {
-//             volume = 0.9
-//        } else if name == "shoot" {
-//            volume = 0.9
-//        } else {
-//            print("-- PLAY SOUND ERROR --")
-//        }
-//
-//        print("PLAYYINGGGGG")
-//
-//        if player1.isPlaying == false {
-//
-//            print("888888888888")
-//
-////            player1.stop()
-//
-//            player1.volume = volume
-//
-//            player1.prepareToPlay()
-//            player1.play()
-//
-//        } else if player2.isPlaying == false {
-//
-//            print("99999999999")
-//
-////            player2.stop()
-//
-//            player2.volume = volume
-//
-//            player2.prepareToPlay()
-//            player2.play()
-//        }
+        let url = Bundle.main.url(forResource: name, withExtension: "wav")!
         
-        var playersToRemove = [Int]()
-        
-        playersToRemove.removeAll()
-
-        for i in 0 ..< players.count {
+        do {
             
-            players[i] = try AVAudioPlayer(contentsOf: url)
-            guard let audioPlayer = players[i] else { return }
+            //        player1 = try AVAudioPlayer(contentsOf: url)
+            //        guard let player1 = player1 else { return }
+            //
+            //        player2 = try AVAudioPlayer(contentsOf: url)
+            //        guard let player2 = player2 else { return }
+            //
+            //        var volume: Float = 0
+            //
+            //        if name == "explosion" {
+            //            volume = 0.9
+            //        } else if name == "land" {
+            //            volume = 0.9
+            //        } else if name == "menu" {
+            //             volume = 0.9
+            //        } else if name == "shoot" {
+            //            volume = 0.9
+            //        } else {
+            //            print("-- PLAY SOUND ERROR --")
+            //        }
+            //
+            //        print("PLAYYINGGGGG")
+            //
+            //        if player1.isPlaying == false {
+            //
+            //            print("888888888888")
+            //
+            ////            player1.stop()
+            //
+            //            player1.volume = volume
+            //
+            //            player1.prepareToPlay()
+            //            player1.play()
+            //
+            //        } else if player2.isPlaying == false {
+            //
+            //            print("99999999999")
+            //
+            ////            player2.stop()
+            //
+            //            player2.volume = volume
+            //
+            //            player2.prepareToPlay()
+            //            player2.play()
+            //        }
             
-            if audioPlayer.isPlaying == false {
+            var playersToRemove = [Int]()
+            
+            playersToRemove.removeAll()
+            
+            for i in 0 ..< players.count {
                 
-                playersToRemove.append(i)
+                players[i] = try AVAudioPlayer(contentsOf: url)
+                guard let audioPlayer = players[i] else { return }
+                
+                if audioPlayer.isPlaying == false {
+                    
+                    playersToRemove.append(i)
+                }
             }
+            
+            removeObjects(type: "players", toRemove: playersToRemove)
+            
+            let nextPlayer: AVAudioPlayer?
+            
+            nextPlayer = try AVAudioPlayer(contentsOf: url)
+            guard let newPlayer = nextPlayer else { return }
+            
+            var volume: Float = 0
+            
+            if name == "explosion" {
+                volume = 0.9
+            } else if name == "land" {
+                volume = 0.9
+            } else if name == "menu" {
+                volume = 0.9
+            } else if name == "shoot" {
+                volume = 0.9
+            } else {
+                print("-- PLAY SOUND ERROR --")
+            }
+            
+            print("PLAYYINGGGGG")
+            
+            //            player1.stop()
+            
+            newPlayer.volume = volume
+            
+            newPlayer.prepareToPlay()
+            newPlayer.play()
+            
+            players.append(newPlayer)
+            
+        } catch let error as NSError {
+            print(error.description)
         }
         
-        removeObjects(type: "players", toRemove: playersToRemove)
-        
-        let nextPlayer: AVAudioPlayer?
-        
-        nextPlayer = try AVAudioPlayer(contentsOf: url)
-        guard let newPlayer = nextPlayer else { return }
-        
-        var volume: Float = 0
-        
-        if name == "explosion" {
-            volume = 0.9
-        } else if name == "land" {
-            volume = 0.9
-        } else if name == "menu" {
-            volume = 0.9
-        } else if name == "shoot" {
-            volume = 0.9
-        } else {
-            print("-- PLAY SOUND ERROR --")
-        }
-        
-        print("PLAYYINGGGGG")
-        
-        //            player1.stop()
-        
-        newPlayer.volume = volume
-        
-        newPlayer.prepareToPlay()
-        newPlayer.play()
-        
-        players.append(newPlayer)
-
-    } catch let error as NSError {
-        print(error.description)
     }
-    
-    //    }
 }
 
 // PUBLIC EXTENSIONS

@@ -115,6 +115,61 @@ extension GameController {
         
         // LOAD LEVELS
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // BACKUP PLAN
+        
+        
+        levels.removeAll()
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         levels.append(Level(stages: brickStages))
         levels.append(Level(stages: fireStages))
         levels.append(Level(stages: metalStages))
@@ -134,9 +189,11 @@ extension GameController {
         currentLevel = level
         currentStage = level.startStage
         
+        resetGlobalVariables()
+        
         currentStage?.reset()
         
-        resetGlobalVariables()
+        // resetGlobalVariables()
         
         currentLevel!.updateCurrentStagePos()
         currentStage!.setupSelectedArrays()
