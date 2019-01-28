@@ -921,7 +921,10 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         
         print("RESUME")
         
-        musicPlayer?.play()
+        if isMusicMuted == false {
+            
+            musicPlayer?.play()
+        }
         
         playSound(name: "menu")
         
@@ -1399,6 +1402,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             isSoundMuted = false
             
             playSound(name: "menu")
+            
+            playTrack(track: "stageSelect")
             
             muteButton.setImage(UIImage(named: "isNotMutedButton"), for: .normal)
         }

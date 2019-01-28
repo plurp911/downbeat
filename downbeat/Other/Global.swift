@@ -499,5 +499,4 @@ extension String {
         let end = index(start, offsetBy: range.upperBound - range.lowerBound)
         return String(self[start ..< end])
     }
-    
 }
