@@ -179,7 +179,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     let deathTimeInterval: CGFloat = 2
 
 //    let loadingTimeInterval: CGFloat = 0.5
-    let loadingTimeInterval: CGFloat = 0.1
+//    let loadingTimeInterval: CGFloat = 0.1
+    let loadingTimeInterval: CGFloat = 0.25
 
     // VARIABLES
     
@@ -813,6 +814,18 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             // updateStageSelectVisibility(isHidden: true)
         }
     }
+    
+    lazy var centerShadowStageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.25)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.magnificationFilter = CALayerContentsFilter.nearest
+//        view.image = UIImage(named: "completedStageSelectTile")
+        view.image = nil
+        view.isHidden = true
+        return view
+    }()
     
     var gameView: UIView = {
         let view = UIView()
@@ -1691,6 +1704,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         waterStageView.isHidden = isHidden
         sandStageView.isHidden = isHidden
         
+        centerShadowStageView.isHidden = isHidden
+        
         for i in 0 ..< completedStageSelectTiles.count {
             completedStageSelectTiles[i].isHidden = isHidden
         }
@@ -1817,8 +1832,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             completedLevels = savedCompletedLevels as! [Bool]
         }
         
-        // completedLevels = [true, true, true, true, true, true, true, true]
-        completedLevels = [false, false, false, false, false, false, false, false]
+        completedLevels = [true, true, true, true, true, true, true, true]
+//        completedLevels = [false, false, false, false, false, false, false, false]
     }
     
     func saveMutedSettings() {
@@ -1937,11 +1952,13 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             
             let imageView: UIImageView = UIImageView()
             
-            imageView.backgroundColor = UIColor.clear
+//            imageView.backgroundColor = UIColor.clear
+            imageView.backgroundColor = UIColor.black.withAlphaComponent(0.25)
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.contentMode = .scaleAspectFill
             imageView.layer.magnificationFilter = CALayerContentsFilter.nearest
-            imageView.image = UIImage(named: "completedStageSelectTile")
+//            imageView.image = UIImage(named: "completedStageSelectTile")
+            imageView.image = nil
             //                      imageView.isUserInteractionEnabled = true
             //                      imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWaterStage)))
             imageView.isHidden = false
@@ -2079,11 +2096,15 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             
             centerStageView.image = UIImage(named: "chemicalBossStageSelectTile")
             
+            centerShadowStageView.alpha = 0
+            
         } else {
             
             centerStageView.isUserInteractionEnabled = false
             
             centerStageView.image = UIImage(named: "chemicalBossStageSelectTileHolder")
+            
+            centerShadowStageView.alpha = 1
         }
     }
     
@@ -2095,7 +2116,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             
             let imageView: UIImageView = UIImageView()
             
-            imageView.backgroundColor = UIColor.clear
+//            imageView.backgroundColor = UIColor.clear
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.contentMode = .scaleAspectFill
             imageView.layer.magnificationFilter = CALayerContentsFilter.nearest
@@ -2146,6 +2167,15 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
                 
                 imageView.frame.origin.x = centerStageView.frame.origin.x
                 imageView.frame.origin.y = centerStageView.frame.origin.y
+            }
+            
+            if i == 7 {
+                
+                imageView.backgroundColor = UIColor.clear
+
+            } else {
+                
+                imageView.backgroundColor = UIColor.black.withAlphaComponent(0.25)
             }
             
             lockedStageSelectTiles.append(imageView)
@@ -2332,6 +2362,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         view.addSubview(snowStageView)
         view.addSubview(waterStageView)
         view.addSubview(sandStageView)
+        
+        view.addSubview(centerShadowStageView)
         
         view.addSubview(settingsButton)
         view.addSubview(settingsView)
@@ -2707,6 +2739,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         setupWaterStageView()
         //        setupSandStageView()
         setupIceStageView()
+        setupCenterShadowStageView()
         setupTopPipeStageSelectView()
         setupMiddlePipeStageSelectView()
         setupBottomPipeStageSelectView()
@@ -2843,6 +2876,12 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         
         setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: sandStageView)
         setXY(x: stageSelectView.frame.origin.x + (Block.width * (28 / 16) * 3) + (Block.width * (48 / 16) * 2), y: stageSelectTitleView.frame.origin.y + stageSelectTitleView.frame.size.height + (verticalSpacing * 3) + Block.width * (48 / 16) * 2, imageView: sandStageView, isCentered: false)
+    }
+    
+    func setupCenterShadowStageView() {
+        
+        setWidthHeight(width: Block.width * (48 / 16), height: Block.height * (48 / 16), imageView: centerShadowStageView)
+        setXY(x: centerStageView.frame.origin.x, y: centerStageView.frame.origin.y, imageView: centerShadowStageView, isCentered: false)
     }
     
     func setupTopPipeStageSelectView() {

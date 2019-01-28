@@ -611,6 +611,8 @@ extension GameController {
                                 
                             } else {
                                 
+                                playTrack(track: "stageSelect")
+                                
                                 saveCompletedLevels()
                                 
                                 updateCompletedStageViews()
