@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28DC4FC6064CC6415228C4DE /* Pods_downbeat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCA32AA9A13F0560F931C1B /* Pods_downbeat.framework */; };
+		552965CE805440D8113562E8 /* Pods_downbeatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3E592AD1BB9AB8419662EB /* Pods_downbeatTests.framework */; };
 		8425B08B21F7EC03007EE68E /* congratulations1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B08921F7EC02007EE68E /* congratulations1.mp3 */; };
 		8425B08C21F7EC03007EE68E /* fire.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B08A21F7EC03007EE68E /* fire.mp3 */; };
 		8425B08E21F7EC6C007EE68E /* stageSelect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B08D21F7EC6C007EE68E /* stageSelect.mp3 */; };
@@ -52,6 +54,7 @@
 		8462202A2201146300592680 /* deflect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 846220292201146300592680 /* deflect.wav */; };
 		8462202C2201156C00592680 /* throw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8462202B2201156C00592680 /* throw.wav */; };
 		84622030220117A600592680 /* throw2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8462202F220117A600592680 /* throw2.wav */; };
+		84622032220118E400592680 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84622031220118E400592680 /* GoogleService-Info.plist */; };
 		846DE66221B8A1EE00127572 /* 1-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE65821B8A1EE00127572 /* 1-1.txt */; };
 		846DE66321B8A1EE00127572 /* 1-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE65921B8A1EE00127572 /* 1-4.txt */; };
 		846DE66421B8A1EE00127572 /* 1-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE65A21B8A1EE00127572 /* 1-6.txt */; };
@@ -70,6 +73,7 @@
 		847F2AFF21FFF6CB00E6A020 /* death2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 847F2AFE21FFF6CB00E6A020 /* death2.wav */; };
 		847F2B0221FFFE1300E6A020 /* health.wav in Resources */ = {isa = PBXBuildFile; fileRef = 847F2B0021FFFE1300E6A020 /* health.wav */; };
 		847F2B0321FFFE1300E6A020 /* energy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 847F2B0121FFFE1300E6A020 /* energy.wav */; };
+		848E5EA47375F283D5B3AA60 /* Pods_downbeatUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4324E0BE24556A4677CC78 /* Pods_downbeatUITests.framework */; };
 		84BC59C121C4D44400497844 /* 2-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C021C4D44400497844 /* 2-3.txt */; };
 		84BC59C521C4E1AA00497844 /* 2-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C421C4E1AA00497844 /* 2-4.txt */; };
 		84BC59C721C51B0D00497844 /* 2-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C621C51B0D00497844 /* 2-5.txt */; };
@@ -187,6 +191,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		032D2E3C1028A5DF8D467A46 /* Pods-downbeatUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-downbeatUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-downbeatUITests/Pods-downbeatUITests.release.xcconfig"; sourceTree = "<group>"; };
+		09E5F71AEDB7501E3A6DAA67 /* Pods-downbeat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-downbeat.release.xcconfig"; path = "Pods/Target Support Files/Pods-downbeat/Pods-downbeat.release.xcconfig"; sourceTree = "<group>"; };
+		247A181B8410C53C09A8A351 /* Pods-downbeatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-downbeatTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-downbeatTests/Pods-downbeatTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2A4324E0BE24556A4677CC78 /* Pods_downbeatUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_downbeatUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6AE55E66C3FBB0F49E8A8F48 /* Pods-downbeat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-downbeat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-downbeat/Pods-downbeat.debug.xcconfig"; sourceTree = "<group>"; };
 		8425B08921F7EC02007EE68E /* congratulations1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = congratulations1.mp3; sourceTree = "<group>"; };
 		8425B08A21F7EC03007EE68E /* fire.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire.mp3; sourceTree = "<group>"; };
 		8425B08D21F7EC6C007EE68E /* stageSelect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = stageSelect.mp3; sourceTree = "<group>"; };
@@ -232,6 +241,7 @@
 		846220292201146300592680 /* deflect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = deflect.wav; sourceTree = "<group>"; };
 		8462202B2201156C00592680 /* throw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = throw.wav; sourceTree = "<group>"; };
 		8462202F220117A600592680 /* throw2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = throw2.wav; sourceTree = "<group>"; };
+		84622031220118E400592680 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		846DE65821B8A1EE00127572 /* 1-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-1.txt"; sourceTree = "<group>"; };
 		846DE65921B8A1EE00127572 /* 1-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-4.txt"; sourceTree = "<group>"; };
 		846DE65A21B8A1EE00127572 /* 1-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-6.txt"; sourceTree = "<group>"; };
@@ -353,6 +363,10 @@
 		925BECF421AD58970092C3E0 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		925BECF821AE1C3B0092C3E0 /* GameController+Touches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameController+Touches.swift"; sourceTree = "<group>"; };
 		925BECFA21AE1D7C0092C3E0 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
+		A13B3D98076D2F9270D70A43 /* Pods-downbeatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-downbeatTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-downbeatTests/Pods-downbeatTests.release.xcconfig"; sourceTree = "<group>"; };
+		AFCA32AA9A13F0560F931C1B /* Pods_downbeat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_downbeat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC3E592AD1BB9AB8419662EB /* Pods_downbeatTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_downbeatTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F594C7CFE2AB914B5141EED2 /* Pods-downbeatUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-downbeatUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-downbeatUITests/Pods-downbeatUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				847F2AF721FFB6CE00E6A020 /* StoreKit.framework in Frameworks */,
+				28DC4FC6064CC6415228C4DE /* Pods_downbeat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,6 +383,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				552965CE805440D8113562E8 /* Pods_downbeatTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +391,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				848E5EA47375F283D5B3AA60 /* Pods_downbeatUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +402,9 @@
 			isa = PBXGroup;
 			children = (
 				847F2AF621FFB6CE00E6A020 /* StoreKit.framework */,
+				AFCA32AA9A13F0560F931C1B /* Pods_downbeat.framework */,
+				EC3E592AD1BB9AB8419662EB /* Pods_downbeatTests.framework */,
+				2A4324E0BE24556A4677CC78 /* Pods_downbeatUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -397,6 +417,7 @@
 				92086A6021A23B5300AB51F8 /* downbeatUITests */,
 				92086A3F21A23B5000AB51F8 /* Products */,
 				847F2AF521FFB6CE00E6A020 /* Frameworks */,
+				9730E37BCA6778A2800E8CEB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -554,6 +575,7 @@
 				92086A4821A23B5200AB51F8 /* Assets.xcassets */,
 				92086A4A21A23B5200AB51F8 /* LaunchScreen.storyboard */,
 				92086A4D21A23B5200AB51F8 /* Info.plist */,
+				84622031220118E400592680 /* GoogleService-Info.plist */,
 			);
 			path = downbeat;
 			sourceTree = "<group>";
@@ -617,6 +639,19 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
+		9730E37BCA6778A2800E8CEB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6AE55E66C3FBB0F49E8A8F48 /* Pods-downbeat.debug.xcconfig */,
+				09E5F71AEDB7501E3A6DAA67 /* Pods-downbeat.release.xcconfig */,
+				247A181B8410C53C09A8A351 /* Pods-downbeatTests.debug.xcconfig */,
+				A13B3D98076D2F9270D70A43 /* Pods-downbeatTests.release.xcconfig */,
+				F594C7CFE2AB914B5141EED2 /* Pods-downbeatUITests.debug.xcconfig */,
+				032D2E3C1028A5DF8D467A46 /* Pods-downbeatUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -624,9 +659,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92086A6621A23B5300AB51F8 /* Build configuration list for PBXNativeTarget "downbeat" */;
 			buildPhases = (
+				67843A9B48486D5C21E84E72 /* [CP] Check Pods Manifest.lock */,
 				92086A3A21A23B5000AB51F8 /* Sources */,
 				92086A3B21A23B5000AB51F8 /* Frameworks */,
 				92086A3C21A23B5000AB51F8 /* Resources */,
+				896FA7927447710E5F077B46 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -641,6 +678,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92086A6921A23B5300AB51F8 /* Build configuration list for PBXNativeTarget "downbeatTests" */;
 			buildPhases = (
+				CB7BAC9D23C28DFAAAC87376 /* [CP] Check Pods Manifest.lock */,
 				92086A4E21A23B5300AB51F8 /* Sources */,
 				92086A4F21A23B5300AB51F8 /* Frameworks */,
 				92086A5021A23B5300AB51F8 /* Resources */,
@@ -659,6 +697,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92086A6C21A23B5300AB51F8 /* Build configuration list for PBXNativeTarget "downbeatUITests" */;
 			buildPhases = (
+				197ABBEF228480C18D44350B /* [CP] Check Pods Manifest.lock */,
 				92086A5921A23B5300AB51F8 /* Sources */,
 				92086A5A21A23B5300AB51F8 /* Frameworks */,
 				92086A5B21A23B5300AB51F8 /* Resources */,
@@ -818,6 +857,7 @@
 				84E2536521E4033E0076F140 /* 8-2.txt in Resources */,
 				8462202C2201156C00592680 /* throw.wav in Resources */,
 				845308EE21F7BC7600A774B5 /* 9-9.txt in Resources */,
+				84622032220118E400592680 /* GoogleService-Info.plist in Resources */,
 				84E2534A21E403340076F140 /* 7-5.txt in Resources */,
 				84E253BE21E404B30076F140 /* 8-10.txt in Resources */,
 				8425B09A21F7EE6C007EE68E /* snow.mp3 in Resources */,
@@ -880,6 +920,99 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		197ABBEF228480C18D44350B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-downbeatUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		67843A9B48486D5C21E84E72 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-downbeat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		896FA7927447710E5F077B46 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-downbeat/Pods-downbeat-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-downbeat/Pods-downbeat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB7BAC9D23C28DFAAAC87376 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-downbeatTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		92086A3A21A23B5000AB51F8 /* Sources */ = {
@@ -1079,6 +1212,7 @@
 		};
 		92086A6721A23B5300AB51F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6AE55E66C3FBB0F49E8A8F48 /* Pods-downbeat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1098,6 +1232,7 @@
 		};
 		92086A6821A23B5300AB51F8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09E5F71AEDB7501E3A6DAA67 /* Pods-downbeat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1117,6 +1252,7 @@
 		};
 		92086A6A21A23B5300AB51F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 247A181B8410C53C09A8A351 /* Pods-downbeatTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1138,6 +1274,7 @@
 		};
 		92086A6B21A23B5300AB51F8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A13B3D98076D2F9270D70A43 /* Pods-downbeatTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1159,6 +1296,7 @@
 		};
 		92086A6D21A23B5300AB51F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F594C7CFE2AB914B5141EED2 /* Pods-downbeatUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1179,6 +1317,7 @@
 		};
 		92086A6E21A23B5300AB51F8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 032D2E3C1028A5DF8D467A46 /* Pods-downbeatUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
