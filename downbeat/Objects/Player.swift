@@ -466,8 +466,7 @@ class Player {
                                     
                                     if isRightPressed == false && isLeftPressed == false {
                                         
-                                        
-                                        playSound(name: "land")
+//                                        playSound(name: "land")
                                         
                                         print()
                                         print("WOWOWOWOWOW 4")
@@ -507,8 +506,7 @@ class Player {
                                     
                                     if isRightPressed == false && isLeftPressed == false {
                                         
-                                        
-                                        playSound(name: "land")
+//                                        playSound(name: "land")
                                         
                                         print()
                                         print("WOWOWOWOWOW 5")
