@@ -100,7 +100,6 @@ class Explosion {
             self.view.animationImages = Explosion.smokeImages as! [UIImage]
             
             self.view.animationDuration = TimeInterval(Player.knockBackTime)
-            
         }
         
         self.view.frame.origin.x = self.x - self.width / 2
@@ -119,7 +118,8 @@ class Explosion {
         self.x = x
         self.y = y
         
-        self.type = type
+//        self.type = type
+        self.type = "death"
         
         self.view.backgroundColor = Explosion.color
         
@@ -129,29 +129,36 @@ class Explosion {
         
         self.view.stopAnimating()
         
+//        if type == "death" {
+        
+        //            self.moveSpeed = 1.25
+        self.moveSpeed = 1
+        
+        if xSpeedMultiplier != 0 && ySpeedMultiplier != 0 {
+            
+            self.xSpeed = self.moveSpeed * ((CGFloat)(xSpeedMultiplier)) * CGFloat((2.squareRoot() / 2))
+            self.ySpeed = self.moveSpeed * ((CGFloat)(ySpeedMultiplier)) * CGFloat((2.squareRoot() / 2))
+            
+        } else {
+            
+            self.xSpeed = self.moveSpeed * ((CGFloat)(xSpeedMultiplier))
+            self.ySpeed = self.moveSpeed * ((CGFloat)(ySpeedMultiplier))
+        }
+        
+        self.height = Block.height
+        self.width = self.height
+        
         if type == "death" {
             
-//            self.moveSpeed = 1.25
-            self.moveSpeed = 1
-            
-            if xSpeedMultiplier != 0 && ySpeedMultiplier != 0 {
-                
-                self.xSpeed = self.moveSpeed * ((CGFloat)(xSpeedMultiplier)) * CGFloat((2.squareRoot() / 2))
-                self.ySpeed = self.moveSpeed * ((CGFloat)(ySpeedMultiplier)) * CGFloat((2.squareRoot() / 2))
-                
-            } else {
-                
-                self.xSpeed = self.moveSpeed * ((CGFloat)(xSpeedMultiplier))
-                self.ySpeed = self.moveSpeed * ((CGFloat)(ySpeedMultiplier))
-            }
-            
-            self.height = Block.height
-            self.width = self.height
-            
             self.view.animationImages = Explosion.deathImages as! [UIImage]
+
+        } else {
             
-            self.view.animationDuration = 0.135
+            self.view.animationImages = [UIImage(named: "\(type)Death1"), UIImage(named: "\(type)Death2"), UIImage(named: "\(type)Death3"), UIImage(named: "\(type)Death4")] as! [UIImage]
         }
+        
+        self.view.animationDuration = 0.135
+//        }
         
         self.view.frame.origin.x = self.x - self.width / 2
         self.view.frame.origin.y = self.y - self.height / 2

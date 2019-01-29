@@ -169,7 +169,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     let settingsButtonHeight: CGFloat = Block.height * (48 / 16)
     
     let settingsButtonSpacing1: CGFloat = Block.height * (5 / 16)
-    let settingsButtonSpacing2: CGFloat = Block.height * (16 / 16)
+//    let settingsButtonSpacing2: CGFloat = Block.height * (16 / 16)
+    let settingsButtonSpacing2: CGFloat = Block.height * (32 / 16)
 
     let settingsButtonBorderWidth: CGFloat = Block.width * (2 / 16)
 
@@ -180,6 +181,9 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
 
 //    let deathTimeInterval: CGFloat = 3
     let deathTimeInterval: CGFloat = 2
+    
+//    let winTimeInterval: CGFloat = 5
+    let winTimeInterval: CGFloat = 2
 
 //    let loadingTimeInterval: CGFloat = 0.5
 //    let loadingTimeInterval: CGFloat = 0.1
@@ -208,6 +212,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     var currentTrack: String = ""
     
     var isFromPaused: Bool = false
+    
+    var controlOpacity: CGFloat = 0.5
     
     var pausedTextView: UIImageView = {
         let view = UIImageView()
@@ -308,7 +314,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         button.contentHorizontalAlignment = .fill
         button.addTarget(self, action: #selector(handleCancel), for: .touchDown)
         button.adjustsImageWhenHighlighted = false
-        button.alpha = 0.5
+        button.alpha = controlOpacity
         button.isHidden = true
         return button
     }()
@@ -1091,7 +1097,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         button.addTarget(self, action: #selector(handleJumpCancel), for: .touchUpOutside)
         button.addTarget(self, action: #selector(handleJumpCancel), for: .touchCancel)
         button.adjustsImageWhenHighlighted = false
-        button.alpha = 0.5
+        button.alpha = controlOpacity
         return button
     }()
     
@@ -1156,7 +1162,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         button.contentHorizontalAlignment = .fill
         button.addTarget(self, action: #selector(handleShoot), for: .touchDown)
         button.adjustsImageWhenHighlighted = false
-        button.alpha = 0.5
+        button.alpha = controlOpacity
         return button
     }()
     
@@ -1183,7 +1189,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         button.contentHorizontalAlignment = .fill
         button.addTarget(self, action: #selector(handleSettings), for: .touchDown)
         button.adjustsImageWhenHighlighted = false
-        button.alpha = 0.5
+        button.alpha = controlOpacity
         button.isHidden = true
         return button
     }()
@@ -1229,7 +1235,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         button.contentHorizontalAlignment = .fill
         button.addTarget(self, action: #selector(handleClose), for: .touchDown)
         button.adjustsImageWhenHighlighted = false
-        button.alpha = 0.5
+        button.alpha = controlOpacity
         button.isHidden = true
         return button
     }()
@@ -1262,6 +1268,41 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         view.isHidden = true
         return view
     }()
+    
+    lazy var opacitySlider: UISlider = {
+        let slider = UISlider()
+        slider.minimumValue = 0.1
+        slider.maximumValue = 1.0
+        slider.isContinuous = true
+        slider.tintColor = UIColor.white
+        slider.value = Float(controlOpacity)
+        slider.setThumbImage(nil, for: .normal)
+        slider.addTarget(self, action: #selector(handleOpacitySlider), for: .valueChanged)
+        slider.addTarget(self, action: #selector(handleOpacitySliderEnd), for: .touchUpInside)
+        slider.addTarget(self, action: #selector(handleOpacitySliderEnd), for: .touchUpOutside)
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.isHidden = true
+//        slider.alpha = 0.25
+        return slider
+    }()
+    
+    @objc func handleOpacitySlider(sender: UISlider!) {
+        
+        updateControlVisibility2(isHidden: false)
+        
+        let newControlOpacity = CGFloat(sender.value)
+        
+        controlOpacity = newControlOpacity
+        
+        updateControlOpacity()
+        
+        saveControlOpacity()
+    }
+    
+    @objc func handleOpacitySliderEnd() {
+        
+        updateControlVisibility2(isHidden: true)
+    }
     
     lazy var buyButton: UIButton = {
         let button = UIButton()
@@ -1334,7 +1375,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         button.contentHorizontalAlignment = .fill
         button.addTarget(self, action: #selector(handlePause), for: .touchDown)
         button.adjustsImageWhenHighlighted = false
-        button.alpha = 0.5
+        button.alpha = controlOpacity
         button.isHidden = true
         return button
     }()
@@ -1389,7 +1430,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         button.contentHorizontalAlignment = .fill
         button.addTarget(self, action: #selector(handleMute), for: .touchDown)
         button.adjustsImageWhenHighlighted = false
-        button.alpha = 0.5
+        button.alpha = controlOpacity
         button.isHidden = true
         return button
     }()
@@ -1476,7 +1517,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         button.contentHorizontalAlignment = .fill
         button.addTarget(self, action: #selector(handleWeaponLeft), for: .touchDown)
         button.adjustsImageWhenHighlighted = false
-        button.alpha = 0.5
+        button.alpha = controlOpacity
         return button
     }()
     
@@ -1527,7 +1568,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         button.contentHorizontalAlignment = .fill
         button.addTarget(self, action: #selector(handleWeaponRight), for: .touchDown)
         button.adjustsImageWhenHighlighted = false
-        button.alpha = 0.5
+        button.alpha = controlOpacity
         return button
     }()
     
@@ -1733,7 +1774,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         closeButton.isHidden = isHidden
         muteButton.isHidden = isHidden
         opacityTextView.isHidden = isHidden
-        // opacitySlider.isHidden = isHidden
+        opacitySlider.isHidden = isHidden
         buyButton.isHidden = isHidden
     }
     
@@ -1787,6 +1828,17 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         //        pauseButton.isUserInteractionEnabled = !isHidden
         //        weaponLeftButton.isUserInteractionEnabled = !isHidden
         //        weaponRightButton.isUserInteractionEnabled = !isHidden
+    }
+    
+    func updateControlVisibility2(isHidden: Bool) {
+        
+        joystickView.isHidden = isHidden
+        touchView.isHidden = isHidden
+        jumpButton.isHidden = isHidden
+        shootButton.isHidden = isHidden
+//        pauseButton.isHidden = isHidden
+        weaponLeftButton.isHidden = isHidden
+        weaponRightButton.isHidden = isHidden
     }
     
     func updatePausedVisibility(isHidden: Bool) {
@@ -2284,6 +2336,13 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         updateControlVisibility(isHidden: false)
     }
     
+    func saveDidPurchaseFullGame() {
+        
+        let didPurchaseFullGameDefault = UserDefaults.standard
+        didPurchaseFullGameDefault.setValue(didPurchaseFullGame, forKey: "didPurchaseFullGame")
+        didPurchaseFullGameDefault.synchronize()
+    }
+    
     func loadDidPurchaseFullGame() {
         
         let didPurchaseFullGameDefault = UserDefaults.standard
@@ -2297,6 +2356,45 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         if didPurchaseFullGame == true {
             // removeAdsButton.isHidden = true
         }
+    }
+    
+    func updateControlOpacity() {
+        
+//        joystickView.alpha = controlOpacity
+        touchView.alpha = controlOpacity
+        jumpButton.alpha = controlOpacity
+        shootButton.alpha = controlOpacity
+        pauseButton.alpha = controlOpacity
+        weaponLeftButton.alpha = controlOpacity
+        weaponRightButton.alpha = controlOpacity
+        
+        joystick.innerImageView.alpha = controlOpacity
+        joystick.outerImageView.alpha = controlOpacity
+
+        cancelButton.alpha = controlOpacity
+        settingsButton.alpha = controlOpacity
+        closeButton.alpha = controlOpacity
+        muteButton.alpha = controlOpacity
+    }
+    
+    func saveControlOpacity() {
+        
+        let controlOpacityDefault = UserDefaults.standard
+        controlOpacityDefault.setValue(controlOpacity, forKey: "controlOpacity")
+        controlOpacityDefault.synchronize()
+    }
+    
+    func loadControlOpacity() {
+        
+        let controlOpacityDefault = UserDefaults.standard
+        
+        if let savedControlOpacity = controlOpacityDefault.value(forKey: "controlOpacity") {
+            controlOpacity = savedControlOpacity as! CGFloat
+        }
+        
+        opacitySlider.value = Float(controlOpacity)
+        
+        updateControlOpacity()
     }
     
     override func viewDidLoad() {
@@ -2322,6 +2420,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         }
         
         loadMutedSettings()
+        loadControlOpacity()
         
         //        startTitleTextTimer = Timer.scheduledTimer(timeInterval: 1 / 120, target: self, selector: #selector(updateStartTitleTextOpacity), userInfo: nil, repeats: true)
         
@@ -2345,20 +2444,20 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         view.addSubview(rightButton)
         view.addSubview(upButton)
         view.addSubview(downButton)
-        view.addSubview(joystickView)
-        
-        //        joystickView.addSubview(joystick.outerView)
-        //        joystickView.addSubview(joystick.innerView)
-        
-        joystickView.addSubview(joystick.outerImageView)
-        joystickView.addSubview(joystick.innerImageView)
-        
-        view.addSubview(touchView)
-        view.addSubview(jumpButton)
-        view.addSubview(shootButton)
-        view.addSubview(pauseButton)
-        view.addSubview(weaponLeftButton)
-        view.addSubview(weaponRightButton)
+//        view.addSubview(joystickView)
+//
+//        //        joystickView.addSubview(joystick.outerView)
+//        //        joystickView.addSubview(joystick.innerView)
+//
+//        joystickView.addSubview(joystick.outerImageView)
+//        joystickView.addSubview(joystick.innerImageView)
+//
+//        view.addSubview(touchView)
+//        view.addSubview(jumpButton)
+//        view.addSubview(shootButton)
+//        view.addSubview(pauseButton)
+//        view.addSubview(weaponLeftButton)
+//        view.addSubview(weaponRightButton)
         
         view.addSubview(stageSelectView)
         view.addSubview(stageSelectTitleView)
@@ -2382,8 +2481,23 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         view.addSubview(closeButton)
         view.addSubview(muteButton)
         view.addSubview(opacityTextView)
-        // view.addSubview(opacitySlider)
+        view.addSubview(opacitySlider)
         view.addSubview(buyButton)
+        
+        view.addSubview(joystickView)
+        
+        //        joystickView.addSubview(joystick.outerView)
+        //        joystickView.addSubview(joystick.innerView)
+        
+        joystickView.addSubview(joystick.outerImageView)
+        joystickView.addSubview(joystick.innerImageView)
+        
+        view.addSubview(touchView)
+        view.addSubview(jumpButton)
+        view.addSubview(shootButton)
+        view.addSubview(pauseButton)
+        view.addSubview(weaponLeftButton)
+        view.addSubview(weaponRightButton)
         
         createCompletedStageViews()
         createLockedStageViews()
@@ -2435,7 +2549,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         setupCloseButton()
         setupMuteButton()
         setupOpacityTextView()
-        // setupOpacitySlider()
+        setupOpacitySlider()
         setupBuyButton()
         
         setupLoadingView()
@@ -2510,6 +2624,13 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         opacityTextView.topAnchor.constraint(equalTo: gameView.topAnchor, constant: settingsButtonSpacing2).isActive = true
         opacityTextView.widthAnchor.constraint(equalToConstant: Block.width * (111 / 16)).isActive = true
         opacityTextView.heightAnchor.constraint(equalToConstant: Block.height * (7 / 16)).isActive = true
+    }
+    
+    func setupOpacitySlider() {
+        opacitySlider.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
+        opacitySlider.widthAnchor.constraint(equalTo: gameView.widthAnchor, constant: -Block.width * (64 / 16)).isActive = true
+        opacitySlider.centerYAnchor.constraint(equalTo: gameView.centerYAnchor, constant: -Block.width * (24 / 16)).isActive = true
+        opacitySlider.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
     func setupBuyButton() {

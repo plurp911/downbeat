@@ -555,7 +555,11 @@ extension GameController {
                         
                         if selectedEnemies[i].type == "brickBoss" || selectedEnemies[i].type == "fireBoss" || selectedEnemies[i].type == "metalBoss" || selectedEnemies[i].type == "iceBoss" || selectedEnemies[i].type == "skyBoss" || selectedEnemies[i].type == "snowBoss" || selectedEnemies[i].type == "waterBoss" || selectedEnemies[i].type == "sandBoss" || selectedEnemies[i].type == "chemicalBoss" {
                             
+                            var power: String = ""
+                            
                             if selectedEnemies[i].type == "brickBoss" {
+                                
+                                power = "brick"
                                 
                                 if didPurchaseFullGame == true {
                                     
@@ -568,57 +572,128 @@ extension GameController {
                                 
                             } else if selectedEnemies[i].type == "fireBoss" {
                                 
+                                power = "fire"
+
                                 completedLevels[1] = true
                                 
                             } else if selectedEnemies[i].type == "metalBoss" {
                                 
+                                power = "metal"
+
                                 completedLevels[5] = true
                                 
                             } else if selectedEnemies[i].type == "iceBoss" {
                                 
+                                power = "ice"
+
                                 completedLevels[0] = true
                                 
                             } else if selectedEnemies[i].type == "skyBoss" {
                                 
+                                power = "sky"
+
                                 completedLevels[4] = true
                                 
                             } else if selectedEnemies[i].type == "snowBoss" {
+                                
+                                power = "snow"
                                 
                                 completedLevels[2] = true
                                 
                             } else if selectedEnemies[i].type == "waterBoss" {
                                 
+                                power = "water"
+
                                 completedLevels[3] = true
                                 
                             } else if selectedEnemies[i].type == "sandBoss" {
                                 
+                                power = "sand"
+
                                 completedLevels[6] = true
                             }
                             
                             if selectedEnemies[i].type == "chemicalBoss" {
                                 
-                                print("YOU WIN")
+                                power = "chemical"
                                 
-                                player.reset()
                                 
-                                handlePause()
                                 
-                                playTrack(track: "congratulations")
                                 
-                                updateStageSelectVisibility(isHidden: true)
+                                
+                                
+                                print("8 7 6")
+                                
                                 updateControlVisibility(isHidden: true)
-                                updateCongratulationsVisibility(isHidden: false)
+                                
+                                createDeathExplosion(type: power, x: selectedEnemies[i].x, y: selectedEnemies[i].y)
+                                
+                                deathTimer.invalidate()
+                                
+                                deathTimer = Timer.scheduledTimer(timeInterval: TimeInterval(winTimeInterval), target: self, selector: #selector(handleMakeCongratulations), userInfo: nil, repeats: false)
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+//                                print("YOU WIN")
+//
+//                                player.reset()
+//
+//                                handlePause()
+//
+//                                playTrack(track: "congratulations")
+//
+//                                updateStageSelectVisibility(isHidden: true)
+//                                updateControlVisibility(isHidden: true)
+//                                updateCongratulationsVisibility(isHidden: false)
                                 
                             } else {
                                 
-                                playTrack(track: "stageSelect")
                                 
-                                saveCompletedLevels()
                                 
-                                updateCompletedStageViews()
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                print("5 4 3")
                                 
                                 updateControlVisibility(isHidden: true)
-                                updateStageSelectVisibility(isHidden: false)
+                                
+                                createDeathExplosion(type: power, x: selectedEnemies[i].x, y: selectedEnemies[i].y)
+
+                                deathTimer.invalidate()
+                                
+                                deathTimer = Timer.scheduledTimer(timeInterval: TimeInterval(winTimeInterval), target: self, selector: #selector(handleMakeStageSelect), userInfo: nil, repeats: false)
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+//                                playTrack(track: "stageSelect")
+//
+//                                saveCompletedLevels()
+//
+//                                updateCompletedStageViews()
+//
+//                                updateControlVisibility(isHidden: true)
+//                                updateStageSelectVisibility(isHidden: false)
                             }
                             
                         } else {
@@ -669,15 +744,8 @@ extension GameController {
                 
                 updateControlVisibility(isHidden: true)
 
-                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: -1, ySpeedMultiplier: -1, type: "death"))
-                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: 1, ySpeedMultiplier: -1, type: "death"))
-                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: -1, ySpeedMultiplier: 1, type: "death"))
-                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: 1, ySpeedMultiplier: 1, type: "death"))
-                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: 0, ySpeedMultiplier: -1, type: "death"))
-                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: 0, ySpeedMultiplier: 1, type: "death"))
-                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: 1, ySpeedMultiplier: 0, type: "death"))
-                explosions.append(Explosion(x: player.x, y: player.y, xSpeedMultiplier: -1, ySpeedMultiplier: 0, type: "death"))
-                
+                createDeathExplosion(type: "death", x: player.x, y: player.y)
+
                 deathTimer.invalidate()
                 
                 deathTimer = Timer.scheduledTimer(timeInterval: TimeInterval(deathTimeInterval), target: self, selector: #selector(handleDeath), userInfo: nil, repeats: false)
@@ -723,6 +791,39 @@ extension GameController {
         }
     }
     
+    @objc func handleMakeCongratulations() {
+        
+        deathTimer.invalidate()
+        
+        print("6 7 8")
+        
+        player.reset()
+        
+        handlePause()
+        
+        playTrack(track: "congratulations")
+        
+        updateStageSelectVisibility(isHidden: true)
+        updateControlVisibility(isHidden: true)
+        updateCongratulationsVisibility(isHidden: false)
+    }
+    
+    @objc func handleMakeStageSelect() {
+        
+        deathTimer.invalidate()
+        
+        print("3 4 5")
+        
+        playTrack(track: "stageSelect")
+        
+        saveCompletedLevels()
+        
+        updateCompletedStageViews()
+        
+        updateControlVisibility(isHidden: true)
+        updateStageSelectVisibility(isHidden: false)
+    }
+    
     @objc func handleDeath() {
         
         deathTimer.invalidate()
@@ -747,6 +848,18 @@ extension GameController {
             
             updatePurchaseVisibility(isHidden: false)
         }
+    }
+    
+    func createDeathExplosion(type: String, x: CGFloat, y: CGFloat) {
+        
+        explosions.append(Explosion(x: x, y: y, xSpeedMultiplier: -1, ySpeedMultiplier: -1, type: type))
+        explosions.append(Explosion(x: x, y: y, xSpeedMultiplier: 1, ySpeedMultiplier: -1, type: type))
+        explosions.append(Explosion(x: x, y: y, xSpeedMultiplier: -1, ySpeedMultiplier: 1, type: type))
+        explosions.append(Explosion(x: x, y: y, xSpeedMultiplier: 1, ySpeedMultiplier: 1, type: type))
+        explosions.append(Explosion(x: x, y: y, xSpeedMultiplier: 0, ySpeedMultiplier: -1, type: type))
+        explosions.append(Explosion(x: x, y: y, xSpeedMultiplier: 0, ySpeedMultiplier: 1, type: type))
+        explosions.append(Explosion(x: x, y: y, xSpeedMultiplier: 1, ySpeedMultiplier: 0, type: type))
+        explosions.append(Explosion(x: x, y: y, xSpeedMultiplier: -1, ySpeedMultiplier: 0, type: type))
     }
     
     func handleMoving() {
