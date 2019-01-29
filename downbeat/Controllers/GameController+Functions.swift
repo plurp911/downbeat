@@ -367,11 +367,15 @@ extension GameController {
                     
                 } else if enemyBullets[i].type == "bubble" && enemyBullets[i].shouldRemove == true {
                     
+                    playSound(name: "explosion")
+                    
                     explosions.append(Explosion(x: enemyBullets[i].x, y: enemyBullets[i].y, type: "pop"))
                     
                     enemyBulletsToRemove.append(i)
                     
                 } else if enemyBullets[i].type == "bomb" && enemyBullets[i].shouldRemove == true {
+                    
+                    playSound(name: "explosion")
                     
                     explosions.append(Explosion(x: enemyBullets[i].x, y: enemyBullets[i].y, type: "break"))
                     
@@ -490,11 +494,15 @@ extension GameController {
                     
                 } else if bullets[i].type == "bubble" && bullets[i].shouldRemove == true {
                     
+                    playSound(name: "explosion")
+                    
                     explosions.append(Explosion(x: bullets[i].x, y: bullets[i].y, type: "pop"))
                     
                     bulletsToRemove.append(i)
                     
                 } else if bullets[i].type == "bomb" && bullets[i].shouldRemove == true {
+                    
+                    playSound(name: "explosion")
                     
                     explosions.append(Explosion(x: bullets[i].x, y: bullets[i].y, type: "break"))
                     

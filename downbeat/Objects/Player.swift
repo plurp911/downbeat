@@ -978,8 +978,6 @@ class Player {
         
         if canShootBullet == true {
             
-            playSound(name: "shoot")
-            
             canMoveLeft = true
             canMoveRight = true
             
@@ -1019,10 +1017,14 @@ class Player {
                         
                         if self.direction == "left" {
                             
+                            playSound(name: "shoot")
+
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
+                            playSound(name: "shoot")
+
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                         }
                         
@@ -1030,10 +1032,14 @@ class Player {
                         
                         if self.direction == "left" {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                         }
                         
@@ -1041,11 +1047,15 @@ class Player {
                         
                         if self.direction == "left" {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: "upLeft", type: self.power))
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: "downLeft", type: self.power))
                             
                         } else if self.direction == "right" {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: "upRight", type: self.power))
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: "downRight", type: self.power))
                         }
@@ -1054,10 +1064,14 @@ class Player {
                         
                         if self.direction == "left" {
                             
+                            playSound(name: "shoot")
+
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
+                            playSound(name: "shoot")
+
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                         }
                         
@@ -1065,10 +1079,14 @@ class Player {
                         
                         if self.direction == "left" {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                         }
                         
@@ -1076,6 +1094,8 @@ class Player {
                         
                         if bullets.count <= 0 {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x, y: self.y, direction: self.direction, type: self.power))
                             
                         } else {
@@ -1102,12 +1122,16 @@ class Player {
                         
                         if self.direction == "left" {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, moveSpeed: 0.6, direction: self.direction, type: self.power))
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, moveSpeed: 1, direction: self.direction, type: self.power))
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, moveSpeed: 1.4, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, moveSpeed: 0.6, direction: self.direction, type: self.power))
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, moveSpeed: 1, direction: self.direction, type: self.power))
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet, y: self.y - Player.yShiftBullet + yOffset, moveSpeed: 1.4, direction: self.direction, type: self.power))
@@ -1117,10 +1141,14 @@ class Player {
                         
                         if self.direction == "left" {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet - (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet + (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                         }
                         
@@ -1128,10 +1156,14 @@ class Player {
                         
                         if self.direction == "left" {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x - (Player.width / 2) - Player.xShiftBullet - (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                             
                         } else if self.direction == "right" {
                             
+                            playSound(name: "throw")
+
                             bullets.append(Bullet(x: self.x + (Player.width / 2) + Player.xShiftBullet + (Block.width * (4 / 16)), y: self.y - Player.yShiftBullet + yOffset, direction: self.direction, type: self.power))
                         }
                     }
@@ -1320,7 +1352,7 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            if self.power == "regular" || self.power == "beam" || self.power == "magnet" {
+            if self.power == "regular" || self.power == "beam" {
                 self.view.image = Player.climbShootRightImage
             } else {
                 self.view.image = Player.climbThrowRightImage
@@ -1367,7 +1399,7 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            if self.power == "regular" || self.power == "beam" || self.power == "magnet" {
+            if self.power == "regular" || self.power == "beam" {
                 self.view.image = Player.jumpShootRightImage
             } else {
                 self.view.image = Player.jumpThrowRightImage
@@ -1385,7 +1417,7 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            if self.power == "regular" || self.power == "beam" || self.power == "magnet" {
+            if self.power == "regular" || self.power == "beam" {
                 self.view.animationImages = Player.runShootRightImages as! [UIImage]
             } else {
                 self.view.animationImages = Player.runThrowRightImages as! [UIImage]
@@ -1412,7 +1444,7 @@ class Player {
         
         if self.isShootingAnimation == true {
             
-            if self.power == "regular" || self.power == "beam" || self.power == "magnet" {
+            if self.power == "regular" || self.power == "beam" {
                 self.view.image = Player.standShootRightImage
             } else {
                 self.view.image = Player.standThrowRightImage

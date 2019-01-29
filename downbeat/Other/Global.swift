@@ -439,6 +439,8 @@ public func playSound(name: String) {
                 volume = 0.9
             } else if name == "shoot" {
                 volume = 0.9
+            } else if name == "shoot2" {
+                volume = 0.9
             } else if name == "hit" {
                 volume = 0.9
             } else if name == "hit2" {
@@ -450,6 +452,12 @@ public func playSound(name: String) {
             } else if name == "health" {
                 volume = 0.9
             } else if name == "energy" {
+                volume = 0.9
+            } else if name == "deflect" {
+                volume = 0.9
+            } else if name == "throw" {
+                volume = 0.9
+            } else if name == "throw2" {
                 volume = 0.9
             } else {
                 print("-- PLAY SOUND ERROR --")

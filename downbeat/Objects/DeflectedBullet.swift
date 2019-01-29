@@ -30,6 +30,8 @@ class DeflectedBullet {
     
     init(x: CGFloat, y: CGFloat, direction: String) {
         
+        playSound(name: "deflect")
+        
         if direction == "left" {
             xSpeed = -DeflectedBullet.moveSpeed
         } else if direction == "right" {

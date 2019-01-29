@@ -48,6 +48,10 @@
 		845308F921F7BC7600A774B5 /* 9-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 845308E821F7BC7600A774B5 /* 9-8.txt */; };
 		845308FC21F7BCD700A774B5 /* 9-18.txt in Resources */ = {isa = PBXBuildFile; fileRef = 845308FA21F7BCD700A774B5 /* 9-18.txt */; };
 		845308FD21F7BCD700A774B5 /* 9-19.txt in Resources */ = {isa = PBXBuildFile; fileRef = 845308FB21F7BCD700A774B5 /* 9-19.txt */; };
+		846220222201117100592680 /* shoot2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 846220212201117100592680 /* shoot2.wav */; };
+		8462202A2201146300592680 /* deflect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 846220292201146300592680 /* deflect.wav */; };
+		8462202C2201156C00592680 /* throw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8462202B2201156C00592680 /* throw.wav */; };
+		84622030220117A600592680 /* throw2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8462202F220117A600592680 /* throw2.wav */; };
 		846DE66221B8A1EE00127572 /* 1-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE65821B8A1EE00127572 /* 1-1.txt */; };
 		846DE66321B8A1EE00127572 /* 1-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE65921B8A1EE00127572 /* 1-4.txt */; };
 		846DE66421B8A1EE00127572 /* 1-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846DE65A21B8A1EE00127572 /* 1-6.txt */; };
@@ -224,6 +228,10 @@
 		845308E821F7BC7600A774B5 /* 9-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-8.txt"; sourceTree = "<group>"; };
 		845308FA21F7BCD700A774B5 /* 9-18.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-18.txt"; sourceTree = "<group>"; };
 		845308FB21F7BCD700A774B5 /* 9-19.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-19.txt"; sourceTree = "<group>"; };
+		846220212201117100592680 /* shoot2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shoot2.wav; sourceTree = "<group>"; };
+		846220292201146300592680 /* deflect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = deflect.wav; sourceTree = "<group>"; };
+		8462202B2201156C00592680 /* throw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = throw.wav; sourceTree = "<group>"; };
+		8462202F220117A600592680 /* throw2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = throw2.wav; sourceTree = "<group>"; };
 		846DE65821B8A1EE00127572 /* 1-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-1.txt"; sourceTree = "<group>"; };
 		846DE65921B8A1EE00127572 /* 1-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-4.txt"; sourceTree = "<group>"; };
 		846DE65A21B8A1EE00127572 /* 1-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-6.txt"; sourceTree = "<group>"; };
@@ -535,6 +543,10 @@
 				847F2AFE21FFF6CB00E6A020 /* death2.wav */,
 				847F2B0021FFFE1300E6A020 /* health.wav */,
 				847F2B0121FFFE1300E6A020 /* energy.wav */,
+				846220212201117100592680 /* shoot2.wav */,
+				846220292201146300592680 /* deflect.wav */,
+				8462202B2201156C00592680 /* throw.wav */,
+				8462202F220117A600592680 /* throw2.wav */,
 				92086A7421A2441F00AB51F8 /* Controllers */,
 				92086A7321A2441300AB51F8 /* Objects */,
 				92086A7521A2443A00AB51F8 /* Other */,
@@ -794,14 +806,17 @@
 				84E2537221E403CC0076F140 /* 5-4.txt in Resources */,
 				84E2536021E4033E0076F140 /* EMPTY.txt in Resources */,
 				84E253BA21E404AE0076F140 /* 7-11.txt in Resources */,
+				846220222201117100592680 /* shoot2.wav in Resources */,
 				846DE66521B8A1EE00127572 /* 1-2.txt in Resources */,
 				845308F021F7BC7600A774B5 /* 9-16.txt in Resources */,
 				8425B0A021F7F04A007EE68E /* congratulations.mp3 in Resources */,
+				84622030220117A600592680 /* throw2.wav in Resources */,
 				84BC59D121C60F9B00497844 /* 3-1.txt in Resources */,
 				84E2537521E403CC0076F140 /* 5-5.txt in Resources */,
 				84E253B321E404980076F140 /* 5-12.txt in Resources */,
 				84E2533A21E402D30076F140 /* 6-5.txt in Resources */,
 				84E2536521E4033E0076F140 /* 8-2.txt in Resources */,
+				8462202C2201156C00592680 /* throw.wav in Resources */,
 				845308EE21F7BC7600A774B5 /* 9-9.txt in Resources */,
 				84E2534A21E403340076F140 /* 7-5.txt in Resources */,
 				84E253BE21E404B30076F140 /* 8-10.txt in Resources */,
@@ -825,6 +840,7 @@
 				84E253B221E404980076F140 /* 5-13.txt in Resources */,
 				8437C3D721CA4E9F00555352 /* 2-8.txt in Resources */,
 				84E2533B21E402D30076F140 /* 6-2.txt in Resources */,
+				8462202A2201146300592680 /* deflect.wav in Resources */,
 				84E2537821E403CC0076F140 /* 5-10.txt in Resources */,
 				84E2533C21E402D30076F140 /* 6-8.txt in Resources */,
 				84E2537A21E403CC0076F140 /* 5-3.txt in Resources */,
