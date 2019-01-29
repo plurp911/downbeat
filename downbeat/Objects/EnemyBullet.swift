@@ -664,6 +664,18 @@ class EnemyBullet {
         if self.type == "bomb" {
             self.jump()
         }
+        
+        self.updateSpeeds()
+    }
+    
+    func updateSpeeds() {
+        
+        self.moveSpeed = newVal(oldVal: self.moveSpeed)
+//        self.xSpeedChange = newVal(oldVal: self.xSpeedChange)
+//        self.ySpeedChange = newVal(oldVal: self.ySpeedChange)
+        self.maxFallSpeed = newVal(oldVal: self.maxFallSpeed)
+        self.xSpeed = newVal(oldVal: self.xSpeed)
+        self.ySpeed = newVal(oldVal: self.ySpeed)
     }
     
     func setXY(x: CGFloat, y: CGFloat) {

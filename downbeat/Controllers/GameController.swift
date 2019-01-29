@@ -2397,6 +2397,13 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         updateControlOpacity()
     }
     
+    func updateSpeeds() {
+        
+        Player.updateSpeeds()
+        DeflectedBullet.updateSpeeds()
+        Powerup.updateSpeeds()
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -2419,6 +2426,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             // adView.load(request)
         }
         
+        updateSpeeds()
+
         loadMutedSettings()
         loadControlOpacity()
         

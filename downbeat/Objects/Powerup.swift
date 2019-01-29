@@ -12,9 +12,9 @@ class Powerup {
     
     // CONSTANTS
     
-    static let maxFallSpeed: CGFloat = 2
+    static var maxFallSpeed: CGFloat = 2
     
-    static let ySpeedChange: CGFloat = 0.2
+    static var ySpeedChange: CGFloat = 0.2
     
     static let color: UIColor = UIColor.clear
     //    static let color: UIColor = UIColor.red
@@ -155,6 +155,19 @@ class Powerup {
         if shouldFade == true {
             self.jump()
         }
+        
+        self.updateSpeeds()
+    }
+    
+    func updateSpeeds() {
+        
+        self.ySpeed = newVal(oldVal: self.ySpeed)
+    }
+    
+    static func updateSpeeds() {
+        
+//        Powerup.ySpeedChange = newVal(oldVal: Powerup.ySpeedChange)
+        Powerup.maxFallSpeed = newVal(oldVal: Powerup.maxFallSpeed)
     }
     
     func move() {

@@ -111,6 +111,8 @@ class Explosion {
         self.view.animationRepeatCount = 1
         
         self.view.startAnimating()
+        
+        self.updateSpeeds()
     }
     
     init(x: CGFloat, y: CGFloat, xSpeedMultiplier: Int, ySpeedMultiplier: Int, type: String) {
@@ -169,6 +171,15 @@ class Explosion {
         // self.view.animationRepeatCount = -1
         
         self.view.startAnimating()
+        
+        self.updateSpeeds()
+    }
+    
+    func updateSpeeds() {
+        
+        self.moveSpeed = newVal(oldVal: self.moveSpeed)
+        self.xSpeed = newVal(oldVal: self.xSpeed)
+        self.ySpeed = newVal(oldVal: self.ySpeed)
     }
     
     func setX(x: CGFloat) {

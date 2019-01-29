@@ -13,7 +13,7 @@ class DeflectedBullet {
     // CONSTANTS
     
     static let radius: CGFloat = Block.width * (6 / 16) * (1 / 2)
-    static let moveSpeed: CGFloat = 8
+    static var moveSpeed: CGFloat = 8
     
     static let color: UIColor = UIColor.clear
     //    static let color: UIColor = UIColor.red
@@ -61,6 +61,11 @@ class DeflectedBullet {
         } else if direction == "right" {
             self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
         }
+    }
+    
+    static func updateSpeeds() {
+        
+        DeflectedBullet.moveSpeed = newVal(oldVal: DeflectedBullet.moveSpeed)
     }
     
     func setXY(x: CGFloat, y: CGFloat) {

@@ -20,17 +20,17 @@ class Player {
     static let width: CGFloat = Block.width * 0.75
     static let height: CGFloat = Block.height * 1.5
     
-    static let maxFallSpeed: CGFloat = 4
+    static var maxFallSpeed: CGFloat = 4
     
-    static let maxMoveSpeed: CGFloat = 1
+    static var maxMoveSpeed: CGFloat = 1
     //    static let maxMoveSpeed: CGFloat = 1.125
     
-    static let climbSpeed: CGFloat = 0.75
+    static var climbSpeed: CGFloat = 0.75
     
     //    static let knockBackMoveSpeed: CGFloat = 0.5
-    static let knockBackMoveSpeed: CGFloat = 0.425
+    static var knockBackMoveSpeed: CGFloat = 0.425
     
-    static let ySpeedChange: CGFloat = 0.105
+    static var ySpeedChange: CGFloat = 0.105
     
     //    static let color: UIColor = UIColor.lightGray
     static let color: UIColor = UIColor.clear
@@ -283,6 +283,28 @@ class Player {
         if self.energyPos >= 0 {
             self.energyBar.setEnergy(energy: self.energies[self.energyPos])
         }
+    }
+    
+    static func updateSpeeds() {
+        
+//        print("11111111111111")
+//        print(Player.maxMoveSpeed)
+//        print(Player.climbSpeed)
+//        print(Player.knockBackMoveSpeed)
+//        print(Player.ySpeedChange)
+//        print("11111111111111")
+
+        Player.maxMoveSpeed = newVal(oldVal: Player.maxMoveSpeed)
+        Player.climbSpeed = newVal(oldVal: Player.climbSpeed)
+        Player.knockBackMoveSpeed = newVal(oldVal: Player.knockBackMoveSpeed)
+//        Player.ySpeedChange = newVal(oldVal: Player.ySpeedChange)
+        
+//        print("22222222222222")
+//        print(Player.maxMoveSpeed)
+//        print(Player.climbSpeed)
+//        print(Player.knockBackMoveSpeed)
+//        print(Player.ySpeedChange)
+//        print("22222222222222")
     }
     
     func move(direction: String) {
