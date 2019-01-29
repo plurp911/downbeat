@@ -549,9 +549,9 @@ extension GameController {
                         
                         selectedEnemies[i].endTimers()
                         
-                        playSound(name: "explosion")
-                        
-                        explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "explosion"))
+//                        playSound(name: "explosion")
+//
+//                        explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "explosion"))
                         
                         if selectedEnemies[i].type == "brickBoss" || selectedEnemies[i].type == "fireBoss" || selectedEnemies[i].type == "metalBoss" || selectedEnemies[i].type == "iceBoss" || selectedEnemies[i].type == "skyBoss" || selectedEnemies[i].type == "snowBoss" || selectedEnemies[i].type == "waterBoss" || selectedEnemies[i].type == "sandBoss" || selectedEnemies[i].type == "chemicalBoss" {
                             
@@ -706,6 +706,10 @@ extension GameController {
                             
                         } else {
                             
+                            playSound(name: "explosion")
+                            
+                            explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "explosion"))
+
                             handleMakePowerup(x: selectedEnemies[i].x, y: selectedEnemies[i].y)
                         }
                         
