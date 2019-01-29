@@ -166,11 +166,14 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     let settingsButtonWidth: CGFloat = Block.width * (155 / 16)
     // let settingsButtonHeight: CGFloat = Block.height * (31 / 16)
     // let settingsButtonHeight: CGFloat = Block.height * (62 / 16)
-    let settingsButtonHeight: CGFloat = Block.height * (48 / 16)
-    
+    let settingsButtonHeight1: CGFloat = Block.height * (48 / 16)
+    let settingsButtonHeight2: CGFloat = Block.height * (31 / 16)
+
     let settingsButtonSpacing1: CGFloat = Block.height * (5 / 16)
 //    let settingsButtonSpacing2: CGFloat = Block.height * (16 / 16)
-    let settingsButtonSpacing2: CGFloat = Block.height * (32 / 16)
+//    let settingsButtonSpacing2: CGFloat = Block.height * (32 / 16)
+//    let settingsButtonSpacing2: CGFloat = Block.height * (20 / 16)
+    let settingsButtonSpacing2: CGFloat = Block.height * (25 / 16)
 
     let settingsButtonBorderWidth: CGFloat = Block.width * (2 / 16)
 
@@ -275,11 +278,12 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     
     lazy var purchaseView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = backgroundColor
+        view.backgroundColor = UIColor.black
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         // view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        view.image = UIImage(named: "purchaseBackground")
+//        view.image = UIImage(named: "purchaseBackground")
+        view.image = nil
         // view.isUserInteractionEnabled = true
         // view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handlePurchaseView)))
         view.isHidden = true
@@ -1316,7 +1320,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         button.setImage(UIImage(named: "buyText"), for: .normal)
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
-        button.imageEdgeInsets = UIEdgeInsets(top: (settingsButtonHeight - (Block.height * (24 / 16))) / 2, left: Block.width * (0 / 16), bottom: (settingsButtonHeight - (Block.height * (24 / 16))) / 2, right: Block.width * (0 / 16))
+        button.imageEdgeInsets = UIEdgeInsets(top: (settingsButtonHeight1 - (Block.height * (24 / 16))) / 2, left: Block.width * (0 / 16), bottom: (settingsButtonHeight1 - (Block.height * (24 / 16))) / 2, right: Block.width * (0 / 16))
         button.addTarget(self, action: #selector(handleBuy), for: .touchUpInside)
         button.adjustsImageWhenHighlighted = false
         button.isHidden = true
@@ -1776,6 +1780,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         opacityTextView.isHidden = isHidden
         opacitySlider.isHidden = isHidden
         buyButton.isHidden = isHidden
+        restoreButton.isHidden = isHidden
     }
     
     func updateLoadingVisibility(isHidden: Bool) {
@@ -1786,7 +1791,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     func updatePurchaseVisibility(isHidden: Bool) {
         
         purchaseView.isHidden = isHidden
-        restoreButton.isHidden = isHidden
+//        restoreButton.isHidden = isHidden
         purchaseButton.isHidden = isHidden
         cancelButton.isHidden = isHidden
     }
@@ -2492,7 +2497,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         view.addSubview(opacityTextView)
         view.addSubview(opacitySlider)
         view.addSubview(buyButton)
-        
+        view.addSubview(restoreButton)
+
         view.addSubview(joystickView)
         
         //        joystickView.addSubview(joystick.outerView)
@@ -2527,7 +2533,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         view.addSubview(startTitleTextView)
         
         view.addSubview(purchaseView)
-        view.addSubview(restoreButton)
+//        view.addSubview(restoreButton)
         view.addSubview(purchaseButton)
         view.addSubview(cancelButton)
         
@@ -2638,15 +2644,22 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     func setupOpacitySlider() {
         opacitySlider.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
         opacitySlider.widthAnchor.constraint(equalTo: gameView.widthAnchor, constant: -Block.width * (64 / 16)).isActive = true
-        opacitySlider.centerYAnchor.constraint(equalTo: gameView.centerYAnchor, constant: -Block.width * (24 / 16)).isActive = true
+        opacitySlider.centerYAnchor.constraint(equalTo: gameView.centerYAnchor, constant: -Block.height * (40 / 16)).isActive = true
         opacitySlider.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
+//    func setupBuyButton() {
+//        buyButton.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
+//        buyButton.bottomAnchor.constraint(equalTo: gameView.bottomAnchor, constant: -settingsButtonSpacing2).isActive = true
+//        buyButton.widthAnchor.constraint(equalToConstant: settingsButtonWidth).isActive = true
+//        buyButton.heightAnchor.constraint(equalToConstant: settingsButtonHeight1).isActive = true
+//    }
+
     func setupBuyButton() {
         buyButton.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
-        buyButton.bottomAnchor.constraint(equalTo: gameView.bottomAnchor, constant: -settingsButtonSpacing2).isActive = true
+        buyButton.bottomAnchor.constraint(equalTo: restoreButton.topAnchor, constant: -settingsButtonSpacing1).isActive = true
         buyButton.widthAnchor.constraint(equalToConstant: settingsButtonWidth).isActive = true
-        buyButton.heightAnchor.constraint(equalToConstant: settingsButtonHeight).isActive = true
+        buyButton.heightAnchor.constraint(equalToConstant: settingsButtonHeight1).isActive = true
     }
     
     func setupResumeButton() {
@@ -2691,25 +2704,46 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         titleView.heightAnchor.constraint(equalTo: gameView.heightAnchor).isActive = true
     }
     
+//    func setupPurchaseView() {
+//        purchaseView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        purchaseView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        purchaseView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+//        purchaseView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+//    }
+
     func setupPurchaseView() {
-        purchaseView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        purchaseView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        purchaseView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        purchaseView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        purchaseView.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
+        purchaseView.centerYAnchor.constraint(equalTo: gameView.centerYAnchor).isActive = true
+        purchaseView.widthAnchor.constraint(equalTo: gameView.widthAnchor).isActive = true
+        purchaseView.heightAnchor.constraint(equalTo: gameView.heightAnchor).isActive = true
     }
     
+//    func setupRestoreButton() {
+//        restoreButton.rightAnchor.constraint(equalTo: purchaseView.centerXAnchor, constant: -purchaseButtonSpacing / 2).isActive = true
+//        restoreButton.bottomAnchor.constraint(equalTo: purchaseView.bottomAnchor, constant: -purchaseButtonSpacing).isActive = true
+//        restoreButton.widthAnchor.constraint(equalToConstant: purchaseButtonWidth).isActive = true
+//        restoreButton.heightAnchor.constraint(equalToConstant: purchaseButtonHeight).isActive = true
+//    }
+
     func setupRestoreButton() {
-        restoreButton.rightAnchor.constraint(equalTo: purchaseView.centerXAnchor, constant: -purchaseButtonSpacing / 2).isActive = true
-        restoreButton.bottomAnchor.constraint(equalTo: purchaseView.bottomAnchor, constant: -purchaseButtonSpacing).isActive = true
-        restoreButton.widthAnchor.constraint(equalToConstant: purchaseButtonWidth).isActive = true
-        restoreButton.heightAnchor.constraint(equalToConstant: purchaseButtonHeight).isActive = true
+        restoreButton.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
+        restoreButton.bottomAnchor.constraint(equalTo: gameView.bottomAnchor, constant: -settingsButtonSpacing2).isActive = true
+        restoreButton.widthAnchor.constraint(equalToConstant: settingsButtonWidth).isActive = true
+        restoreButton.heightAnchor.constraint(equalToConstant: settingsButtonHeight2).isActive = true
     }
     
+//    func setupPurchaseButton() {
+//        purchaseButton.leftAnchor.constraint(equalTo: purchaseView.centerXAnchor, constant: purchaseButtonSpacing).isActive = true
+//        purchaseButton.centerYAnchor.constraint(equalTo: restoreButton.centerYAnchor).isActive = true
+//        purchaseButton.widthAnchor.constraint(equalTo: restoreButton.widthAnchor).isActive = true
+//        purchaseButton.heightAnchor.constraint(equalTo: restoreButton.heightAnchor).isActive = true
+//    }
+
     func setupPurchaseButton() {
-        purchaseButton.leftAnchor.constraint(equalTo: purchaseView.centerXAnchor, constant: purchaseButtonSpacing).isActive = true
-        purchaseButton.centerYAnchor.constraint(equalTo: restoreButton.centerYAnchor).isActive = true
-        purchaseButton.widthAnchor.constraint(equalTo: restoreButton.widthAnchor).isActive = true
-        purchaseButton.heightAnchor.constraint(equalTo: restoreButton.heightAnchor).isActive = true
+        purchaseButton.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
+        purchaseButton.bottomAnchor.constraint(equalTo: purchaseView.bottomAnchor, constant: -purchaseButtonSpacing).isActive = true
+        purchaseButton.widthAnchor.constraint(equalToConstant: purchaseButtonWidth).isActive = true
+        purchaseButton.heightAnchor.constraint(equalToConstant: purchaseButtonHeight).isActive = true
     }
     
 //    func setupCancelButton() {
