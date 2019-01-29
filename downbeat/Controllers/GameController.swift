@@ -29,9 +29,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             
             // viewDidLoad()
             
-            let didPurchaseFullGameDefault = UserDefaults.standard
-            didPurchaseFullGameDefault.setValue(didPurchaseFullGame, forKey: "didPurchaseFullGame")
-            didPurchaseFullGameDefault.synchronize()
+            saveDidPurchaseFullGame()
             
             UIAlertView(title: "PURCHASE RESTORED", message: "You've successfully restored your purchase!", delegate: nil, cancelButtonTitle: "OK").show()
         }
@@ -98,9 +96,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
                         
                         // viewDidLoad()
                         
-                        let didPurchaseFullGameDefault = UserDefaults.standard
-                        didPurchaseFullGameDefault.setValue(didPurchaseFullGame, forKey: "didPurchaseFullGame")
-                        didPurchaseFullGameDefault.synchronize()
+                        saveDidPurchaseFullGame()
                         
                         //UIAlertView(title: "ADS REMOVED", message: "You've successfully removed full screen ads!", delegate: nil, cancelButtonTitle: "OK").show()
                     }
@@ -2356,10 +2352,9 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             didPurchaseFullGame = savedDidPurchaseFullGame as! Bool
         }
         
-        //        didRemoveAds = true
-        
         if didPurchaseFullGame == true {
-            // removeAdsButton.isHidden = true
+
+            updateLockedStageViews()
         }
     }
     
