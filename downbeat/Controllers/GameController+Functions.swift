@@ -234,6 +234,8 @@ extension GameController {
                                         
                                         repeat {
                                             
+                                            player.move()
+                                            
                                             handleMoving()
                                             
                                         } while (ladder.x > player.x)
@@ -245,6 +247,8 @@ extension GameController {
                                         
                                         repeat {
                                             
+                                            player.move()
+
                                             handleMoving()
                                             
                                         } while (ladder.x < player.x)
