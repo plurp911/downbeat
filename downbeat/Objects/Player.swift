@@ -1715,6 +1715,14 @@ class Player {
     
     @objc func handleHitAnimation() {
         
+        if self.isKnockedBack == true {
+            
+            if self.view.isHidden == true {
+                
+                playSound(name: "hit")
+            }
+        }
+        
         self.view.isHidden = !self.view.isHidden
         
         if self.hitAnimationTimer.timeInterval != TimeInterval(Player.animationCycleTime * 0.075) {

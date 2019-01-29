@@ -175,6 +175,9 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
 
     let weaponButtonSpacing: CGFloat = Block.height * (5 / 16)
     
+//    let completedStageOpacity: CGFloat = 0.25
+    let completedStageOpacity: CGFloat = 0.2
+
 //    let deathTimeInterval: CGFloat = 3
     let deathTimeInterval: CGFloat = 2
 
@@ -817,7 +820,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     
     lazy var centerShadowStageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.25)
+        view.backgroundColor = UIColor.black.withAlphaComponent(completedStageOpacity)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.magnificationFilter = CALayerContentsFilter.nearest
@@ -1416,7 +1419,16 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             
             playSound(name: "menu")
             
-            playTrack(track: "stageSelect")
+            if isFromPaused == false {
+                
+                playTrack(track: "stageSelect")
+                
+            } else {
+                
+                playTrack(track: currentTrack)
+
+                musicPlayer?.stop()
+            }
             
             muteButton.setImage(UIImage(named: "isNotMutedButton"), for: .normal)
         }
@@ -1953,7 +1965,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             let imageView: UIImageView = UIImageView()
             
 //            imageView.backgroundColor = UIColor.clear
-            imageView.backgroundColor = UIColor.black.withAlphaComponent(0.25)
+            imageView.backgroundColor = UIColor.black.withAlphaComponent(completedStageOpacity)
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.contentMode = .scaleAspectFill
             imageView.layer.magnificationFilter = CALayerContentsFilter.nearest
@@ -2175,7 +2187,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
 
             } else {
                 
-                imageView.backgroundColor = UIColor.black.withAlphaComponent(0.25)
+                imageView.backgroundColor = UIColor.black.withAlphaComponent(completedStageOpacity)
             }
             
             lockedStageSelectTiles.append(imageView)

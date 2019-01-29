@@ -1809,8 +1809,8 @@ class Enemy {
                     
                     self.view.animationImages = Enemy.chemicalBossThrowImages as! [UIImage]
                     
-                    // self.view.animationDuration = 0.85 * (1 / 3) * 1.5
-                    self.view.animationDuration = 0.25
+                     self.view.animationDuration = 0.85 * (1 / 3) * 1.5
+//                    self.view.animationDuration = 0.25
                     
                     self.view.startAnimating()
                 }
@@ -1823,8 +1823,8 @@ class Enemy {
                     
                     self.view.animationImages = Enemy.chemicalBossSignalImages as! [UIImage]
                     
-                    // self.view.animationDuration = 0.85 * (1 / 3) * 1.5
-                    self.view.animationDuration = 0.25
+                     self.view.animationDuration = 0.85 * (1 / 3) * 1.5
+//                    self.view.animationDuration = 0.25
                     
                     self.view.startAnimating()
                 }
@@ -5773,6 +5773,11 @@ class Enemy {
             }
             
             self.health -= newBulletDamage
+            
+            if self.health > 0 {
+                
+                playSound(name: "hit2")
+            }
             
             if self.type == "brickBoss" || self.type == "fireBoss" || self.type == "metalBoss" || self.type == "iceBoss" || self.type == "skyBoss" || self.type == "snowBoss" || self.type == "waterBoss" || self.type == "sandBoss" || self.type == "chemicalBoss" {
                 Enemy.bossHealthBar.setEnergy(energy: self.health)

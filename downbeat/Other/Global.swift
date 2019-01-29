@@ -438,6 +438,10 @@ public func playSound(name: String) {
                 volume = 0.9
             } else if name == "shoot" {
                 volume = 0.9
+            } else if name == "hit" {
+                volume = 0.9
+            } else if name == "hit2" {
+                volume = 0.9
             } else {
                 print("-- PLAY SOUND ERROR --")
             }
