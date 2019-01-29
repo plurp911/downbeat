@@ -1896,8 +1896,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             completedLevels = savedCompletedLevels as! [Bool]
         }
         
-        completedLevels = [true, true, true, true, true, true, true, true]
-//        completedLevels = [false, false, false, false, false, false, false, false]
+//        completedLevels = [true, true, true, true, true, true, true, true]
+        completedLevels = [false, false, false, false, false, false, false, false]
     }
     
     func saveMutedSettings() {
@@ -2795,11 +2795,18 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         pauseButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -pausedButtonSpacing).isActive = true
     }
     
+//    func setupLoadingView() {
+//        loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        loadingView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+//        loadingView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+//    }
+
     func setupLoadingView() {
-        loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        loadingView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        loadingView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        loadingView.centerXAnchor.constraint(equalTo: gameView.centerXAnchor).isActive = true
+        loadingView.centerYAnchor.constraint(equalTo: gameView.centerYAnchor).isActive = true
+        loadingView.widthAnchor.constraint(equalTo: gameView.widthAnchor).isActive = true
+        loadingView.heightAnchor.constraint(equalTo: gameView.heightAnchor).isActive = true
     }
     
     func setupWeaponLeftButton() {

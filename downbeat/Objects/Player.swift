@@ -232,7 +232,9 @@ class Player {
         
         self.isMoving = false
         
-        self.isHit = false
+//        self.isHit = false
+        
+        self.endHit()
         
         self.isMovingLeft = false
         self.isMovingRight = false
@@ -682,11 +684,15 @@ class Player {
                         
                     } else {
                         
-                        print("GAME OVER")
-                        
-                        self.isDead = true
-                        
-                        //            handleGameOver()
+//                        if self.y - (Player.height / 2) >= screenSize.height {
+                        if self.y >= screenSize.height {
+
+                            print("GAME OVER")
+                            
+                            self.isDead = true
+                            
+                            //            handleGameOver()
+                        }
                     }
                     
                 } else {
