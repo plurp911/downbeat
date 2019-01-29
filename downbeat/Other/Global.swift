@@ -97,8 +97,8 @@ var musicPlayer: AVAudioPlayer?
 var isMusicMuted: Bool = false
 var isSoundMuted: Bool = false
 
-var didPurchaseFullGame: Bool = false
-//var didPurchaseFullGame: Bool = true
+//var didPurchaseFullGame: Bool = false
+var didPurchaseFullGame: Bool = true
 
 var levels = [Level]()
 
@@ -441,6 +441,10 @@ public func playSound(name: String) {
             } else if name == "hit" {
                 volume = 0.9
             } else if name == "hit2" {
+                volume = 0.9
+            } else if name == "death" {
+                volume = 0.9
+            } else if name == "death2" {
                 volume = 0.9
             } else {
                 print("-- PLAY SOUND ERROR --")

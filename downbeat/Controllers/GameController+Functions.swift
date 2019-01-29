@@ -626,6 +626,10 @@ extension GameController {
                                 
                                 updateControlVisibility(isHidden: true)
                                 
+                                musicPlayer?.stop()
+                                
+                                playSound(name: "death")
+                                
                                 createDeathExplosion(type: power, x: selectedEnemies[i].x, y: selectedEnemies[i].y)
                                 
                                 deathTimer.invalidate()
@@ -666,6 +670,10 @@ extension GameController {
                                 print("5 4 3")
                                 
                                 updateControlVisibility(isHidden: true)
+                                
+                                musicPlayer?.stop()
+                                
+                                playSound(name: "death")
                                 
                                 createDeathExplosion(type: power, x: selectedEnemies[i].x, y: selectedEnemies[i].y)
 
@@ -743,6 +751,10 @@ extension GameController {
                 print("3 2 1")
                 
                 updateControlVisibility(isHidden: true)
+                
+                musicPlayer?.stop()
+                
+                playSound(name: "death2")
 
                 createDeathExplosion(type: "death", x: player.x, y: player.y)
 
