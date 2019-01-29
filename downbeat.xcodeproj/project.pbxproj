@@ -64,6 +64,8 @@
 		847F2AFB21FFD25600E6A020 /* hit2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 847F2AFA21FFD25500E6A020 /* hit2.wav */; };
 		847F2AFD21FFF65A00E6A020 /* death.wav in Resources */ = {isa = PBXBuildFile; fileRef = 847F2AFC21FFF65A00E6A020 /* death.wav */; };
 		847F2AFF21FFF6CB00E6A020 /* death2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 847F2AFE21FFF6CB00E6A020 /* death2.wav */; };
+		847F2B0221FFFE1300E6A020 /* health.wav in Resources */ = {isa = PBXBuildFile; fileRef = 847F2B0021FFFE1300E6A020 /* health.wav */; };
+		847F2B0321FFFE1300E6A020 /* energy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 847F2B0121FFFE1300E6A020 /* energy.wav */; };
 		84BC59C121C4D44400497844 /* 2-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C021C4D44400497844 /* 2-3.txt */; };
 		84BC59C521C4E1AA00497844 /* 2-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C421C4E1AA00497844 /* 2-4.txt */; };
 		84BC59C721C51B0D00497844 /* 2-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59C621C51B0D00497844 /* 2-5.txt */; };
@@ -238,6 +240,8 @@
 		847F2AFA21FFD25500E6A020 /* hit2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit2.wav; sourceTree = "<group>"; };
 		847F2AFC21FFF65A00E6A020 /* death.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = death.wav; sourceTree = "<group>"; };
 		847F2AFE21FFF6CB00E6A020 /* death2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = death2.wav; sourceTree = "<group>"; };
+		847F2B0021FFFE1300E6A020 /* health.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = health.wav; sourceTree = "<group>"; };
+		847F2B0121FFFE1300E6A020 /* energy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = energy.wav; sourceTree = "<group>"; };
 		84BC59C021C4D44400497844 /* 2-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-3.txt"; sourceTree = "<group>"; };
 		84BC59C421C4E1AA00497844 /* 2-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-4.txt"; sourceTree = "<group>"; };
 		84BC59C621C51B0D00497844 /* 2-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-5.txt"; sourceTree = "<group>"; };
@@ -529,6 +533,8 @@
 				847F2AFA21FFD25500E6A020 /* hit2.wav */,
 				847F2AFC21FFF65A00E6A020 /* death.wav */,
 				847F2AFE21FFF6CB00E6A020 /* death2.wav */,
+				847F2B0021FFFE1300E6A020 /* health.wav */,
+				847F2B0121FFFE1300E6A020 /* energy.wav */,
 				92086A7421A2441F00AB51F8 /* Controllers */,
 				92086A7321A2441300AB51F8 /* Objects */,
 				92086A7521A2443A00AB51F8 /* Other */,
@@ -776,9 +782,11 @@
 				8437C3E321CA4EFE00555352 /* 4-9.txt in Resources */,
 				84BC59DD21C63B9F00497844 /* 3-7.txt in Resources */,
 				84BC59E321C68A6500497844 /* 4-1.txt in Resources */,
+				847F2B0321FFFE1300E6A020 /* energy.wav in Resources */,
 				84E2533721E402D30076F140 /* 6-1.txt in Resources */,
 				84BC59C521C4E1AA00497844 /* 2-4.txt in Resources */,
 				8425B0AE21F80AE1007EE68E /* shoot.wav in Resources */,
+				847F2B0221FFFE1300E6A020 /* health.wav in Resources */,
 				84E2533821E402D30076F140 /* 6-7.txt in Resources */,
 				84BC59CB21C51FE100497844 /* 2-6.txt in Resources */,
 				846DE66321B8A1EE00127572 /* 1-4.txt in Resources */,

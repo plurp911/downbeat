@@ -26,6 +26,7 @@ let screenRatio: CGFloat = 16 / 15
 //let screenRatio: CGFloat = 1
 
 let chanceOfPowerup: CGFloat = 0.25
+//let chanceOfPowerup: CGFloat = 1
 
 // COLORS
 
@@ -445,6 +446,10 @@ public func playSound(name: String) {
             } else if name == "death" {
                 volume = 0.9
             } else if name == "death2" {
+                volume = 0.9
+            } else if name == "health" {
+                volume = 0.9
+            } else if name == "energy" {
                 volume = 0.9
             } else {
                 print("-- PLAY SOUND ERROR --")

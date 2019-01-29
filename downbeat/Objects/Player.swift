@@ -1406,6 +1406,8 @@ class Player {
         
         if type == "largeHealth" {
             
+            playSound(name: "health")
+            
             //            if self.health < Player.maxHealth {
             //                self.freezeTime()
             //            }
@@ -1414,6 +1416,8 @@ class Player {
             
         } else if type == "smallHealth" {
             
+            playSound(name: "health")
+
             //            if self.health < Player.maxHealth {
             //                self.freezeTime()
             //            }
@@ -1422,12 +1426,16 @@ class Player {
             
         } else if type == "largeEnergy" {
             
+            playSound(name: "energy")
+
             if self.energyPos >= 0 {
                 self.energies[self.energyPos] += 3
             }
             
         } else if type == "smallEnergy" {
             
+            playSound(name: "energy")
+
             if self.energyPos >= 0 {
                 self.energies[self.energyPos] += 1
             }
