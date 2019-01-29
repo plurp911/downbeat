@@ -2351,11 +2351,6 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         if let savedDidPurchaseFullGame = didPurchaseFullGameDefault.value(forKey: "didPurchaseFullGame") {
             didPurchaseFullGame = savedDidPurchaseFullGame as! Bool
         }
-        
-        if didPurchaseFullGame == true {
-
-            updateLockedStageViews()
-        }
     }
     
     func updateControlOpacity() {
