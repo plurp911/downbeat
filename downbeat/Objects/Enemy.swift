@@ -217,6 +217,8 @@ class Enemy {
     
     var jumpTimer = Timer()
     
+    var soundTimer = Timer()
+    
     var timerFireTimes = [String : CGFloat]()
     
     var shootTimeInterval: CGFloat = 0
@@ -229,6 +231,8 @@ class Enemy {
     var betweenShotsTimeInterval: CGFloat = 0
     
     var jumpTimeInterval: CGFloat = 0
+    
+    var soundTimeInterval: CGFloat = 0
     
     var isUsed: Bool = false
     
@@ -1240,6 +1244,8 @@ class Enemy {
             
             self.totalShootTimeInterval = 1.5
             
+            self.soundTimeInterval = 0.2
+            
             self.isHidden = true
             
             self.view.isHidden = true
@@ -1364,6 +1370,8 @@ class Enemy {
                 setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
             }
             
+            self.soundTimeInterval = 0.5
+            
             self.view.animationImages = Enemy.scooperLeftImages as! [UIImage]
             
             //           self.view.animationDuration = 0.85 * 0.45
@@ -1389,7 +1397,7 @@ class Enemy {
     func updateSpeeds() {
         
         self.moveSpeed = newVal(oldVal: self.moveSpeed)
-//        self.ySpeedChange = newVal(oldVal: self.ySpeedChange)
+        //        self.ySpeedChange = newVal(oldVal: self.ySpeedChange)
         self.maxFallSpeed = newVal(oldVal: self.maxFallSpeed)
         self.xSpeed = newVal(oldVal: self.xSpeed)
         self.ySpeed = newVal(oldVal: self.ySpeed)
@@ -1820,8 +1828,8 @@ class Enemy {
                     
                     self.view.animationImages = Enemy.chemicalBossThrowImages as! [UIImage]
                     
-                     self.view.animationDuration = 0.85 * (1 / 3) * 1.5
-//                    self.view.animationDuration = 0.25
+                    self.view.animationDuration = 0.85 * (1 / 3) * 1.5
+                    //                    self.view.animationDuration = 0.25
                     
                     self.view.startAnimating()
                 }
@@ -1834,8 +1842,8 @@ class Enemy {
                     
                     self.view.animationImages = Enemy.chemicalBossSignalImages as! [UIImage]
                     
-                     self.view.animationDuration = 0.85 * (1 / 3) * 1.5
-//                    self.view.animationDuration = 0.25
+                    self.view.animationDuration = 0.85 * (1 / 3) * 1.5
+                    //                    self.view.animationDuration = 0.25
                     
                     self.view.startAnimating()
                 }
@@ -2769,6 +2777,8 @@ class Enemy {
                         
                         if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                             
+                            playSound(name: self.type)
+                            
                             self.direction = "left"
                             
                             setXY(x: block.x - (Block.width / 2) - (self.width / 2) - self.moveSpeed, y: self.y)
@@ -2777,6 +2787,8 @@ class Enemy {
                         //                        } else if self.direction == "left" {
                         
                         if self.x - (self.width / 2) - self.moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
+                            
+                            playSound(name: self.type)
                             
                             self.direction = "right"
                             
@@ -2849,6 +2861,8 @@ class Enemy {
                                 //                                    self.direction = "left"
                                 //                                }
                                 
+                                playSound(name: self.type)
+                                
                                 self.jump()
                                 
                                 /*
@@ -2883,6 +2897,8 @@ class Enemy {
                                 //
                                 //                                    self.direction = "left"
                                 //                                }
+                                
+                                playSound(name: self.type)
                                 
                                 self.jump()
                                 
@@ -4797,6 +4813,20 @@ class Enemy {
             
         } else if self.type == "electricity" {
             
+            if self.isShooting == true {
+                
+                if self.soundTimer.isValid == false {
+                    
+                    self.soundTimer.invalidate()
+                    
+                    self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
+                }
+                
+            } else {
+                
+                self.soundTimer.invalidate()
+            }
+            
         } else if self.type == "topMaker" {
             
         } else if self.type == "eggMaker" {
@@ -5168,7 +5198,9 @@ class Enemy {
                 //                self.xSpeed = self.moveSpeed
                 
                 //                self.xSpeed = self.moveSpeed * 4
-                self.xSpeed = 0.75
+                
+                // self.xSpeed = 0.75
+                self.xSpeed = newVal(oldVal: 0.75)
             }
             
             if self.direction == "left" {
@@ -5233,6 +5265,45 @@ class Enemy {
                             }
                         }
                         
+                    }
+                }
+                
+            }
+            
+            if abs(self.xSpeed) != self.moveSpeed {
+                
+                if self.soundTimer.isValid == false {
+                    
+                    self.soundTimer.invalidate()
+                    
+                    self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
+                    
+                } else {
+                    
+                    if self.soundTimer.timeInterval != TimeInterval(self.soundTimeInterval) {
+                        
+                        self.soundTimer.invalidate()
+                        
+                        self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
+                    }
+                }
+                
+            } else {
+                
+                
+                if self.soundTimer.isValid == false {
+                    
+                    self.soundTimer.invalidate()
+                    
+                    self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval * (0.375 / 0.75)), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
+                    
+                } else {
+                    
+                    if self.soundTimer.timeInterval != TimeInterval(self.soundTimeInterval * (0.375 / 0.75)) {
+                        
+                        self.soundTimer.invalidate()
+                        
+                        self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval * (0.375 / 0.75)), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
                     }
                 }
                 
@@ -5334,6 +5405,11 @@ class Enemy {
         }
         
         return false
+    }
+    
+    @objc func sound() {
+        
+        playSound(name: self.type)
     }
     
     func didHitBullet() -> Int {
@@ -6120,7 +6196,7 @@ class Enemy {
             
             if self.direction == "left" {
                 
-                playSound(name: "shoot2")
+                playSound(name: "spread")
                 
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -bulletSpeed, ySpeed: -bulletSpeed, type: "mediumRegular"))
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "mediumRegular"))
@@ -6130,8 +6206,8 @@ class Enemy {
                 
             } else if self.direction == "right" {
                 
-                playSound(name: "shoot2")
-
+                playSound(name: "spread")
+                
                 enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: bulletSpeed, ySpeed: -bulletSpeed, type: "mediumRegular"))
                 enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "mediumRegular"))
                 enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: bulletSpeed, ySpeed: bulletSpeed, type: "mediumRegular"))
@@ -6163,7 +6239,7 @@ class Enemy {
             if self.direction == "up" {
                 
                 playSound(name: "shoot2")
-
+                
                 enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, target: "player", speed: bulletSpeed, type: "mediumRegular"))
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
@@ -6171,7 +6247,7 @@ class Enemy {
             } else if self.direction == "down" {
                 
                 playSound(name: "shoot2")
-
+                
                 enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, target: "player", speed: bulletSpeed, type: "mediumRegular"))
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
@@ -6190,7 +6266,7 @@ class Enemy {
             if self.direction == "left" {
                 
                 playSound(name: "shoot2")
-
+                
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "mediumRegular"))
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
@@ -6198,7 +6274,7 @@ class Enemy {
             } else if self.direction == "right" {
                 
                 playSound(name: "shoot2")
-
+                
                 enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "mediumRegular"))
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
@@ -6210,8 +6286,8 @@ class Enemy {
             
             let yOffset: CGFloat = Block.width * (0 / 16)
             
-            playSound(name: "shoot2")
-
+            playSound(name: "drop")
+            
             enemyBullets.append(EnemyBullet(x: self.x, y: self.y + yOffset, xSpeed: 0, ySpeed: bulletSpeed, type: "dropHead"))
             
         } else if self.type == "sprinkler" {
@@ -6222,8 +6298,8 @@ class Enemy {
             //            let yOffset: CGFloat = Block.width * (4 / 16)
             let yOffset: CGFloat = Block.width * (5 / 16)
             
-            playSound(name: "shoot2")
-
+            playSound(name: "spread")
+            
             enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallOrange"))
             enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMax, ySpeed: 0, type: "smallOrange"))
             enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeedMax, type: "smallOrange"))
@@ -6271,7 +6347,7 @@ class Enemy {
             }
             
             playSound(name: "shoot2")
-
+            
             //            enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, targetX: goalX, targetY: goalY, speed: bulletSpeed, type: "smallBlue"))
             enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, targetX: goalX, targetY: goalY, speed: bulletSpeed, type: "smallTan"))
             
@@ -6300,16 +6376,16 @@ class Enemy {
             
             if self.direction == "left" {
                 
-                playSound(name: "shoot2")
-
+                playSound(name: "miner")
+                
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: -bulletXSpeed, ySpeed: bulletYSpeed, type: "axe"))
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
                 
             } else if self.direction == "right" {
                 
-                playSound(name: "shoot2")
-
+                playSound(name: "miner")
+                
                 enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y + yOffset, xSpeed: bulletXSpeed, ySpeed: bulletYSpeed, type: "axe"))
                 
                 self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
@@ -6326,14 +6402,14 @@ class Enemy {
             
             if self.direction == "left" {
                 
-                playSound(name: "shoot2")
+                playSound(name: "spawn")
                 
                 selectedEnemies.append(Enemy(x: self.x + xOffset, y: self.y + yOffset, type: "top", direction: self.direction))
                 
             } else if self.direction == "right" {
                 
-                playSound(name: "shoot2")
-
+                playSound(name: "spawn")
+                
                 selectedEnemies.append(Enemy(x: self.x - xOffset, y: self.y + yOffset, type: "top", direction: self.direction))
             }
             
@@ -6346,14 +6422,14 @@ class Enemy {
             
             if self.direction == "left" {
                 
-                playSound(name: "shoot2")
-
+                playSound(name: "spawn")
+                
                 selectedEnemies.append(Enemy(x: self.x - xOffset, y: self.y + yOffset, type: "egg", direction: self.direction))
                 
             } else if self.direction == "right" {
                 
-                playSound(name: "shoot2")
-
+                playSound(name: "spawn")
+                
                 selectedEnemies.append(Enemy(x: self.x + xOffset, y: self.y + yOffset, type: "egg", direction: self.direction))
             }
             
@@ -6375,14 +6451,14 @@ class Enemy {
             if self.direction == "left" {
                 
                 playSound(name: "shoot2")
-
+                
                 //                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "regular"))
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "smallBlue"))
                 
             } else if self.direction == "right" {
                 
                 playSound(name: "shoot2")
-
+                
                 //                enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "regular"))
                 enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "smallBlue"))
             }
@@ -6418,13 +6494,13 @@ class Enemy {
                 if self.direction == "left" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "bomb"))
                     
                 } else if self.direction == "right" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "bomb"))
                 }
             }
@@ -6477,23 +6553,41 @@ class Enemy {
             //            }
             
             //            let random: Int = Int.random(in: 0 ..< 8)
-            let random: Int = Int.random(in: 0 ..< 7)
-            
-            if random == 1 {
+//            let random: Int = Int.random(in: 0 ..< 7)
+            let random: Int = Int.random(in: 0 ..< 6)
+
+            if random == 0 {
                 
                 let bulletSpeed: CGFloat = 1.75
                 
                 if self.direction == "left" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: -bulletSpeed, ySpeed: 0, type: "bomb"))
                     
                 } else if self.direction == "right" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, xSpeed: bulletSpeed, ySpeed: 0, type: "bomb"))
+                }
+                
+            } else if random == 1 {
+                
+                if self.direction == "left" {
+                    
+                    playSound(name: "throw2")
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "upLeft", type: "blade"))
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "downLeft", type: "blade"))
+                    
+                } else if self.direction == "right" {
+                    
+                    playSound(name: "throw2")
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "upRight", type: "blade"))
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "downRight", type: "blade"))
                 }
                 
             } else if random == 2 {
@@ -6501,16 +6595,14 @@ class Enemy {
                 if self.direction == "left" {
                     
                     playSound(name: "throw2")
-
-                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "upLeft", type: "blade"))
-                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "downLeft", type: "blade"))
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
                     
                 } else if self.direction == "right" {
                     
                     playSound(name: "throw2")
-
-                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "upRight", type: "blade"))
-                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "downRight", type: "blade"))
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
                 }
                 
             } else if random == 3 {
@@ -6518,14 +6610,14 @@ class Enemy {
                 if self.direction == "left" {
                     
                     playSound(name: "throw2")
-
-                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "cutter"))
                     
                 } else if self.direction == "right" {
                     
                     playSound(name: "throw2")
-
-                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
+                    
+                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "cutter"))
                 }
                 
             } else if random == 4 {
@@ -6533,22 +6625,7 @@ class Enemy {
                 if self.direction == "left" {
                     
                     playSound(name: "throw2")
-
-                    enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "cutter"))
                     
-                } else if self.direction == "right" {
-                    
-                    playSound(name: "throw2")
-
-                    enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "cutter"))
-                }
-                
-            } else if random == 5 {
-                
-                if self.direction == "left" {
-                    
-                    playSound(name: "throw2")
-
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, moveSpeed: 0.6, direction: self.direction, type: "tornado"))
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, moveSpeed: 1, direction: self.direction, type: "tornado"))
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, moveSpeed: 1.4, direction: self.direction, type: "tornado"))
@@ -6556,40 +6633,57 @@ class Enemy {
                 } else if self.direction == "right" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, moveSpeed: 0.6, direction: self.direction, type: "tornado"))
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, moveSpeed: 1, direction: self.direction, type: "tornado"))
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, moveSpeed: 1.4, direction: self.direction, type: "tornado"))
                 }
                 
-            } else if random == 6 {
+            } else if random == 5 {
                 
                 if self.x >= player.x {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "left", type: "magnet"))
                     
                 } else {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "right", type: "magnet"))
                 }
                 
-            } else if random == 7 {
+            } else if random == 6 {
                 
                 if self.direction == "left" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "shield"))
+                    
+                    for i in 0 ..< enemyBullets.count {
+                        
+                        if enemyBullets[i].type == "shield" {
+                            
+                            enemyBullets[i].didReachGoal = true
+                        }
+                    }
                     
                 } else if self.direction == "right" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "shield"))
+                    
+                    for i in 0 ..< enemyBullets.count {
+                        
+                        if enemyBullets[i].type == "shield" {
+                            
+                            enemyBullets[i].didReachGoal = true
+                        }
+                    }
+                    
                 }
             }
             
@@ -6634,14 +6728,14 @@ class Enemy {
                 if self.direction == "left" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "upLeft", type: "blade"))
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "downLeft", type: "blade"))
                     
                 } else if self.direction == "right" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "upRight", type: "blade"))
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "downRight", type: "blade"))
                 }
@@ -6661,13 +6755,13 @@ class Enemy {
                 if self.direction == "left" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
                     
                 } else if self.direction == "right" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "bubble"))
                 }
             }
@@ -6686,13 +6780,13 @@ class Enemy {
                 if self.direction == "left" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "cutter"))
                     
                 } else if self.direction == "right" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "cutter"))
                 }
             }
@@ -6713,7 +6807,7 @@ class Enemy {
                 if self.direction == "left" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, moveSpeed: 0.6, direction: self.direction, type: "tornado"))
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, moveSpeed: 1, direction: self.direction, type: "tornado"))
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, moveSpeed: 1.4, direction: self.direction, type: "tornado"))
@@ -6721,7 +6815,7 @@ class Enemy {
                 } else if self.direction == "right" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, moveSpeed: 0.6, direction: self.direction, type: "tornado"))
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, moveSpeed: 1, direction: self.direction, type: "tornado"))
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, moveSpeed: 1.4, direction: self.direction, type: "tornado"))
@@ -6742,13 +6836,13 @@ class Enemy {
                 if self.direction == "left" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: self.direction, type: "shield"))
                     
                 } else if self.direction == "right" {
                     
                     playSound(name: "throw2")
-
+                    
                     enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: self.direction, type: "shield"))
                 }
             }
@@ -6767,7 +6861,7 @@ class Enemy {
                 print("LEFT")
                 
                 playSound(name: "throw2")
-
+                
                 // SHOOT LEFT
                 
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, direction: "left", type: "magnet"))
@@ -6777,7 +6871,7 @@ class Enemy {
                 print("RIGHT")
                 
                 playSound(name: "throw2")
-
+                
                 // SHOOT RIGHT
                 
                 enemyBullets.append(EnemyBullet(x: self.x + xOffset, y: self.y - yOffset, direction: "right", type: "magnet"))
