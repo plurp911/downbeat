@@ -128,6 +128,8 @@ extension GameController {
         currentLevel = level
         currentStage = level.startStage
         
+        nextStage = nil
+        
         resetGlobalVariables()
         
         currentStage?.reset()

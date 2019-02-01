@@ -125,8 +125,6 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     
     let cancelButtonSpacing: CGFloat = Block.height * (5 / 16)
     
-    let opacityChange: CGFloat = 0.0065
-    
     let pausedButtonWidth: CGFloat = Block.width * (155 / 16)
     let pausedButtonHeight: CGFloat = Block.height * (31 / 16)
     
@@ -1799,7 +1797,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         loadMutedSettings()
         loadControlOpacity()
         
-        joystick.setOuterXY(x: Joystick.outerRadius + (joystickSpacing * 2.5), y: screenSize.height - Joystick.outerRadius - (joystickSpacing * 0.5))
+//        joystick.setOuterXY(x: Joystick.outerRadius + (joystickSpacing * 2.5), y: screenSize.height - Joystick.outerRadius - (joystickSpacing * 0.5))
+        joystick.setOuterXY(x: Joystick.outerRadius + (newVal(oldVal: joystickSpacing) * 2.5), y: screenSize.height - Joystick.outerRadius - (newVal(oldVal: joystickSpacing) * 0.5))
         joystick.resetInnerXY()
         joystick.showViews()
         
@@ -2074,14 +2073,16 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     }
     
     func setupJumpButton() {
-        jumpButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -mainButtonSpacing).isActive = true
+//        jumpButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -mainButtonSpacing).isActive = true
+        jumpButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -newVal(oldVal: mainButtonSpacing)).isActive = true
         jumpButton.widthAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
         jumpButton.heightAnchor.constraint(equalTo: pauseButton.heightAnchor).isActive = true
         jumpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Block.width * (49 / 16) * 0.5).isActive = true
     }
 
     func setupShootButton() {
-        shootButton.rightAnchor.constraint(equalTo: jumpButton.leftAnchor, constant: -mainButtonSpacing).isActive = true
+//        shootButton.rightAnchor.constraint(equalTo: jumpButton.leftAnchor, constant: -mainButtonSpacing).isActive = true
+        shootButton.rightAnchor.constraint(equalTo: jumpButton.leftAnchor, constant: -newVal(oldVal: mainButtonSpacing)).isActive = true
         shootButton.widthAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
         shootButton.heightAnchor.constraint(equalTo: pauseButton.heightAnchor).isActive = true
         shootButton.centerYAnchor.constraint(equalTo: jumpButton.centerYAnchor).isActive = true
@@ -2112,7 +2113,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         weaponLeftButton.topAnchor.constraint(equalTo: view.topAnchor, constant: weaponButtonSpacing).isActive = true
         weaponLeftButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         weaponLeftButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
-        weaponLeftButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: mainButtonSpacing).isActive = true
+//        weaponLeftButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: mainButtonSpacing).isActive = true
+        weaponLeftButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: newVal(oldVal: mainButtonSpacing)).isActive = true
     }
     
     func setupWeaponRightButton() {
@@ -2159,7 +2161,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         setupLockedStageViews()
         updateLockedStageViews()
         
-        joystick.setOuterXY(x: Joystick.outerRadius + (joystickSpacing * 2.5), y: screenSize.height - Joystick.outerRadius - (joystickSpacing * 0.5))
+//        joystick.setOuterXY(x: Joystick.outerRadius + (joystickSpacing * 2.5), y: screenSize.height - Joystick.outerRadius - (joystickSpacing * 0.5))
+        joystick.setOuterXY(x: Joystick.outerRadius + (newVal(oldVal: joystickSpacing) * 2.5), y: screenSize.height - Joystick.outerRadius - (newVal(oldVal: joystickSpacing) * 0.5))
         joystick.resetInnerXY()
     }
 

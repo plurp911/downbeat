@@ -635,6 +635,42 @@ class Stage {
         
     }
     
+    func otherReset() {
+        
+        self.x = 0
+        
+        self.sortObjectArrays()
+        
+        self.moveObjects()
+        
+        self.updateObjectArrays(direction: "right")
+        
+        for background in self.backgrounds {
+            
+            if background.isInBounds() == true {
+                
+                selectedBackgrounds.append(background)
+                
+            } else {
+                
+                break
+            }
+        }
+        
+        for block in self.blocks {
+            
+            if block.isInBounds() == true {
+                
+                selectedBlocks.append(block)
+                
+            } else {
+                
+                break
+            }
+        }
+        
+    }
+    
     func updateObjectVisibility(isHidden: Bool) {
         
         for enemy in self.enemies {
@@ -660,22 +696,18 @@ class Stage {
             
             if self.ownTileSet == "brick" {
                 
-                blocks.append(Block(xPos: 0, yPos: i, type: "1", tileSet: self.ownTileSet))
                 selectedBlocks.append(Block(xPos: 0, yPos: i, type: "1", tileSet: self.ownTileSet))
                 
             } else if self.ownTileSet == "fire" {
                 
-                blocks.append(Block(xPos: 0, yPos: i, type: "middle", tileSet: self.ownTileSet))
                 selectedBlocks.append(Block(xPos: 0, yPos: i, type: "middle", tileSet: self.ownTileSet))
                 
             } else {
                 
-                blocks.append(Block(xPos: 0, yPos: i, type: "right", tileSet: self.ownTileSet))
                 selectedBlocks.append(Block(xPos: 0, yPos: i, type: "right", tileSet: self.ownTileSet))
             }
         }
         
-        self.sortObjectArrays()
         self.sortSelectedArrays()
     }
     
@@ -1045,13 +1077,17 @@ class Stage {
     
     func setupAsNextStage(direction: String) {
         
+        self.blockStartIndex = 0
+        self.blockEndIndex = 0
+
         if direction == "right" {
             
             self.x = screenSize.height * screenRatio
             
             self.moveObjects()
-            self.updateObjectArrays(direction: "right")
             
+            self.updateObjectArrays(direction: "right")
+
         } else if direction == "up" {
             
             self.y = -screenSize.height
