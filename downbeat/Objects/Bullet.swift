@@ -13,7 +13,6 @@ class Bullet {
     // CONSTANTS
     
     static let color: UIColor = UIColor.clear
-    //    static let color: UIColor = UIColor.red
     
     static let regularImage = UIImage(named: "regularBulletRight")
     
@@ -23,15 +22,12 @@ class Bullet {
     
     static let beamRightImages = [UIImage(named: "beamBulletRight1"), UIImage(named: "beamBulletRight2")]
     
-    //    static let magnetLeftImage = UIImage(named: "magnetBulletLeft")
     static let magnetLeftImages = [UIImage(named: "magnetBulletLeft1"), UIImage(named: "magnetBulletLeft2")]
     
-//    static let shieldImages = [UIImage(named: "shieldBullet1"), UIImage(named: "shieldBullet2"), UIImage(named: "shieldBullet3")]
     static let shieldRightImages = [UIImage(named: "shieldBulletRight1"), UIImage(named: "shieldBulletRight2"), UIImage(named: "shieldBulletRight3"), UIImage(named: "shieldBulletRight4")]
 
     static let tornadoRightImages = [UIImage(named: "tornadoBulletRight1"), UIImage(named: "tornadoBulletRight2"), UIImage(named: "tornadoBulletRight3")]
     
-    //    static let bubbleImages = [UIImage(named: "bubbleBullet1"), UIImage(named: "bubbleBullet2")]
     static let bubbleRightImages = [UIImage(named: "bubbleBulletRight1"), UIImage(named: "bubbleBulletRight2"), UIImage(named: "bubbleBulletRight3"), UIImage(named: "bubbleBulletRight4"), UIImage(named: "bubbleBulletRight5"), UIImage(named: "bubbleBulletRight6"), UIImage(named: "bubbleBulletRight7"), UIImage(named: "bubbleBulletRight8")]
     
     static let bombImage = UIImage(named: "bombBullet")
@@ -121,16 +117,9 @@ class Bullet {
             }
             
         } else if self.type == "cutter" {
-            
-            //            self.width = Block.width * (9 / 16)
-            //            self.height = self.width
-            
+
             self.width = Block.width * (7 / 16)
             self.height = self.width
-            
-            //            self.moveSpeed = 2
-            //
-            //            self.damage = 3
             
             self.moveSpeed = 3
             
@@ -194,10 +183,7 @@ class Bullet {
             self.removeTimeInterval = 2
             
         } else if self.type == "magnet" {
-            
-            //            self.width = Block.width
-            //            self.height = Block.height * (12 / 16)
-            
+
             self.width = Block.width
             self.height = self.width
             
@@ -228,10 +214,7 @@ class Bullet {
             self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.useEnergyTimeInterval), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
             
         } else if self.type == "tornado" {
-            
-            //            self.width = Block.width * (15 / 16)
-            //            self.height = Block.height
-            
+
             self.width = Block.width
             self.height = self.width
             
@@ -253,7 +236,6 @@ class Bullet {
             self.width = Block.width
             self.height = self.width
             
-            //            self.moveSpeed = 0.875
             self.moveSpeed = 1.75
             
             self.damage = 2
@@ -261,7 +243,6 @@ class Bullet {
             self.ySpeedChange = 0.15
             self.maxFallSpeed = 4
             
-            //            self.removeTimeInterval = 2
             self.removeTimeInterval = 3
             
             self.isFalling = true
@@ -276,9 +257,7 @@ class Bullet {
             }
             
         } else if self.type == "bomb" {
-            
-            //            self.width = Block.width * (14 / 16)
-            //            self.height = self.width
+
             self.width = Block.width
             self.height = self.width
             
@@ -289,7 +268,6 @@ class Bullet {
             self.ySpeedChange = 0.135
             self.maxFallSpeed = 4
             
-            //            self.removeTimeInterval = 1
             self.removeTimeInterval = 0
             
             if self.direction == "left" {
@@ -380,8 +358,6 @@ class Bullet {
             
         } else if self.type == "magnet" {
             
-            //            self.view.image = Bullet.magnetLeftImage
-            
             self.view.animationImages = Bullet.magnetLeftImages as! [UIImage]
             
             self.view.animationDuration = 0.85 * 0.215
@@ -401,7 +377,6 @@ class Bullet {
             
             self.view.animationImages = Bullet.shieldRightImages as! [UIImage]
             
-//            self.view.animationDuration = 0.85 * 0.6875
             self.view.animationDuration = 0.85 * 0.6875 * (4 / 3) * 0.5
 
             self.view.startAnimating()
@@ -436,7 +411,6 @@ class Bullet {
             
             self.view.animationImages = Bullet.bubbleRightImages as! [UIImage]
             
-            //            self.view.animationDuration = 0.85 * 0.6875
             self.view.animationDuration = 0.85 * 0.6875 * 1
             
             self.view.startAnimating()
@@ -829,15 +803,11 @@ class Bullet {
                 }
             }
             
-            //            if self.xSpeed != 0 {
-            
             for block in selectedBlocks {
                 
                 if block.isHidden == false {
                     
                     if block.isLadder == false && block.isTopLadder == false {
-                        
-                        //                        if self.direction == "right" {
                         
                         if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                             
@@ -846,8 +816,6 @@ class Bullet {
                             setXY(x: block.x - (Block.width / 2) - (self.width / 2) - self.moveSpeed, y: self.y)
                         }
                         
-                        //                        } else if self.direction == "left" {
-                        
                         if self.x - (self.width / 2) - self.moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                             
                             self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
@@ -855,14 +823,10 @@ class Bullet {
                             setXY(x: block.x + (Block.width / 2) + (self.width / 2), y: self.y)
                         }
                         
-                        //                        }
-                        
                     }
                 }
                 
             }
-            
-            //            }
             
             if self.isRising == false {
                 
@@ -953,7 +917,6 @@ class Bullet {
                                 self.isJumping = false
                                 self.isRising = false
                                 
-                                //                                self.xSpeed = 0
                                 self.ySpeed = 0
                                 
                                 self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
@@ -1020,10 +983,7 @@ class Bullet {
             
             if fireTime >= 0 {
                 
-                //          self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.useEnergyTimeInterval), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
                 self.useEnergyTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(useEnergy), userInfo: nil, repeats: true)
-                
-                //            shouldRepeat
             }
         }
         
@@ -1033,15 +993,6 @@ class Bullet {
         
         self.isJumping = true
         self.isRising = true
-        
-        //        if self.direction == "right" {
-        //
-        //            self.xSpeed = self.moveSpeed
-        //
-        //        } else if self.direction == "left" {
-        //
-        //            self.xSpeed = -self.moveSpeed
-        //        }
         
         self.ySpeed = -self.maxFallSpeed
     }

@@ -15,7 +15,6 @@ class Background {
     static let height: CGFloat = Block.height
     static let width: CGFloat = Background.height
     
-    //    static let color: UIColor = UIColor.gray
     static let color: UIColor = UIColor.clear
     
     // VARIABLES
@@ -53,7 +52,6 @@ class Background {
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
             
         self.view.image = UIImage(named: "\(tileSet)Background\(self.type.capitalizingFirstLetter())")
-//        self.view.image = UIImage(named: "brickBackground\(self.type.capitalizingFirstLetter())")
     }
     
     func setXY(x: CGFloat, y: CGFloat) {

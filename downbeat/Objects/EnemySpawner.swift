@@ -15,7 +15,6 @@ class EnemySpawner {
     var height: CGFloat = 0
     var width: CGFloat = 0
     
-    //    static let color: UIColor = UIColor.gray
     static let color: UIColor = UIColor.clear
     
     static let followerImages = [UIImage(named: "followerSpawner1"), UIImage(named: "followerSpawner2")]
@@ -63,27 +62,20 @@ class EnemySpawner {
         
         if self.type == "follower" {
             
-            //            self.width = Block.width * (14 / 16)
-            //            self.height = Block.height * (15 / 16)
-            
             self.width = Block.width * (32 / 16)
             self.height = Block.height * (24 / 16)
             
             self.spawnTimeInterval = 3
             
-            //            self.startSpawnTimeInterval = 0.5
             self.startSpawnTimeInterval = 0
             
         } else if self.type == "special" {
             
             self.width = Block.width
             self.height = self.width
-            
-            //            self.spawnTimeInterval = 3
-            //            self.spawnTimeInterval = 1.25
+
             self.spawnTimeInterval = 2
             
-            //            self.startSpawnTimeInterval = 0
             self.startSpawnTimeInterval = 1
             
         } else if self.type == "drop" {
@@ -108,8 +100,6 @@ class EnemySpawner {
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
         
         if self.type == "follower" {
-            
-            //            self.view.image = UIImage(named: "\(self.type)Spawner")
             
             self.view.animationImages = EnemySpawner.followerImages as! [UIImage]
             
@@ -163,15 +153,11 @@ class EnemySpawner {
                 return true
             }
             
-            //            return true
-            
         } else if self.type == "drop" {
             
             let xRange: CGFloat = Block.width * 2
             
             if player.x + (Player.width / 2) >= self.x - (xRange / 2) && player.x - (Player.width / 2) <= self.x + (xRange / 2) {
-                
-                print("IN RANGE")
                 
                 return true
             }
@@ -201,6 +187,7 @@ class EnemySpawner {
     }
     
     func stopSpawning() {
+        
         self.spawnTimer.invalidate()
         self.startSpawnTimer.invalidate()
     }
@@ -243,7 +230,6 @@ class EnemySpawner {
             
             let value: CGFloat = CGFloat(Float(arc4random()) / Float(UINT32_MAX))
             
-            //            let bulletSpeed: CGFloat = 1.5
             let bulletSpeed: CGFloat = 0.9
             
             let xOffset: CGFloat = Block.width * (0 / 16)
@@ -251,12 +237,10 @@ class EnemySpawner {
             
             if self.direction == "up" {
                 
-                //                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeed, type: "special"))
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: 0, ySpeed: -bulletSpeed - value, type: "special"))
                 
             } else if self.direction == "down" {
                 
-                //                enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: 0, ySpeed: bulletSpeed, type: "special"))
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: 0, ySpeed: bulletSpeed + value, type: "special"))
             }
             
