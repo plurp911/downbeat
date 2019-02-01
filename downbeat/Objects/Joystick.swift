@@ -81,28 +81,12 @@ class Joystick {
             let xDist = x - self.outerX
             var yDist = y - self.outerY
             
-//            var ratio: CGFloat
-//
-//            if yDist == 0 {
-//                ratio = 0
-//            } else {
-//                ratio = xDist / yDist
-//            }
-            
             if yDist == 0 {
                 yDist = 0.0001
             }
             
             let ratio = xDist / yDist
             let newDist = Joystick.outerRadius - (Joystick.innerRadius / 2)
-            
-//            var newY: CGFloat
-//
-//            if (ratio * ratio) + 1 == 0 {
-//                newY = 0
-//            } else {
-//                newY = sqrt((newDist * newDist) / ((ratio * ratio) + 1))
-//            }
             
             var holder = (ratio * ratio) + 1
             
