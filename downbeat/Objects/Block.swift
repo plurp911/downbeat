@@ -15,7 +15,6 @@ class Block {
     static let height: CGFloat = screenSize.height / ((CGFloat)(numberOfVerticalBricks))
     static let width: CGFloat = Block.height
     
-//    static let color: UIColor = UIColor.gray
     static let color: UIColor = UIColor.clear
 
     static let hideTimeInterval: CGFloat = 1.5

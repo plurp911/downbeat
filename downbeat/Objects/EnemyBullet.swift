@@ -13,30 +13,19 @@ class EnemyBullet {
     // CONSTANTS
     
     static let color: UIColor = UIColor.clear
-    //    static let color: UIColor = UIColor.red
     
     static let smallRegularImage = UIImage(named: "smallRegularEnemyBullet")
     
-    //    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet")
-    //    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet2")
-//    static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet3")
     static let mediumRegularImage = UIImage(named: "mediumRegularEnemyBullet4")
     
-    //    static let dropHeadImage = UIImage(named: "dropHeadEnemyBullet")
     static let dropHeadImage = UIImage(named: "dropHeadEnemyBulletOther")
     
     static let smallOrangeImage = UIImage(named: "smallOrangeEnemyBullet")
-    
-    //    static let smallBlueImage = UIImage(named: "smallBlueEnemyBullet")
     
     static let smallBlueImages = [UIImage(named: "smallBlueEnemyBullet1"), UIImage(named: "smallBlueEnemyBullet2"), UIImage(named: "smallBlueEnemyBullet3")]
     
     static let smallTanImage = UIImage(named: "smallTanEnemyBullet4")
     
-    //    static let smallTanImages = [UIImage(named: "smallTanEnemyBullet11"), UIImage(named: "smallTanEnemyBullet22"), UIImage(named: "smallTanEnemyBullet33")]
-    //    static let smallTanImages = [UIImage(named: "smallTanEnemyBullet1"), UIImage(named: "smallTanEnemyBullet2"), UIImage(named: "smallTanEnemyBullet3"), UIImage(named: "smallTanEnemyBullet4")]
-    
-    //    static let axeLeftImages = [UIImage(named: "axeEnemyBulletUp"), UIImage(named: "axeEnemyBulletLeft"), UIImage(named: "axeEnemyBulletDown"), UIImage(named: "axeEnemyBulletRight")]
     static let axeRightImages = [UIImage(named: "axeEnemyBullet1"), UIImage(named: "axeEnemyBullet2"), UIImage(named: "axeEnemyBullet3"), UIImage(named: "axeEnemyBullet4")]
     
     static let regularRightImage = UIImage(named: "regularEnemyBulletRight")
@@ -231,8 +220,6 @@ class EnemyBullet {
             
         } else if self.type == "dropHead" {
             
-            //            self.width = Block.width * (14 / 16)
-            //            self.height = Block.height
             self.width = Block.width
             self.height = self.width
             
@@ -260,11 +247,8 @@ class EnemyBullet {
             
             self.damage = 1
             
-            //            self.view.image = EnemyBullet.smallBlueImage
-            
             self.view.animationImages = EnemyBullet.smallBlueImages as! [UIImage]
             
-            //            self.view.animationDuration = 0.85 * 0.5 * (3 / 4)
             self.view.animationDuration = 0.85 * 0.5 * 0.5125
             
             self.view.startAnimating()
@@ -280,19 +264,11 @@ class EnemyBullet {
             
             self.view.image = EnemyBullet.smallTanImage
             
-            //            self.view.animationImages = EnemyBullet.smallTanImages as! [UIImage]
-            
-            //            self.view.animationDuration = 0.85 * 0.5 * 0.5125
-            //            self.view.animationDuration = 0.85 * 0.5 * 0.5125 * (4 / 3)
-            
             self.view.startAnimating()
             
             self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
             
         } else if self.type == "magnet" {
-            
-            //            self.width = Block.width
-            //            self.height = Block.height * (12 / 16)
             
             self.width = Block.width
             self.height = self.width
@@ -309,8 +285,6 @@ class EnemyBullet {
                 
                 self.xSpeed = self.moveSpeed
             }
-            
-            //            self.view.image = Bullet.magnetLeftImage
             
             self.view.animationImages = Bullet.magnetLeftImages as! [UIImage]
             
@@ -353,8 +327,6 @@ class EnemyBullet {
             
         } else if self.type == "axe" {
             
-            //            self.width = Block.width * (12 / 16)
-            //            self.height = self.width
             self.width = Block.width * (11 / 16)
             self.height = self.width
             
@@ -366,10 +338,8 @@ class EnemyBullet {
                 self.xSpeedChange = -self.xSpeedChange
             }
             
-            //            self.ySpeedChange = -0.085
             self.ySpeedChange = -0.065
             
-            //            self.maxFallSpeed = 3
             self.maxFallSpeed = 2
             
             self.minMoveSpeed = 0
@@ -377,7 +347,6 @@ class EnemyBullet {
             self.view.animationImages = EnemyBullet.axeRightImages as! [UIImage]
             
             self.view.animationDuration = 0.85 * 0.5
-            //            self.view.animationDuration = 0.85 * 0.375
             
             self.view.startAnimating()
             
@@ -423,13 +392,8 @@ class EnemyBullet {
             
             self.ySpeedChange = 0.135
             self.maxFallSpeed = 4
-            //            self.ySpeedChange = 0.1
-            //            self.maxFallSpeed = 4
             
-            //            self.removeTimeInterval = 1
             self.removeTimeInterval = 0
-            
-            //            self.jump()
             
             self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
             
@@ -482,7 +446,6 @@ class EnemyBullet {
             self.width = Block.width
             self.height = self.width
             
-            //            self.moveSpeed = 0.875
             self.moveSpeed = 1.75
             
             self.damage = 2
@@ -491,7 +454,6 @@ class EnemyBullet {
             self.maxFallSpeed = 4
             
             self.removeTimeInterval = 2
-            //            self.removeTimeInterval = 3
             
             self.isFalling = true
             
@@ -506,7 +468,6 @@ class EnemyBullet {
             
             self.view.animationImages = Bullet.bubbleRightImages as! [UIImage]
             
-            //            self.view.animationDuration = 0.85 * 0.6875
             self.view.animationDuration = 0.85 * 0.6875 * 1
             
             self.view.startAnimating()
@@ -527,7 +488,6 @@ class EnemyBullet {
             self.width = Block.width * (7 / 16)
             self.height = self.width
             
-            //            self.moveSpeed = 3
             self.moveSpeed = 4
             
             self.damage = 1
@@ -609,7 +569,6 @@ class EnemyBullet {
         }
         
         self.setXY(x: x, y: y)
-        //        self.setXYSpeed(xSpeed: xSpeed, ySpeed: ySpeed)
         
         self.view.frame.origin.x = self.x - (self.width / 2)
         self.view.frame.origin.y = self.y - (self.height / 2)
@@ -622,44 +581,6 @@ class EnemyBullet {
         self.view.contentMode = .scaleAspectFill
         
         self.view.layer.magnificationFilter = CALayerContentsFilter.nearest
-        
-        //        if self.type == "axe" {
-        //
-        //            if self.xSpeed >= 0 {
-        //
-        //                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-        //
-        //            } else {
-        //
-        //                self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-        //            }
-        //
-        //        } else {
-        //
-        //            if self.xSpeed <= 0 {
-        //
-        //                if self.ySpeed <= 0 {
-        //
-        //                    self.view.transform = CGAffineTransform(scaleX: -1, y: -1)
-        //
-        //                } else {
-        //
-        //                    self.view.transform = CGAffineTransform(scaleX: -1, y: 1)
-        //                }
-        //
-        //            } else {
-        //
-        //                if self.ySpeed <= 0 {
-        //
-        //                    self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
-        //
-        //                } else {
-        //
-        //                    self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-        //                }
-        //            }
-        //
-        //        }
         
         if self.type == "bomb" {
             self.jump()
@@ -715,24 +636,7 @@ class EnemyBullet {
         
         if self.type == "axe" {
             
-            //            setXYSpeed(xSpeed: self.xSpeed - self.xSpeedChange, ySpeed: self.ySpeed - self.ySpeedChange)
             setXYSpeed(xSpeed: self.xSpeed, ySpeed: self.ySpeed - self.ySpeedChange)
-            
-            //            if self.ySpeed >= self.maxFallSpeed {
-            //
-            //                setXYSpeed(xSpeed: self.xSpeed, ySpeed: self.maxFallSpeed)
-            //            }
-            //
-            //            if abs(self.xSpeed) <= abs(self.minMoveSpeed) {
-            //
-            //                var newSpeed = self.minMoveSpeed
-            //
-            //                if xSpeed < 0 {
-            //                    newSpeed = -newSpeed
-            //                }
-            //
-            //                setXYSpeed(xSpeed: newSpeed, ySpeed: self.ySpeed)
-            //            }
             
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
             
@@ -782,15 +686,7 @@ class EnemyBullet {
             setXY(x: self.x + self.xSpeed, y: self.y + self.ySpeed)
             
         } else if self.type == "shield" {
-            
-            //            self.xSpeed = 0
-            //            self.ySpeed = 0
-            //
-            //            for enemy in selectedEnemies {
-            //
-            //                setXY(x: enemy.x, y: enemy.y)
-            //            }
-            
+
             self.ySpeed = 0
             
             if self.didReachGoal == true {
@@ -935,15 +831,11 @@ class EnemyBullet {
             
             let moveSpeed: CGFloat = abs(self.xSpeed)
             
-            //            if self.xSpeed != 0 {
-            
             for block in selectedBlocks {
                 
                 if block.isHidden == false {
                     
                     if block.isLadder == false && block.isTopLadder == false {
-                        
-                        //                        if self.direction == "right" {
                         
                         if self.x + (self.width / 2) + moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                             
@@ -952,8 +844,6 @@ class EnemyBullet {
                             setXY(x: block.x - (Block.width / 2) - (self.width / 2) - moveSpeed, y: self.y)
                         }
                         
-                        //                        } else if self.direction == "left" {
-                        
                         if self.x - (self.width / 2) - moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                             
                             self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
@@ -961,14 +851,10 @@ class EnemyBullet {
                             setXY(x: block.x + (Block.width / 2) + (self.width / 2), y: self.y)
                         }
                         
-                        //                        }
-                        
                     }
                 }
                 
             }
-            
-            //            }
             
             if self.isRising == false {
                 
@@ -1059,7 +945,6 @@ class EnemyBullet {
                                 self.isJumping = false
                                 self.isRising = false
                                 
-                                //                                self.xSpeed = 0
                                 self.ySpeed = 0
                                 
                                 self.removeTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.removeTimeInterval), target: self, selector: #selector(makeRemovable), userInfo: nil, repeats: false)
@@ -1229,10 +1114,6 @@ class EnemyBullet {
         self.ySpeed = -self.maxFallSpeed
     }
     
-    @objc func makeRemovable() {
-        self.shouldRemove = true
-    }
-    
     func handlePause() {
         
         self.timerFireTimes["removeTimer"] = getTimerFireTime(timer: self.removeTimer)
@@ -1252,4 +1133,7 @@ class EnemyBullet {
         
     }
     
+    @objc func makeRemovable() {
+        self.shouldRemove = true
+    }
 }
