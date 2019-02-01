@@ -42,20 +42,12 @@ class Stage {
     
     var numberOfHorizontalBlocks: Int = 0
     
-    //    var counter: Int = 0
-    
     var textArray = [[String]]()
     
     var canEnterFromTop: Bool = false
     var canEnterFromBottom: Bool = false
     var canEnterFromLeft: Bool = false
-    
-    //    var tileSet: String = "brick"
-    //    var tileSet: String = "fire"
-    //    var tileSet: String = "tree"
-    //    var tileSet: String = "metal"
-    //    var tileSet: String = "ice"
-    
+
     var ownTileSet: String = ""
     
     var boss: String = ""
@@ -69,8 +61,6 @@ class Stage {
         }
         
         do {
-            
-            //            print(fileName)
             
             let text = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
             
@@ -87,8 +77,6 @@ class Stage {
                 textArray[i] = newText
                 textArray[i].removeLast()
                 
-                //                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "8" || fileName[0] == "9" {
-                //                if fileName[0] == "5" || fileName[0] == "7" || fileName[0] == "9" {
                 if fileName[0] == "5" || fileName[0] == "9" {
                     
                     textArray[i].removeLast()
@@ -153,20 +141,7 @@ class Stage {
                             }
                             
                         } else if tileSet == "water" {
-                            
-                            //                            if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
-                            //
-                            //                                blocks.append(Block(xPos: j, yPos: i, type: "left", tileSet: tileSet))
-                            //
-                            //                            } else if isEqual(i: i, j: j + 1, block: "#") == false && j < self.numberOfHorizontalBlocks - 1 {
-                            //
-                            //                                blocks.append(Block(xPos: j, yPos: i, type: "right", tileSet: tileSet))
-                            //
-                            //                            } else {
-                            //
-                            //                                blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: tileSet))
-                            //                            }
-                            
+
                             if i < numberOfVerticalBricks - 1 {
                                 
                                 if isEqual(i: i, j: j - 1, block: "#") == false && j > 0 {
@@ -199,8 +174,6 @@ class Stage {
                             }
                             
                         } else if tileSet == "tree" {
-                            
-                            //                            blocks.append(Block(xPos: j, yPos: i, type: "bottom", tileSet: tileSet))
                             
                             if (i + j) % 2 == 0 {
                                 blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
@@ -297,8 +270,6 @@ class Stage {
                             
                         } else {
                             
-                            //                            blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: tileSet))
-                            
                             if (i + j) % 2 == 0 {
                                 blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
                             } else {
@@ -356,8 +327,6 @@ class Stage {
                             
                         } else {
                             
-                            //                            blocks.append(Block(xPos: j, yPos: i, type: "middle", tileSet: tileSet))
-                            
                             if (i + j) % 2 == 0 {
                                 blocks.append(Block(xPos: j, yPos: i, type: "1", tileSet: tileSet))
                             } else {
@@ -410,30 +379,26 @@ class Stage {
                     
                     blocks.append(Block(xPos: j, yPos: i, type: "electricLeft", tileSet: "metal"))
                     
-                    //                    enemies.append(Enemy(xPos: j - 1, yPos: i, type: "electricity", direction: "left"))
                     specialEnemies.append(Enemy(xPos: j - 1, yPos: i, type: "electricity", direction: "left"))
                     
                 } else if text == ">" {
                     
                     blocks.append(Block(xPos: j, yPos: i, type: "electricRight", tileSet: "metal"))
                     
-                    //                    enemies.append(Enemy(xPos: j + 1, yPos: i, type: "electricity", direction: "right"))
                     specialEnemies.append(Enemy(xPos: j + 1, yPos: i, type: "electricity", direction: "right"))
                     
                 } else if text == "G" {
-                    
-                    //                    blocks.append(Block(xPos: j, yPos: i, type: "shooter", tileSet: tileSet))
                     
                     enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "special", direction: "up"))
                     
                 } else if text == "g" {
                     
-                    //                    blocks.append(Block(xPos: j, yPos: i, type: "shooter", tileSet: tileSet))
-                    
                     enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "special", direction: "down"))
                     
                 } else if text == "^" {
+                    
                     //                    blocks.append(Block(xPos: j, yPos: i, type: "spike", tileSet: tileSet))
+                    
                 } else if text == "I" {
                     
                     if isEqual(i: i - 1, j: j, block: "#") {
@@ -607,71 +572,19 @@ class Stage {
     }
     
     func reset() {
+
+         // ???
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        // ???
-        
-        /*
-         
-         for enemy in enemies {
-         enemy.endTimers()
-         }
-         
-         for specialEnemy in specialEnemies {
-         specialEnemy.endTimers()
-         }
-         
-         */
+//        for enemy in enemies {
+//            enemy.endTimers()
+//        }
+//
+//        for specialEnemy in specialEnemies {
+//            specialEnemy.endTimers()
+//        }
         
         // ???
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        // ??
-        
-        // self.x = 0
-        
-        // self.moveBlocks()
-        
-        // ??
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //        var blocks = [Block]()
-        //        var backgrounds = [Background]()
-        //        var enemies = [Enemy]()
-        //        var specialEnemies = [Enemy]()
-        //        var powerups = [Powerup]()
-        //        var enemySpawners = [EnemySpawner]()
-        
-        //        var playerStartX: CGFloat = -1
-        //        var playerStartY: CGFloat = -1
-        
+
         self.blockStartIndex = 0
         self.blockEndIndex = 0
         
@@ -689,65 +602,12 @@ class Stage {
         
         self.x = 0
         self.y = 0
-        
-        //        var numberOfHorizontalBlocks: Int = 0
-        
-        //        var counter: Int = 0
-        
-        //        var textArray = [[String]]()
-        
-        //        var canEnterFromTop: Bool = false
-        //        var canEnterFromBottom: Bool = false
-        //        var canEnterFromLeft: Bool = false
-        
-        //    var tileSet: String = "brick"
-        //    var tileSet: String = "fire"
-        //    var tileSet: String = "tree"
-        //    var tileSet: String = "metal"
-        //    var tileSet: String = "ice"
-        
-        //        var ownTileSet: String = ""
-        
-        //        var boss: String = ""
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        // ?
-        
-        // self.moveBlocks()
-        
-        // ?
-        
-        
-        
-        
-        
-        
-        
-        
+
         self.sortObjectArrays()
-        
-        
-        
-        
-        
-        // ************************************************************
-        
-        
         
         self.moveObjects()
         
-        // ????
-        
         self.updateObjectArrays(direction: "right")
-        
-        // ????
         
         for background in self.backgrounds {
             
@@ -772,10 +632,6 @@ class Stage {
                 break
             }
         }
-        
-        // ************************************************************
-        
-        
         
     }
     
@@ -1088,9 +944,6 @@ class Stage {
     
     func setPlayerStartXYPos(startXPos: Int, startYPos: Int) {
         
-        // self.playerStartX = ((CGFloat)(startXPos) * Block.width) + (Block.width / 2)
-        // self.playerStartY = ((CGFloat)(startYPos) * Block.height) + (Block.height / 2)
-        
         self.playerStartX = ((CGFloat)(startXPos) * Block.width) + (Block.width / 2)
         self.playerStartY = ((CGFloat)(startYPos) * Block.height) + (Block.height / 2) - (Player.height / 2)
     }
@@ -1121,7 +974,6 @@ class Stage {
         
         for i in 0 ..< blocks.count {
             
-            //            self.blocks[i].setX(x: self.x + (((CGFloat)(self.blocks[i].xPos)) * Block.width) + (Block.width / 2))
             self.blocks[i].setXY(x: self.x + (((CGFloat)(self.blocks[i].xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(self.blocks[i].yPos)) * Block.height) + (Block.height / 2))
         }
     }
@@ -1153,19 +1005,6 @@ class Stage {
             if isMatch == false {
                 
                 enemy.setXY(x: self.x + (((CGFloat)(enemy.xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(enemy.yPos)) * Block.height) + Block.height - (enemy.height / 2))
-                
-                //                if enemy.type == "electricity" {
-                //
-                //                    if enemy.direction == "right" {
-                //
-                //                        enemy.setXY(x: enemy.x - (Block.width / 2) + (enemy.width / 2), y: enemy.y)
-                //
-                //                    } else if enemy.direction == "left" {
-                //
-                //                        enemy.setXY(x: enemy.x + (Block.width / 2) - (enemy.width / 2), y: enemy.y)
-                //                    }
-                //                }
-                
             }
         }
         
@@ -1192,12 +1031,8 @@ class Stage {
         
         for i in 0 ..< self.powerups.count {
             
-            //            if self.powerups[i].isInBounds() == false {
-            
             self.powerups[i].setXY(x: self.x + (((CGFloat)(self.powerups[i].xPos)) * Block.width) + (Block.width / 2), y: self.y + (((CGFloat)(self.powerups[i].yPos)) * Block.height) + Block.height - (self.powerups[i].height / 2))
-            //            }
         }
-        
     }
     
     func moveEnemySpawners() {
@@ -1219,14 +1054,10 @@ class Stage {
             
         } else if direction == "up" {
             
-            //            self.x = 0
             self.y = -screenSize.height
             
             self.moveObjects()
-            //            self.updateObjectArrays(direction: direction)
-            
-            //            self.beginSelectedArrays()
-            
+
             for background in self.backgrounds {
                 
                 if background.isInBounds() == true {
@@ -1250,19 +1081,13 @@ class Stage {
                     break
                 }
             }
-            
-            //            self.sortSelectedArrays()
             
         } else if direction == "down" {
             
-            //            self.x = 0
             self.y = screenSize.height
             
             self.moveObjects()
-            //            self.updateObjectArrays(direction: direction)
-            
-            //            self.beginSelectedArrays()
-            
+
             for background in self.backgrounds {
                 
                 if background.isInBounds() == true {
@@ -1287,7 +1112,6 @@ class Stage {
                 }
             }
             
-            //            self.sortSelectedArrays()
         }
     }
     
@@ -1300,68 +1124,20 @@ class Stage {
             } else {
                 self.x += Player.maxMoveSpeed
             }
-            
-            //            if self.x >= ((CGFloat)(numberOfHorizontalBlocks)) * Block.width {
-            //                self.x = ((CGFloat)(numberOfHorizontalBlocks)) * Block.width
-            //            }
-            
+
         } else if direction == "right" {
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
             // make speed for movement a set constant if transitioning right...
             // or set player is knocked back to false when starting transitioning...
             
             // make it impossible to transition from being hit... <- BEST
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
             if player.isKnockedBack == true {
                 self.x -= Player.knockBackMoveSpeed
             } else {
                 self.x -= Player.maxMoveSpeed
             }
-            
-            //            if self.x <= 0 {
-            //                self.x = 0
-            //            }
-            
+
         } else if direction == "up" {
             
             self.y += Player.maxMoveSpeed
@@ -1492,8 +1268,6 @@ class Stage {
             
             if enemySpawner.isInBounds() == true {
                 
-                //                enemySpawner.startSpawning()
-                
                 selectedEnemySpawners.append(enemySpawner)
                 
             } else {
@@ -1512,19 +1286,6 @@ class Stage {
         self.updatePowerups(direction: direction)
         self.updateEnemySpawners(direction: direction)
     }
-    
-    //    func isMatch(object: AnyObject, objectArray: [AnyObject]) -> Bool {
-    //
-    //        for otherObject in objectArray {
-    //
-    //            if object === otherObject {
-    //
-    //                return true
-    //            }
-    //        }
-    //
-    //        return false
-    //    }
     
     func getMatchPos(object: AnyObject, objectArray: [AnyObject]) -> Int {
         
@@ -2025,8 +1786,6 @@ class Stage {
         self.enemies = self.enemies.sorted(by: { $0.x < $1.x })
         selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
         
-        print("HERE")
-        
         removeObjects(type: "selectedEnemies", toRemove: selectedToRemove)
     }
     
@@ -2049,8 +1808,6 @@ class Stage {
                         isInBounds = true
                         
                         if isMatch(object: self.enemySpawners[self.enemySpawnerStartIndex], objectArray: selectedEnemySpawners) == false {
-                            
-                            //                            self.enemySpawners[self.enemySpawnerStartIndex].startSpawning()
                             
                             selectedEnemySpawners.insert(self.enemySpawners[self.enemySpawnerStartIndex], at: 0)
                         }
@@ -2103,8 +1860,6 @@ class Stage {
                         isInBounds = true
                         
                         if isMatch(object: self.enemySpawners[self.enemySpawnerEndIndex], objectArray: selectedEnemySpawners) == false {
-                            
-                            //                            self.enemySpawners[self.enemySpawnerEndIndex].startSpawning()
                             
                             selectedEnemySpawners.append(self.enemySpawners[self.enemySpawnerEndIndex])
                         }
