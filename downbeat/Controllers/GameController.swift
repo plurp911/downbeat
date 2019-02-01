@@ -238,6 +238,10 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         if isFromSettings == true {
             
             updateSettingsVisibility(isHidden: false)
+            
+        } else {
+            
+            updateStageSelectVisibility(isHidden: false)
         }
     }
     
@@ -1710,6 +1714,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         
         isFromSettings = false
         
+        updateStageSelectVisibility(isHidden: true)
         updatePurchaseVisibility(isHidden: false)
     }
     
