@@ -15,7 +15,6 @@ class EnergyBarTick {
     static let height: CGFloat = Block.height * (1 / 16)
     static let width: CGFloat = Block.width * (6 / 16)
     
-    //    static let color: UIColor = UIColor.gray
     static let color: UIColor = UIColor.clear
     
     // VARIABLES

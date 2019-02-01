@@ -11,13 +11,10 @@ import UIKit
 class EnergyBar {
     
     // CONSTANTS
-    
-//    static let height: CGFloat = Block.height * (56 / 16)
-//    static let width: CGFloat = Block.width * (8 / 16)
+
     static let height: CGFloat = Block.height * (64 / 16)
     static let width: CGFloat = Block.width * (8 / 16)
     
-    //    static let color: UIColor = UIColor.gray
     static let color: UIColor = UIColor.clear
     
     // VARIABLES
@@ -36,36 +33,17 @@ class EnergyBar {
         self.type = type
         
         if self.type == "health" {
-
-//            self.x = Block.width + (Block.width * 0.5) + (EnergyBar.width / 2)
-//            self.y = (Block.width * (25 / 16)) + (EnergyBar.height / 2)
-            
-//            self.x = Block.width + (Block.width * 0.5) + (EnergyBar.width / 2)
-//            self.y = (Block.height * 0.5) + (EnergyBar.height / 2)
-//            self.x = Block.width + (EnergyBar.width / 2)
-//            self.y = (Block.height * 0.5) + (EnergyBar.height / 2)
             
             self.x = Block.width - (EnergyBar.width / 2)
             self.y = (Block.width * 0.5) + (EnergyBar.height / 2)
             
         } else if self.type == "energy" {
             
-//            self.x = Block.width + (Block.width * 0.5) - (EnergyBar.width / 2)
-//            self.y = (Block.width * (25 / 16)) + (EnergyBar.height / 2)
-            
-//            self.x = Block.width + (Block.width * 0.5) - (EnergyBar.width / 2)
-//            self.y = (Block.width * 0.5) + (EnergyBar.height / 2)
-//            self.x = Block.width - (EnergyBar.width / 2)
-//            self.y = (Block.width * 0.5) + (EnergyBar.height / 2)
-            
             self.x = Block.width + (EnergyBar.width / 2)
             self.y = (Block.height * 0.5) + (EnergyBar.height / 2)
             
         } else if self.type == "bossHealth" {
 
-//            self.x = (screenSize.height * screenRatio) - Block.width + (EnergyBar.width / 2)
-//            self.y = (Block.height * 0.5) + (EnergyBar.height / 2)
-            
             self.x = Block.width + Block.width + (EnergyBar.width / 2)
             self.y = (Block.height * 0.5) + (EnergyBar.height / 2)
         }
@@ -84,7 +62,6 @@ class EnergyBar {
         
         if self.type == "health" {
             
-//            self.view.image = UIImage(named: "healthBarBackground")
             self.view.image = UIImage(named: "energyBarBackground")
 
             for i in 0 ..< Player.maxHealth {
@@ -93,7 +70,6 @@ class EnergyBar {
             
         } else if self.type == "energy" {
         
-//            self.view.image = UIImage(named: "bombEnergyBarBackground")
             self.view.image = UIImage(named: "energyBarBackground")
 
             for i in 0 ..< Player.maxEnergy {
@@ -102,7 +78,6 @@ class EnergyBar {
             
         } else if self.type == "bossHealth" {
             
-            //            self.view.image = UIImage(named: "healthBarBackground")
             self.view.image = UIImage(named: "energyBarBackground")
             
             for i in 0 ..< Enemy.maxBossHealth {
@@ -147,7 +122,6 @@ class EnergyBar {
         if power == "regular" {
             
             self.view.isHidden = true
-//            self.view.image = nil
 
             for tick in ticks {
                 tick.view.isHidden = true
@@ -156,7 +130,6 @@ class EnergyBar {
         } else {
             
             self.view.isHidden = false
-//            self.view.image = UIImage(named: "energyBarBackground")
 
             for tick in ticks {
                 

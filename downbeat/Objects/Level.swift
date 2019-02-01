@@ -10,6 +10,8 @@ import UIKit
 
 class Level {
     
+    // VARIABLES
+    
     var stages = [[Stage?]]()
     
     var startStage: Stage?
