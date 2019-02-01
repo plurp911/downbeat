@@ -190,6 +190,8 @@ class Player {
         
         self.setXY(x: currentStage!.playerStartX, y: currentStage!.playerStartY)
         
+        self.endTimers()
+        
         self.isFalling = true
         
         self.xSpeed = 0
@@ -1843,6 +1845,11 @@ class Player {
         self.timerFireTimes["endHitTimer"] = getTimerFireTime(timer: self.endHitTimer)
         self.timerFireTimes["hitAnimationTimer"] = getTimerFireTime(timer: self.hitAnimationTimer)
         self.timerFireTimes["endKnockBackTimer"] = getTimerFireTime(timer: self.endKnockBackTimer)
+        
+        self.endTimers()
+    }
+    
+    func endTimers() {
         
         self.endShootAnimationTimer.invalidate()
         self.endHitTimer.invalidate()

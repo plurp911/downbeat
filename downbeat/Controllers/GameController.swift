@@ -1383,8 +1383,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         
         // loadLevels()
         
-        // musicPlayer?.stop()
-        
+        musicPlayer?.stop()
+
         updateStageSelectVisibility(isHidden: true)
         updateLoadingVisibility(isHidden: false)
         
