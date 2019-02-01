@@ -12,7 +12,7 @@ extension GameController {
     
     func loadLevels() {
         
-        // BRICK
+        // FOLLOWER, HAT
         
         tileSet = "brick"
         
@@ -22,8 +22,7 @@ extension GameController {
                            [nil, Stage(fileName: "1-3"), Stage(fileName: "1-4"), Stage(fileName: "1-5"), nil, nil],
                            [Stage(fileName: "1-1"), Stage(fileName: "1-2"), nil, nil, nil, nil]]
         
-        
-        // FIRE
+        // MINER, FOOT
         
         tileSet = "fire"
         
@@ -33,7 +32,7 @@ extension GameController {
                           [nil, nil, Stage(fileName: "2-4"), nil, nil],
                           [Stage(fileName: "2-1"), Stage(fileName: "2-2"), Stage(fileName: "2-3"), nil]]
         
-        // METAL
+        // ELECTRICTY, DROP
         
         tileSet = "metal"
         
@@ -42,7 +41,7 @@ extension GameController {
                            [nil, nil, nil, Stage(fileName: "3-6"), nil, nil, nil, nil],
                            [nil, nil, nil, Stage(fileName: "3-7"), Stage(fileName: "3-8"), Stage(fileName: "3-9"), Stage(fileName: "3-10"), Stage(fileName: "3-11")]]
         
-        // ICE
+        // SHOOTER, SPECIAL BULLET
         
         tileSet = "ice"
         
@@ -97,7 +96,7 @@ extension GameController {
                           [Stage(fileName: "8-2"), Stage(fileName: "8-5"), Stage(fileName: "8-6"), nil, nil],
                           [Stage(fileName: "8-1"), nil, nil, nil, nil]]
         
-        // FINAL
+        // ALL
         
         tileSet = "chemical"
         
@@ -107,69 +106,10 @@ extension GameController {
                               [Stage(fileName: "9-2"), Stage(fileName: "9-5"), nil, nil, Stage(fileName: "9-10"), Stage(fileName: "9-11"), nil, nil, nil, nil, nil],
                               [Stage(fileName: "9-3"), Stage(fileName: "9-4"), nil, nil, nil, nil, nil, nil, nil, nil, nil]]
         
-        // OTHER
-        
-        //        tileSet = "other"
-        
-        //        let otherStages = [[Stage(fileName: "1-1")]]
-        
         // LOAD LEVELS
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        // BACKUP PLAN
-        
-        
         levels.removeAll()
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         levels.append(Level(stages: brickStages))
         levels.append(Level(stages: fireStages))
         levels.append(Level(stages: metalStages))
@@ -179,7 +119,6 @@ extension GameController {
         levels.append(Level(stages: waterStages))
         levels.append(Level(stages: sandStages))
         levels.append(Level(stages: chemicalStages))
-        //        levels.append(Level(stages: otherStages))
     }
     
     func setLevel(level: Level) {
@@ -193,16 +132,10 @@ extension GameController {
         
         currentStage?.reset()
         
-        // resetGlobalVariables()
-        
         currentLevel!.updateCurrentStagePos()
         currentStage!.setupSelectedArrays()
         
         player.reset()
-        
-        //        player = Player()
-        
-        //        handleResume()
         
         moveTimer.invalidate()
         
@@ -214,14 +147,7 @@ extension GameController {
     }
     
     func resetGlobalVariables() {
-        
-        
-        
-        
-        
-        
-        
-        
+
         // stop all timers
         
         // removing powerups ???
@@ -242,14 +168,7 @@ extension GameController {
         for powerup in selectedPowerups {
             powerup.isUsed = true
         }
-        
-        
-        
-        
-        
-        
-        
-        
+    
         bullets.removeAll()
         explosions.removeAll()
         powerups.removeAll()
@@ -268,13 +187,6 @@ extension GameController {
         canBeKnockedBack = true
         
         canClimb = true
-        
-        //        var isLeftPressed: Bool = false
-        //        var isRightPressed: Bool = false
-        //        var isUpPressed: Bool = false
-        //        var isDownPressed: Bool = false
-        
-        //        var isPaused: Bool = false
         
         currentStageXPos = -1
         currentStageYPos = -1
