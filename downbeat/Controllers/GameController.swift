@@ -2077,7 +2077,6 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         jumpButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -mainButtonSpacing).isActive = true
         jumpButton.widthAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
         jumpButton.heightAnchor.constraint(equalTo: pauseButton.heightAnchor).isActive = true
-//        jumpButton.centerYAnchor.constraint(equalTo: leftButton.centerYAnchor, constant: mainButtonSpacing).isActive = true
         jumpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Block.width * (49 / 16) * 0.5).isActive = true
     }
 
@@ -2302,7 +2301,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
                 } else if track == "stageSelect" {
                     volume = 0.5
                 } else {
-                    print("-- PLAY TRACK ERROR --")
+                    print("PLAY TRACK ERROR")
                 }
                 
                 musicPlayer.volume = volume

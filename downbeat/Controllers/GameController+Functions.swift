@@ -541,8 +541,6 @@ extension GameController {
                         
                     } else if bullets[bulletPos].type == "shield" {
                         
-                        //                        bulletsToRemove.append(bulletPos)
-                        
                     } else if bullets[bulletPos].type == "tornado" {
                         
                     } else if bullets[bulletPos].type == "bubble" {
@@ -560,11 +558,7 @@ extension GameController {
                         selectedEnemies[i].isUsed = true
                         
                         selectedEnemies[i].endTimers()
-                        
-//                        playSound(name: "explosion")
-//
-//                        explosions.append(Explosion(x: selectedEnemies[i].x, y: selectedEnemies[i].y, type: "explosion"))
-                        
+
                         if selectedEnemies[i].type == "brickBoss" || selectedEnemies[i].type == "fireBoss" || selectedEnemies[i].type == "metalBoss" || selectedEnemies[i].type == "iceBoss" || selectedEnemies[i].type == "skyBoss" || selectedEnemies[i].type == "snowBoss" || selectedEnemies[i].type == "waterBoss" || selectedEnemies[i].type == "sandBoss" || selectedEnemies[i].type == "chemicalBoss" {
                             
                             var power: String = ""
@@ -629,13 +623,6 @@ extension GameController {
                                 
                                 power = "chemical"
                                 
-                                
-                                
-                                
-                                
-                                
-                                print("8 7 6")
-                                
                                 updateControlVisibility(isHidden: true)
                                 
                                 musicPlayer?.stop()
@@ -648,38 +635,7 @@ extension GameController {
                                 
                                 deathTimer = Timer.scheduledTimer(timeInterval: TimeInterval(winTimeInterval), target: self, selector: #selector(handleMakeCongratulations), userInfo: nil, repeats: false)
                                 
-                                
-                                
-                                
-                                
-                                
-                                
-//                                print("YOU WIN")
-//
-//                                player.reset()
-//
-//                                handlePause()
-//
-//                                playTrack(track: "congratulations")
-//
-//                                updateStageSelectVisibility(isHidden: true)
-//                                updateControlVisibility(isHidden: true)
-//                                updateCongratulationsVisibility(isHidden: false)
-                                
                             } else {
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                print("5 4 3")
                                 
                                 updateControlVisibility(isHidden: true)
                                 
@@ -692,28 +648,6 @@ extension GameController {
                                 deathTimer.invalidate()
                                 
                                 deathTimer = Timer.scheduledTimer(timeInterval: TimeInterval(winTimeInterval), target: self, selector: #selector(handleMakeStageSelect), userInfo: nil, repeats: false)
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-//                                playTrack(track: "stageSelect")
-//
-//                                saveCompletedLevels()
-//
-//                                updateCompletedStageViews()
-//
-//                                updateControlVisibility(isHidden: true)
-//                                updateStageSelectVisibility(isHidden: false)
                             }
                             
                         } else {
@@ -754,17 +688,8 @@ extension GameController {
         }
         
         if player.isGameOver() == true {
-            
-            
-            
-            
-            
-            
-            
-            
+
             if deathTimer.isValid == false {
-                
-                print("3 2 1")
                 
                 updateControlVisibility(isHidden: true)
                 
@@ -778,52 +703,13 @@ extension GameController {
                 
                 deathTimer = Timer.scheduledTimer(timeInterval: TimeInterval(deathTimeInterval), target: self, selector: #selector(handleDeath), userInfo: nil, repeats: false)
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            /*
-             
-             print("1 2 3")
-             
-             //            handleQuit()
-             
-             player.reset()
-             
-             //            handlePause()
-             
-             updatePausedVisibility(isHidden: true)
-             
-             updateStageSelectVisibility(isHidden: true)
-             updateControlVisibility(isHidden: true)
-             updateGameOverVisibility(isHidden: false)
-             
-             handlePause()
-             
-             */
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
         }
+        
     }
     
     @objc func handleMakeCongratulations() {
         
         deathTimer.invalidate()
-        
-        print("6 7 8")
         
         player.reset()
         
@@ -840,8 +726,6 @@ extension GameController {
         
         deathTimer.invalidate()
         
-        print("3 4 5")
-        
         playTrack(track: "stageSelect")
         
         saveCompletedLevels()
@@ -856,13 +740,7 @@ extension GameController {
         
         deathTimer.invalidate()
         
-        print("1 2 3")
-        
-        //            handleQuit()
-        
         player.reset()
-        
-        //            handlePause()
         
         updatePausedVisibility(isHidden: true)
         
