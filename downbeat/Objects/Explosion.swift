@@ -11,12 +11,8 @@ import UIKit
 class Explosion {
     
     // CONSTANTS
-    
-    //    static let height: CGFloat = Block.height
-    //    static let width: CGFloat = Explosion.height
-    
+
     static let color: UIColor = UIColor.clear
-    //    static let color: UIColor = UIColor.red
     
     static let explosionImages = [UIImage(named: "explosion1"), UIImage(named: "explosion2"), UIImage(named: "explosion3"), UIImage(named: "explosion4")]
     
@@ -120,7 +116,6 @@ class Explosion {
         self.x = x
         self.y = y
         
-//        self.type = type
         self.type = "death"
         
         self.view.backgroundColor = Explosion.color
@@ -131,9 +126,6 @@ class Explosion {
         
         self.view.stopAnimating()
         
-//        if type == "death" {
-        
-        //            self.moveSpeed = 1.25
         self.moveSpeed = 1
         
         if xSpeedMultiplier != 0 && ySpeedMultiplier != 0 {
@@ -160,15 +152,12 @@ class Explosion {
         }
         
         self.view.animationDuration = 0.135
-//        }
         
         self.view.frame.origin.x = self.x - self.width / 2
         self.view.frame.origin.y = self.y - self.height / 2
         
         self.view.frame.size.width = self.width
         self.view.frame.size.height = self.height
-        
-        // self.view.animationRepeatCount = -1
         
         self.view.startAnimating()
         

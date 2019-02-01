@@ -17,7 +17,6 @@ class Powerup {
     static var ySpeedChange: CGFloat = 0.2
     
     static let color: UIColor = UIColor.clear
-    //    static let color: UIColor = UIColor.red
     
     static let largeHealthImages = [UIImage(named: "largeHealthPowerup1"), UIImage(named: "largeHealthPowerup2")]
     static let smallHealthImages = [UIImage(named: "smallHealthPowerup1"), UIImage(named: "smallHealthPowerup2")]
@@ -85,9 +84,7 @@ class Powerup {
             self.height = self.width
             
         } else if self.type == "largeEnergy" {
-            
-//            self.width = Block.width
-//            self.height = self.width
+
             self.width = Block.width * (15 / 16)
             self.height = Block.height * (13 / 16)
             
@@ -166,7 +163,6 @@ class Powerup {
     
     static func updateSpeeds() {
         
-//        Powerup.ySpeedChange = newVal(oldVal: Powerup.ySpeedChange)
         Powerup.maxFallSpeed = newVal(oldVal: Powerup.maxFallSpeed)
     }
     
@@ -195,16 +191,7 @@ class Powerup {
                 self.isFalling = false
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         if self.isRising == false {
             
             var isEmpty: Bool = true
@@ -231,33 +218,12 @@ class Powerup {
                 }
             }
             
-//            for bullet in bullets {
-//
-//                if bullet.type == "beam" {
-//
-//                    if self.y + (self.height / 2) + self.ySpeed < bullet.y + (bullet.height / 2) && self.y + (self.height / 2) + self.ySpeed > bullet.y - (bullet.height / 2) && ((self.x + (self.width / 2) <= bullet.x + (bullet.width / 2) && self.x + (self.width / 2) > bullet.x - (bullet.width / 2)) || (self.x - (self.width / 2) < bullet.x + (bullet.width / 2) && self.x - (self.width / 2) >= bullet.x - (bullet.width / 2))) {
-//
-//                        isEmpty = false
-//                    }
-//                }
-//
-//            }
-            
             if isEmpty == true {
                 
                 self.isFalling = true
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         if self.isFalling == true {
             
             for block in selectedBlocks {

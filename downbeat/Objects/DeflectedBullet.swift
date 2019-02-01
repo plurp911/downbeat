@@ -16,7 +16,6 @@ class DeflectedBullet {
     static var moveSpeed: CGFloat = 8
     
     static let color: UIColor = UIColor.clear
-    //    static let color: UIColor = UIColor.red
     
     // VARIABLES
     
