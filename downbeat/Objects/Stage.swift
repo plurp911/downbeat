@@ -1054,6 +1054,11 @@ class Stage {
                     
                     enemy.setXY(x: enemy.x + (Block.width / 2) - (enemy.width / 2), y: enemy.y)
                 }
+                
+                if enemy.isInBounds() == false {
+                    
+                    enemy.endSounds()
+                }
             }
             
         }

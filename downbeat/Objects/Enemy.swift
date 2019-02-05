@@ -636,7 +636,7 @@ class Enemy {
             
         } else if self.type == "scooper" {
             
-            self.maxHealth = 5
+            self.maxHealth = 3
             
             self.damage = 3
             
@@ -817,6 +817,8 @@ class Enemy {
             }
             
             self.stunTimeInterval = 1.75
+            
+            self.soundTimeInterval = 0.2
             
             self.view.animationImages = Enemy.footImages as! [UIImage]
             
@@ -1246,8 +1248,8 @@ class Enemy {
                 setXY(x: self.x, y: self.y + (Block.height / 2) - (self.height / 2))
             }
             
-            self.soundTimeInterval = 0.5
-            
+            self.soundTimeInterval = 0.25
+
             self.view.animationImages = Enemy.scooperLeftImages as! [UIImage]
             
             self.view.animationDuration = 0.85 * 0.45 * 2
@@ -2098,6 +2100,8 @@ class Enemy {
             
             if self.isStunned == true {
                 
+                self.soundTimer.invalidate()
+                
                 self.xSpeed = 0
                 
             } else {
@@ -2189,6 +2193,51 @@ class Enemy {
                 
                 if self.direction == "left" {
                     self.xSpeed = -self.xSpeed
+                }
+                
+                if self.isFootInBounds() == true {
+                    
+                    if abs(self.xSpeed) != self.moveSpeed {
+                        
+                        if self.soundTimer.isValid == false {
+                            
+                            self.soundTimer.invalidate()
+                            
+                            self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
+                            
+                        } else {
+                            
+                            if self.soundTimer.timeInterval != TimeInterval(self.soundTimeInterval) {
+                                
+                                self.soundTimer.invalidate()
+                                
+                                self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
+                            }
+                        }
+                        
+                    } else {
+                        
+                        if self.soundTimer.isValid == false {
+                            
+                            self.soundTimer.invalidate()
+                            
+                            self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval * 2), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
+                            
+                        } else {
+                            
+                            if self.soundTimer.timeInterval != TimeInterval(self.soundTimeInterval * 2) {
+                                
+                                self.soundTimer.invalidate()
+                                
+                                self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval * 2), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
+                            }
+                        }
+                        
+                    }
+                    
+                } else {
+                    
+                    self.soundTimer.invalidate()
                 }
             }
             
@@ -4044,13 +4093,20 @@ class Enemy {
             
         } else if self.type == "electricity" {
             
-            if self.isShooting == true {
+            if self.isInBounds() == true {
                 
-                if self.soundTimer.isValid == false {
+                if self.isShooting == true {
+                    
+                    if self.soundTimer.isValid == false {
+                        
+                        self.soundTimer.invalidate()
+                        
+                        self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
+                    }
+                    
+                } else {
                     
                     self.soundTimer.invalidate()
-                    
-                    self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
                 }
                 
             } else {
@@ -4499,20 +4555,19 @@ class Enemy {
                 
             } else {
                 
-                
                 if self.soundTimer.isValid == false {
                     
                     self.soundTimer.invalidate()
                     
-                    self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval * (0.375 / 0.75)), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
+                    self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval * 0.5), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
                     
                 } else {
                     
-                    if self.soundTimer.timeInterval != TimeInterval(self.soundTimeInterval * (0.375 / 0.75)) {
+                    if self.soundTimer.timeInterval != TimeInterval(self.soundTimeInterval * 0.5) {
                         
                         self.soundTimer.invalidate()
                         
-                        self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval * (0.375 / 0.75)), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
+                        self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval * 0.5), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
                     }
                 }
                 
@@ -4588,9 +4643,25 @@ class Enemy {
         return false
     }
     
+    func isFootInBounds() -> Bool {
+        
+        if self.x + (self.width / 2) >= 0 && self.x - (self.width / 2) <= screenSize.height * (screenRatio) {
+            return true
+        }
+        
+        return false
+    }
+    
     @objc func sound() {
         
         playSound(name: self.type)
+        
+        if self.soundTimer.timeInterval != TimeInterval(self.soundTimeInterval) {
+            
+            self.soundTimer.invalidate()
+            
+            self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.soundTimeInterval), target: self, selector: #selector(sound), userInfo: nil, repeats: true)
+        }
     }
     
     func didHitBullet() -> Int {
@@ -6145,6 +6216,8 @@ class Enemy {
         self.signalTimer.invalidate()
         self.endStunTimer.invalidate()
         self.endHitTimer.invalidate()
+        self.jumpTimer.invalidate()
+        self.soundTimer.invalidate()
     }
     
     func didHitOwnBullet() -> Int {
@@ -6163,6 +6236,11 @@ class Enemy {
         return -1
     }
     
+    func endSounds() {
+        
+        soundTimer.invalidate()
+    }
+    
     func handlePause() {
         
         self.timerFireTimes["shootTimer"] = getTimerFireTime(timer: self.shootTimer)
@@ -6171,13 +6249,9 @@ class Enemy {
         self.timerFireTimes["endStunTimer"] = getTimerFireTime(timer: self.endStunTimer)
         self.timerFireTimes["endHitTimer"] = getTimerFireTime(timer: self.endHitTimer)
         self.timerFireTimes["jumpTimer"] = getTimerFireTime(timer: self.jumpTimer)
-        
-        self.shootTimer.invalidate()
-        self.endShootTimer.invalidate()
-        self.signalTimer.invalidate()
-        self.endStunTimer.invalidate()
-        self.endHitTimer.invalidate()
-        self.jumpTimer.invalidate()
+        self.timerFireTimes["soundTimer"] = getTimerFireTime(timer: self.soundTimer)
+
+        self.endTimers()
     }
     
     func handleResume() {
@@ -6227,6 +6301,14 @@ class Enemy {
             if fireTime >= 0 {
                 
                 self.jumpTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(jump), userInfo: nil, repeats: false)
+            }
+        }
+        
+        if let fireTime = self.timerFireTimes["soundTimer"] {
+            
+            if fireTime >= 0 {
+                
+                self.soundTimer = Timer.scheduledTimer(timeInterval: TimeInterval(fireTime), target: self, selector: #selector(sound), userInfo: nil, repeats: false)
             }
         }
         

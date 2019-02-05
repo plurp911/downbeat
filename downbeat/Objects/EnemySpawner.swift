@@ -221,6 +221,8 @@ class EnemySpawner {
             
             if enemyCount < 3 {
                 
+                playSound(name: "spawn")
+                
                 selectedEnemies.append(Enemy(x: self.x, y: self.y, type: self.type))
                 
                 selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
@@ -237,10 +239,14 @@ class EnemySpawner {
             
             if self.direction == "up" {
                 
+                playSound(name: "spawn")
+                
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y + yOffset, xSpeed: 0, ySpeed: -bulletSpeed - value, type: "special"))
                 
             } else if self.direction == "down" {
                 
+                playSound(name: "spawn")
+
                 enemyBullets.append(EnemyBullet(x: self.x - xOffset, y: self.y - yOffset, xSpeed: 0, ySpeed: bulletSpeed + value, type: "special"))
             }
             

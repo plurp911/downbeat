@@ -625,6 +625,14 @@ extension GameController {
                                 
                                 updateControlVisibility(isHidden: true)
                                 
+                                if let thisStage = currentStage {
+                                    
+                                    for specialEnemy in thisStage.specialEnemies {
+                                        
+                                        specialEnemy.endSounds()
+                                    }
+                                }
+                                
                                 musicPlayer?.stop()
                                 
                                 playSound(name: "death")
@@ -638,6 +646,14 @@ extension GameController {
                             } else {
                                 
                                 updateControlVisibility(isHidden: true)
+                                
+                                if let thisStage = currentStage {
+                                    
+                                    for specialEnemy in thisStage.specialEnemies {
+                                        
+                                        specialEnemy.endSounds()
+                                    }
+                                }
                                 
                                 musicPlayer?.stop()
                                 
@@ -693,7 +709,21 @@ extension GameController {
                 
                 updateControlVisibility(isHidden: true)
                 
+                if let thisStage = currentStage {
+                    
+                    for specialEnemy in thisStage.specialEnemies {
+                        
+                        specialEnemy.endSounds()
+                    }
+                }
+                
                 musicPlayer?.stop()
+                
+                for player in players {
+                    player?.stop()
+                }
+                
+                players.removeAll()
                 
                 playSound(name: "death2")
 

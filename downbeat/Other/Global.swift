@@ -84,6 +84,7 @@ var isUpPressed: Bool = false
 var isDownPressed: Bool = false
 
 var isPaused: Bool = false
+var isLoading: Bool = false
 
 var currentStageXPos: Int = -1
 var currentStageYPos: Int = -1
@@ -332,6 +333,20 @@ public func playSound(name: String) {
             
             removeObjects(type: "players", toRemove: playersToRemove)
             
+            if name != "scooper" && name != "electricity" && name != "foot" {
+                
+                if players.count >= 3 {
+                    
+                    repeat {
+                        
+                        players[0]?.stop()
+                        players.remove(at: 0)
+                        
+                    } while players.count >= 3
+                }
+                
+            }
+            
             let nextPlayer: AVAudioPlayer?
             
             nextPlayer = try AVAudioPlayer(contentsOf: url)
@@ -367,16 +382,38 @@ public func playSound(name: String) {
                 volume = 0.9
             } else if name == "throw2" {
                 volume = 0.9
+            } else if name == "jumper" {
+                volume = 0.9
+            } else if name == "miner" {
+                volume = 0.9
+            } else if name == "scooper" {
+                volume = 0.9
+            } else if name == "electricity" {
+                volume = 0.9
+            } else if name == "drop" {
+                volume = 0.9
+            } else if name == "spawn" {
+                volume = 0.9
+            } else if name == "spread" {
+                volume = 0.9
+            } else if name == "foot" {
+                volume = 0.9
             } else {
                 print("PLAY SOUND ERROR")
             }
             
-            newPlayer.volume = volume
-            
-            newPlayer.prepareToPlay()
-            newPlayer.play()
-            
-            players.append(newPlayer)
+            if isLoading == false {
+                
+                if players.count < 3 {
+                    
+                    newPlayer.volume = volume
+                    
+                    newPlayer.prepareToPlay()
+                    newPlayer.play()
+                    
+                    players.append(newPlayer)
+                }
+            }
             
         } catch let error as NSError {
             print(error.description)

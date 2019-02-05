@@ -712,6 +712,21 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         for enemy in selectedEnemies {
             enemy.handleResume()
         }
+        
+        if let thisStage = currentStage {
+            
+            for specialEnemy in thisStage.specialEnemies {
+                specialEnemy.handleResume()
+            }
+        }
+        
+        for enemySpawner in selectedEnemySpawners {
+            enemySpawner.handleResume()
+        }
+        
+        for enemyBullet in enemyBullets {
+            enemyBullet.handleResume()
+        }
     }
     
     lazy var retryButton: UIButton = {
@@ -1056,6 +1071,21 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         for enemy in selectedEnemies {
             enemy.handlePause()
         }
+        
+        if let thisStage = currentStage {
+         
+            for specialEnemy in thisStage.specialEnemies {
+                specialEnemy.handlePause()
+            }
+        }
+        
+        for enemySpawner in selectedEnemySpawners {
+            enemySpawner.handlePause()
+        }
+        
+        for enemyBullet in enemyBullets {
+            enemyBullet.handlePause()
+        }
     }
     
     lazy var muteButton: UIButton = {
@@ -1386,6 +1416,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         // BACKUP PLAN
         
         // loadLevels()
+        
+        isLoading = true
         
         musicPlayer?.stop()
 
@@ -1719,6 +1751,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     }
     
     @objc func handleLoaded() {
+        
+        isLoading = false
         
         loadingTimer.invalidate()
         

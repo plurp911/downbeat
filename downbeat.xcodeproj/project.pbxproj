@@ -25,6 +25,14 @@
 		8425B0B021F80AE9007EE68E /* menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8425B0AF21F80AE8007EE68E /* menu.wav */; };
 		8425B0B221F80AED007EE68E /* land.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8425B0B121F80AED007EE68E /* land.wav */; };
 		8425B0B421F80AF1007EE68E /* explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8425B0B321F80AF1007EE68E /* explosion.wav */; };
+		842F3EA122090D4300374B1A /* miner.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EA022090D4300374B1A /* miner.wav */; };
+		842F3EA322090D4C00374B1A /* scooper.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EA222090D4C00374B1A /* scooper.wav */; };
+		842F3EA522090DCF00374B1A /* electricity.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EA422090DCF00374B1A /* electricity.wav */; };
+		842F3EA722090E2200374B1A /* drop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EA622090E2200374B1A /* drop.wav */; };
+		842F3EA922090E4200374B1A /* spawn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EA822090E4200374B1A /* spawn.wav */; };
+		842F3EAB22090EAE00374B1A /* spread.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EAA22090EAE00374B1A /* spread.wav */; };
+		842F3EAD2209168200374B1A /* jumper.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EAC2209168200374B1A /* jumper.wav */; };
+		842F3EB12209213600374B1A /* foot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EB02209213600374B1A /* foot.wav */; };
 		8437C3D621CA4E9F00555352 /* 2-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8437C3D421CA4E9F00555352 /* 2-9.txt */; };
 		8437C3D721CA4E9F00555352 /* 2-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8437C3D521CA4E9F00555352 /* 2-8.txt */; };
 		8437C3DA21CA4EAB00555352 /* 3-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8437C3D821CA4EAA00555352 /* 3-10.txt */; };
@@ -212,6 +220,14 @@
 		8425B0AF21F80AE8007EE68E /* menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menu.wav; sourceTree = "<group>"; };
 		8425B0B121F80AED007EE68E /* land.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = land.wav; sourceTree = "<group>"; };
 		8425B0B321F80AF1007EE68E /* explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion.wav; sourceTree = "<group>"; };
+		842F3EA022090D4300374B1A /* miner.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = miner.wav; sourceTree = "<group>"; };
+		842F3EA222090D4C00374B1A /* scooper.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = scooper.wav; sourceTree = "<group>"; };
+		842F3EA422090DCF00374B1A /* electricity.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = electricity.wav; sourceTree = "<group>"; };
+		842F3EA622090E2200374B1A /* drop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drop.wav; sourceTree = "<group>"; };
+		842F3EA822090E4200374B1A /* spawn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spawn.wav; sourceTree = "<group>"; };
+		842F3EAA22090EAE00374B1A /* spread.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spread.wav; sourceTree = "<group>"; };
+		842F3EAC2209168200374B1A /* jumper.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jumper.wav; sourceTree = "<group>"; };
+		842F3EB02209213600374B1A /* foot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = foot.wav; sourceTree = "<group>"; };
 		8437C3D421CA4E9F00555352 /* 2-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-9.txt"; sourceTree = "<group>"; };
 		8437C3D521CA4E9F00555352 /* 2-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-8.txt"; sourceTree = "<group>"; };
 		8437C3D821CA4EAA00555352 /* 3-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3-10.txt"; sourceTree = "<group>"; };
@@ -568,6 +584,14 @@
 				846220292201146300592680 /* deflect.wav */,
 				8462202B2201156C00592680 /* throw.wav */,
 				8462202F220117A600592680 /* throw2.wav */,
+				842F3EA022090D4300374B1A /* miner.wav */,
+				842F3EA222090D4C00374B1A /* scooper.wav */,
+				842F3EA422090DCF00374B1A /* electricity.wav */,
+				842F3EA622090E2200374B1A /* drop.wav */,
+				842F3EA822090E4200374B1A /* spawn.wav */,
+				842F3EAA22090EAE00374B1A /* spread.wav */,
+				842F3EAC2209168200374B1A /* jumper.wav */,
+				842F3EB02209213600374B1A /* foot.wav */,
 				92086A7421A2441F00AB51F8 /* Controllers */,
 				92086A7321A2441300AB51F8 /* Objects */,
 				92086A7521A2443A00AB51F8 /* Other */,
@@ -767,6 +791,7 @@
 			files = (
 				84E2533E21E402D30076F140 /* 6-9.txt in Resources */,
 				845308F521F7BC7600A774B5 /* 9-6.txt in Resources */,
+				842F3EA122090D4300374B1A /* miner.wav in Resources */,
 				8425B0A221F7F0EA007EE68E /* water.mp3 in Resources */,
 				8437C3DB21CA4EAB00555352 /* 3-11.txt in Resources */,
 				84E2534C21E403340076F140 /* 7-9.txt in Resources */,
@@ -821,6 +846,7 @@
 				84E2534F21E403340076F140 /* 7-3.txt in Resources */,
 				84E2535121E403340076F140 /* 7-8.txt in Resources */,
 				8425B08E21F7EC6C007EE68E /* stageSelect.mp3 in Resources */,
+				842F3EAD2209168200374B1A /* jumper.wav in Resources */,
 				8437C3E121CA4EEE00555352 /* 4-8.txt in Resources */,
 				845308EF21F7BC7600A774B5 /* 9-3.txt in Resources */,
 				84BC59D921C62E9800497844 /* 3-5.txt in Resources */,
@@ -833,6 +859,7 @@
 				8437C3E321CA4EFE00555352 /* 4-9.txt in Resources */,
 				84BC59DD21C63B9F00497844 /* 3-7.txt in Resources */,
 				84BC59E321C68A6500497844 /* 4-1.txt in Resources */,
+				842F3EAB22090EAE00374B1A /* spread.wav in Resources */,
 				847F2B0321FFFE1300E6A020 /* energy.wav in Resources */,
 				84E2533721E402D30076F140 /* 6-1.txt in Resources */,
 				84BC59C521C4E1AA00497844 /* 2-4.txt in Resources */,
@@ -847,6 +874,7 @@
 				84E253BA21E404AE0076F140 /* 7-11.txt in Resources */,
 				846220222201117100592680 /* shoot2.wav in Resources */,
 				846DE66521B8A1EE00127572 /* 1-2.txt in Resources */,
+				842F3EB12209213600374B1A /* foot.wav in Resources */,
 				845308F021F7BC7600A774B5 /* 9-16.txt in Resources */,
 				8425B0A021F7F04A007EE68E /* congratulations.mp3 in Resources */,
 				84622030220117A600592680 /* throw2.wav in Resources */,
@@ -882,10 +910,12 @@
 				84E2533B21E402D30076F140 /* 6-2.txt in Resources */,
 				8462202A2201146300592680 /* deflect.wav in Resources */,
 				84E2537821E403CC0076F140 /* 5-10.txt in Resources */,
+				842F3EA922090E4200374B1A /* spawn.wav in Resources */,
 				84E2533C21E402D30076F140 /* 6-8.txt in Resources */,
 				84E2537A21E403CC0076F140 /* 5-3.txt in Resources */,
 				84E2533D21E402D30076F140 /* 6-4.txt in Resources */,
 				84BC59D321C61C7300497844 /* 3-2.txt in Resources */,
+				842F3EA322090D4C00374B1A /* scooper.wav in Resources */,
 				84BC59CD21C5D11500497844 /* 2-7.txt in Resources */,
 				84BC59EF21C78CA200497844 /* 4-7.txt in Resources */,
 				846DE66B21B8A1EE00127572 /* 1-10.txt in Resources */,
@@ -895,12 +925,14 @@
 				84BC59E521C752EF00497844 /* 4-2.txt in Resources */,
 				845308F321F7BC7600A774B5 /* 9-13.txt in Resources */,
 				8425B0B021F80AE9007EE68E /* menu.wav in Resources */,
+				842F3EA722090E2200374B1A /* drop.wav in Resources */,
 				8425B0A421F7F17A007EE68E /* sky.mp3 in Resources */,
 				8425B08C21F7EC03007EE68E /* fire.mp3 in Resources */,
 				847F2AFB21FFD25600E6A020 /* hit2.wav in Resources */,
 				84E2534E21E403340076F140 /* 7-4.txt in Resources */,
 				84E2537921E403CC0076F140 /* 5-8.txt in Resources */,
 				845308EA21F7BC7600A774B5 /* 9-11.txt in Resources */,
+				842F3EA522090DCF00374B1A /* electricity.wav in Resources */,
 				8425B09821F7EE66007EE68E /* brick.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
