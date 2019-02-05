@@ -355,54 +355,56 @@ public func playSound(name: String) {
             var volume: Float = 0
             
             if name == "explosion" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "land" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "menu" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "shoot" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "shoot2" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "hit" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "hit2" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "death" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "death2" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "health" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "energy" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "deflect" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "throw" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "throw2" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "jumper" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "miner" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "scooper" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "electricity" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "drop" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "spawn" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "spread" {
-                volume = 0.9
+                volume = 1.0
             } else if name == "foot" {
-                volume = 0.9
+                volume = 1.0
+            } else if name == "eye" {
+                volume = 1.0
             } else {
                 print("PLAY SOUND ERROR")
             }
             
-            if isLoading == false {
+            if isLoading == false && isTransitioningUp == false && isTransitioningDown == false && isTransitioningRight == false {
                 
                 if players.count < 3 {
                     

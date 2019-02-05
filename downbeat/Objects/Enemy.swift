@@ -4021,6 +4021,11 @@ class Enemy {
                             
                             if self.y + (self.height / 2) + self.maxFallSpeed <= block.y - (Block.height / 2) + self.maxFallSpeed && self.y + (self.height / 2) + self.maxFallSpeed >= block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
                                 
+                                if self.view.image == Enemy.snowBossJumpLeftImage {
+                                    
+                                    playSound(name: "miner")
+                                }
+                                
                                 self.isJumping = false
                                 self.isFalling = false
                                 
@@ -4040,6 +4045,11 @@ class Enemy {
                         } else if block.isLadder == false {
                             
                             if self.y + (self.height / 2) + self.ySpeed < block.y + (Block.height / 2) && self.y + (self.height / 2) + self.ySpeed > block.y - (Block.height / 2) && ((self.x + (self.width / 2) <= block.x + (Block.width / 2) && self.x + (self.width / 2) > block.x - (Block.width / 2)) || (self.x - (self.width / 2) < block.x + (Block.width / 2) && self.x - (self.width / 2) >= block.x - (Block.width / 2))) {
+                                
+                                if self.view.image == Enemy.snowBossJumpLeftImage {
+                                
+                                    playSound(name: "miner")
+                                }
                                 
                                 self.isJumping = false
                                 self.isFalling = false
@@ -4594,6 +4604,8 @@ class Enemy {
     }
     
     func handleEyeHitBlock() {
+        
+        playSound(name: self.type)
 
         self.isStunned = true
         

@@ -33,6 +33,8 @@
 		842F3EAB22090EAE00374B1A /* spread.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EAA22090EAE00374B1A /* spread.wav */; };
 		842F3EAD2209168200374B1A /* jumper.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EAC2209168200374B1A /* jumper.wav */; };
 		842F3EB12209213600374B1A /* foot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EB02209213600374B1A /* foot.wav */; };
+		842F3EB5220923F300374B1A /* eye.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EB4220923F300374B1A /* eye.wav */; };
+		842F3EB72209268B00374B1A /* climb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EB62209268B00374B1A /* climb.wav */; };
 		8437C3D621CA4E9F00555352 /* 2-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8437C3D421CA4E9F00555352 /* 2-9.txt */; };
 		8437C3D721CA4E9F00555352 /* 2-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8437C3D521CA4E9F00555352 /* 2-8.txt */; };
 		8437C3DA21CA4EAB00555352 /* 3-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8437C3D821CA4EAA00555352 /* 3-10.txt */; };
@@ -228,6 +230,8 @@
 		842F3EAA22090EAE00374B1A /* spread.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spread.wav; sourceTree = "<group>"; };
 		842F3EAC2209168200374B1A /* jumper.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jumper.wav; sourceTree = "<group>"; };
 		842F3EB02209213600374B1A /* foot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = foot.wav; sourceTree = "<group>"; };
+		842F3EB4220923F300374B1A /* eye.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = eye.wav; sourceTree = "<group>"; };
+		842F3EB62209268B00374B1A /* climb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = climb.wav; sourceTree = "<group>"; };
 		8437C3D421CA4E9F00555352 /* 2-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-9.txt"; sourceTree = "<group>"; };
 		8437C3D521CA4E9F00555352 /* 2-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-8.txt"; sourceTree = "<group>"; };
 		8437C3D821CA4EAA00555352 /* 3-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3-10.txt"; sourceTree = "<group>"; };
@@ -592,6 +596,8 @@
 				842F3EAA22090EAE00374B1A /* spread.wav */,
 				842F3EAC2209168200374B1A /* jumper.wav */,
 				842F3EB02209213600374B1A /* foot.wav */,
+				842F3EB4220923F300374B1A /* eye.wav */,
+				842F3EB62209268B00374B1A /* climb.wav */,
 				92086A7421A2441F00AB51F8 /* Controllers */,
 				92086A7321A2441300AB51F8 /* Objects */,
 				92086A7521A2443A00AB51F8 /* Other */,
@@ -845,6 +851,7 @@
 				84E2534B21E403340076F140 /* 7-6.txt in Resources */,
 				84E2534F21E403340076F140 /* 7-3.txt in Resources */,
 				84E2535121E403340076F140 /* 7-8.txt in Resources */,
+				842F3EB5220923F300374B1A /* eye.wav in Resources */,
 				8425B08E21F7EC6C007EE68E /* stageSelect.mp3 in Resources */,
 				842F3EAD2209168200374B1A /* jumper.wav in Resources */,
 				8437C3E121CA4EEE00555352 /* 4-8.txt in Resources */,
@@ -875,6 +882,7 @@
 				846220222201117100592680 /* shoot2.wav in Resources */,
 				846DE66521B8A1EE00127572 /* 1-2.txt in Resources */,
 				842F3EB12209213600374B1A /* foot.wav in Resources */,
+				842F3EB72209268B00374B1A /* climb.wav in Resources */,
 				845308F021F7BC7600A774B5 /* 9-16.txt in Resources */,
 				8425B0A021F7F04A007EE68E /* congratulations.mp3 in Resources */,
 				84622030220117A600592680 /* throw2.wav in Resources */,
