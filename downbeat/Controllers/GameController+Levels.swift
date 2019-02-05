@@ -123,7 +123,16 @@ extension GameController {
     
     func setLevel(level: Level) {
         
+        print("3")
+        
         gameView.backgroundColor = gameViewColor
+        
+        for i in 0 ..< level.stages.count {
+            for j in 0 ..< level.stages[i].count {
+                
+                level.stages[i][j]?.otherReset()
+            }
+        }
         
         currentLevel = level
         currentStage = level.startStage
@@ -149,6 +158,8 @@ extension GameController {
     }
     
     func resetGlobalVariables() {
+        
+        print("5")
 
         // stop all timers
         

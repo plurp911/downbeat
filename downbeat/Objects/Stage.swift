@@ -639,35 +639,35 @@ class Stage {
         
         self.x = 0
         
-        self.sortObjectArrays()
-        
-        self.moveObjects()
-        
-        self.updateObjectArrays(direction: "right")
-        
-        for background in self.backgrounds {
-            
-            if background.isInBounds() == true {
-                
-                selectedBackgrounds.append(background)
-                
-            } else {
-                
-                break
-            }
-        }
-        
-        for block in self.blocks {
-            
-            if block.isInBounds() == true {
-                
-                selectedBlocks.append(block)
-                
-            } else {
-                
-                break
-            }
-        }
+//        self.sortObjectArrays()
+//
+//        self.moveObjects()
+//
+//        self.updateObjectArrays(direction: "right")
+//
+//        for background in self.backgrounds {
+//
+//            if background.isInBounds() == true {
+//
+//                selectedBackgrounds.append(background)
+//
+//            } else {
+//
+//                break
+//            }
+//        }
+//
+//        for block in self.blocks {
+//
+//            if block.isInBounds() == true {
+//
+//                selectedBlocks.append(block)
+//
+//            } else {
+//
+//                break
+//            }
+//        }
         
     }
     

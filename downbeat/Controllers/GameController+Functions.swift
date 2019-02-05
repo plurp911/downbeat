@@ -918,6 +918,8 @@ extension GameController {
             }
         }
         
+//        print(selectedBlocks.count)
+        print(nextStage!.blocks.count)
     }
     
     func removeUnwantedEnemies(direction: String) {
