@@ -691,8 +691,6 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     
     @objc func handleResume() {
         
-        print("4")
-        
         if isMusicMuted == false {
             
             musicPlayer?.play()
@@ -751,8 +749,6 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     }()
     
     @objc func handleRetry() {
-        
-        print("1")
         
         playSound(name: "menu")
         
@@ -1417,8 +1413,6 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     
     func handleSelectedStage(type: String) {
         
-        print("2")
-
         // BACKUP PLAN
         
         // loadLevels()
