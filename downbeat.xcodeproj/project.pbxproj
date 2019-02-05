@@ -35,6 +35,8 @@
 		842F3EB12209213600374B1A /* foot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EB02209213600374B1A /* foot.wav */; };
 		842F3EB5220923F300374B1A /* eye.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EB4220923F300374B1A /* eye.wav */; };
 		842F3EB72209268B00374B1A /* climb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EB62209268B00374B1A /* climb.wav */; };
+		842F3EBA2209350300374B1A /* 6-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EB82209350200374B1A /* 6-8.txt */; };
+		842F3EBB2209350300374B1A /* 6-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 842F3EB92209350200374B1A /* 6-9.txt */; };
 		8437C3D621CA4E9F00555352 /* 2-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8437C3D421CA4E9F00555352 /* 2-9.txt */; };
 		8437C3D721CA4E9F00555352 /* 2-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8437C3D521CA4E9F00555352 /* 2-8.txt */; };
 		8437C3DA21CA4EAB00555352 /* 3-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8437C3D821CA4EAA00555352 /* 3-10.txt */; };
@@ -107,16 +109,15 @@
 		84BC59ED21C7829C00497844 /* 4-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59EC21C7829C00497844 /* 4-6.txt */; };
 		84BC59EF21C78CA200497844 /* 4-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84BC59EE21C78CA100497844 /* 4-7.txt */; };
 		84C848F521B3B53900CF276A /* 2-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84C848F421B3B53900CF276A /* 2-1.txt */; };
-		84E2533621E402D30076F140 /* 6-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2532C21E402D20076F140 /* 6-11.txt */; };
+		84E2533621E402D30076F140 /* 6-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2532C21E402D20076F140 /* 6-12.txt */; };
 		84E2533721E402D30076F140 /* 6-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2532D21E402D20076F140 /* 6-1.txt */; };
 		84E2533821E402D30076F140 /* 6-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2532E21E402D20076F140 /* 6-7.txt */; };
 		84E2533921E402D30076F140 /* 6-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2532F21E402D30076F140 /* 6-3.txt */; };
 		84E2533A21E402D30076F140 /* 6-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2533021E402D30076F140 /* 6-5.txt */; };
 		84E2533B21E402D30076F140 /* 6-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2533121E402D30076F140 /* 6-2.txt */; };
-		84E2533C21E402D30076F140 /* 6-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2533221E402D30076F140 /* 6-8.txt */; };
 		84E2533D21E402D30076F140 /* 6-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2533321E402D30076F140 /* 6-4.txt */; };
-		84E2533E21E402D30076F140 /* 6-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2533421E402D30076F140 /* 6-9.txt */; };
-		84E2533F21E402D30076F140 /* 6-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2533521E402D30076F140 /* 6-10.txt */; };
+		84E2533E21E402D30076F140 /* 6-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2533421E402D30076F140 /* 6-10.txt */; };
+		84E2533F21E402D30076F140 /* 6-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2533521E402D30076F140 /* 6-11.txt */; };
 		84E2534921E403340076F140 /* 7-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2534021E403320076F140 /* 7-2.txt */; };
 		84E2534A21E403340076F140 /* 7-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2534121E403320076F140 /* 7-5.txt */; };
 		84E2534B21E403340076F140 /* 7-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2534221E403330076F140 /* 7-6.txt */; };
@@ -149,8 +150,8 @@
 		84E2537B21E403CC0076F140 /* 5-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2537021E403CC0076F140 /* 5-9.txt */; };
 		84E253B221E404980076F140 /* 5-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B021E404980076F140 /* 5-13.txt */; };
 		84E253B321E404980076F140 /* 5-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B121E404980076F140 /* 5-12.txt */; };
-		84E253B621E404A80076F140 /* 6-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B421E404A70076F140 /* 6-13.txt */; };
-		84E253B721E404A80076F140 /* 6-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B521E404A70076F140 /* 6-12.txt */; };
+		84E253B621E404A80076F140 /* 6-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B421E404A70076F140 /* 6-14.txt */; };
+		84E253B721E404A80076F140 /* 6-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B521E404A70076F140 /* 6-13.txt */; };
 		84E253BA21E404AE0076F140 /* 7-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B821E404AE0076F140 /* 7-11.txt */; };
 		84E253BB21E404AE0076F140 /* 7-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B921E404AE0076F140 /* 7-10.txt */; };
 		84E253BE21E404B30076F140 /* 8-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253BC21E404B30076F140 /* 8-10.txt */; };
@@ -232,6 +233,8 @@
 		842F3EB02209213600374B1A /* foot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = foot.wav; sourceTree = "<group>"; };
 		842F3EB4220923F300374B1A /* eye.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = eye.wav; sourceTree = "<group>"; };
 		842F3EB62209268B00374B1A /* climb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = climb.wav; sourceTree = "<group>"; };
+		842F3EB82209350200374B1A /* 6-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-8.txt"; sourceTree = "<group>"; };
+		842F3EB92209350200374B1A /* 6-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-9.txt"; sourceTree = "<group>"; };
 		8437C3D421CA4E9F00555352 /* 2-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-9.txt"; sourceTree = "<group>"; };
 		8437C3D521CA4E9F00555352 /* 2-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-8.txt"; sourceTree = "<group>"; };
 		8437C3D821CA4EAA00555352 /* 3-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3-10.txt"; sourceTree = "<group>"; };
@@ -303,16 +306,15 @@
 		84BC59EC21C7829C00497844 /* 4-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "4-6.txt"; sourceTree = "<group>"; };
 		84BC59EE21C78CA100497844 /* 4-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "4-7.txt"; sourceTree = "<group>"; };
 		84C848F421B3B53900CF276A /* 2-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-1.txt"; sourceTree = "<group>"; };
-		84E2532C21E402D20076F140 /* 6-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-11.txt"; sourceTree = "<group>"; };
+		84E2532C21E402D20076F140 /* 6-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-12.txt"; sourceTree = "<group>"; };
 		84E2532D21E402D20076F140 /* 6-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-1.txt"; sourceTree = "<group>"; };
 		84E2532E21E402D20076F140 /* 6-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-7.txt"; sourceTree = "<group>"; };
 		84E2532F21E402D30076F140 /* 6-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-3.txt"; sourceTree = "<group>"; };
 		84E2533021E402D30076F140 /* 6-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-5.txt"; sourceTree = "<group>"; };
 		84E2533121E402D30076F140 /* 6-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-2.txt"; sourceTree = "<group>"; };
-		84E2533221E402D30076F140 /* 6-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-8.txt"; sourceTree = "<group>"; };
 		84E2533321E402D30076F140 /* 6-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-4.txt"; sourceTree = "<group>"; };
-		84E2533421E402D30076F140 /* 6-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-9.txt"; sourceTree = "<group>"; };
-		84E2533521E402D30076F140 /* 6-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-10.txt"; sourceTree = "<group>"; };
+		84E2533421E402D30076F140 /* 6-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-10.txt"; sourceTree = "<group>"; };
+		84E2533521E402D30076F140 /* 6-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-11.txt"; sourceTree = "<group>"; };
 		84E2534021E403320076F140 /* 7-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "7-2.txt"; sourceTree = "<group>"; };
 		84E2534121E403320076F140 /* 7-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "7-5.txt"; sourceTree = "<group>"; };
 		84E2534221E403330076F140 /* 7-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "7-6.txt"; sourceTree = "<group>"; };
@@ -345,8 +347,8 @@
 		84E2537021E403CC0076F140 /* 5-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-9.txt"; sourceTree = "<group>"; };
 		84E253B021E404980076F140 /* 5-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-13.txt"; sourceTree = "<group>"; };
 		84E253B121E404980076F140 /* 5-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-12.txt"; sourceTree = "<group>"; };
-		84E253B421E404A70076F140 /* 6-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-13.txt"; sourceTree = "<group>"; };
-		84E253B521E404A70076F140 /* 6-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-12.txt"; sourceTree = "<group>"; };
+		84E253B421E404A70076F140 /* 6-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-14.txt"; sourceTree = "<group>"; };
+		84E253B521E404A70076F140 /* 6-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-13.txt"; sourceTree = "<group>"; };
 		84E253B821E404AE0076F140 /* 7-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "7-11.txt"; sourceTree = "<group>"; };
 		84E253B921E404AE0076F140 /* 7-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "7-10.txt"; sourceTree = "<group>"; };
 		84E253BC21E404B30076F140 /* 8-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "8-10.txt"; sourceTree = "<group>"; };
@@ -527,12 +529,13 @@
 				84E2533021E402D30076F140 /* 6-5.txt */,
 				84E253C421E406C50076F140 /* 6-6.txt */,
 				84E2532E21E402D20076F140 /* 6-7.txt */,
-				84E2533221E402D30076F140 /* 6-8.txt */,
-				84E2533421E402D30076F140 /* 6-9.txt */,
-				84E2533521E402D30076F140 /* 6-10.txt */,
-				84E2532C21E402D20076F140 /* 6-11.txt */,
-				84E253B521E404A70076F140 /* 6-12.txt */,
-				84E253B421E404A70076F140 /* 6-13.txt */,
+				842F3EB82209350200374B1A /* 6-8.txt */,
+				842F3EB92209350200374B1A /* 6-9.txt */,
+				84E2533421E402D30076F140 /* 6-10.txt */,
+				84E2533521E402D30076F140 /* 6-11.txt */,
+				84E2532C21E402D20076F140 /* 6-12.txt */,
+				84E253B521E404A70076F140 /* 6-13.txt */,
+				84E253B421E404A70076F140 /* 6-14.txt */,
 				84E2534421E403330076F140 /* 7-1.txt */,
 				84E2534021E403320076F140 /* 7-2.txt */,
 				84E2534621E403330076F140 /* 7-3.txt */,
@@ -795,7 +798,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84E2533E21E402D30076F140 /* 6-9.txt in Resources */,
+				84E2533E21E402D30076F140 /* 6-10.txt in Resources */,
 				845308F521F7BC7600A774B5 /* 9-6.txt in Resources */,
 				842F3EA122090D4300374B1A /* miner.wav in Resources */,
 				8425B0A221F7F0EA007EE68E /* water.mp3 in Resources */,
@@ -812,7 +815,7 @@
 				84E2535F21E4033E0076F140 /* 8-9.txt in Resources */,
 				845308F821F7BC7600A774B5 /* 9-12.txt in Resources */,
 				845308EC21F7BC7600A774B5 /* 9-17.txt in Resources */,
-				84E253B721E404A80076F140 /* 6-12.txt in Resources */,
+				84E253B721E404A80076F140 /* 6-13.txt in Resources */,
 				8425B09021F7EC7B007EE68E /* chemical.mp3 in Resources */,
 				84E2537321E403CC0076F140 /* 5-1.txt in Resources */,
 				84E2536221E4033E0076F140 /* 8-6.txt in Resources */,
@@ -821,7 +824,7 @@
 				846DE66821B8A1EE00127572 /* 1-3.txt in Resources */,
 				8437C3DA21CA4EAB00555352 /* 3-10.txt in Resources */,
 				8425B08B21F7EC03007EE68E /* congratulations1.mp3 in Resources */,
-				84E2533621E402D30076F140 /* 6-11.txt in Resources */,
+				84E2533621E402D30076F140 /* 6-12.txt in Resources */,
 				846DE66421B8A1EE00127572 /* 1-6.txt in Resources */,
 				84E2537421E403CC0076F140 /* 5-2.txt in Resources */,
 				84BC59D521C6202700497844 /* 3-3.txt in Resources */,
@@ -845,8 +848,8 @@
 				846DE66221B8A1EE00127572 /* 1-1.txt in Resources */,
 				845308F421F7BC7600A774B5 /* 9-15.txt in Resources */,
 				84E2533921E402D30076F140 /* 6-3.txt in Resources */,
-				84E2533F21E402D30076F140 /* 6-10.txt in Resources */,
-				84E253B621E404A80076F140 /* 6-13.txt in Resources */,
+				84E2533F21E402D30076F140 /* 6-11.txt in Resources */,
+				84E253B621E404A80076F140 /* 6-14.txt in Resources */,
 				84BC59D721C629DC00497844 /* 3-4.txt in Resources */,
 				84E2534B21E403340076F140 /* 7-6.txt in Resources */,
 				84E2534F21E403340076F140 /* 7-3.txt in Resources */,
@@ -892,6 +895,7 @@
 				84E2533A21E402D30076F140 /* 6-5.txt in Resources */,
 				84E2536521E4033E0076F140 /* 8-2.txt in Resources */,
 				8462202C2201156C00592680 /* throw.wav in Resources */,
+				842F3EBB2209350300374B1A /* 6-9.txt in Resources */,
 				845308EE21F7BC7600A774B5 /* 9-9.txt in Resources */,
 				84622032220118E400592680 /* GoogleService-Info.plist in Resources */,
 				84E2534A21E403340076F140 /* 7-5.txt in Resources */,
@@ -919,9 +923,9 @@
 				8462202A2201146300592680 /* deflect.wav in Resources */,
 				84E2537821E403CC0076F140 /* 5-10.txt in Resources */,
 				842F3EA922090E4200374B1A /* spawn.wav in Resources */,
-				84E2533C21E402D30076F140 /* 6-8.txt in Resources */,
 				84E2537A21E403CC0076F140 /* 5-3.txt in Resources */,
 				84E2533D21E402D30076F140 /* 6-4.txt in Resources */,
+				842F3EBA2209350300374B1A /* 6-8.txt in Resources */,
 				84BC59D321C61C7300497844 /* 3-2.txt in Resources */,
 				842F3EA322090D4C00374B1A /* scooper.wav in Resources */,
 				84BC59CD21C5D11500497844 /* 2-7.txt in Resources */,

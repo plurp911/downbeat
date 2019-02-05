@@ -68,11 +68,11 @@ extension GameController {
         
         tileSet = "snow"
         
-        let snowStages = [[Stage(fileName: "6-1"), nil, nil, nil, nil, nil],
-                          [Stage(fileName: "6-2"), nil, nil, Stage(fileName: "6-11"), Stage(fileName: "6-12"), Stage(fileName: "6-13")],
-                          [Stage(fileName: "6-3"), Stage(fileName: "6-8"), Stage(fileName: "6-9"), Stage(fileName: "6-10"), nil, nil],
-                          [Stage(fileName: "6-4"), Stage(fileName: "6-7"), nil, nil, nil, nil],
-                          [Stage(fileName: "6-5"), Stage(fileName: "6-6"), nil, nil, nil, nil]]
+        let snowStages = [[Stage(fileName: "6-1"), nil, nil, nil, nil, nil, nil],
+                          [Stage(fileName: "6-2"), nil, nil, nil, Stage(fileName: "6-12"), Stage(fileName: "6-13"), Stage(fileName: "6-14")],
+                          [Stage(fileName: "6-3"), Stage(fileName: "6-8"), Stage(fileName: "6-9"), Stage(fileName: "6-10"), Stage(fileName: "6-11"), nil, nil],
+                          [Stage(fileName: "6-4"), Stage(fileName: "6-7"), nil, nil, nil, nil, nil],
+                          [Stage(fileName: "6-5"), Stage(fileName: "6-6"), nil, nil, nil, nil, nil]]
         
         // SCOOPER, SPRINKLER
         
