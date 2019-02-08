@@ -1384,7 +1384,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
             isSoundMuted = savedIsSoundMuted as! Bool
         }
         
-        if isMusicMuted == false {
+        if isMusicMuted == true {
             
             musicPlayer?.stop()
             

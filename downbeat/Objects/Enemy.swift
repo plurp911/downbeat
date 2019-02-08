@@ -2195,7 +2195,7 @@ class Enemy {
                     self.xSpeed = -self.xSpeed
                 }
                 
-                if self.isFootInBounds() == true {
+                if self.isSoundInBounds() == true {
                     
                     if abs(self.xSpeed) != self.moveSpeed {
                         
@@ -2423,7 +2423,10 @@ class Enemy {
                             
                             if self.x + (self.width / 2) + self.moveSpeed < block.x + (Block.width / 2) && self.x + (self.width / 2) + self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                                 
-                                playSound(name: self.type)
+                                if self.isSoundInBounds() == true {
+                                    
+                                    playSound(name: self.type)
+                                }
                                 
                                 self.direction = "left"
                                 
@@ -2432,7 +2435,10 @@ class Enemy {
                             
                             if self.x - (self.width / 2) - self.moveSpeed < block.x + (Block.width / 2) && self.x - (self.width / 2) - self.moveSpeed > block.x - (Block.width / 2) && ((self.y + (self.height / 2) <= block.y + (Block.height / 2) && self.y + (self.height / 2) > block.y - (Block.height / 2)) || (self.y - (self.height / 2) < block.y + (Block.height / 2) && self.y - (self.height / 2) >= block.y - (Block.height / 2))) {
                                 
-                                playSound(name: self.type)
+                                if self.isSoundInBounds() == true {
+                                    
+                                    playSound(name: self.type)
+                                }
                                 
                                 self.direction = "right"
                                 
@@ -2502,7 +2508,10 @@ class Enemy {
                                     self.xSpeed = 0
                                     self.ySpeed = 0
                                     
-                                    playSound(name: self.type)
+                                    if self.isSoundInBounds() == true {
+                                        
+                                        playSound(name: self.type)
+                                    }
                                     
                                     self.jump()
                                     
@@ -2519,7 +2528,10 @@ class Enemy {
                                     self.xSpeed = 0
                                     self.ySpeed = 0
                                     
-                                    playSound(name: self.type)
+                                    if self.isSoundInBounds() == true {
+                                        
+                                        playSound(name: self.type)
+                                    }
                                     
                                     self.jump()
                                     
@@ -4656,13 +4668,13 @@ class Enemy {
         
         if self.type == "foot" {
             
-//            if self.x + (self.width / 2) >= -(screenSize.height * (screenRatio)) && self.x - (self.width / 2) <= (screenSize.height * (screenRatio)) + (screenSize.height * (screenRatio)) {
-//                return true
-//            }
-            
-            if self.x + (self.width / 2) >= 0 && self.x - (self.width / 2) <= screenSize.height * (screenRatio) {
+            if self.x + (self.width / 2) >= -(screenSize.height * (screenRatio)) && self.x - (self.width / 2) <= (screenSize.height * (screenRatio)) + (screenSize.height * (screenRatio)) {
                 return true
             }
+            
+//            if self.x + (self.width / 2) >= 0 && self.x - (self.width / 2) <= screenSize.height * (screenRatio) {
+//                return true
+//            }
             
         } else if self.type == "jumper" {
             
@@ -4684,7 +4696,7 @@ class Enemy {
         return false
     }
     
-    func isFootInBounds() -> Bool {
+    func isSoundInBounds() -> Bool {
         
         if self.x + (self.width / 2) >= 0 && self.x - (self.width / 2) <= screenSize.height * (screenRatio) {
             return true

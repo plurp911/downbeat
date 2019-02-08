@@ -635,6 +635,12 @@ extension GameController {
                                 
                                 musicPlayer?.stop()
                                 
+                                for player in players {
+                                    player?.stop()
+                                }
+                                
+                                players.removeAll()
+                                
                                 playSound(name: "death")
                                 
                                 createDeathExplosion(type: power, x: selectedEnemies[i].x, y: selectedEnemies[i].y)
@@ -656,6 +662,12 @@ extension GameController {
                                 }
                                 
                                 musicPlayer?.stop()
+                                
+                                for player in players {
+                                    player?.stop()
+                                }
+                                
+                                players.removeAll()
                                 
                                 playSound(name: "death")
                                 
