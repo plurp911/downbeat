@@ -404,8 +404,9 @@ class Enemy {
             
         } else if self.type == "turret" {
             
-            self.maxHealth = 3
-            
+//            self.maxHealth = 3
+            self.maxHealth = 2
+
             self.damage = 3
             
             self.width = Block.width
