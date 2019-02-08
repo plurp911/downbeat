@@ -183,7 +183,7 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     var isFromPaused: Bool = false
     var isFromSettings: Bool = false
     
-    var controlOpacity: CGFloat = 0.5
+    var controlOpacity: CGFloat = 0.2
 
     lazy var titleView: UIImageView = {
         let view = UIImageView()
