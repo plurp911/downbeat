@@ -155,11 +155,23 @@ extension GameController {
         
         tileSet = "sand"
         
-        let sandStages = [[nil, nil, Stage(fileName: "8-9"), Stage(fileName: "8-10"), Stage(fileName: "8-11")],
-                          [nil, nil, Stage(fileName: "8-8"), nil, nil],
-                          [Stage(fileName: "8-3"), Stage(fileName: "8-4"), Stage(fileName: "8-7"), nil, nil],
-                          [Stage(fileName: "8-2"), Stage(fileName: "8-5"), Stage(fileName: "8-6"), nil, nil],
-                          [Stage(fileName: "8-1"), nil, nil, nil, nil]]
+//        let sandStages = [[nil, nil, Stage(fileName: "8-9"), Stage(fileName: "8-10"), Stage(fileName: "8-11")],
+//                          [nil, nil, Stage(fileName: "8-8"), nil, nil],
+//                          [Stage(fileName: "8-3"), Stage(fileName: "8-4"), Stage(fileName: "8-7"), nil, nil],
+//                          [Stage(fileName: "8-2"), Stage(fileName: "8-5"), Stage(fileName: "8-6"), nil, nil],
+//                          [Stage(fileName: "8-1"), nil, nil, nil, nil]]
+
+//        let sandStages = [[nil, nil, nil, Stage(fileName: "8-10"), Stage(fileName: "8-11"), Stage(fileName: "8-12")],
+//                          [nil, nil, nil, Stage(fileName: "8-9"), nil, nil],
+//                          [nil, Stage(fileName: "8-4"), Stage(fileName: "8-5"), Stage(fileName: "8-8"), nil, nil],
+//                          [nil, Stage(fileName: "8-3"), Stage(fileName: "8-6"), Stage(fileName: "8-7"), nil, nil],
+//                          [Stage(fileName: "8-1"), Stage(fileName: "8-2"), nil, nil, nil, nil]]
+
+        let sandStages = [[nil, nil, nil, nil, Stage(fileName: "8-11"), Stage(fileName: "8-12"), Stage(fileName: "8-13")],
+                          [nil, nil, nil, nil, Stage(fileName: "8-10"), nil, nil],
+                          [nil, Stage(fileName: "8-4"), Stage(fileName: "8-5"), nil, Stage(fileName: "8-9"), nil, nil],
+                          [nil, Stage(fileName: "8-3"), Stage(fileName: "8-6"), Stage(fileName: "8-7"), Stage(fileName: "8-8"), nil, nil],
+                          [Stage(fileName: "8-1"), Stage(fileName: "8-2"), nil, nil, nil, nil, nil]]
         
         // ALL
         
