@@ -1837,7 +1837,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         loadControlOpacity()
         
 //        joystick.setOuterXY(x: Joystick.outerRadius + (joystickSpacing * 2.5), y: screenSize.height - Joystick.outerRadius - (joystickSpacing * 0.5))
-        joystick.setOuterXY(x: Joystick.outerRadius + (newVal(oldVal: joystickSpacing) * 2.5), y: screenSize.height - Joystick.outerRadius - (newVal(oldVal: joystickSpacing) * 0.5))
+//        joystick.setOuterXY(x: Joystick.outerRadius + (newVal(oldVal: joystickSpacing) * 2.5), y: screenSize.height - Joystick.outerRadius - (newVal(oldVal: joystickSpacing) * 0.5))
+        joystick.setOuterXY(x: Joystick.outerRadius + (newVal(oldVal: joystickSpacing) * 0.5), y: screenSize.height - Joystick.outerRadius - (newVal(oldVal: joystickSpacing) * 0.5))
         joystick.resetInnerXY()
         joystick.showViews()
         
@@ -1951,7 +1952,13 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     }
     
     func setupSettingsButton() {
-        settingsButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -settingsButtonSpacing1).isActive = true
+        
+        if #available(iOS 11.0, *) {
+            settingsButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -settingsButtonSpacing1).isActive = true
+        } else {
+            settingsButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -settingsButtonSpacing1).isActive = true
+        }
+
         settingsButton.topAnchor.constraint(equalTo: view.topAnchor, constant: settingsButtonSpacing1).isActive = true
         settingsButton.widthAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
         settingsButton.heightAnchor.constraint(equalTo: pauseButton.heightAnchor).isActive = true
@@ -2112,8 +2119,14 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     }
     
     func setupJumpButton() {
+        
+        if #available(iOS 11.0, *) {
+            jumpButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -newVal(oldVal: mainButtonSpacing)).isActive = true
+        } else {
+            jumpButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -newVal(oldVal: mainButtonSpacing)).isActive = true
+        }
+        
 //        jumpButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -mainButtonSpacing).isActive = true
-        jumpButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -newVal(oldVal: mainButtonSpacing)).isActive = true
         jumpButton.widthAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
         jumpButton.heightAnchor.constraint(equalTo: pauseButton.heightAnchor).isActive = true
         jumpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Block.width * (49 / 16) * 0.5).isActive = true
@@ -2131,7 +2144,12 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         pauseButton.topAnchor.constraint(equalTo: view.topAnchor, constant: pausedButtonSpacing).isActive = true
         pauseButton.widthAnchor.constraint(equalToConstant: Block.width * (49 / 16)).isActive = true
         pauseButton.heightAnchor.constraint(equalTo: pauseButton.widthAnchor).isActive = true
-        pauseButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -pausedButtonSpacing).isActive = true
+        
+        if #available(iOS 11.0, *) {
+            pauseButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -pausedButtonSpacing).isActive = true
+        } else {
+            pauseButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -pausedButtonSpacing).isActive = true
+        }
     }
     
     func setupLoadingBackgroundView() {
@@ -2153,7 +2171,12 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         weaponLeftButton.widthAnchor.constraint(equalTo: jumpButton.widthAnchor).isActive = true
         weaponLeftButton.heightAnchor.constraint(equalTo: jumpButton.heightAnchor).isActive = true
 //        weaponLeftButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: mainButtonSpacing).isActive = true
-        weaponLeftButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: newVal(oldVal: mainButtonSpacing)).isActive = true
+        
+        if #available(iOS 11.0, *) {
+            weaponLeftButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: newVal(oldVal: mainButtonSpacing)).isActive = true
+        } else {
+            weaponLeftButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: newVal(oldVal: mainButtonSpacing)).isActive = true
+        }
     }
     
     func setupWeaponRightButton() {
@@ -2201,7 +2224,8 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
         updateLockedStageViews()
         
 //        joystick.setOuterXY(x: Joystick.outerRadius + (joystickSpacing * 2.5), y: screenSize.height - Joystick.outerRadius - (joystickSpacing * 0.5))
-        joystick.setOuterXY(x: Joystick.outerRadius + (newVal(oldVal: joystickSpacing) * 2.5), y: screenSize.height - Joystick.outerRadius - (newVal(oldVal: joystickSpacing) * 0.5))
+//        joystick.setOuterXY(x: Joystick.outerRadius + (newVal(oldVal: joystickSpacing) * 2.5), y: screenSize.height - Joystick.outerRadius - (newVal(oldVal: joystickSpacing) * 0.5))
+        joystick.setOuterXY(x: Joystick.outerRadius + (newVal(oldVal: joystickSpacing) * 0.5), y: screenSize.height - Joystick.outerRadius - (newVal(oldVal: joystickSpacing) * 0.5))
         joystick.resetInnerXY()
     }
 

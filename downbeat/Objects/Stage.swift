@@ -1216,7 +1216,10 @@ class Stage {
         
         self.blocks = self.blocks.sorted(by: { $0.x < $1.x })
         self.backgrounds = self.backgrounds.sorted(by: { $0.x < $1.x })
-        self.enemies = self.enemies.sorted(by: { $0.x < $1.x })
+        
+//        self.enemies = self.enemies.sorted(by: { $0.x < $1.x })
+        self.enemies = self.enemies.sorted(by: { $0.xPos < $1.xPos })
+
         self.powerups = self.powerups.sorted(by: { $0.x < $1.x })
         self.enemySpawners = self.enemySpawners.sorted(by: { $0.x < $1.x })
     }
@@ -1225,7 +1228,10 @@ class Stage {
         
         selectedBlocks = selectedBlocks.sorted(by: { $0.x < $1.x })
         selectedBackgrounds = selectedBackgrounds.sorted(by: { $0.x < $1.x })
-        selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
+        
+//        selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
+        selectedEnemies = selectedEnemies.sorted(by: { $0.xPos < $1.xPos })
+        
         selectedPowerups = selectedPowerups.sorted(by: { $0.x < $1.x })
         selectedEnemySpawners = selectedEnemySpawners.sorted(by: { $0.x < $1.x })
     }
@@ -1824,8 +1830,11 @@ class Stage {
             }
         }
         
-        self.enemies = self.enemies.sorted(by: { $0.x < $1.x })
-        selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
+//        self.enemies = self.enemies.sorted(by: { $0.x < $1.x })
+//        selectedEnemies = selectedEnemies.sorted(by: { $0.x < $1.x })
+
+        self.enemies = self.enemies.sorted(by: { $0.xPos < $1.xPos })
+        selectedEnemies = selectedEnemies.sorted(by: { $0.xPos < $1.xPos })
         
         removeObjects(type: "selectedEnemies", toRemove: selectedToRemove)
     }
