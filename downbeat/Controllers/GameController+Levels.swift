@@ -127,13 +127,21 @@ extension GameController {
         
         tileSet = "water"
         
-        let waterStages = [[nil, Stage(fileName: "7-8"), Stage(fileName: "7-9"), Stage(fileName: "7-10"), Stage(fileName: "7-11")],
-                           [nil, Stage(fileName: "7-7"), nil, nil, nil],
-                           [nil, Stage(fileName: "7-6"), nil, nil, nil],
-                           [nil, Stage(fileName: "7-5"), nil, nil, nil],
-                           [Stage(fileName: "7-3"), Stage(fileName: "7-4"), nil, nil, nil],
-                           [Stage(fileName: "7-2"), nil, nil, nil, nil],
-                           [Stage(fileName: "7-1"), nil, nil, nil, nil]]
+//        let waterStages = [[nil, Stage(fileName: "7-8"), Stage(fileName: "7-9"), Stage(fileName: "7-10"), Stage(fileName: "7-11")],
+//                           [nil, Stage(fileName: "7-7"), nil, nil, nil],
+//                           [nil, Stage(fileName: "7-6"), nil, nil, nil],
+//                           [nil, Stage(fileName: "7-5"), nil, nil, nil],
+//                           [Stage(fileName: "7-3"), Stage(fileName: "7-4"), nil, nil, nil],
+//                           [Stage(fileName: "7-2"), nil, nil, nil, nil],
+//                           [Stage(fileName: "7-1"), nil, nil, nil, nil]]
+
+        let waterStages = [[nil, nil, Stage(fileName: "7-9"), Stage(fileName: "7-10"), Stage(fileName: "7-11"), Stage(fileName: "7-12")],
+                           [nil, nil, Stage(fileName: "7-8"), nil, nil, nil],
+                           [nil, nil, Stage(fileName: "7-7"), nil, nil, nil],
+                           [nil, nil, Stage(fileName: "7-6"), nil, nil, nil],
+                           [nil, Stage(fileName: "7-4"), Stage(fileName: "7-5"), nil, nil, nil],
+                           [nil, Stage(fileName: "7-3"), nil, nil, nil, nil],
+                           [Stage(fileName: "7-1"), Stage(fileName: "7-2"), nil, nil, nil, nil]]
         
         // JUMPER, SNAKE
         

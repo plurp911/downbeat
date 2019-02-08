@@ -410,7 +410,27 @@ extension GameController {
             if selectedEnemyPos >= 0 {
                 
                 if player.isHit == false {
-                    player.handleHit(damage: selectedEnemies[selectedEnemyPos].damage, enemyDirection: selectedEnemies[selectedEnemyPos].direction)
+                    
+                    if selectedEnemies[selectedEnemyPos].direction != "left" && selectedEnemies[selectedEnemyPos].direction != "right" {
+                        
+                        var enemyDirection: String
+                        
+                        if player.x > selectedEnemies[selectedEnemyPos].x {
+                            
+                            enemyDirection = "right"
+                            
+                        } else {
+                            
+                            enemyDirection = "left"
+                        }
+
+                        player.handleHit(damage: selectedEnemies[selectedEnemyPos].damage, enemyDirection: enemyDirection)
+                   
+                    } else {
+                        
+                        player.handleHit(damage: selectedEnemies[selectedEnemyPos].damage, enemyDirection: selectedEnemies[selectedEnemyPos].direction)
+                    }
+                    
                 }
             }
             
@@ -419,7 +439,27 @@ extension GameController {
             if enemyPos >= 0 {
                 
                 if player.isHit == false {
-                    player.handleHit(damage: currentStage!.specialEnemies[enemyPos].damage, enemyDirection: currentStage!.specialEnemies[enemyPos].direction)
+                    
+                    if currentStage!.specialEnemies[enemyPos].direction != "left" && currentStage!.specialEnemies[enemyPos].direction != "right" {
+                        
+                        var enemyDirection: String
+                        
+                        if player.x > currentStage!.specialEnemies[enemyPos].x {
+                            
+                            enemyDirection = "right"
+                            
+                        } else {
+                            
+                            enemyDirection = "left"
+                        }
+                        
+                        player.handleHit(damage: currentStage!.specialEnemies[enemyPos].damage, enemyDirection: enemyDirection)
+
+                    } else {
+                        
+                        player.handleHit(damage: currentStage!.specialEnemies[enemyPos].damage, enemyDirection: currentStage!.specialEnemies[enemyPos].direction)
+                    }
+                    
                 }
             }
             

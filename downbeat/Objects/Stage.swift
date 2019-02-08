@@ -471,7 +471,15 @@ class Stage {
                 } else if text == "D" {
                     enemySpawners.append(EnemySpawner(xPos: j, yPos: i, type: "drop", direction: "right"))
                 } else if text == "k" {
-                    enemies.append(Enemy(xPos: j, yPos: i, type: "sprinkler"))
+                    
+//                    enemies.append(Enemy(xPos: j, yPos: i, type: "sprinkler"))
+                    
+                    if isEqual(i: i - 1, j: j, block: "#") {
+                        enemies.append(Enemy(xPos: j, yPos: i, type: "sprinkler", direction: "down"))
+                    } else {
+                        enemies.append(Enemy(xPos: j, yPos: i, type: "sprinkler", direction: "up"))
+                    }
+                    
                 } else if text == "j" {
                     enemies.append(Enemy(xPos: j, yPos: i, type: "jumper"))
                 } else if text == "/" {

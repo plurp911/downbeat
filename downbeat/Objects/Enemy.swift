@@ -905,7 +905,16 @@ class Enemy {
             
             self.view.image = Enemy.sprinklerDownImage
             
-            self.direction = "left"
+//            self.direction = "left"
+            
+            if self.direction == "up" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else if self.direction == "down" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
+            }
             
         } else if self.type == "turret" {
             
@@ -1526,6 +1535,15 @@ class Enemy {
                 self.view.stopAnimating()
                 
                 self.view.image = Enemy.sprinklerDownImage
+            }
+            
+            if self.direction == "up" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+            } else if self.direction == "down" {
+                
+                self.view.transform = CGAffineTransform(scaleX: 1, y: -1)
             }
             
         } else if type == "turret" {
@@ -2378,14 +2396,14 @@ class Enemy {
             
         } else if self.type == "sprinkler" {
             
-            if player.x > self.x {
-                
-                self.direction = "right"
-                
-            } else if player.x < self.x {
-                
-                self.direction = "left"
-            }
+//            if player.x > self.x {
+//
+//                self.direction = "right"
+//
+//            } else if player.x < self.x {
+//
+//                self.direction = "left"
+//            }
             
         } else if self.type == "turret" {
             
@@ -5497,11 +5515,22 @@ class Enemy {
             
             playSound(name: "spread")
             
-            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallOrange"))
-            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMax, ySpeed: 0, type: "smallOrange"))
-            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeedMax, type: "smallOrange"))
-            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallOrange"))
-            enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: bulletSpeedMax, ySpeed: 0, type: "smallOrange"))
+            if self.direction == "up" {
+                
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallOrange"))
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: -bulletSpeedMax, ySpeed: 0, type: "smallOrange"))
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: 0, ySpeed: -bulletSpeedMax, type: "smallOrange"))
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: bulletSpeedMin, ySpeed: -bulletSpeedMin, type: "smallOrange"))
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y - yOffset, xSpeed: bulletSpeedMax, ySpeed: 0, type: "smallOrange"))
+                
+            } else if self.direction == "down" {
+             
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y + yOffset, xSpeed: -bulletSpeedMin, ySpeed: bulletSpeedMin, type: "smallOrange"))
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y + yOffset, xSpeed: -bulletSpeedMax, ySpeed: 0, type: "smallOrange"))
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y + yOffset, xSpeed: 0, ySpeed: bulletSpeedMax, type: "smallOrange"))
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y + yOffset, xSpeed: bulletSpeedMin, ySpeed: bulletSpeedMin, type: "smallOrange"))
+                enemyBullets.append(EnemyBullet(x: self.x, y: self.y + yOffset, xSpeed: bulletSpeedMax, ySpeed: 0, type: "smallOrange"))
+            }
             
             self.endShootTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.totalShootTimeInterval / 2), target: self, selector: #selector(stopShoot), userInfo: nil, repeats: false)
             
