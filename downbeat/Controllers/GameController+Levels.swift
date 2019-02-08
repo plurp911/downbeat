@@ -77,17 +77,29 @@ extension GameController {
 //                         [Stage(fileName: "5-2"), nil, nil],
 //                         [Stage(fileName: "5-1"), nil, nil]]
 
-        let skyStages = [[nil, Stage(fileName: "5-12"), Stage(fileName: "5-13"), Stage(fileName: "5-14")],
-                         [nil, Stage(fileName: "5-11"), nil, nil],
-                         [nil, Stage(fileName: "5-10"), nil, nil],
-                         [nil, Stage(fileName: "5-9"), nil, nil],
-                         [nil, Stage(fileName: "5-8"), nil, nil],
-                         [nil, Stage(fileName: "5-7"), nil, nil],
-                         [nil, Stage(fileName: "5-6"), nil, nil],
-                         [nil, Stage(fileName: "5-5"), nil, nil],
-                         [nil, Stage(fileName: "5-4"), nil, nil],
-                         [nil, Stage(fileName: "5-3"), nil, nil],
-                         [Stage(fileName: "5-1"), Stage(fileName: "5-2"), nil, nil]]
+//        let skyStages = [[nil, Stage(fileName: "5-12"), Stage(fileName: "5-13"), Stage(fileName: "5-14")],
+//                         [nil, Stage(fileName: "5-11"), nil, nil],
+//                         [nil, Stage(fileName: "5-10"), nil, nil],
+//                         [nil, Stage(fileName: "5-9"), nil, nil],
+//                         [nil, Stage(fileName: "5-8"), nil, nil],
+//                         [nil, Stage(fileName: "5-7"), nil, nil],
+//                         [nil, Stage(fileName: "5-6"), nil, nil],
+//                         [nil, Stage(fileName: "5-5"), nil, nil],
+//                         [nil, Stage(fileName: "5-4"), nil, nil],
+//                         [nil, Stage(fileName: "5-3"), nil, nil],
+//                         [Stage(fileName: "5-1"), Stage(fileName: "5-2"), nil, nil]]
+
+        let skyStages = [[nil, nil, Stage(fileName: "5-13"), Stage(fileName: "5-14"), Stage(fileName: "5-15")],
+                         [nil, nil, Stage(fileName: "5-12"), nil, nil],
+                         [nil, nil, Stage(fileName: "5-11"), nil, nil],
+                         [nil, nil, Stage(fileName: "5-10"), nil, nil],
+                         [nil, nil, Stage(fileName: "5-9"), nil, nil],
+                         [nil, nil, Stage(fileName: "5-8"), nil, nil],
+                         [nil, Stage(fileName: "5-6"), Stage(fileName: "5-7"), nil, nil],
+                         [nil, Stage(fileName: "5-5"), nil, nil, nil],
+                         [nil, Stage(fileName: "5-4"), nil, nil, nil],
+                         [nil, Stage(fileName: "5-3"), nil, nil, nil],
+                         [Stage(fileName: "5-1"), Stage(fileName: "5-2"), nil, nil, nil]]
         
         // TOP MAKER, SHELL
         

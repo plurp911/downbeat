@@ -16,6 +16,8 @@
 		84236F60220D219200AC4B9F /* 2-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84236F5E220D219100AC4B9F /* 2-7.txt */; };
 		84236F62220D274400AC4B9F /* 2-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84236F61220D274300AC4B9F /* 2-8.txt */; };
 		84236F64220D275300AC4B9F /* 2-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84236F63220D275300AC4B9F /* 2-9.txt */; };
+		84236F67220D2AB500AC4B9F /* 5-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84236F65220D2AB400AC4B9F /* 5-6.txt */; };
+		84236F68220D2AB500AC4B9F /* 5-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84236F66220D2AB500AC4B9F /* 5-7.txt */; };
 		8425B08B21F7EC03007EE68E /* congratulations1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B08921F7EC02007EE68E /* congratulations1.mp3 */; };
 		8425B08C21F7EC03007EE68E /* fire.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B08A21F7EC03007EE68E /* fire.mp3 */; };
 		8425B08E21F7EC6C007EE68E /* stageSelectOLD.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B08D21F7EC6C007EE68E /* stageSelectOLD.mp3 */; };
@@ -142,18 +144,17 @@
 		84E2536321E4033E0076F140 /* 8-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2535921E4033E0076F140 /* 8-4.txt */; };
 		84E2536421E4033E0076F140 /* 8-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2535A21E4033E0076F140 /* 8-3.txt */; };
 		84E2536521E4033E0076F140 /* 8-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2535B21E4033E0076F140 /* 8-2.txt */; };
-		84E2537121E403CC0076F140 /* 5-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536621E403CB0076F140 /* 5-7.txt */; };
+		84E2537121E403CC0076F140 /* 5-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536621E403CB0076F140 /* 5-8.txt */; };
 		84E2537221E403CC0076F140 /* 5-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536721E403CB0076F140 /* 5-5.txt */; };
 		84E2537421E403CC0076F140 /* 5-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536921E403CB0076F140 /* 5-3.txt */; };
-		84E2537521E403CC0076F140 /* 5-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536A21E403CB0076F140 /* 5-6.txt */; };
-		84E2537621E403CC0076F140 /* 5-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536B21E403CC0076F140 /* 5-12.txt */; };
-		84E2537721E403CC0076F140 /* 5-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536C21E403CC0076F140 /* 5-8.txt */; };
-		84E2537821E403CC0076F140 /* 5-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536D21E403CC0076F140 /* 5-11.txt */; };
-		84E2537921E403CC0076F140 /* 5-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536E21E403CC0076F140 /* 5-9.txt */; };
+		84E2537621E403CC0076F140 /* 5-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536B21E403CC0076F140 /* 5-13.txt */; };
+		84E2537721E403CC0076F140 /* 5-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536C21E403CC0076F140 /* 5-9.txt */; };
+		84E2537821E403CC0076F140 /* 5-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536D21E403CC0076F140 /* 5-12.txt */; };
+		84E2537921E403CC0076F140 /* 5-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536E21E403CC0076F140 /* 5-10.txt */; };
 		84E2537A21E403CC0076F140 /* 5-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2536F21E403CC0076F140 /* 5-4.txt */; };
-		84E2537B21E403CC0076F140 /* 5-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2537021E403CC0076F140 /* 5-10.txt */; };
-		84E253B221E404980076F140 /* 5-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B021E404980076F140 /* 5-14.txt */; };
-		84E253B321E404980076F140 /* 5-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B121E404980076F140 /* 5-13.txt */; };
+		84E2537B21E403CC0076F140 /* 5-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E2537021E403CC0076F140 /* 5-11.txt */; };
+		84E253B221E404980076F140 /* 5-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B021E404980076F140 /* 5-15.txt */; };
+		84E253B321E404980076F140 /* 5-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B121E404980076F140 /* 5-14.txt */; };
 		84E253B621E404A80076F140 /* 6-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B421E404A70076F140 /* 6-14.txt */; };
 		84E253B721E404A80076F140 /* 6-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B521E404A70076F140 /* 6-13.txt */; };
 		84E253BA21E404AE0076F140 /* 7-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84E253B821E404AE0076F140 /* 7-11.txt */; };
@@ -218,6 +219,8 @@
 		84236F5E220D219100AC4B9F /* 2-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-7.txt"; sourceTree = "<group>"; };
 		84236F61220D274300AC4B9F /* 2-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-8.txt"; sourceTree = "<group>"; };
 		84236F63220D275300AC4B9F /* 2-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-9.txt"; sourceTree = "<group>"; };
+		84236F65220D2AB400AC4B9F /* 5-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-6.txt"; sourceTree = "<group>"; };
+		84236F66220D2AB500AC4B9F /* 5-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-7.txt"; sourceTree = "<group>"; };
 		8425B08921F7EC02007EE68E /* congratulations1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = congratulations1.mp3; sourceTree = "<group>"; };
 		8425B08A21F7EC03007EE68E /* fire.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire.mp3; sourceTree = "<group>"; };
 		8425B08D21F7EC6C007EE68E /* stageSelectOLD.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = stageSelectOLD.mp3; sourceTree = "<group>"; };
@@ -343,18 +346,17 @@
 		84E2535921E4033E0076F140 /* 8-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "8-4.txt"; sourceTree = "<group>"; };
 		84E2535A21E4033E0076F140 /* 8-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "8-3.txt"; sourceTree = "<group>"; };
 		84E2535B21E4033E0076F140 /* 8-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "8-2.txt"; sourceTree = "<group>"; };
-		84E2536621E403CB0076F140 /* 5-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-7.txt"; sourceTree = "<group>"; };
+		84E2536621E403CB0076F140 /* 5-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-8.txt"; sourceTree = "<group>"; };
 		84E2536721E403CB0076F140 /* 5-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-5.txt"; sourceTree = "<group>"; };
 		84E2536921E403CB0076F140 /* 5-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-3.txt"; sourceTree = "<group>"; };
-		84E2536A21E403CB0076F140 /* 5-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-6.txt"; sourceTree = "<group>"; };
-		84E2536B21E403CC0076F140 /* 5-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-12.txt"; sourceTree = "<group>"; };
-		84E2536C21E403CC0076F140 /* 5-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-8.txt"; sourceTree = "<group>"; };
-		84E2536D21E403CC0076F140 /* 5-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-11.txt"; sourceTree = "<group>"; };
-		84E2536E21E403CC0076F140 /* 5-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-9.txt"; sourceTree = "<group>"; };
+		84E2536B21E403CC0076F140 /* 5-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-13.txt"; sourceTree = "<group>"; };
+		84E2536C21E403CC0076F140 /* 5-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-9.txt"; sourceTree = "<group>"; };
+		84E2536D21E403CC0076F140 /* 5-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-12.txt"; sourceTree = "<group>"; };
+		84E2536E21E403CC0076F140 /* 5-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-10.txt"; sourceTree = "<group>"; };
 		84E2536F21E403CC0076F140 /* 5-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-4.txt"; sourceTree = "<group>"; };
-		84E2537021E403CC0076F140 /* 5-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-10.txt"; sourceTree = "<group>"; };
-		84E253B021E404980076F140 /* 5-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-14.txt"; sourceTree = "<group>"; };
-		84E253B121E404980076F140 /* 5-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-13.txt"; sourceTree = "<group>"; };
+		84E2537021E403CC0076F140 /* 5-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-11.txt"; sourceTree = "<group>"; };
+		84E253B021E404980076F140 /* 5-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-15.txt"; sourceTree = "<group>"; };
+		84E253B121E404980076F140 /* 5-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-14.txt"; sourceTree = "<group>"; };
 		84E253B421E404A70076F140 /* 6-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-14.txt"; sourceTree = "<group>"; };
 		84E253B521E404A70076F140 /* 6-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-13.txt"; sourceTree = "<group>"; };
 		84E253B821E404AE0076F140 /* 7-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "7-11.txt"; sourceTree = "<group>"; };
@@ -525,15 +527,16 @@
 				84E2536921E403CB0076F140 /* 5-3.txt */,
 				84E2536F21E403CC0076F140 /* 5-4.txt */,
 				84E2536721E403CB0076F140 /* 5-5.txt */,
-				84E2536A21E403CB0076F140 /* 5-6.txt */,
-				84E2536621E403CB0076F140 /* 5-7.txt */,
-				84E2536C21E403CC0076F140 /* 5-8.txt */,
-				84E2536E21E403CC0076F140 /* 5-9.txt */,
-				84E2537021E403CC0076F140 /* 5-10.txt */,
-				84E2536D21E403CC0076F140 /* 5-11.txt */,
-				84E2536B21E403CC0076F140 /* 5-12.txt */,
-				84E253B121E404980076F140 /* 5-13.txt */,
-				84E253B021E404980076F140 /* 5-14.txt */,
+				84236F65220D2AB400AC4B9F /* 5-6.txt */,
+				84236F66220D2AB500AC4B9F /* 5-7.txt */,
+				84E2536621E403CB0076F140 /* 5-8.txt */,
+				84E2536C21E403CC0076F140 /* 5-9.txt */,
+				84E2536E21E403CC0076F140 /* 5-10.txt */,
+				84E2537021E403CC0076F140 /* 5-11.txt */,
+				84E2536D21E403CC0076F140 /* 5-12.txt */,
+				84E2536B21E403CC0076F140 /* 5-13.txt */,
+				84E253B121E404980076F140 /* 5-14.txt */,
+				84E253B021E404980076F140 /* 5-15.txt */,
 				84E2532D21E402D20076F140 /* 6-1.txt */,
 				84E2533121E402D30076F140 /* 6-2.txt */,
 				84E2532F21E402D30076F140 /* 6-3.txt */,
@@ -815,6 +818,7 @@
 				842F3EA122090D4300374B1A /* miner.wav in Resources */,
 				8425B0A221F7F0EA007EE68E /* water.mp3 in Resources */,
 				8437C3DB21CA4EAB00555352 /* 3-11.txt in Resources */,
+				84236F67220D2AB500AC4B9F /* 5-6.txt in Resources */,
 				84E2534C21E403340076F140 /* 7-9.txt in Resources */,
 				8425B0B221F80AED007EE68E /* land.wav in Resources */,
 				84BC59E921C7761000497844 /* 4-4.txt in Resources */,
@@ -873,9 +877,9 @@
 				8437C3E121CA4EEE00555352 /* 4-8.txt in Resources */,
 				845308EF21F7BC7600A774B5 /* 9-3.txt in Resources */,
 				84BC59D921C62E9800497844 /* 3-5.txt in Resources */,
-				84E2537B21E403CC0076F140 /* 5-10.txt in Resources */,
+				84E2537B21E403CC0076F140 /* 5-11.txt in Resources */,
 				845308F121F7BC7600A774B5 /* 9-14.txt in Resources */,
-				84E2537621E403CC0076F140 /* 5-12.txt in Resources */,
+				84E2537621E403CC0076F140 /* 5-13.txt in Resources */,
 				845308F721F7BC7600A774B5 /* 9-4.txt in Resources */,
 				845308ED21F7BC7600A774B5 /* 9-2.txt in Resources */,
 				845308FC21F7BCD700A774B5 /* 9-18.txt in Resources */,
@@ -904,8 +908,7 @@
 				84622030220117A600592680 /* throw2.wav in Resources */,
 				84BC59D121C60F9B00497844 /* 3-1.txt in Resources */,
 				84236F62220D274400AC4B9F /* 2-8.txt in Resources */,
-				84E2537521E403CC0076F140 /* 5-6.txt in Resources */,
-				84E253B321E404980076F140 /* 5-13.txt in Resources */,
+				84E253B321E404980076F140 /* 5-14.txt in Resources */,
 				84E2533A21E402D30076F140 /* 6-5.txt in Resources */,
 				84E2536521E4033E0076F140 /* 8-2.txt in Resources */,
 				8462202C2201156C00592680 /* throw.wav in Resources */,
@@ -917,7 +920,7 @@
 				84E253BE21E404B30076F140 /* 8-10.txt in Resources */,
 				8425B09A21F7EE6C007EE68E /* snow.mp3 in Resources */,
 				846DE66621B8A1EE00127572 /* 1-7.txt in Resources */,
-				84E2537721E403CC0076F140 /* 5-8.txt in Resources */,
+				84E2537721E403CC0076F140 /* 5-9.txt in Resources */,
 				84E2536321E4033E0076F140 /* 8-4.txt in Resources */,
 				92086A4921A23B5200AB51F8 /* Assets.xcassets in Resources */,
 				845308FD21F7BCD700A774B5 /* 9-19.txt in Resources */,
@@ -932,11 +935,11 @@
 				845308F921F7BC7600A774B5 /* 9-8.txt in Resources */,
 				847F2AFD21FFF65A00E6A020 /* death.wav in Resources */,
 				92086A4721A23B5000AB51F8 /* Main.storyboard in Resources */,
-				84E253B221E404980076F140 /* 5-14.txt in Resources */,
+				84E253B221E404980076F140 /* 5-15.txt in Resources */,
 				8437C3D721CA4E9F00555352 /* 2-10.txt in Resources */,
 				84E2533B21E402D30076F140 /* 6-2.txt in Resources */,
 				8462202A2201146300592680 /* deflect.wav in Resources */,
-				84E2537821E403CC0076F140 /* 5-11.txt in Resources */,
+				84E2537821E403CC0076F140 /* 5-12.txt in Resources */,
 				842F3EA922090E4200374B1A /* spawn.wav in Resources */,
 				84E2537A21E403CC0076F140 /* 5-4.txt in Resources */,
 				84E2533D21E402D30076F140 /* 6-4.txt in Resources */,
@@ -945,10 +948,11 @@
 				84236F5B220D1C3700AC4B9F /* 5-2.txt in Resources */,
 				842F3EA322090D4C00374B1A /* scooper.wav in Resources */,
 				84BC59EF21C78CA200497844 /* 4-7.txt in Resources */,
+				84236F68220D2AB500AC4B9F /* 5-7.txt in Resources */,
 				846DE66B21B8A1EE00127572 /* 1-10.txt in Resources */,
 				84E2535C21E4033E0076F140 /* 8-1.txt in Resources */,
 				84E2536421E4033E0076F140 /* 8-3.txt in Resources */,
-				84E2537121E403CC0076F140 /* 5-7.txt in Resources */,
+				84E2537121E403CC0076F140 /* 5-8.txt in Resources */,
 				84BC59E521C752EF00497844 /* 4-2.txt in Resources */,
 				845308F321F7BC7600A774B5 /* 9-13.txt in Resources */,
 				84236F64220D275300AC4B9F /* 2-9.txt in Resources */,
@@ -958,7 +962,7 @@
 				8425B08C21F7EC03007EE68E /* fire.mp3 in Resources */,
 				847F2AFB21FFD25600E6A020 /* hit2.wav in Resources */,
 				84E2534E21E403340076F140 /* 7-4.txt in Resources */,
-				84E2537921E403CC0076F140 /* 5-9.txt in Resources */,
+				84E2537921E403CC0076F140 /* 5-10.txt in Resources */,
 				845308EA21F7BC7600A774B5 /* 9-11.txt in Resources */,
 				842F3EA522090DCF00374B1A /* electricity.wav in Resources */,
 				8425B09821F7EE66007EE68E /* brick.mp3 in Resources */,
