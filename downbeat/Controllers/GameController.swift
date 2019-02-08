@@ -691,12 +691,15 @@ class GameController: UIViewController, SKProductsRequestDelegate, SKPaymentTran
     
     @objc func handleResume() {
         
-        if isMusicMuted == false {
+        if isLoading == false {
             
-            musicPlayer?.play()
+            if isMusicMuted == false {
+                
+                musicPlayer?.play()
+            }
+            
+            playSound(name: "menu")
         }
-        
-        playSound(name: "menu")
         
         isPaused = false
         

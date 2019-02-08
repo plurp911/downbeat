@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		28DC4FC6064CC6415228C4DE /* Pods_downbeat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCA32AA9A13F0560F931C1B /* Pods_downbeat.framework */; };
 		552965CE805440D8113562E8 /* Pods_downbeatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3E592AD1BB9AB8419662EB /* Pods_downbeatTests.framework */; };
+		84236F58220D139400AC4B9F /* stageSelect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84236F57220D139400AC4B9F /* stageSelect.mp3 */; };
 		8425B08B21F7EC03007EE68E /* congratulations1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B08921F7EC02007EE68E /* congratulations1.mp3 */; };
 		8425B08C21F7EC03007EE68E /* fire.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B08A21F7EC03007EE68E /* fire.mp3 */; };
-		8425B08E21F7EC6C007EE68E /* stageSelect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B08D21F7EC6C007EE68E /* stageSelect.mp3 */; };
+		8425B08E21F7EC6C007EE68E /* stageSelectOLD.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B08D21F7EC6C007EE68E /* stageSelectOLD.mp3 */; };
 		8425B09021F7EC7B007EE68E /* chemical.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B08F21F7EC7B007EE68E /* chemical.mp3 */; };
 		8425B09221F7ED8B007EE68E /* metal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B09121F7ED8B007EE68E /* metal.mp3 */; };
 		8425B09421F7ED97007EE68E /* ice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8425B09321F7ED96007EE68E /* ice.mp3 */; };
@@ -207,9 +208,10 @@
 		247A181B8410C53C09A8A351 /* Pods-downbeatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-downbeatTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-downbeatTests/Pods-downbeatTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2A4324E0BE24556A4677CC78 /* Pods_downbeatUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_downbeatUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AE55E66C3FBB0F49E8A8F48 /* Pods-downbeat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-downbeat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-downbeat/Pods-downbeat.debug.xcconfig"; sourceTree = "<group>"; };
+		84236F57220D139400AC4B9F /* stageSelect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = stageSelect.mp3; sourceTree = "<group>"; };
 		8425B08921F7EC02007EE68E /* congratulations1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = congratulations1.mp3; sourceTree = "<group>"; };
 		8425B08A21F7EC03007EE68E /* fire.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire.mp3; sourceTree = "<group>"; };
-		8425B08D21F7EC6C007EE68E /* stageSelect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = stageSelect.mp3; sourceTree = "<group>"; };
+		8425B08D21F7EC6C007EE68E /* stageSelectOLD.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = stageSelectOLD.mp3; sourceTree = "<group>"; };
 		8425B08F21F7EC7B007EE68E /* chemical.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = chemical.mp3; sourceTree = "<group>"; };
 		8425B09121F7ED8B007EE68E /* metal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = metal.mp3; sourceTree = "<group>"; };
 		8425B09321F7ED96007EE68E /* ice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ice.mp3; sourceTree = "<group>"; };
@@ -459,7 +461,8 @@
 				92086A4121A23B5000AB51F8 /* AppDelegate.swift */,
 				8425B08921F7EC02007EE68E /* congratulations1.mp3 */,
 				8425B09F21F7F04A007EE68E /* congratulations.mp3 */,
-				8425B08D21F7EC6C007EE68E /* stageSelect.mp3 */,
+				84236F57220D139400AC4B9F /* stageSelect.mp3 */,
+				8425B08D21F7EC6C007EE68E /* stageSelectOLD.mp3 */,
 				8425B08A21F7EC03007EE68E /* fire.mp3 */,
 				8425B09121F7ED8B007EE68E /* metal.mp3 */,
 				8425B08F21F7EC7B007EE68E /* chemical.mp3 */,
@@ -855,7 +858,7 @@
 				84E2534F21E403340076F140 /* 7-3.txt in Resources */,
 				84E2535121E403340076F140 /* 7-8.txt in Resources */,
 				842F3EB5220923F300374B1A /* eye.wav in Resources */,
-				8425B08E21F7EC6C007EE68E /* stageSelect.mp3 in Resources */,
+				8425B08E21F7EC6C007EE68E /* stageSelectOLD.mp3 in Resources */,
 				842F3EAD2209168200374B1A /* jumper.wav in Resources */,
 				8437C3E121CA4EEE00555352 /* 4-8.txt in Resources */,
 				845308EF21F7BC7600A774B5 /* 9-3.txt in Resources */,
@@ -872,6 +875,7 @@
 				842F3EAB22090EAE00374B1A /* spread.wav in Resources */,
 				847F2B0321FFFE1300E6A020 /* energy.wav in Resources */,
 				84E2533721E402D30076F140 /* 6-1.txt in Resources */,
+				84236F58220D139400AC4B9F /* stageSelect.mp3 in Resources */,
 				84BC59C521C4E1AA00497844 /* 2-4.txt in Resources */,
 				8425B0AE21F80AE1007EE68E /* shoot.wav in Resources */,
 				847F2B0221FFFE1300E6A020 /* health.wav in Resources */,
